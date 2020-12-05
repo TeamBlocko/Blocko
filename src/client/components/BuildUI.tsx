@@ -3,7 +3,7 @@ import { ReplicatedStorage } from "@rbxts/services";
 import Dropdown from "./GraphicalWidget/Dropdown";
 import Slider from "./GraphicalWidget/Slider";
 
-const Shapes = (ReplicatedStorage as WorldReplicatedStorage).BlockTypes;
+const Shapes = ReplicatedStorage.BlockTypes;
 
 function BuildUI() {
 	return (

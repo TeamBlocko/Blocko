@@ -1,0 +1,68 @@
+name: Build World Template
+
+on:
+    workflow_dispatch:
+
+    push:
+      branches:
+        - main
+      paths:
+        - 'src/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-16.04
+
+    strategy:
+      matrix:
+        node-version: '14.x'
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+      - run: npm install roblox-ts
+      - run: npm ci
+        env:
+          CI: true
+
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+
+      - name: Setup foreman
+        uses: rojo-rbx/setup-foreman@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Create release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.package-version.outputs.current-version}}
+          release_name: Release ${{ steps.package-version.outputs.current-version}}
+          draft: true
+          prerelease: false
+          body: |
+            This release contains version ${{ steps.package-version.outputs.current-version}} of World Template.
+      - name: Build Project
+        run: |
+          rbxtsc
+          foreman -V
+          mkdir dist
+          rojo -V
+          rojo build -o dist/WorldTemplate.rbxlx && remodel run add-models.lua
+
+      - name: Upload .rbxlx
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: dist/WorldTemplate.rbxlx
+          asset_name: WorldTemplate.rbxlx
+          asset_content_type: application/xml

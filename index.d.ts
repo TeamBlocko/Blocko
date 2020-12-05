@@ -47,7 +47,7 @@ declare interface Shapes {
 	Wedge: WedgePart;
 }
 
-declare interface WorldReplicatedStorage extends ReplicatedStorage {
+declare interface ReplicatedStorage {
 	BlockTypes: Folder & Shapes;
 }
 

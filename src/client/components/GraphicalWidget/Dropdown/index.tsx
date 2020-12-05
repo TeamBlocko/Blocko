@@ -1,4 +1,5 @@
-import Roact, { Component } from "@rbxts/roact";
+import { SingleMotor } from "@rbxts/flipper";
+import Roact, { Component, createBinding, RoactBinding } from "@rbxts/roact";
 import TitleText from "../../TitleText";
 import DropdownButton from "./DropdownButton";
 import ItemList from "./ItemList";
@@ -7,8 +8,14 @@ class Dropdown<T extends Item> extends Component<
 	DropdownPropTypes<T>,
 	GWStateTypes<T> & { Expanded: boolean }
 > {
+	motor: SingleMotor;
+	binding: RoactBinding<number>;
+
 	constructor(props: DropdownPropTypes<T>) {
 		super(props);
+		this.motor = new SingleMotor(0);
+		[this.binding] = createBinding(this.motor.getValue());
+
 		this.setState({
 			Value: props.Default,
 			Expanded: false,
