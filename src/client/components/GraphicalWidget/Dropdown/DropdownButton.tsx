@@ -1,0 +1,43 @@
+import Roact from "@rbxts/roact";
+
+interface DropdownButton {
+	DisplayText: string;
+	Handlers: RoactEvents<TextButton>;
+	Expanded: boolean;
+}
+
+function DropdownButton(props: DropdownButton) {
+	return (
+		<textbutton
+			Key="DropdownButton"
+			AnchorPoint={new Vector2(1, 0.5)}
+			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
+			Position={new UDim2(0.98, 0, 0.5, 0)}
+			Size={UDim2.fromOffset(135, 18)}
+			Font={Enum.Font.GothamBold}
+			AutoButtonColor={false}
+			Text={`  ${props.DisplayText}`}
+			TextColor3={Color3.fromRGB(217, 217, 217)}
+			TextSize={12}
+			TextXAlignment={Enum.TextXAlignment.Left}
+			Event={props.Handlers}
+		>
+			<imagelabel
+				AnchorPoint={new Vector2(0.5, 0.5)}
+				BackgroundTransparency={1}
+				Position={UDim2.fromScale(0.925, 0.5)}
+				Size={UDim2.fromOffset(18, 18)}
+				ZIndex={2}
+				Rotation={!props.Expanded ? 0 : 90}
+				ImageColor3={!props.Expanded ? Color3.fromRGB(163, 162, 165) : Color3.fromRGB(66, 126, 193)}
+				Image="rbxassetid://3926305904"
+				ImageRectOffset={new Vector2(924, 884)}
+				ImageRectSize={new Vector2(36, 36)}
+				ScaleType={Enum.ScaleType.Fit}
+			/>
+			<uicorner CornerRadius={new UDim(0, 5)} />
+		</textbutton>
+	);
+}
+
+export default DropdownButton;
