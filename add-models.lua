@@ -1,18 +1,15 @@
-
-local base = "./assets/models/"
+local modelsPath = "./assets/models/"
 local worldPath = "./dist/WorldTemplate.rbxlx"
 
-local models = {
-	{ path = base .. "BlockTypes.rbxmx", parent = "ReplicatedStorage" },
-	{ path = base .. "TemplateBlocks.rbxmx", parent = "Workspace" },
-}
+local game = remodel.readPlaceFile(worldPath)
 
-local place = remodel.readPlaceFile(worldPath)
-
-for _, modelInfo in ipairs(models) do
-	local model = remodel.readModelFile(modelInfo.path)
-	print(modelInfo.path, modelInfo.parent)
-	model.Parent = place[modelInfo.parent]
+for _, modelName in ipairs(remodel.readDir(modelsPath)) do
+	local models = remodel.readModelFile(modelsPath .. modelName)
+	print("--| " .. modelName)
+	for _, model in ipairs(models) do
+		print((" "):rep(6) .. model.Name)
+		model.Parent = game:GetService(modelName:gsub("(.)%..+", "%1"))
+	end
 end
 
-remodel.writePlaceFile(place, worldPath)
+remodel.writePlaceFile(game, worldPath)
