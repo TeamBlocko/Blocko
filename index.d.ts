@@ -1,12 +1,10 @@
 declare interface PropTypes {
 	/**
-	 * Key/Name given to element in Roact Tree.
-	 **/
-	Name?: string;
-	/**
 	 * Number represting the place of element in an element using UIListLayout/UIGridLayout.
 	 **/
 	LayoutOrder?: number;
+	Name?: string | number;
+	[Roact.Children]?: RoactNode;
 }
 
 declare interface GWPropTypes<T> extends PropTypes {
@@ -52,13 +50,14 @@ declare interface ReplicatedStorage {
 }
 
 declare interface DropdownPropTypes<T> extends GWPropTypes<T> {
+	/**
+	 * Values that will be displayed in Dropdown 
+	 **/
 	Items: T[];
 	/**
 	 * Returns actual value from string passed.
 	 **/
-	Handlers: {
-		GetValue: (value: string) => T;
-	};
+	GetValue: (value: string) => T;
 }
 
 declare interface Item {

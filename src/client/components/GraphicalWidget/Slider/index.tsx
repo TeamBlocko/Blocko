@@ -1,16 +1,15 @@
 import Roact, { Component } from "@rbxts/roact";
+import GWContainer from "../../GWContainer";
 
 class Slider<T> extends Component<SliderPropTypes<T>, {}> {
 	render() {
 		return (
-			<frame
-				Key={this.props.Name}
-				BackgroundColor3={new Color3(1, 1, 1)}
-				BackgroundTransparency={0.95}
+			<GWContainer
+				Name={this.props.Name}
 				LayoutOrder={this.props.LayoutOrder}
-				Size={new UDim2(0.975, 0, 0, 55)}
+				SizeOffsetY={55}
 			>
-			</frame>
+			</GWContainer>
 		);
 	}
 }

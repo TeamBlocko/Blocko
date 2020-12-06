@@ -1,9 +1,9 @@
-import Roact from "@rbxts/roact";
+import Roact, { RoactBinding } from "@rbxts/roact";
 
 interface DropdownButton {
 	DisplayText: string;
 	Handlers: RoactEvents<TextButton>;
-	Expanded: boolean;
+	Binding: RoactBinding<number>;
 }
 
 function DropdownButton(props: DropdownButton) {
@@ -28,8 +28,13 @@ function DropdownButton(props: DropdownButton) {
 				Position={UDim2.fromScale(0.925, 0.5)}
 				Size={UDim2.fromOffset(18, 18)}
 				ZIndex={2}
-				Rotation={!props.Expanded ? 0 : 90}
-				ImageColor3={!props.Expanded ? Color3.fromRGB(163, 162, 165) : Color3.fromRGB(66, 126, 193)}
+				Rotation={props.Binding.map((value) => value * 90)}
+				ImageColor3={props.Binding.map((value) =>
+					Color3.fromRGB(163, 162, 165).Lerp(
+						Color3.fromRGB(66, 126, 193),
+						value
+					)
+				)}
 				Image="rbxassetid://3926305904"
 				ImageRectOffset={new Vector2(924, 884)}
 				ImageRectSize={new Vector2(36, 36)}

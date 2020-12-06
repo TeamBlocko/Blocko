@@ -1,6 +1,9 @@
-import Roact from "@rbxts/roact";
+import Roact, { RoactBinding } from "@rbxts/roact";
 
-function ItemElement<T extends Item>(props: { Value: T, Handlers: RoactEvents<TextButton> }) {
+function ItemElement<T extends Item>(props: {
+	Value: T;
+	Handlers: RoactEvents<TextButton>;
+}) {
 	return (
 		<textbutton
 			Key={props.Value.Name}
@@ -23,7 +26,7 @@ function ItemElement<T extends Item>(props: { Value: T, Handlers: RoactEvents<Te
 interface ItemListPropTypes<T> {
 	Items: T[];
 	Handlers: RoactEvents<TextButton>;
-	Expanded: boolean;
+	Binding: RoactBinding<number>;
 }
 
 function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
@@ -34,7 +37,9 @@ function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 			BorderSizePixel={0}
 			Position={UDim2.fromScale(0.98, 1)}
-			Size={!props.Expanded ? UDim2.fromOffset(135, 0) : UDim2.fromOffset(135, 150)}
+			Size={props.Binding.map((value) =>
+				UDim2.fromOffset(135, 0).Lerp(UDim2.fromOffset(135, 150), value)
+			)}
 			ZIndex={10}
 		>
 			<uicorner CornerRadius={new UDim(0, 5)} />
@@ -44,8 +49,9 @@ function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 				BackgroundTransparency={1}
 				BorderSizePixel={0}
 				Position={UDim2.fromScale(0.5, 0.5)}
-				Size={UDim2.fromScale(0.95, 1)}
+				Size={UDim2.fromScale(0.96, 1)}
 				AutomaticCanvasSize={Enum.AutomaticSize.Y}
+				CanvasSize={UDim2.fromOffset(125, 18 * props.Items.size())}
 				ScrollBarImageColor3={Color3.fromRGB(31, 31, 31)}
 				ScrollBarThickness={5}
 				VerticalScrollBarInset={Enum.ScrollBarInset.ScrollBar}

@@ -1,8 +1,14 @@
-import { SingleMotor } from "@rbxts/flipper";
-import Roact, { Component, createBinding, RoactBinding } from "@rbxts/roact";
+import { SingleMotor, Spring } from "@rbxts/flipper";
+import Roact, {
+	Component,
+	createBinding,
+	RoactBinding,
+	RoactBindingFunc,
+} from "@rbxts/roact";
 import TitleText from "../../TitleText";
 import DropdownButton from "./DropdownButton";
 import ItemList from "./ItemList";
+import GWContainer from "../../GWContainer";
 
 class Dropdown<T extends Item> extends Component<
 	DropdownPropTypes<T>,
@@ -10,11 +16,14 @@ class Dropdown<T extends Item> extends Component<
 > {
 	motor: SingleMotor;
 	binding: RoactBinding<number>;
+	setBinding: RoactBindingFunc<number>;
 
 	constructor(props: DropdownPropTypes<T>) {
 		super(props);
 		this.motor = new SingleMotor(0);
-		[this.binding] = createBinding(this.motor.getValue());
+		[this.binding, this.setBinding] = createBinding(this.motor.getValue());
+
+		this.motor.onStep(this.setBinding);
 
 		this.setState({
 			Value: props.Default,
@@ -24,44 +33,45 @@ class Dropdown<T extends Item> extends Component<
 
 	render() {
 		return (
-			<frame
-				Key={this.props.Name}
-				BackgroundColor3={new Color3(1, 1, 1)}
-				BackgroundTransparency={0.95}
-				Size={new UDim2(0.975, 0, 0, 25)}
-				ZIndex={10}
+			<GWContainer
+				Name={this.props.Name}
 				LayoutOrder={this.props.LayoutOrder}
+				SizeOffsetY={25}
 			>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Name={this.props.Name} />
 				<ItemList
-					Expanded={this.state.Expanded}
+					Binding={this.binding}
 					Items={this.props.Items}
 					Handlers={{
 						Activated: (e) => {
 							this.setState((oldState) => {
 								return {
 									...oldState,
-									Value: this.props.Handlers.GetValue(e.Name),
+									Value: this.props.GetValue(e.Name),
 								};
 							});
 						},
 					}}
 				/>
 				<DropdownButton
-					Expanded={this.state.Expanded}
+					Binding={this.binding}
 					DisplayText={this.state.Value.Name}
 					Handlers={{
-						Activated: () =>
+						Activated: () => {
+							this.motor.setGoal(
+								new Spring(!this.state.Expanded ? 0 : 1)
+							);
 							this.setState((oldState) => {
 								return {
 									...oldState,
 									Expanded: !oldState.Expanded,
 								};
-							}),
+							});
+						},
 					}}
 				/>
-			</frame>
+			</GWContainer>
 		);
 	}
 }

@@ -25,9 +25,7 @@ function BuildUI() {
 				Name="Shape"
 				LayoutOrder={3}
 				Items={Shapes.GetChildren()}
-				Handlers={{
-					GetValue: (value) => Shapes[value],
-				}}
+				GetValue={(value) => Shapes[value]}
 			/>
 			<Slider
 				Name="Transprency"
