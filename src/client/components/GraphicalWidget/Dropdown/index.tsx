@@ -5,10 +5,10 @@ import Roact, {
 	RoactBinding,
 	RoactBindingFunc,
 } from "@rbxts/roact";
-import TitleText from "../../TitleText";
+import TitleText from "client/components/TitleText";
+import GWContainer from "client/components/GWContainer";
 import DropdownButton from "./DropdownButton";
 import ItemList from "./ItemList";
-import GWContainer from "../../GWContainer";
 
 class Dropdown<T extends Item> extends Component<
 	DropdownPropTypes<T>,
@@ -39,7 +39,7 @@ class Dropdown<T extends Item> extends Component<
 				SizeOffsetY={25}
 			>
 				<uicorner CornerRadius={new UDim(0, 7)} />
-				<TitleText Name={this.props.Name} />
+				<TitleText Name={this.props.Name} PosScaleY={0.5} />
 				<ItemList
 					Binding={this.binding}
 					Items={this.props.Items}
