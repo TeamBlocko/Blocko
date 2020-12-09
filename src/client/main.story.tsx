@@ -1,8 +1,8 @@
 import Roact from "@rbxts/roact";
-import MainUI from "./components/MainUI";
+import BuildUI from "./components/BuildUI";
 
-export = (target: GuiBase2d | PlayerGui ) => {
-	const handle = Roact.mount(<MainUI />, target);
+export = (target: GuiBase2d | PlayerGui) => {
+	const handle = Roact.mount(<BuildUI />, target);
 
 	return () => {
 		Roact.unmount(handle);

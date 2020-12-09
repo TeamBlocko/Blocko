@@ -1,5 +1,6 @@
-import main from "./main.story";
+import Roact from "@rbxts/roact";
+import MainUI from "./components/MainUI";
 
 const playerGui = game.GetService("Players").LocalPlayer.FindFirstChildOfClass("PlayerGui") as PlayerGui;
 
-main(playerGui);
+Roact.mount(<MainUI />, playerGui)

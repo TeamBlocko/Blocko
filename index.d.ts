@@ -51,7 +51,7 @@ declare interface ReplicatedStorage {
 
 declare interface DropdownPropTypes<T> extends GWPropTypes<T> {
 	/**
-	 * Values that will be displayed in Dropdown 
+	 * Values that will be displayed in Dropdown
 	 **/
 	Items: T[];
 	/**
@@ -67,4 +67,5 @@ declare interface Item {
 declare interface SliderPropTypes<T> extends GWPropTypes<T> {
 	Min: number;
 	Max: number;
+	OnChange: (newValue: number) => void;
 }

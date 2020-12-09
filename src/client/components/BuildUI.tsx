@@ -33,6 +33,7 @@ function BuildUI() {
 				Min={0}
 				Max={10}
 				Default={0}
+				OnChange={(newValue) => print(newValue)}
 			/>
 		</frame>
 	);
