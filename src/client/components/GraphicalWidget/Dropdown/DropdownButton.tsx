@@ -30,10 +30,7 @@ function DropdownButton(props: DropdownButton) {
 				ZIndex={2}
 				Rotation={props.Binding.map((value) => value * 90)}
 				ImageColor3={props.Binding.map((value) =>
-					Color3.fromRGB(163, 162, 165).Lerp(
-						Color3.fromRGB(66, 126, 193),
-						value
-					)
+					Color3.fromRGB(163, 162, 165).Lerp(Color3.fromRGB(66, 126, 193), value),
 				)}
 				Image="rbxassetid://3926305904"
 				ImageRectOffset={new Vector2(924, 884)}

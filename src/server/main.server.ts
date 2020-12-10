@@ -1,5 +1,9 @@
-const t = { lol(e: any) { print(e) } }
+const t = {
+	lol(e: any) {
+		print(e);
+	},
+};
 
-t.lol(1)
+t.lol(1);
 
-export {}
+export {};

@@ -1,9 +1,6 @@
 import Roact, { RoactBinding } from "@rbxts/roact";
 
-function ItemElement<T extends Item>(props: {
-	Value: T;
-	Handlers: RoactEvents<TextButton>;
-}) {
+function ItemElement<T extends Item>(props: { Value: T; Handlers: RoactEvents<TextButton> }) {
 	return (
 		<textbutton
 			Key={props.Value.Name}
@@ -37,9 +34,7 @@ function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 			BorderSizePixel={0}
 			Position={UDim2.fromScale(0.98, 1)}
-			Size={props.Binding.map((value) =>
-				UDim2.fromOffset(135, 0).Lerp(UDim2.fromOffset(135, 150), value)
-			)}
+			Size={props.Binding.map((value) => UDim2.fromOffset(135, 0).Lerp(UDim2.fromOffset(135, 150), value))}
 			ZIndex={10}
 		>
 			<uicorner CornerRadius={new UDim(0, 5)} />

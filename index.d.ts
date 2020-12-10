@@ -2,8 +2,8 @@ declare interface PropTypes {
 	/**
 	 * Number represting the place of element in an element using UIListLayout/UIGridLayout.
 	 **/
-	LayoutOrder?: number;
-	Name?: string | number;
+	LayoutOrder: number;
+	Name: string;
 	[Roact.Children]?: RoactNode;
 }
 
@@ -12,6 +12,8 @@ declare interface GWPropTypes<T> extends PropTypes {
 	 * Default value that will be given to the element.
 	 **/
 	Default: T;
+
+	OnChange: <V>(newValue: V) => void;
 }
 
 declare interface GWStateTypes<T> {
@@ -67,5 +69,4 @@ declare interface Item {
 declare interface SliderPropTypes<T> extends GWPropTypes<T> {
 	Min: number;
 	Max: number;
-	OnChange: (newValue: number) => void;
 }

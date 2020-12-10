@@ -4,9 +4,9 @@ import BuildUI from "./BuildUI";
 function MainUI() {
 	return (
 		<screengui ZIndexBehavior={Enum.ZIndexBehavior.Sibling}>
-			<BuildUI/>
+			<BuildUI />
 		</screengui>
-	)
+	);
 }
 
 export default MainUI;

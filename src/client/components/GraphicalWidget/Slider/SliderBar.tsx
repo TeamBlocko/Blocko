@@ -16,11 +16,7 @@ interface SliderBar {
 }
 
 function SliderBar(props: SliderBar) {
-
-	const XPositionScale = map(props.Value,
-		props.Min.Value,
-		props.Max.Value,
-		0, 1)
+	const XPositionScale = map(props.Value, props.Min.Value, props.Max.Value, 0, 1);
 
 	return (
 		<textbutton
