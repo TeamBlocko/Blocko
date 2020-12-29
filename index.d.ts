@@ -13,7 +13,7 @@ declare interface GWPropTypes<T> extends PropTypes {
 	 **/
 	Default: T;
 
-	OnChange: <V>(newValue: V) => void;
+	OnChange: (newValue: T) => void;
 }
 
 declare interface GWStateTypes<T> {
@@ -26,32 +26,31 @@ declare interface GWStateTypes<T> {
 /*
  * Shapes included in ReplicatedStorage.BlockTypes
  */
-declare interface Shapes {
-	[Part: string]: Instance;
-	CornerInnerQuadrant: Part;
-	CornerQuadrant: Part;
-	CornerSphere: Part;
-	CornerWedge: CornerWedgePart;
-	Corner: Part;
-	Cylinder: CylinderMesh;
-	CutCylinder: Part;
-	EdgeInnerQuadran: Part;
-	EdgeQuadrant: Part;
-	InnerEdgeWedge: Part;
-	InvertedCornerSphere: Part;
-	InvertedCutCylinder: Part;
-	InvertedCylinder: Part;
-	Sphere: Part;
-	Block: Part;
-	Truss: TrussPart;
-	Wedge: WedgePart;
+declare enum Shapes {
+	CornerInnerQuadrant,
+	CornerQuadrant,
+	CornerSphere,
+	CornerWedge,
+	Corner,
+	Cylinder,
+	CutCylinder,
+	EdgeInnerQuadran,
+	EdgeQuadrant,
+	InnerEdgeWedge,
+	InvertedCornerSphere,
+	InvertedCutCylinder,
+	InvertedCylinder,
+	Sphere,
+	Block,
+	Truss,
+	Wedge,
 }
 
 declare interface ReplicatedStorage {
-	BlockTypes: Folder & Shapes;
+	BlockTypes: Folder & { [P in keyof typeof Shapes]: BasePart };
 }
 
-declare interface DropdownPropTypes<T> extends GWPropTypes<T> {
+declare interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
 	/**
 	 * Values that will be displayed in Dropdown
 	 **/
@@ -59,14 +58,95 @@ declare interface DropdownPropTypes<T> extends GWPropTypes<T> {
 	/**
 	 * Returns actual value from string passed.
 	 **/
-	GetValue: (value: string) => T;
+	GetValue: (value: V) => T;
 }
 
 declare interface Item {
 	Name: string;
 }
 
-declare interface SliderPropTypes<T> extends GWPropTypes<T> {
+declare interface Range {
 	Min: number;
 	Max: number;
+}
+
+declare interface SliderPropTypes<T> extends Range, GWPropTypes<T> {}
+
+declare interface ColorDisplayStateTypes<T> extends GWStateTypes<T> {
+	Selected: boolean;
+}
+
+declare interface ColorPickerPropTypes {
+	Value: Color3;
+	Name: string;
+	UpdateColorPickerBinding?: Roact.RoactBindingFunc<Frame | undefined>;
+}
+
+declare class ColorPicker extends Roact.Component<ColorPickerPropTypes, GWStateTypes<Color3>> {
+	public render(): Roact.Element | undefined;
+}
+
+declare type ColorPickerSetState = Roact.Component<GWStateTypes<Color3>>["setState"];
+
+declare class ColorPickerManager {
+	public state: GWStateTypes<Color3>;
+	public hue: number;
+	public saturation: number;
+	public cvalue: number;
+
+	updateHueSatFromColor(): void;
+	getHSFramePosition(e?: GuiObject): UDim2;
+	getValueFramePosition(): UDim2;
+	getColorSeq(): ColorSequence;
+	HandleInput(input: InputObject): void;
+	HandleValueInput(input: InputObject): void;
+}
+
+declare type RGB = "r" | "g" | "b";
+
+declare interface onTextChange {
+	(type: RGB, value: number): void;
+}
+
+declare type GWType = "Slider" | "Dropdown" | "CheckBox" | "ColorDisplay";
+
+declare interface GWInfo<T> {
+	Type: GWType;
+	Data: GWPropTypes<T>;
+}
+
+declare interface ColorPickerPropTypes {
+	Value: Color3;
+	Name: string;
+	onChange: (color: Color3) => void;
+	UpdateColorPickerBinding?: Roact.RoactBindingFunc<Frame | undefined>;
+}
+
+declare interface ColorPickerStateTypes extends GWStateTypes<Color3> {
+	ShouldUpdate?: boolean;
+}
+
+declare interface SliderDisplayPropTypes {
+	Range: Range;
+	Value: number;
+}
+
+declare interface ValidateTextOptions {
+	Range?: Range;
+	decimalPlace?: number;
+}
+
+declare interface PlacementSettings {
+	[Key: string]: unknown;
+	Transparency: number;
+	Reflectance: number;
+	Color: Color3;
+	Material: Enum.Material;
+	Shape: BasePart;
+	Anchored: boolean;
+	Shadows: boolean;
+}
+
+declare interface IState {
+	PlacementSettings: PlacementSettings;
 }

@@ -1,16 +1,19 @@
 import { SingleMotor, Spring } from "@rbxts/flipper";
 import Roact, { Component, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
-import TitleText from "client/components/TitleText";
-import GWContainer from "client/components/GWContainer";
+import TitleText from "client/components/misc/TitleText";
+import GWFrame from "client/components/misc/GWFrame";
 import DropdownButton from "./DropdownButton";
 import ItemList from "./ItemList";
 
-class Dropdown<T extends Item> extends Component<DropdownPropTypes<T>, GWStateTypes<T> & { Expanded: boolean }> {
-	motor: SingleMotor;
-	binding: RoactBinding<number>;
-	setBinding: RoactBindingFunc<number>;
+class Dropdown<T extends Item, V extends string> extends Component<
+	DropdownPropTypes<T, V>,
+	GWStateTypes<T> & { Expanded: boolean }
+> {
+	private motor: SingleMotor;
+	private binding: RoactBinding<number>;
+	private setBinding: RoactBindingFunc<number>;
 
-	constructor(props: DropdownPropTypes<T>) {
+	constructor(props: DropdownPropTypes<T, V>) {
 		super(props);
 		this.motor = new SingleMotor(0);
 		[this.binding, this.setBinding] = createBinding(this.motor.getValue());
@@ -25,7 +28,7 @@ class Dropdown<T extends Item> extends Component<DropdownPropTypes<T>, GWStateTy
 
 	render() {
 		return (
-			<GWContainer Name={this.props.Name} LayoutOrder={this.props.LayoutOrder} SizeOffsetY={25}>
+			<GWFrame Name={this.props.Name} LayoutOrder={this.props.LayoutOrder} SizeOffsetY={25}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.5} />
 				<ItemList
@@ -33,7 +36,7 @@ class Dropdown<T extends Item> extends Component<DropdownPropTypes<T>, GWStateTy
 					Items={this.props.Items}
 					Handlers={{
 						Activated: (e) => {
-							const newValue = this.props.GetValue(e.Name);
+							const newValue = this.props.GetValue(e.Name as V);
 							this.props.OnChange(newValue);
 							this.setState((oldState) => {
 								return {
@@ -59,7 +62,7 @@ class Dropdown<T extends Item> extends Component<DropdownPropTypes<T>, GWStateTy
 						},
 					}}
 				/>
-			</GWContainer>
+			</GWFrame>
 		);
 	}
 }

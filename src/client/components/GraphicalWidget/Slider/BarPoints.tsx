@@ -17,7 +17,7 @@ function BarPoints(props: BarPointsSliderNumber) {
 			Ref={props.RefValue}
 		>
 			<uicorner />
-			<SliderNumber Value={props.Value} SizeOffsetY={10} />
+			<SliderNumber Value={props.Value} />
 		</frame>
 	);
 }

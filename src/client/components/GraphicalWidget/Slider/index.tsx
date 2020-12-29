@@ -1,16 +1,16 @@
 import { UserInputService, RunService } from "@rbxts/services";
 import Roact, { Component, createRef } from "@rbxts/roact";
-import TitleText from "client/components/TitleText";
-import GWContainer from "client/components/GWContainer";
+import TitleText from "client/components/misc/TitleText";
+import GWFrame from "client/components/misc/GWFrame";
 import SliderBar from "./SliderBar";
-import { map } from "shared/module";
+import { map, validateText } from "shared/utility";
 
-class Slider<T extends number> extends Component<SliderPropTypes<T>, GWStateTypes<T>> {
-	maxRef: Roact.Ref<Frame>;
-	minRef: Roact.Ref<Frame>;
-	connection: RBXScriptConnection | undefined;
+class Slider extends Component<SliderPropTypes<number>, GWStateTypes<number>> {
+	private maxRef: Roact.Ref<Frame>;
+	private minRef: Roact.Ref<Frame>;
+	private connection: RBXScriptConnection | undefined;
 
-	constructor(props: SliderPropTypes<T>) {
+	constructor(props: SliderPropTypes<number>) {
 		super(props);
 		this.maxRef = createRef();
 		this.minRef = createRef();
@@ -27,7 +27,7 @@ class Slider<T extends number> extends Component<SliderPropTypes<T>, GWStateType
 						const mousePos = UserInputService.GetMouseLocation();
 						const minAbsPos = this.minRef.getValue()?.AbsolutePosition.X as number;
 						const maxAbsPos = this.maxRef.getValue()?.AbsolutePosition.X as number;
-						const xPosition = math.clamp(mousePos.X - 10, minAbsPos, maxAbsPos);
+						const xPosition = math.clamp(mousePos.X - 3.5, minAbsPos, maxAbsPos);
 						const newValue = map(xPosition, minAbsPos, maxAbsPos, this.props.Min, this.props.Max);
 						this.props.OnChange(newValue);
 						this.setState(() => {
@@ -42,18 +42,30 @@ class Slider<T extends number> extends Component<SliderPropTypes<T>, GWStateType
 		}
 	}
 
+	onTextChange(e: TextBox) {
+		if (this.connection !== undefined) return;
+		let newValue = tonumber(e.Text);
+		if (newValue === undefined) newValue = validateText(e.Text);
+		if (newValue === undefined) return;
+		this.props.OnChange(newValue);
+		this.setState(() => {
+			return { Value: e.Text };
+		});
+	}
+
 	render() {
 		return (
-			<GWContainer Name={this.props.Name} LayoutOrder={this.props.LayoutOrder} SizeOffsetY={55}>
+			<GWFrame Name={this.props.Name} LayoutOrder={this.props.LayoutOrder} SizeOffsetY={55}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
-				<TitleText Text="Transparency" PosScaleY={0.225} />
+				<TitleText Text={this.props.Name} PosScaleY={0.225} />
 				<SliderBar
 					Min={{ Value: this.props.Min, Ref: this.minRef }}
 					Max={{ Value: this.props.Max, Ref: this.maxRef }}
 					Value={this.state.Value}
 					HandleInput={(element, input) => this.HandleInput(element, input)}
+					OnTextChange={(e) => this.onTextChange(e)}
 				/>
-			</GWContainer>
+			</GWFrame>
 		);
 	}
 

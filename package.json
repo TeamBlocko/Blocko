@@ -5,10 +5,22 @@
   "main": "index.js",
   "dependencies": {
     "@rbxts/flipper": "^1.2.1",
+    "@rbxts/number-manipulator": "^1.1.0",
     "@rbxts/roact": "^1.3.0-ts.6",
+    "@rbxts/roact-dnd": "0.0.6",
     "@rbxts/roact-rodux": "^0.1.2",
     "@rbxts/rodux": "^1.1.0",
     "@rbxts/services": "^1.1.2"
+  },
+  "scripts": {
+    "rojo": "start cmd.exe /C rojo serve",
+    "remodel": "remodel run add-models.lua",
+    "compile": "rbxtsc",
+    "rojo:build": "rojo build -o dist/WorldTemplate.rbxlx",
+    "build": "npm run rojo:build && npm run remodel",
+    "test:build": "npm run compile && npm run build",
+    "test:serve": "npm run compile && npm run rojo",
+    "eslint:fix": "eslint src --fix"
   },
   "devDependencies": {
     "@rbxts/types": "^1.0.428",
@@ -21,7 +33,6 @@
     "prettier": "^2.2.1",
     "typescript": "^4.1.2"
   },
-  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC"
