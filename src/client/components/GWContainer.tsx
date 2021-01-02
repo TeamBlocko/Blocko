@@ -46,7 +46,7 @@ function GWContainer(props: GWContainerPropTypes) {
 			/>
 			<Dropdown
 				Name="Material"
-				Default={props.Material}
+				Default={props.RawProperties.Material}
 				LayoutOrder={1}
 				Items={Enum.Material.GetEnumItems()}
 				OnChange={(newValue: Enum.Material) => props.OnDropdownUpdate("Material", newValue)}
@@ -55,13 +55,13 @@ function GWContainer(props: GWContainerPropTypes) {
 			<ColorDisplay
 				Name="Color"
 				LayoutOrder={2}
-				Default={props.Color}
+				Default={props.RawProperties.Color}
 				OnChange={(newValue: Color3) => props.OnColorPickerUpdate("Color", newValue)}
 			/>
 			<Slider
 				Name="Transparency"
 				LayoutOrder={3}
-				Default={props.Transparency}
+				Default={props.RawProperties.Transparency}
 				Min={0}
 				Max={10}
 				OnChange={(newValue: number) => props.OnSliderUpdate("Transparency", newValue)}
@@ -69,22 +69,22 @@ function GWContainer(props: GWContainerPropTypes) {
 			<Slider
 				Name="Reflectance"
 				LayoutOrder={4}
-				Default={props.Reflectance}
+				Default={props.RawProperties.Reflectance}
 				Min={0}
 				Max={10}
 				OnChange={(newValue: number) => props.OnSliderUpdate("Reflectance", newValue)}
 			/>
 			<CheckBox
 				Name="Anchored"
-				Default={props.Anchored}
+				Default={props.RawProperties.Anchored}
 				LayoutOrder={4}
 				OnChange={(newValue: boolean) => props.OnCheckBoxUpdate("Anchored", newValue)}
 			/>
 			<CheckBox
-				Name="Shadows"
-				Default={props.Shadows}
+				Name="Cast Shadow"
+				Default={props.RawProperties.CastShadow}
 				LayoutOrder={4}
-				OnChange={(newValue: boolean) => props.OnCheckBoxUpdate("Shadows", newValue)}
+				OnChange={(newValue: boolean) => props.OnCheckBoxUpdate("CastShadow", newValue)}
 			/>
 		</scrollingframe>
 	);
@@ -102,14 +102,16 @@ export default connect(
 			);
 		},
 		OnDropdownUpdate(propertyName: "Shape" | "Material", value: Instance | Enum.Material) {
-			dispatch(
-				updateProperty({
-					propertyName,
-					value,
-				}),
-			);
+			if (propertyName === "Material" && typeIs(value, "EnumItem")) {
+				dispatch(
+					updateProperty({
+						propertyName,
+						value,
+					}),
+				);
+			}
 		},
-		OnCheckBoxUpdate(propertyName: "Anchored" | "Shadows", value: boolean) {
+		OnCheckBoxUpdate(propertyName: "Anchored" | "CastShadow", value: boolean) {
 			dispatch(
 				updateProperty({
 					propertyName,

@@ -37,6 +37,7 @@ class Slider extends Component<SliderPropTypes<number>, GWStateTypes<number>> {
 					break;
 				case Enum.UserInputState.End:
 					this.connection?.Disconnect();
+					this.connection = undefined;
 					break;
 			}
 		}

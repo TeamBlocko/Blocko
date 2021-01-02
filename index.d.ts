@@ -1,3 +1,5 @@
+declare type ValueOf<T> = T[keyof T];
+
 declare interface PropTypes {
 	/**
 	 * Number represting the place of element in an element using UIListLayout/UIGridLayout.
@@ -48,6 +50,10 @@ declare enum Shapes {
 
 declare interface ReplicatedStorage {
 	BlockTypes: Folder & { [P in keyof typeof Shapes]: BasePart };
+}
+
+declare interface Workspace {
+	Blocks: Folder & BasePart[];
 }
 
 declare interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
@@ -127,7 +133,7 @@ declare interface ColorPickerStateTypes extends GWStateTypes<Color3> {
 }
 
 declare interface SliderDisplayPropTypes {
-	Range: Range;
+	Range?: Range;
 	Value: number;
 }
 
@@ -136,15 +142,19 @@ declare interface ValidateTextOptions {
 	decimalPlace?: number;
 }
 
-declare interface PlacementSettings {
-	[Key: string]: unknown;
+declare interface RawProperties {
+	Material: Enum.Material;
+	Anchored: boolean;
+	CastShadow: boolean;
+	Size: Vector3;
 	Transparency: number;
 	Reflectance: number;
 	Color: Color3;
-	Material: Enum.Material;
+}
+
+declare interface PlacementSettings {
 	Shape: BasePart;
-	Anchored: boolean;
-	Shadows: boolean;
+	RawProperties: RawProperties;
 }
 
 declare interface IState {

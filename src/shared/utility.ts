@@ -1,9 +1,11 @@
+import { assign } from "@rbxts/object-utils";
+
 export const map = (value: number, x1: number, y1: number, x2: number, y2: number): number =>
 	((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
 
 export const inverseColor = (color: Color3): Color3 => new Color3(1 - color.r, 1 - color.g, 1 - color.b);
 
-export const getPosOnAxis = (v1: Vector2, v2: Vector2, dist: number): Vector2 => {
+export function getPosOnAxis(v1: Vector2, v2: Vector2, dist: number): Vector2 {
 	const deltaX = v1.X - v2.X;
 	const deltaY = v1.Y - v2.Y;
 
@@ -13,14 +15,14 @@ export const getPosOnAxis = (v1: Vector2, v2: Vector2, dist: number): Vector2 =>
 	const Y = math.sin(radian) * dist;
 
 	return v1.add(new Vector2(X, Y));
-};
+}
 
 const DEFAULT_OPTIONS = {
 	decimalPlace: 2,
 };
 
-export const validateText = (text: string, options?: ValidateTextOptions) => {
-	const optionsUsed = Object.assign(DEFAULT_OPTIONS, options);
+export function validateText(text: string, options?: ValidateTextOptions) {
+	const optionsUsed = assign(DEFAULT_OPTIONS, options);
 
 	if (text === "") return;
 
@@ -40,4 +42,12 @@ export const validateText = (text: string, options?: ValidateTextOptions) => {
 	const [, decimal] = math.modf(value);
 	const pattern = decimal === 0 ? "%.0f" : `%.${optionsUsed.decimalPlace}f`;
 	return tonumber(pattern.format(text));
-};
+}
+
+export function previousInTable<T>(t: T[], element: T): T {
+	return t[((t.indexOf(element) - 2) % t.size()) + 1];
+}
+
+export function nextInTable<T>(t: T[], element: T): T {
+	return t[(t.indexOf(element) % t.size()) + 1];
+}

@@ -1,4 +1,5 @@
 import Roact, { JsxObject, Children } from "@rbxts/roact";
+import { copy } from "@rbxts/object-utils";
 import { validateText } from "shared/utility";
 
 interface OnValidInput {
@@ -19,7 +20,7 @@ function NumberInput(props: NumberInputPropTypes) {
 	const textChange = props.Change?.Text;
 	const focusLost = props.Event?.FocusLost;
 
-	const validProps: ValidProps = Object.copy(props);
+	const validProps: ValidProps = copy(props);
 
 	const children = validProps[Children];
 	const onValidInput = validProps.OnValidInput as OnValidInput;
