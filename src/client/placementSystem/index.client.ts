@@ -1,14 +1,10 @@
-import { 
-	Workspace,
-	UserInputService,
-	RunService,
-	TweenService,
-	Players } from "@rbxts/services";
+import { Workspace, ReplicatedStorage, UserInputService, RunService, TweenService, Players } from "@rbxts/services";
 import GridBase from "./GridBase";
 import BuildHandle from "./BuildHandle";
 
 const client = Players.LocalPlayer;
 const playerGui = client.WaitForChild("PlayerGui");
+const shapes = ReplicatedStorage.BlockTypes;
 
 const SPECTATE_COLOR = Color3.fromRGB(255, 255, 255),
 	BUILD_COLOR = Color3.fromRGB(65, 179, 255),
@@ -19,7 +15,7 @@ const gridBase = new GridBase({
 	MaxPlaceDistance: 1e3,
 	RotationTweenInfo: new TweenInfo(0.25, Enum.EasingStyle.Quint),
 });
-const buildHandle = new BuildHandle(gridBase);
+const buildHandle = new BuildHandle(gridBase, shapes);
 
 let mode: "Spectate" | "Place" | "Delete" = "Spectate";
 const tweenInfo = new TweenInfo(0.1, Enum.EasingStyle.Quint);
@@ -66,10 +62,10 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 			print(mode);
 		case Enum.KeyCode.R:
 			gridBase.rotate();
-			break
+			break;
 		case Enum.KeyCode.T:
 			gridBase.tilt();
-			break
+			break;
 		case Enum.KeyCode.F:
 			buildHandle.previousBlockType();
 			break;

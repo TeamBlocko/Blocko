@@ -45,9 +45,9 @@ export function validateText(text: string, options?: ValidateTextOptions) {
 }
 
 export function previousInTable<T>(t: T[], element: T): T {
-	return t[((t.indexOf(element) - 2) % t.size()) + 1];
+	return t[(t.indexOf(element) - 1) % t.size()];
 }
 
 export function nextInTable<T>(t: T[], element: T): T {
-	return t[(t.indexOf(element) % t.size()) + 1];
+	return t[(t.indexOf(element) + 1) % t.size()];
 }

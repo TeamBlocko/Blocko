@@ -13,11 +13,13 @@ const deleteBlock = new ClientFunction("DeleteBlock");
 
 class BuildHandler {
 	public ghostPart: BasePart;
+	public shapes: Instance;
 
 	private gridBase: GridBase;
 
-	constructor(gridBase: GridBase) {
+	constructor(gridBase: GridBase, shapes: Instance) {
 		this.gridBase = gridBase;
+		this.shapes = shapes;
 		this.ghostPart = new Instance("Part");
 		this.updateGhostPart();
 
@@ -44,10 +46,7 @@ class BuildHandler {
 		store.dispatch(
 			updateSetting({
 				settingName: "Shape",
-				value: nextInTable(
-					this.gridBase.blocks.GetChildren() as BasePart[],
-					store.getState().PlacementSettings.Shape,
-				),
+				value: nextInTable(this.shapes.GetChildren() as BasePart[], store.getState().PlacementSettings.Shape),
 			}),
 		);
 	}
@@ -57,7 +56,7 @@ class BuildHandler {
 			updateSetting({
 				settingName: "Shape",
 				value: previousInTable(
-					this.gridBase.blocks.GetChildren() as BasePart[],
+					this.shapes.GetChildren() as BasePart[],
 					store.getState().PlacementSettings.Shape,
 				),
 			}),

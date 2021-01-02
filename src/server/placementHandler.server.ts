@@ -23,7 +23,7 @@ const deleteBlock = new ServerFunction("DeleteBlock", t.instanceIsA("BasePart"))
 
 placeBlock.SetCallback((_, placePosition, orientation, settings) => {
 	if (settings.Shape.IsDescendantOf(shapes)) {
-		const block = settings.Shape.Clone()
+		const block = settings.Shape.Clone();
 		block.Position = placePosition;
 		block.Orientation = orientation;
 
@@ -35,4 +35,4 @@ placeBlock.SetCallback((_, placePosition, orientation, settings) => {
 	}
 });
 
-deleteBlock.SetCallback((_, target) => target.Destroy())
+deleteBlock.SetCallback((_, target) => target.Destroy());
