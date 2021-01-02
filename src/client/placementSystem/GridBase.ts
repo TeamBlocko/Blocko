@@ -155,7 +155,7 @@ class GridBase {
 	}
 
 	getSurface(normal: Vector3, isFloatError?: boolean) {
-		const sign = isFloatError ? -1 : 1;
+		const sign = isFloatError ? 1 : -1;
 
 		let closest = new Vector3(1, 1, 1).mul(100);
 		for (const surfaceNormal of this.normals) {
@@ -227,7 +227,7 @@ class GridBase {
 
 	isFloatError(value: number) {
 		if (value === 1 || value === 0) {
-			return false;
+			return true;
 		}
 
 		if (value * 1e4 < 1) {
