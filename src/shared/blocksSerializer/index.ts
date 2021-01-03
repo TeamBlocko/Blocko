@@ -1,43 +1,63 @@
+import { ReplicatedStorage } from "@rbxts/services";
 import Serializer from "./Serializer";
+import { BlockIds } from "./BlockIds";
 
-type BlockIds = { [K: string]: string };
+type BlockName = keyof typeof BlockIds;
+
+const shapes = ReplicatedStorage.BlockTypes;
 
 class BlocksSerializer extends Serializer {
-	public readonly blockIds: BlockIds;
-	public allowedProperties: (keyof BasePart)[] = [
-		"Material",
-		"Position",
-		"Orientation",
-		"Anchored",
-		"CastShadow",
-		"Size",
-		"Transparency",
-		"Reflectance",
-		"Color",
+	public allowedProperties: [keyof RawProperties | "Position" | "Orientation", unknown][] = [
+		["Material", "EnumItem"],
+		["Position", "Vector3"],
+		["Orientation", "Vector3"],
+		["Anchored", "boolean"],
+		["CastShadow", "boolean"],
+		["Size", "Vector3"],
+		["Transparency", "number"],
+		["Reflectance", "number"],
+		["Color", "Color3"],
 	];
 
-	constructor(blockIds: BlockIds) {
-		super();
-		this.blockIds = blockIds;
+	getIdByName(name: BlockName): string {
+		return BlockIds[name];
 	}
 
-	getIdByName(name: string): string {
-		return this.blockIds[name];
+	getNameById(id: BlockName): string {
+		return BlockIds[id];
 	}
 
-	serializeBlocks<T extends BasePart[]>(value: T): string {
+	serializeBlocks(value: BasePart[]): string {
 		const serialized: string[] = [];
 		for (const part of value) {
-			serialized.push(this.getIdByName(part.Name));
-
 			const serializedProperties: string[] = [];
-			for (const property of this.allowedProperties) {
-				const propertyValue = part[property];
+
+			serializedProperties.push(this.getIdByName(part.Name as BlockName));
+			for (const propertyInfo of this.allowedProperties) {
+				const propertyValue = part[propertyInfo[0]];
 				serializedProperties.push(this.serialize(propertyValue));
 			}
 			serialized.push(serializedProperties.join(";"));
 		}
 		return serialized.join("!");
+	}
+
+	deserializeBlocks(value: string, parent: Instance) {
+		const blockInfos = value.split("!");
+
+		for (const blockInfo of blockInfos) {
+			const propertiesInfo = blockInfo.split(";");
+			const id = this.getNameById(propertiesInfo.shift() as BlockName) as keyof typeof Shapes;
+			const block = shapes[id].Clone();
+
+			for (let index = 0; index < this.allowedProperties.size(); index++) {
+				const [propertyName, type] = this.allowedProperties[index];
+				const propertyValue = this.deserialize(propertiesInfo[index], type);
+				block[propertyName] = propertyValue as never;
+			}
+
+			block.Parent = parent;
+		}
 	}
 }
 
