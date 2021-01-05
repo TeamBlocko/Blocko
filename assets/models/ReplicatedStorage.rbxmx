@@ -2,14 +2,14 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBXEECDD09493BF4AF4B1E76F64A1448789">
+	<Item class="Folder" referent="RBXA6BA798BCBE64A7BB8E6F2CFA1B18398">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
 			<string name="Name">BlockTypes</string>
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="MeshPart" referent="RBX3B213F565A27461AA182994081825BAE">
+		<Item class="MeshPart" referent="RBX396FBA74BBD640BEA9AD50DD3AB114D2">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -104,7 +104,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBXCAAE46A67D33460495FCEED8CA2D7B77">
+		<Item class="MeshPart" referent="RBXF870CA651B8C49EA8E3B6EDF933676B8">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -199,7 +199,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBX7009D6DD7D754559AD64A9E7AE87E34E">
+		<Item class="MeshPart" referent="RBXF3C49399C77145ED87DD49C3E4F1062F">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -294,7 +294,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBX8354ECF940994AD4B954CCB01EC212B1">
+		<Item class="MeshPart" referent="RBXA77F57F05F2A42EF8D789D9CA0BFC1E3">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -389,7 +389,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBXF73623D5629D4E3BBC4527AA084B3C66">
+		<Item class="MeshPart" referent="RBX051FCEF458A9465E91B17E040DED6109">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -484,7 +484,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBXB3D4A02FF7CC4C3E8D87F5FF7226655D">
+		<Item class="MeshPart" referent="RBX567444923267484DAF7B047B9AF1A171">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -579,7 +579,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBXF6A65B1A502D44598A8A413552A34947">
+		<Item class="MeshPart" referent="RBXF0A17B2B528F4DD8B0A8FF2EF5338919">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -674,7 +674,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBXA47F6235C33C41669989C41783FC7570">
+		<Item class="MeshPart" referent="RBX6977CD3131744CF0BEF538F6BAFE49FD">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -769,7 +769,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBXE4EE32D4E4EE4CB8B9EF6DB8DA8EB04B">
+		<Item class="MeshPart" referent="RBXA27298CB26DE4E53A0EB41484A378BD5">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -864,7 +864,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBX45F73CE053944999B4447FF81EDB0B5C">
+		<Item class="MeshPart" referent="RBX13F2E2F439534EDE9BF4D0B45B5AD306">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -959,7 +959,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBXE27F4A6D9F9F4B09835DB65B224A5745">
+		<Item class="MeshPart" referent="RBXEFE42B471AAC407C971CF3FCDA7C2D01">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1054,7 +1054,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBX7C24E221277E4C3B8A3016826BC1F82C">
+		<Item class="MeshPart" referent="RBXC6666E2681C4440E8318CA0A56BD75D9">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1149,7 +1149,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBX2BB1239EB7FD464F87676F37BBF471BB">
+		<Item class="MeshPart" referent="RBX933954D115B34CD5A44E7BF012F92B13">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1244,7 +1244,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="Part" referent="RBXB9944EBD32D4445D98BA07791593CB42">
+		<Item class="Part" referent="RBX2DA876F4E2604A038D53C3971AF039C2">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1321,7 +1321,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="TrussPart" referent="RBX0D14F16557CD4152AE66C9C864C5D4BF">
+		<Item class="TrussPart" referent="RBX494E905FC1A944DA8BF9A35B189CC4F9">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1397,7 +1397,7 @@
 				<token name="style">0</token>
 			</Properties>
 		</Item>
-		<Item class="WedgePart" referent="RBX4B30220A286A4D6F801B40BBF0C75038">
+		<Item class="WedgePart" referent="RBX458F0A3E9A044A8CABD3436C453C0617">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1473,7 +1473,7 @@
 				</Vector3>
 			</Properties>
 		</Item>
-		<Item class="MeshPart" referent="RBX81DC22A16B5B4643A3261FD82EC93114">
+		<Item class="MeshPart" referent="RBX8E5A99934F5E4DDAB7F9DE530CCC3402">
 			<Properties>
 				<bool name="Anchored">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1569,14 +1569,14 @@
 			</Properties>
 		</Item>
 	</Item>
-	<Item class="Folder" referent="RBXFCCB2BFC7E8846DE93A4AEBAA8F63242">
+	<Item class="Folder" referent="RBX4C5DAA1731A24DB5A428061E96E45EF8">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
-			<string name="Name">Blocks</string>
+			<string name="Name">Template</string>
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Part" referent="RBX2CE8B30BE61B43A094121F9A4DFE8A51">
+		<Item class="Part" referent="RBX9C4C524EA1AE4C12A941E76802BE4475">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1657,7 +1657,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXC6033B525BBA45AEB2EEA2FFF1DBC83A">
+			<Item class="Texture" referent="RBXF4B0548324384ECF894A2946D9BD349D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1677,7 +1677,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX1EE404B327D04C34ABFD41802A6DBE0F">
+			<Item class="Texture" referent="RBX8CC54617E9CC470B97DDE2D783A7C0C7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1697,7 +1697,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB92BC437A5EB49BF95E1B13FBF726D2A">
+			<Item class="Texture" referent="RBX3B0E312B8367483699E3814490258D35">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1717,7 +1717,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX2847A8D217514B37A82372DDA8449930">
+			<Item class="Texture" referent="RBX3926F5F9378E4D2BAAD5C54AE682F833">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1737,7 +1737,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXEF66AFBC92E04F4EB0B7BC0020CEB176">
+			<Item class="Texture" referent="RBX98DB13B775D04A59AF591E2BF8E6FF34">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1757,7 +1757,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF8F8E05F55254B01B73E49FF4F03E61C">
+			<Item class="Texture" referent="RBX914EC43400D2420F8B85E92E3C4B69B0">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1777,7 +1777,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX73D5163AA09B4CEDB624696D9ADC3DA1">
+			<Item class="Texture" referent="RBX4DD2FAEF74CD4E779EDFBD839FF9F2BC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1798,7 +1798,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX61D29D9A687B41F0AA8FF15E395AC746">
+		<Item class="Part" referent="RBX3980FE5EBCA741B39B97168D37FABCCE">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1879,7 +1879,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX7FC4D9424FDC4F42B49BD0EB4E453B41">
+			<Item class="Texture" referent="RBXAD5BA597F58B42D9B6CAC0C9E580793C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1899,7 +1899,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF507E4AA1F2E4B9EA64730B1D693495A">
+			<Item class="Texture" referent="RBXA9D667ACE3D544599F3CAFCAC5D5E7A5">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1919,7 +1919,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX2EBBA958ABC14A9996A48CB15358CEF5">
+			<Item class="Texture" referent="RBX0C6CE0BE3ABF44218E38AECCFF2C31B9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1939,7 +1939,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB8F8C8D2EFF8404694269497A23ABF05">
+			<Item class="Texture" referent="RBX9892768384EC403AAAD36EF04E0F0C49">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1959,7 +1959,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3D812BEABDEB4163B15A6011162D300D">
+			<Item class="Texture" referent="RBXCBFD26B3C3C14753AFD6284C610FAA49">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1979,7 +1979,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX673E823DBCB143F7AB98A9B55DE2D9F9">
+			<Item class="Texture" referent="RBX1F66BAA6DD164B508D0083B1F8203528">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -1999,7 +1999,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB3B921F1207A4F4484D1026F25F24CBE">
+			<Item class="Texture" referent="RBX63C45C2EC96D430EBF534E705B9E0D88">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2020,7 +2020,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX61D19D0624074F6BAE1BD7B291192973">
+		<Item class="Part" referent="RBXE1276403427B4E74954C4D12700E60C9">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2101,7 +2101,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX7F8E43E9594B48A7B3C020EF93811038">
+			<Item class="Texture" referent="RBX68E19BB9B06D4664A202E8BDC474574C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2121,7 +2121,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXFE1E7286664F4028B1D53D913A2D8495">
+			<Item class="Texture" referent="RBX1A661517F74B40169B758CD8D74D72E7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2141,7 +2141,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX2E60455FC5054DB5B401F968A5A40C44">
+			<Item class="Texture" referent="RBX44575D82DA9A46D18288E4317A637539">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2161,7 +2161,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD41826FB676942DDA978982A2757BAD9">
+			<Item class="Texture" referent="RBXB32EE148579D44C5AF6600B2394F14CE">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2181,7 +2181,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC8707CBFC260466687746FB49EB7FC0E">
+			<Item class="Texture" referent="RBX15DBFD2398C349F887FFE1CE0362F1D2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2201,7 +2201,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXDEC4D3F352084E67B73F9FE072130A46">
+			<Item class="Texture" referent="RBX480B59E1C46745178DB0CA78F0F01381">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2221,7 +2221,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXEB82651D79BD47AF8FF236592A75DEB3">
+			<Item class="Texture" referent="RBX4F8DC4D08BE04D18AE806AE7B8B505B7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2242,7 +2242,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX97C40177A2C54A7986568D9B2223DAC5">
+		<Item class="Part" referent="RBX4C04276905AC481E836D70FB3DEC133F">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2323,7 +2323,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXB2E7231FBAFA483488AEF64C705455C2">
+			<Item class="Texture" referent="RBX809150532EAC472EB172AE0B177EFBA1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2343,7 +2343,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX1E43D3C20C344B9BA24D824857FC7367">
+			<Item class="Texture" referent="RBXFF2EEB36CC0D4FBAA0B156315B579A26">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2363,7 +2363,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD097F4D6A69A4872B430E13284295DD6">
+			<Item class="Texture" referent="RBXD756597561C24ABFBD0F98C2808B783B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2383,7 +2383,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC49F0208159D4BACA8EFC96C742A19E9">
+			<Item class="Texture" referent="RBX56A2EE3B0D1C48D6A10F0AD52FB235FF">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2403,7 +2403,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX0B83E2C2EF494300A33DF2ED29DA0DF5">
+			<Item class="Texture" referent="RBXB7DC6B1D3C1D425A94F79F90F39A7913">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2423,7 +2423,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX9D3FF18B51614B588EDE35C69C5C00D1">
+			<Item class="Texture" referent="RBX6FB89859EFC9412D9E3FC419B6F4CB2F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2443,7 +2443,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX9ED2ECA5529D4A899AABE704DA1F3141">
+			<Item class="Texture" referent="RBXC07421231E3C47549C0CDC07D2C98350">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2464,7 +2464,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXA25480EEC3054A06A8E2DDA68E091975">
+		<Item class="Part" referent="RBXAD750C28710A4E7D9F43D0CC02D7F985">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2545,7 +2545,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX4F37B223BEF3472896CF649832738A07">
+			<Item class="Texture" referent="RBX3C4C84A58E564A4E8215A27D14CDFD97">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2565,7 +2565,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3A7C6864DDE8415098B4439A30CADC47">
+			<Item class="Texture" referent="RBX6AA88FA2F5534D29991104623E2335B9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2585,7 +2585,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX991DBC318FD5427B826D7FABDF639983">
+			<Item class="Texture" referent="RBXD02C73A57BF447DF8C41B287A412E551">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2605,7 +2605,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX84D5488829574D6E9CD8915F206C827E">
+			<Item class="Texture" referent="RBX30EE21DA48FC47DC882718C29CB36AB4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2625,7 +2625,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXBF2908F4B5294B8DA13D81DF1B6FD8BC">
+			<Item class="Texture" referent="RBX4513C3AADC654A98931B18500F027685">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2645,7 +2645,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX594C42C4832D48F8A4F2378F473F03C4">
+			<Item class="Texture" referent="RBX9DDB4D902F5A41888B8A9EE38DA5C8FA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2665,7 +2665,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX626FFCD8AA164095A54E9A7562511279">
+			<Item class="Texture" referent="RBX2558D2CB521948458F9E31BFF96F2125">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2686,7 +2686,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX7FFDA4E8A6284BD0B76EEDBD167DC25B">
+		<Item class="Part" referent="RBX1D62445F2A404C58BE39E50E39D6625C">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2767,7 +2767,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX0773C136D22747CEB566AA5F09DAB482">
+			<Item class="Texture" referent="RBX1F40D99A6F284F9A88E077DEC98DC602">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2787,7 +2787,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5F49E089DAD441EEA82F148B7D1BBD10">
+			<Item class="Texture" referent="RBX09C55EE2F5504E37A5E9AD26324BE5C7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2807,7 +2807,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3E379A6373C240D080F3331B3C300F47">
+			<Item class="Texture" referent="RBXBC58DE35920E4EDAAFDCD59278972CE2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2827,7 +2827,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD903F5F687EB4B4180C1A3C35AA35952">
+			<Item class="Texture" referent="RBX32F50F229FBB48BE8165C22817D3246D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2847,7 +2847,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE18D58E0ADA94096882D5DB07AF26F1D">
+			<Item class="Texture" referent="RBX4FD1A10A8D07479EAE7A4130950DAD96">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2867,7 +2867,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5C41079B7FEA4210BED4B4722B6B1571">
+			<Item class="Texture" referent="RBX3DC9B628942C44C38DA893CD36C858E9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2887,7 +2887,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6D06CD71302F441F8E26B3E5B2F17959">
+			<Item class="Texture" referent="RBX12DC294EC35F43E0BEE9DBCCF31CB45A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -2908,7 +2908,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX084BC86681C346BCBDF28D19AF1978AD">
+		<Item class="Part" referent="RBX9B2CBD29763145228C0AFAC2CB8B8E6F">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2989,7 +2989,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX5A662AD50E3C408BBA0A8F9EF9B93E02">
+			<Item class="Texture" referent="RBX361BC7FF680F4178A038BC268F229C08">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3009,7 +3009,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX66D293D57A434BE795A323F414977996">
+			<Item class="Texture" referent="RBXF17AC3A508364654AA0BF3D582EAB539">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3029,7 +3029,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5F0B5706F914434985B3DDCAFBFA1357">
+			<Item class="Texture" referent="RBXC9DB22AC177F4EA9B0107A8F42CA5FB9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3049,7 +3049,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXDAE6D75B07594A3D8520CBA3DD96C582">
+			<Item class="Texture" referent="RBXA73E0EE9662F424088CF4292135D4525">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3069,7 +3069,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXFC249CFE91AC4DD6BA74EE5F5FECC797">
+			<Item class="Texture" referent="RBXCE4868DED4F5463E9E2848DE481F924A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3089,7 +3089,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA9744C6802FB4A6197269698A14B722D">
+			<Item class="Texture" referent="RBX5B2D075A482144CFAD531B442F25493B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3109,7 +3109,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF2C9BE3FECF345D0915A8ADA65251DD4">
+			<Item class="Texture" referent="RBXB5EC4FACD2974864B82BF47F7CE30B35">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3130,7 +3130,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX533393658B2D45B3BCDC34C161E4F523">
+		<Item class="Part" referent="RBXE0005F3694824D8E9072D90E70756691">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -3211,7 +3211,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX1D663EE980874F45A7A82A0AA8B17E28">
+			<Item class="Texture" referent="RBX77662163874D4192A934A5B51FBD5FC9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3231,7 +3231,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXAB54DB2FE0A844DD86C18CB384F04A1F">
+			<Item class="Texture" referent="RBX2191988724D54BE4B2BAF32F48E94B25">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3251,7 +3251,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF5F2056B5F2C4D22A6942C7064E73836">
+			<Item class="Texture" referent="RBXDDAD9E9AB19541F48BF465598CB1E80F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3271,7 +3271,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX4421B5162CCD48FCBA39A63C89F359B9">
+			<Item class="Texture" referent="RBXA10A107D3C564B768F354DEF90D59FC2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3291,7 +3291,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX84483545B145466A80CC5BB58D71236C">
+			<Item class="Texture" referent="RBX59953D13AB51476285C04CA9BB2B9A25">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3311,7 +3311,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXFC6B531ADA35460997E71A621ED331F1">
+			<Item class="Texture" referent="RBXB28F3A192A2F47E4B1B5904CF845DCA7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3331,7 +3331,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX9C7C26744FF74A09B8B96B46CC7D8ACE">
+			<Item class="Texture" referent="RBX5AC6D9D2DB42457980CF0FC3D0175F5F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3352,7 +3352,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX52FAEDC47A9F47CDBC30B6C3C1836A80">
+		<Item class="Part" referent="RBX70E26F6CC87A4C6BB9614EA8BE1565C5">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -3433,7 +3433,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXB41A8399A75E4179A52A92BC85596CF8">
+			<Item class="Texture" referent="RBXA768FE24212343BB9344ADA499A7518A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3453,7 +3453,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF85E954356D245568F951CA02311EA61">
+			<Item class="Texture" referent="RBX7333BDDEF9A942A393F0B3047C1BBA14">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3473,7 +3473,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXAE824BFE7A2C430DACDB781F0CD4CB09">
+			<Item class="Texture" referent="RBX2126E72FD28342A78503A6146FE92291">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3493,7 +3493,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXDB7F5B2791CC4F9DB44320375F436BDD">
+			<Item class="Texture" referent="RBX0D4711A140C94D7295839E5450B0BE59">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3513,7 +3513,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF69AF7339B0D4A2FA92640F2A3D40279">
+			<Item class="Texture" referent="RBXA9C7DDE0164D4C328C4C5091B88FA483">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3533,7 +3533,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXBB9A3B4BA0C4470CAB6469286A2AA3DF">
+			<Item class="Texture" referent="RBX56BA9F44AE6D46D7B43FF256F7C113AA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3553,7 +3553,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX73B0548B78A04600A61EC3BD77B26B1A">
+			<Item class="Texture" referent="RBXF92469082F2746179A7926AA2025427F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3574,7 +3574,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXB5A29F321F694E6AA95F7CA007C03E35">
+		<Item class="Part" referent="RBXC552838C0FFA4B4D88AE1EE70C7F6786">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -3655,7 +3655,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX15B460AB4F0247009CA7156FD38EBDB1">
+			<Item class="Texture" referent="RBXAEF38068ACD44C129FFD5FA51E954810">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3675,7 +3675,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF3800B4A235B4D00AA960249E4F5A364">
+			<Item class="Texture" referent="RBXE3F683C135D146528CFA1FF1254CF5E0">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3695,7 +3695,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX22756984D8AC49429A518CA872B839D3">
+			<Item class="Texture" referent="RBX23282B0B5B8D4F39AA4CC2FD1FC582D6">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3715,7 +3715,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX2AF0D08B154341898815705FBE57B28E">
+			<Item class="Texture" referent="RBX08F8DC0EF32444E69D039BB8AF089330">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3735,7 +3735,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXBC6FA6A555604472B83215D452CADE6E">
+			<Item class="Texture" referent="RBXF9ED4DE8E395471583A5A0C62CAB37AC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3755,7 +3755,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX9A05FBCDAE58470FA04E28FEC7EA6CAC">
+			<Item class="Texture" referent="RBX0F71988A67754F34949AB379F1EE261F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3775,7 +3775,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE9A6EB37F1BF4787AE05C801E2E29619">
+			<Item class="Texture" referent="RBX7C575E164A3C4ECB9AF8F44AE4C59654">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3796,7 +3796,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX81BE6F861B4E428E9A55816959B42C34">
+		<Item class="Part" referent="RBXC5BBA1BBBDCA48E1B7AF56BE95F36E71">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -3877,7 +3877,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX4D375F65038540B8B4953E1E586981ED">
+			<Item class="Texture" referent="RBX5DFD4FD48D2544C4AC0FD233C2508A65">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3897,7 +3897,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB3E0743F8FCD4B9A86F962E6C2D4C672">
+			<Item class="Texture" referent="RBXDB3AA8BBE1E54DD0A405E6FA13CB6EE3">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3917,7 +3917,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX9ACFA63CD9D4442B9BF314C3019DA1FB">
+			<Item class="Texture" referent="RBX6DA39E74499C40D9994335F168FA7971">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3937,7 +3937,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5BE2A67D4DE04E49948FA9D12529681C">
+			<Item class="Texture" referent="RBXC8E81DDC229D4D43B5CA8F1939A2DA07">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3957,7 +3957,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXBD25ABEAF7FB490791D88AD091F81911">
+			<Item class="Texture" referent="RBX4FFE9598EF114F7F9E7A7B812BBC5DD9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3977,7 +3977,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX9B102FCA8EC449FA9D8313C2ACB1DFED">
+			<Item class="Texture" referent="RBX338FD38C8691417BBD40892B8E4D19AA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -3997,7 +3997,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF19712ABE36149FE987ADD58ABF3CAFC">
+			<Item class="Texture" referent="RBXF5FE8B76B32C4E0C91C650F71872DB08">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4018,7 +4018,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXE9BEEEC776B14850BB27A0EA8C22F4CA">
+		<Item class="Part" referent="RBX4FCE0E2079DF49CCB70AE07196D2B379">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -4099,7 +4099,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXCDD469F609A142CDAD8D3DF910E0995C">
+			<Item class="Texture" referent="RBX7D6520D7B6AC4BF683BD6EA5F7A8BFE5">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4119,7 +4119,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3CEAFE992FCC4F9D83D8BFFE07DE788F">
+			<Item class="Texture" referent="RBXB259EB8C54194FB3851C415629A18B7A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4139,7 +4139,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX79A66BDD46D04E09946227D13D059890">
+			<Item class="Texture" referent="RBX7014F8D90F5A4F89BD7BEF332D01727A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4159,7 +4159,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX4AEFD146DF1F46F6B4265DB38EE250E6">
+			<Item class="Texture" referent="RBX5EC338D4543D41D9AE936D0CBB4E65F5">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4179,7 +4179,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX34D4AF9FEEDE4BFEB49215CE82F853BA">
+			<Item class="Texture" referent="RBX96A105AD43544E338315C3CCEC41E1F2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4199,7 +4199,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXBCF5C28E99724F74931078DB570DB02A">
+			<Item class="Texture" referent="RBX2C82C64996B540869D65D7278A4E3A5C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4219,7 +4219,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3334CC699F1B41E498216387272762B5">
+			<Item class="Texture" referent="RBXF92CFFDD5A854716A005A3F16AC7BD96">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4240,7 +4240,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX6F2F54D4640340A781F8963AC175E9D0">
+		<Item class="Part" referent="RBX65F2A8E529F248ABB720132852E2D8CC">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -4321,7 +4321,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXC7A9847EB7B74E5E99CD3E8BA5E8BB97">
+			<Item class="Texture" referent="RBX2EAB2F3C499F460F89AA112DE764E9CE">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4341,7 +4341,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6B8FFBCF8DF44AE396F98F87FAB75938">
+			<Item class="Texture" referent="RBX5F31135BCF7F4FD88834AC47CB5C16A0">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4361,7 +4361,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC453491A7D6B44EC9C816A23E3B22277">
+			<Item class="Texture" referent="RBXD8BE03E87E7F4ADAB0CAC17D1AD741BB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4381,7 +4381,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX7E0372959683447180123C3296F13357">
+			<Item class="Texture" referent="RBX508B74C89895439B9053ECCDCED64B99">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4401,7 +4401,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX15B7AD7CC5724A25B903398E0B8CEF1C">
+			<Item class="Texture" referent="RBXD404663AA2454EB1AA1DD670EDB9DA9C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4421,7 +4421,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX697FAA85D0124CA7B2DC8C284F45AB90">
+			<Item class="Texture" referent="RBXCB0117030E724881B298591F608E4EBA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4441,7 +4441,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA0AE599AEA494849A684F4030B64A589">
+			<Item class="Texture" referent="RBX1DDC819B5EA442969F518E5DD5E1AC5E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4462,7 +4462,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX67801164C6214DF5A630F771E1E6AF25">
+		<Item class="Part" referent="RBXF8A32C93AF774106978F4FC3C8AF3D40">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -4543,7 +4543,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX623FC4F3633843249F7546D93A53CEA9">
+			<Item class="Texture" referent="RBX333FFC58A0344AFD863E4A66AA65D110">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4563,7 +4563,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC74D2C353DF34E1291483E2A0B62018D">
+			<Item class="Texture" referent="RBXED03612B3215456DACDC185673BF2285">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4583,7 +4583,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX110B00246A3C469394A0C5C026FF2DA4">
+			<Item class="Texture" referent="RBX77B517030DB74CA7BC380327A2551C34">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4603,7 +4603,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX7CD064A492644497A271385737633AC7">
+			<Item class="Texture" referent="RBXDA159CBA6C8949438593F9F35FB915DF">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4623,7 +4623,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6A626C84878443C0A76B115097F896B0">
+			<Item class="Texture" referent="RBX3158673D85D843609DFBF802F91BD27D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4643,7 +4643,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB9CBA9F36229409FA011FD06D7EA572B">
+			<Item class="Texture" referent="RBX3B49A4F57DE84D3C9C271F563B77938D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4663,7 +4663,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6E8D5211CC1A4E9083506EAAF217CBFE">
+			<Item class="Texture" referent="RBX6B26E408FF07476DAD7E8410EE153275">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4684,7 +4684,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX94C55A08484F4E518CDFBFB654030286">
+		<Item class="Part" referent="RBX329B24638B864D39B1E0D6DBD1AE5A16">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -4765,7 +4765,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX1436DB11141848C79252E0D2BA88FE10">
+			<Item class="Texture" referent="RBXD6D1F69221284B3DA1E02E5F28AF76AA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4785,7 +4785,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA855ADA98185495B82605911A73C5AE1">
+			<Item class="Texture" referent="RBX6B7D247786924CC0937E60220DF2FCE7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4805,7 +4805,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB12F9D5EEB224AE6AF73BCA5F4DB4815">
+			<Item class="Texture" referent="RBXD05E00D81CA24A789754020D9FEFA9E1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4825,7 +4825,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE195C990285345E09E1C6AA826CFE6A5">
+			<Item class="Texture" referent="RBX7D0322020F364E03A706ACC918541282">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4845,7 +4845,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD75B03483B9848C2AF817452B45C4D7B">
+			<Item class="Texture" referent="RBX0F78BB85F02C450D8EF5E034568407AC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4865,7 +4865,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX50603686EDE645BE882F3832121FD98C">
+			<Item class="Texture" referent="RBX7A2525DAE98E4A07A80480431F57F687">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4885,7 +4885,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE58A04BBC0094D7EAF4BAFFE26FF63D6">
+			<Item class="Texture" referent="RBX104D8E1D6A2647C0818E4B978B2C7D75">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -4906,7 +4906,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXA643CAE341544E94AFAFB6FA54D7F06A">
+		<Item class="Part" referent="RBX0AF394C5D2824BDAAC6215D472548853">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -4987,7 +4987,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX9B82CF6984FF4EF3896016D39E944C81">
+			<Item class="Texture" referent="RBX71F9B2DFAC914E5EBA7B9C1C94D55F01">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5007,7 +5007,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB80D29EC702C49E297785F005E8F53EE">
+			<Item class="Texture" referent="RBX5EF5968492654F8889D44C89B6495505">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5027,7 +5027,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5D6C07A2FA5F448DAB9118FC8870E3EF">
+			<Item class="Texture" referent="RBXAF2B97F6D7594D5F95DF0C0EA73F903B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5047,7 +5047,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX2F5867D75E924B7B9FCC35F34D6C362E">
+			<Item class="Texture" referent="RBXC28606BC76614E13BC53798FBCC46579">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5067,7 +5067,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX97B2558065C34EF3B73DCC0B0D962A10">
+			<Item class="Texture" referent="RBX961DE3381D1A4A17A31F26A9C4F50F66">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5087,7 +5087,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC911E2BA05764F71BC260E3DD1BDB971">
+			<Item class="Texture" referent="RBX9E390FDFA8084638A484E22BF50FB550">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5107,7 +5107,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX61DF5195956B4712A84655F7795E28C0">
+			<Item class="Texture" referent="RBX4577BDB1E47C4C3A9FC463F7D3E19A76">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5128,7 +5128,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX5825B65713A34F22AE9FE710BCD36CBC">
+		<Item class="Part" referent="RBXF23CB46AA0D9446582E2AF3271658A8A">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -5209,7 +5209,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX5D1D36BAB4394E4887BED34D964F0B86">
+			<Item class="Texture" referent="RBX3BB34D48EF4D41A081F5040D3DC046EB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5229,7 +5229,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX7669F3FAE97449B29133821BAF176C59">
+			<Item class="Texture" referent="RBX0274FED4E36848A9ACBD918060BB22A4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5249,7 +5249,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF1EE79A6EA9148C880DF1E723F2BF1AE">
+			<Item class="Texture" referent="RBXCE11235894A0432C888F5E16650AA99F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5269,7 +5269,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA920AE29E5C04F14819DC8C0C7BD2DA0">
+			<Item class="Texture" referent="RBX130DF56E6E8641E0A9D07B36A5E8AAAE">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5289,7 +5289,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC1A3B79B359A42D0BCE749DD2D7497F3">
+			<Item class="Texture" referent="RBXD4832D3C2D6C440890C97C5072713F5F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5309,7 +5309,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX0375B35FB84642DBB35BFBD1DF37F620">
+			<Item class="Texture" referent="RBX8AD008E1B911414185055BE8DF17E2E9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5329,7 +5329,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA5AED46F0CF84CA29090AB8DB8BD7CC5">
+			<Item class="Texture" referent="RBX21129C5A3EC347FF97E30EFE69D0D94D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5350,7 +5350,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX2F4F2248BA6A491E94FB858C0B7A3364">
+		<Item class="Part" referent="RBX416662A9EEBB49ED95131CE4496AB46D">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -5431,7 +5431,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX30D349E3DCDD42368F7FF1143F0AF95C">
+			<Item class="Texture" referent="RBX65E47B471B984D14B2F593DFCC291519">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5451,7 +5451,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA2DB389BA4FE4C659A35FE0101986997">
+			<Item class="Texture" referent="RBX88253A1CE3104F33A06B590F1D538168">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5471,7 +5471,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX61F1E4349A9E4FBD898353AF2306E6B7">
+			<Item class="Texture" referent="RBX29E28C08A4A5440F9DD3E2F32A551ACF">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5491,7 +5491,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF749865E78E14AC8B707B1F0E8DBDE60">
+			<Item class="Texture" referent="RBX7BB7D8D1D79B42A09654FAD4D6F817CC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5511,7 +5511,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX47830566AB484F3A950E1F9AB1AC0193">
+			<Item class="Texture" referent="RBXDAE2CF5768C44714B108EB8F8DDCD096">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5531,7 +5531,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX36013E0A06804F52AB073A8C422F5C3A">
+			<Item class="Texture" referent="RBX8870EB7E750B419AB1335F78B2B6EAF7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5551,7 +5551,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX98CA6361DBF24B7C9A8F4F49302C28D1">
+			<Item class="Texture" referent="RBX1BD4D9E3F1A64686A6AC0DF046F4078D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5572,7 +5572,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXE52678867F5A4EE48217F32E8A648CA3">
+		<Item class="Part" referent="RBX65D8306B16AE431FB206D73BC292B7FD">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -5653,7 +5653,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXC869A9F4E9CF4483B8CB0E1292267858">
+			<Item class="Texture" referent="RBX30A1339FB7F44BC9BBC5EBAD9579529E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5673,7 +5673,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX60DC95AF8F6E4FC8B37B5BB6DF479E19">
+			<Item class="Texture" referent="RBX86C33B05E0174B6784C6939D58512D41">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5693,7 +5693,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6DCEB4A78B03433BA5731FCD49F0E88A">
+			<Item class="Texture" referent="RBX6D3D2F6EA05947788CE7A037E9FECD65">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5713,7 +5713,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF7CD148CB054478AB646034ABD8165CA">
+			<Item class="Texture" referent="RBXE27A814DB44A40C98AF7A31A41E56E9D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5733,7 +5733,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC57760529F204E42B7B590CB2F39BA9D">
+			<Item class="Texture" referent="RBX0591529169474507B907F7E8206E8569">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5753,7 +5753,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXDACFC54FB67E46E8BE7E4065F7BFD3EB">
+			<Item class="Texture" referent="RBX7D58FD15B0074466B98736C48AEB3944">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5773,7 +5773,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX06E508A76AE14EC2BC97D26ED55854C2">
+			<Item class="Texture" referent="RBX244E618510B744D78C64F47291868034">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5794,7 +5794,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX362CDE91351E40C19FEA540565A72B7B">
+		<Item class="Part" referent="RBX1BD853941A784310A7484A3BDEEE6046">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -5875,7 +5875,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXE50DBA63C59149299C3BC5CEAB2B88A7">
+			<Item class="Texture" referent="RBXA33244705544414DADDBD59AF998AA2C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5895,7 +5895,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX90C8ADC1BE724626B366784F31788F45">
+			<Item class="Texture" referent="RBXEBE7F15A419C49AAB3298D0030B9511E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5915,7 +5915,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX0718D4C3BD1245418067A75637A1E9A4">
+			<Item class="Texture" referent="RBX7527479B927A43ADABEA4CAC9F7B4615">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5935,7 +5935,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3EEC0FB4672848D2906C2887DB501D07">
+			<Item class="Texture" referent="RBXA38E7649E65C4330998A9FA343726261">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5955,7 +5955,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXFDB93057073D43C58473FDD82B5B82FA">
+			<Item class="Texture" referent="RBXF7BAB936C1DD410B8BD1F4773BEB0565">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5975,7 +5975,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX065C09E875084AB1834E4480434BA84A">
+			<Item class="Texture" referent="RBX7F2DBB6D0A414DBCA0BCBD2366FDD95D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -5995,7 +5995,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5BAE7B4E17774FF19D2B4D7BFEFAAB53">
+			<Item class="Texture" referent="RBX5C20DF14B2974BF9AA410814C7631B85">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6016,7 +6016,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX017FEC18147048AC9653AFC12299703E">
+		<Item class="Part" referent="RBXC779788F094444DCAA79F4B348AB0724">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -6097,7 +6097,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXD93421319EFC4AAE903A754884F7CDFB">
+			<Item class="Texture" referent="RBX97ADEB791973419391A80C9EE2929B50">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6117,7 +6117,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX54172DDB16124E6D85FBCC59A3BEBC23">
+			<Item class="Texture" referent="RBXDB9F467A5F794EB39472E73BEA6E635D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6137,7 +6137,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF587697809F94640895DE3FF33CADD9F">
+			<Item class="Texture" referent="RBXADDDB11963DA4EB7AA51AE7DA9881471">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6157,7 +6157,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX1A5D7EC663784CBB9A0F52E2851D3486">
+			<Item class="Texture" referent="RBXDA4CBA48C68C49DFA73C3C36B5FFC0F0">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6177,7 +6177,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX061540A0E2B34A0B8AEA78300A7C5077">
+			<Item class="Texture" referent="RBX0B4D76E8758C45BCB99953D41892A947">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6197,7 +6197,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXEB05938D55FF4082B6A90583F1644653">
+			<Item class="Texture" referent="RBX5703E52D23064D46AA9EB54BD31F9901">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6217,7 +6217,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX06C8F48E99EB4B398E122E2AADAD901E">
+			<Item class="Texture" referent="RBX6BFD5143C937400D80A76B0B415D6E4F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6238,7 +6238,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXFEB802BD551F4944B2C15F35D246711C">
+		<Item class="Part" referent="RBX48EF54673D1C4F11AC3DEC906CAA7B01">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -6319,7 +6319,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX582B82A13D544394AAE08527DF65ADCE">
+			<Item class="Texture" referent="RBXBADE2F2498004DB3B37DED44E4822AB9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6339,7 +6339,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6061DD4AC29745AEA78AACF5DF49A0CD">
+			<Item class="Texture" referent="RBX3F6BBD955AFB45959C745D2C97FB1D8F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6359,7 +6359,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX85CB0EB873784C7183FB26F7E8EC578C">
+			<Item class="Texture" referent="RBX89D7C9FB4BF0465CAAFADF8E35AFC0BA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6379,7 +6379,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX931B0FA050EA475582C8B25D911FC222">
+			<Item class="Texture" referent="RBXC7502F76745E4D83B985E6739FF99619">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6399,7 +6399,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE8470709F3CE462385BE5A41A3983754">
+			<Item class="Texture" referent="RBX9658C67CEF774E5EA4CA94663E08AB0D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6419,7 +6419,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX97E331D55F2D408D8DF94E466A380D60">
+			<Item class="Texture" referent="RBXB73932A6A21942D9A2DC06277C2A7DC3">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6439,7 +6439,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX86E6712AB0734ACB8AAFD45CBD849D52">
+			<Item class="Texture" referent="RBX60086E72A5A14631BDD2C925470B351D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6460,7 +6460,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXCFF1504E866741BEA93FC74A02AA9DC3">
+		<Item class="Part" referent="RBX37E431E0D5D94DDA9E52A305A08511D0">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -6541,7 +6541,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXDE55BF8951554487A0E496B840B9BE4C">
+			<Item class="Texture" referent="RBX71AD5FE34A604667ACB3AC325F9877AE">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6561,7 +6561,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX60D378AC1A184B46A6E07591DDF864CB">
+			<Item class="Texture" referent="RBXF695230285EF42C1BE2A53BEE577F6A7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6581,7 +6581,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF86D4AA082804D73838E4EEAC6DDC185">
+			<Item class="Texture" referent="RBX43AE37D05F6240C08FAD93FC38AF4289">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6601,7 +6601,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6F2EA12E08EC46D2A91BC8D37101D7AB">
+			<Item class="Texture" referent="RBX0E3DF3F3AD8A4A548C19660C97D677C3">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6621,7 +6621,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX0B684CCBCF07453E8278728CD18788E4">
+			<Item class="Texture" referent="RBXC5D5CD36C6E84C14957EADA7D22E7CA2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6641,7 +6641,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA34D5A2A87D64D3CA685F5DB9246B9CB">
+			<Item class="Texture" referent="RBXCD133238AF0241AF8BE3D6C3246F4E4B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6661,7 +6661,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF17B5D810D11496F813AE4D49CF1DAE1">
+			<Item class="Texture" referent="RBXC73122A823ED4679A5A6198E5B7B2D2A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6682,7 +6682,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX9B70BFDE80F1491CA730CF5EF82FE9E2">
+		<Item class="Part" referent="RBX17E762F39FA94D69BE0C7BEFC7347CE8">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -6763,7 +6763,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX5BD3A141E00F47C5B20070000E70B992">
+			<Item class="Texture" referent="RBX97EE12FB1BEB4501B6958CE0669623DB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6783,7 +6783,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX21AF5C1E9FB4469080EF214470F2DF1C">
+			<Item class="Texture" referent="RBXD2F36B25D1E54BDDBEDBF84FB9DC842B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6803,7 +6803,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX00580A72CC76460393A87476C0D0885F">
+			<Item class="Texture" referent="RBX31D01583C82B42F0B230C56C6FDC4A6B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6823,7 +6823,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3A0C60059F3A40CCB8DB37A4FFC47F0C">
+			<Item class="Texture" referent="RBXF1B4237059C14D4BB313BF3222E6B7CC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6843,7 +6843,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX8A324C72A7A74BE0846D6D529267610F">
+			<Item class="Texture" referent="RBXC64DD92672AF46AB886ACDC5A9BD73E5">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6863,7 +6863,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX29116B40BB2F46149D5794ABDE0B4918">
+			<Item class="Texture" referent="RBXA541AD53FED442A49C08B4C39747262F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6883,7 +6883,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX1B0240F245C64141BFD45FD0C3CA8D3E">
+			<Item class="Texture" referent="RBX8088E6C377254413A6DA31B4B2B8D295">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -6904,7 +6904,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX1BCE8154E6A84EE69AECB8C8F02F2EDB">
+		<Item class="Part" referent="RBX0177239502CE43CD894A64506E335370">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -6985,7 +6985,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX4E5E7959A7D84366BB83F37CB7C3730A">
+			<Item class="Texture" referent="RBX6724FB1479F5408090E2D5422CFEE5EB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7005,7 +7005,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE1E83FA1A3C4477CA2E6BEEA1DDF8145">
+			<Item class="Texture" referent="RBX5A607EB5A11E4BE2995F2CDF8BBAFC20">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7025,7 +7025,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX692BA98A019B4439B5234A221F0F6770">
+			<Item class="Texture" referent="RBXD2CCDA9359D1402FBCBAF1B8AB4211BB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7045,7 +7045,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX02D63EC5C6694D04B8332661D508AA36">
+			<Item class="Texture" referent="RBXE4DF45FEFCD0423CB8B37288BB57BF91">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7065,7 +7065,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA27C9C6075814BA78AF21F4183221075">
+			<Item class="Texture" referent="RBX3675A458A76E4222A4ECF47241BA0B3C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7085,7 +7085,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX645ECCD079724752BF3DC116ED1B6725">
+			<Item class="Texture" referent="RBX35E649CF9A304552B2D0BC0FEF8FA039">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7105,7 +7105,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX36494A1DB3E94A52876A5833DCC3FE2E">
+			<Item class="Texture" referent="RBX0EF93CA17BF74BF6B54513C43C469288">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7126,7 +7126,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXEF3552FA1DD84124B2FE723103FACE5C">
+		<Item class="Part" referent="RBX0746B05298A249BAA4BE90C7B87FA932">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -7207,7 +7207,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX40855EA92639415596D737E647822166">
+			<Item class="Texture" referent="RBXB327AF5302F5459B94459505D468D2D7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7227,7 +7227,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX094F413F4EB84A6082F63E42DD5202E5">
+			<Item class="Texture" referent="RBXD44AAE01EDC2474EB501F9114DF1163F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7247,7 +7247,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXCFD758CE1BD943728CF7AEA694BCC714">
+			<Item class="Texture" referent="RBX2FD33AD58C5E48CB96BAD202B23292C2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7267,7 +7267,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX7A18D0552F9D4C368FCCF60A01D5A118">
+			<Item class="Texture" referent="RBX711EA8435329450B92CCC286ED0FAE0E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7287,7 +7287,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5511635D4E7D4C76A7E844A34F755ECB">
+			<Item class="Texture" referent="RBX5AE17987B770475080130D9D16EFF27A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7307,7 +7307,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX29F4497356AE4EE68B6778264AD48DFD">
+			<Item class="Texture" referent="RBX481A2D0140CD43BEA0E8F03C6C3583DB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7327,7 +7327,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX80778A3E0F914722A8861E513BA42FA1">
+			<Item class="Texture" referent="RBX0E9A426B6FAE463E95B31A02DA673578">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7348,7 +7348,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXA91BA57A2C2A48DEB7AB8D23FABFC079">
+		<Item class="Part" referent="RBXE8A28D798DCD4368A06914029495EE3E">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -7429,7 +7429,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXC4E157A3E84D4DF4ABD8BF56E4BFE5B6">
+			<Item class="Texture" referent="RBXC1AFF0930A3B47388F5DE81B493C49A9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7449,7 +7449,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF9F47CC8109D4BC0B6DE46CF6884F0BE">
+			<Item class="Texture" referent="RBX3C885B0579DF45F09E23503823324211">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7469,7 +7469,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX96D8C7E9BA134AA4A6DF90BAA699DCFE">
+			<Item class="Texture" referent="RBXDE909B26E4B147D3952BF573451E0F47">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7489,7 +7489,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF4DFF9486F4048A9BDCE1F4B0D4AFDD5">
+			<Item class="Texture" referent="RBXC987BB00504D4A7886ADD2F4586B0CFD">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7509,7 +7509,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX8A99B30ACC074C42BE19F07A50DD82FD">
+			<Item class="Texture" referent="RBX514C5A4D556E49A296EC5462ED88ECA5">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7529,7 +7529,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB8B619A7E6A74A58946F3FDB1ADE1D74">
+			<Item class="Texture" referent="RBX0C665E854FFE4C328B75552FE6083AA9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7549,7 +7549,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXBBADC572ACB345F3A5B1169DAC96CA7B">
+			<Item class="Texture" referent="RBXAD0A1D7D9F7542B4BBE9EE04ED7EFF0E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7570,7 +7570,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXF1A200AD3ECC4DC8915CF4B63CD17F50">
+		<Item class="Part" referent="RBX800B05F0025F4ACA91FAF38A3C682DAB">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -7651,7 +7651,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXCF3B0D5F01A3465C8B01C303C0B95132">
+			<Item class="Texture" referent="RBX581D3D4AD1B64018918CBB3AF59145C4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7671,7 +7671,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6B58692957CA41A9ADD8295CAEAFB474">
+			<Item class="Texture" referent="RBX823A08A6B72845ED93408BA00FCEEF8A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7691,7 +7691,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5B901851ECBF48419DE605831FEF806E">
+			<Item class="Texture" referent="RBX34CF10CF896647CEA78528C94ABA15BD">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7711,7 +7711,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX58022E73C9F34EB6873E59646936BB0B">
+			<Item class="Texture" referent="RBXB85445C70FA04272BFEEFD15473212BD">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7731,7 +7731,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA6F587F7593C405BBB521F1DF87553BD">
+			<Item class="Texture" referent="RBX71CE0A7C64AC4EDC9936726F66017511">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7751,7 +7751,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5713B4AE0EC741FF8F7EE75B06F03E64">
+			<Item class="Texture" referent="RBX701038C5DC324D1395097CBF74793D9B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7771,7 +7771,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF63DB61A3C2C465F92AB4EBB233CA3A7">
+			<Item class="Texture" referent="RBXB994AD035DDC4465BDC09FA403760723">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7792,7 +7792,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX3E42EA69F4D74E5FA4CCD5BE646CD10A">
+		<Item class="Part" referent="RBX03FCD3E0B9574B67B78C15D3E5FD1CA1">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -7873,7 +7873,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXCB186313961041B8BC204640AC40693C">
+			<Item class="Texture" referent="RBX7F7E4D996C0148F3B75C6D3D9706540E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7893,7 +7893,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE649BF1E4F6F41289736B8C5EDFB479C">
+			<Item class="Texture" referent="RBX1848C3C3E8154D9DA1EF727AC7AABF01">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7913,7 +7913,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX2810A730D48E466EA48B6AF5C7E528C0">
+			<Item class="Texture" referent="RBX69E9FD4B52DE407F8F0D9832290B2918">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7933,7 +7933,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXDAB97EEA2A7141F2A29086645E75DA2D">
+			<Item class="Texture" referent="RBX9EBBD6D093C14BE68E159504BD23ACE7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7953,7 +7953,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXBF884D91373745188ED1E4E665D38BE0">
+			<Item class="Texture" referent="RBX96AD4353831245A7AD90F3DA5DB899F5">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7973,7 +7973,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX9D3DDA48BE634F63A14CD26E041FAFAD">
+			<Item class="Texture" referent="RBXA0A2A0097CE444479DBEC51217B0451E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -7993,7 +7993,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3087861D6E8841C9AEC604B2F280B70C">
+			<Item class="Texture" referent="RBXF6F9E6631C8140CDAE28617C58CAE9A4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8014,7 +8014,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX5195530321784462BD509FA8B0E703F4">
+		<Item class="Part" referent="RBXC61C8FDE75B24BE3A1CF6AC3BE8E6EE2">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -8095,7 +8095,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXDABA8416A4E34D4B9ACF33DCBA0E7333">
+			<Item class="Texture" referent="RBXC863A8ED07EA4BAD8E858BDD3D96B5DD">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8115,7 +8115,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD3DB389A28DC4A63B38D04C0C1D2F445">
+			<Item class="Texture" referent="RBX797E8CFA53414C66A9EC58E1B13EA89E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8135,7 +8135,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF2D474D3AFAA484E90EB7E1E63173FCC">
+			<Item class="Texture" referent="RBX1B6F6F7DFE4B4F679647508D44EC031D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8155,7 +8155,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXDA22928A8D4742F39F8F832EA89D64FD">
+			<Item class="Texture" referent="RBXCBF13D1CFF804BD4BC611B8D851BE5BB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8175,7 +8175,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX8B752E0A1185421984109A8C83ACF4C8">
+			<Item class="Texture" referent="RBXECA976E8C69F446B927A6D94CE8B11A1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8195,7 +8195,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX7C66D65A0BD24952BE3CD206B8A363B3">
+			<Item class="Texture" referent="RBXF05805EE7771499C9C26D5EC268AC03F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8215,7 +8215,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB6C54D860D8F412BB0A0E7AE5B0EBF12">
+			<Item class="Texture" referent="RBXDAF7F38626874C70A79B78D328044BFA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8236,7 +8236,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX86E4A1CFF9BD4C7BBACA3E10CCB06ED6">
+		<Item class="Part" referent="RBXC13187AC70AA4A4BA487A56D8F9114F4">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -8317,7 +8317,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX67DD268AA8634470BBA2F4E797B525F2">
+			<Item class="Texture" referent="RBXDE2D976061084C6DB558DF1906B8A609">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8337,7 +8337,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXFCFD03D075334BA0AF0A3F345F3A2C4C">
+			<Item class="Texture" referent="RBX53F79965D45B460D99C76A3BF668271A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8357,7 +8357,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX67930EDEE22747A6952DDA5D41E3305D">
+			<Item class="Texture" referent="RBX387FB2BAAE9E4F67818A276149427503">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8377,7 +8377,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5F24CD556C23444F99D6591A1D8C6EE8">
+			<Item class="Texture" referent="RBXAFA1C435BDA1475098C63CDB74B2CE98">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8397,7 +8397,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX42F3CB774A2B4C2EA1F786B28E2E7F5C">
+			<Item class="Texture" referent="RBXA61CC1CCE4AC41DC94AE5A95764FB758">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8417,7 +8417,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXEDE0249A6B4C41668DCE03F15B1EACC7">
+			<Item class="Texture" referent="RBXA5359B96A0884617A5E1DA58E060C53B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8437,7 +8437,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXBD1D6E774D9C48189065CEEAB6566263">
+			<Item class="Texture" referent="RBXAC1EAE11004240F8B3665AC0FF8E7764">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8458,7 +8458,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXDA8A579D775E49B3958B7CB89152D465">
+		<Item class="Part" referent="RBXB8C8752AC41845BEB93AAB7AF697A998">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -8539,7 +8539,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXB2B35F8920E64BCCBD56BAC8E8DEF528">
+			<Item class="Texture" referent="RBX280210DCFC15442FA3F925A63E053AFA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8559,7 +8559,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX7EDC61A7178C45D09648F11E7398463B">
+			<Item class="Texture" referent="RBXF1780459668B481199F52732C8D3A2C7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8579,7 +8579,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX1F5BBD5E05BB40868DDD0F3D96E5820A">
+			<Item class="Texture" referent="RBXFBB5DF66A2494035AAD36B428323DC87">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8599,7 +8599,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD9BC865503CD4D2F8A2C72D6AAAEF95B">
+			<Item class="Texture" referent="RBX4F6BF728E21F45FF9E57B27CFA1AACC1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8619,7 +8619,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX00F122C8CB2D416AA2F63449DC3F8D2A">
+			<Item class="Texture" referent="RBXF6110192F0784FC0983D0228D491F102">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8639,7 +8639,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX4394FC27B884472C8C417EFA65BD5E49">
+			<Item class="Texture" referent="RBX35F9369BA44F495A9E7FA27BA5EB8CE8">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8659,7 +8659,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3DA3DF54FEA541EF8181C43414568950">
+			<Item class="Texture" referent="RBXE9C25FA6595E40AEAA0E80F97DE0A460">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8680,7 +8680,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX671AFE8815964156958B24EF0CEAC4A1">
+		<Item class="Part" referent="RBX3204E357521E4799A0C1DCA35F7C56E9">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -8761,7 +8761,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX3E4F303B2DF54625A60132C1CA0FAA76">
+			<Item class="Texture" referent="RBXEE4156B48D464E6FAC0D90973F95C6A9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8781,7 +8781,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD4739888DF444AF99680483A75969FCF">
+			<Item class="Texture" referent="RBXCA14D3BAECA54B94AC03E63EB954120A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8801,7 +8801,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE93736B147D445B0BE36B94D0EEB29ED">
+			<Item class="Texture" referent="RBX98FD0C8B31EC4357ADC36D4B8886AD26">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8821,7 +8821,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX1BDC14B034B34EE5B4559F14FCF1D190">
+			<Item class="Texture" referent="RBX43E84135414748FB88083F7D6505379E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8841,7 +8841,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX9F26B6F48B0E4B0A94696C53792F21EC">
+			<Item class="Texture" referent="RBX0CD595ABCA62477588BC99B6BEAE2917">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8861,7 +8861,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX5FEB012ECFCD4FE2B15C88B865883E1E">
+			<Item class="Texture" referent="RBX0CF4A672C371497F94A3D675AE8877CF">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8881,7 +8881,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX34B4DBF47B0F4B37B42F323951C70871">
+			<Item class="Texture" referent="RBXD2EB9378DE9F4FF5846F4F025DEB4924">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -8902,7 +8902,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX0714BA7794774DFF993EBC7873799705">
+		<Item class="Part" referent="RBX1C7F08A0A90241EFB01D9417EB0F34C3">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -8983,7 +8983,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX9DEE6E12A845497FBC3308C9F04647A0">
+			<Item class="Texture" referent="RBXDF66484CE6E34C1C8D8D9FC0095139C3">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9003,7 +9003,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX1A640B8386154412B21AA158E33F9CDD">
+			<Item class="Texture" referent="RBXB73FE1E2BF2B4207A09B7CBC82CBDF5D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9023,7 +9023,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXFD38DE9AA05942DD9D1DD64B58C7B69A">
+			<Item class="Texture" referent="RBX32362D172C254D6992331F45451FF6F3">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9043,7 +9043,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3406C10660094A9A8EF7A4526BBD7506">
+			<Item class="Texture" referent="RBX82696C95265540139966469CB4E4BE81">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9063,7 +9063,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE11B556746FF48C89825BF6A903DDD7C">
+			<Item class="Texture" referent="RBX6EC128BAB0A243B6B38E0DB10320D5C2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9083,7 +9083,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX24AEF5BE359D4001AAC8D74FB5A32561">
+			<Item class="Texture" referent="RBXCDB28637B096475794EF74AB5BFA0398">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9103,7 +9103,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF1353F02094642438B17E870FEB2147B">
+			<Item class="Texture" referent="RBXE3AD4544556F45E0B007C9509E862A9B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9124,7 +9124,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXD793E33E561C48DCB36C1B4AB8806354">
+		<Item class="Part" referent="RBXF68AC8B8C0184915986A841818C46E08">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -9205,7 +9205,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXC647D76D6CEE4A589EDF9594A36BCBDC">
+			<Item class="Texture" referent="RBX556DA7D0562F447FA0E8BF6DB00A6675">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9225,7 +9225,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX31734F452F0748868811A75596B5B31A">
+			<Item class="Texture" referent="RBX8250C62C12974E1F923CB72E3F5F7E93">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9245,7 +9245,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXAE59E60F792A4AAFBE610A0526D02EFB">
+			<Item class="Texture" referent="RBX425C3A56D3074C3A90D82E45D2A987E2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9265,7 +9265,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD7A4025828AF48D8B25E2F33C5E268A9">
+			<Item class="Texture" referent="RBX532993EA61D04DD893818C8D269FB7A4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9285,7 +9285,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX341AA5F505C64C72B7C0B2F7D9B12BE9">
+			<Item class="Texture" referent="RBXDFEAD40D05EE47548094A8DD9A9D6D36">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9305,7 +9305,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX64C9663A24904E4AB60CE0E959C49FDE">
+			<Item class="Texture" referent="RBX72C1AAD526B5410C801737C4001F1A74">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9325,7 +9325,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX985C15531B614CBC80DCA935F06B80B2">
+			<Item class="Texture" referent="RBXB08FF9B31EF341AE81E8F07A83CFC0A9">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9346,7 +9346,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX464B60389E5D4F4CBAEEFEE87F9F576D">
+		<Item class="Part" referent="RBXE941558A1EE34CD6AACB2358B7C5A666">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -9427,7 +9427,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX323BFFB24B3F4E20B20E527596DF923A">
+			<Item class="Texture" referent="RBXDC1147F4873E40F4AB664509FB50E9FC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9447,7 +9447,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA3882E0344A847DA8F4F0306B6CC35E3">
+			<Item class="Texture" referent="RBX1E9AD71071FF4935BD446562C2DA02C2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9467,7 +9467,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX1E4DEF72E12F42CC8D98D2D5D9084993">
+			<Item class="Texture" referent="RBX9D1120921F2D4686A9D470AD90D5F0C7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9487,7 +9487,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE69AC7EE290645C8B67426A86D94F6E0">
+			<Item class="Texture" referent="RBX472C792E12CA4836B9C30F6207B44B4B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9507,7 +9507,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX8059A046220E470DA542DE2CC9CB6941">
+			<Item class="Texture" referent="RBX2236C9BFFA7345E38391D4A9FC3D5009">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9527,7 +9527,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA13B8187419640A381D1A4C2E08DD3A7">
+			<Item class="Texture" referent="RBX31C00CE54BBC4AA093A45F183B041879">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9547,7 +9547,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXAA870A229672458A8DE514F6C4EEAF2A">
+			<Item class="Texture" referent="RBX0258F9EC2A8E45E7BB1AD0ED5BD276DC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9568,7 +9568,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXA3A223016219423DA97CD91DD2684619">
+		<Item class="Part" referent="RBX593DC5413A024A7C88B7A69D6F24AD68">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -9649,7 +9649,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX445FFCE4818449AD8D092E8195F58743">
+			<Item class="Texture" referent="RBXA69A3B82C8A14D93A1E665635861065B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9669,7 +9669,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX0B363E18B8D44A21B9AE65D5722E5200">
+			<Item class="Texture" referent="RBX061D0BB62A4543409ADA4FAB3EBBF5FD">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9689,7 +9689,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX0F8F559E7458485887ECE78A4969F504">
+			<Item class="Texture" referent="RBX3BF433BC163E4074AACF1C648363848A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9709,7 +9709,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX2BBF8E29CCA7417CBEE390A7068DE7B3">
+			<Item class="Texture" referent="RBX06FD65DD191F4AC7B3585B56856649F4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9729,7 +9729,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX244FBAA165A7406C9BF3436848488A9F">
+			<Item class="Texture" referent="RBXCF6AA9E98A874A548075EA88D8A15CDA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9749,7 +9749,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6C6305A0C8F3473B9BFA473126B589F1">
+			<Item class="Texture" referent="RBX28E7AFC8C6824BAE82D0B17AF8E93AA6">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9769,7 +9769,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXAC2D383BC3384772A31A3CB9B7A6B0E0">
+			<Item class="Texture" referent="RBX32DB337684F2403395997E10075C0060">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9790,7 +9790,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX51F4863AA42E470F8F5BACBBE91B96E3">
+		<Item class="Part" referent="RBX426128D7C36B422E875AA2C58C2D79A1">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -9871,7 +9871,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXF1B34455BE314441BAEB550EF6A0F887">
+			<Item class="Texture" referent="RBXE58895CCEFA441BDB13C9A5142F84E03">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9891,7 +9891,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6D890E2330E74E87BC110C5F295C339E">
+			<Item class="Texture" referent="RBX635B1EA9C2C84B549EF762B8FC69C148">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9911,7 +9911,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX55243245EC994B8C99C05A89EFB265E5">
+			<Item class="Texture" referent="RBX3DCEAB03AA5F48DA8BB216F3278FD7C7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9931,7 +9931,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX20EF41F4E5244DB3A118251AA2FC9F5A">
+			<Item class="Texture" referent="RBX0B948C5F51FC4CB29C79F4E67C1C9E6A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9951,7 +9951,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB8093EAF36BD43499515A7F91BCDCDF2">
+			<Item class="Texture" referent="RBXC055B2BC8EAB426897C5B862BF5A37AA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9971,7 +9971,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX391229F27B3D4CBB872909EDA0F8B3A0">
+			<Item class="Texture" referent="RBX404436BEFF3745E593CCCC9825240E29">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -9991,7 +9991,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC454973C3E8D43AF8C193A20FC616E80">
+			<Item class="Texture" referent="RBXC3AE1347D83544C4AF784831F778DC30">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10012,7 +10012,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX8FF3A484FF634E1AAEFF65567A03CAC6">
+		<Item class="Part" referent="RBX1F53AA32572342858BE82D3B0B7C4124">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -10093,7 +10093,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX101A9AC062DF4B8A83557BA4D15DECE1">
+			<Item class="Texture" referent="RBX7C0AC31BD4AD4D1081D612DE2599E0F7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10113,7 +10113,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX4DCC0A4D27FD4245B03AD3B2F9FEE223">
+			<Item class="Texture" referent="RBX9887143CEFE04B0EADC081EF9531BA1A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10133,7 +10133,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX7ABD161FBC62491F966E730027E9D07A">
+			<Item class="Texture" referent="RBX773763013B454539BC56D6C269F1A01C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10153,7 +10153,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD14570473FBA41B1B47C6FA5B469B1F1">
+			<Item class="Texture" referent="RBX7A6CE95BAA3B4E51B297F3D82509BEE4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10173,7 +10173,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX0E210A9EEBBF41049662578EDB9EFFF5">
+			<Item class="Texture" referent="RBX13E2C945561D4F148D01BAD18F67A2B0">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10193,7 +10193,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC976B1DED60441329FF04E9C4A1EB5B1">
+			<Item class="Texture" referent="RBX875EAF0A074145F7896BEF7481AA44E4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10213,7 +10213,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX4597F1630DD540929BFCD983C7C6E2A8">
+			<Item class="Texture" referent="RBX060A93FA6FEE4B649DAE30CB0B4394FB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10234,7 +10234,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXCC0DA1632C90416CB08A6B0567AD71EF">
+		<Item class="Part" referent="RBX22D30B24487C492685409BAB81B0463A">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -10315,7 +10315,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXA3BF50F889144CB3B9A4F1B7F5CA0396">
+			<Item class="Texture" referent="RBX6B3D004BC2C2457E81B03E7B4F2A0C76">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10335,7 +10335,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX32A38CBB18A94594BDC2BF3D0001E741">
+			<Item class="Texture" referent="RBX5324765A7EA04B2B8BAFFE60B9817753">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10355,7 +10355,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXCF238A4244B349D8975E123B11F118C2">
+			<Item class="Texture" referent="RBXD9FBB9ED01C043F493B1AF5A969ABF30">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10375,7 +10375,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX2B06E3E1438E469CBF1C998B2F2512DF">
+			<Item class="Texture" referent="RBXD954B6C9A65A4205947B89687468EE8A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10395,7 +10395,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX0CD94CE92468409E919ACD11AE711834">
+			<Item class="Texture" referent="RBX57FAFE71A7A64EA0A801AC50B1EE5AD5">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10415,7 +10415,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC80C1091E08D4179A3894F5B29F350A0">
+			<Item class="Texture" referent="RBX107A9EC261F44520A8AA3C780FA0D1D1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10435,7 +10435,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX76175A54593848BFBA94FEFEC5602604">
+			<Item class="Texture" referent="RBX7445F76767DD44F8B4AB9B9BF9B9C929">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10456,7 +10456,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX1938C26C0DFC48788AC3D55DAA01718C">
+		<Item class="Part" referent="RBXC7D7EE76E6524B52B6F9487503B23C0D">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -10537,7 +10537,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX6C1562E26B384F9AAB48FD3A9E439AF9">
+			<Item class="Texture" referent="RBXD2DC33239CB747219410E899CF7C3F27">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10557,7 +10557,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD59CBC6F8A0A486D8B2866B86EC9CAE3">
+			<Item class="Texture" referent="RBX582B6DB19A59460E9133D3E2B8009C76">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10577,7 +10577,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXEAE1323A191145DC8945CA15C5759B75">
+			<Item class="Texture" referent="RBX8C26B455902B4145947F67EE5E8A1A14">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10597,7 +10597,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX807A5E69428545279CF2943B546A1836">
+			<Item class="Texture" referent="RBX2D9837F0A378430DACCBA9740D495788">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10617,7 +10617,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX7F61D5EF6C554F22A8C008CC30818AAB">
+			<Item class="Texture" referent="RBX06E1E00DA1D84792863D9019894C60AC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10637,7 +10637,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXBF986F971A6F4FBF99D887D0220A6D51">
+			<Item class="Texture" referent="RBX16F0A90C8A3C454A8B37FFC11DADC93F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10657,7 +10657,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE5D43ED3939F41F6BB7A51EDD46A0105">
+			<Item class="Texture" referent="RBXD4A792F734EA411680F4FDB514B1A48F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10678,7 +10678,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX6ED6D2DBCABF41D9830DA6E73A79DCB1">
+		<Item class="Part" referent="RBX37F82E57393A4C3EB37BD2573ADD0D38">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -10759,7 +10759,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX7712E6D2E04C448995B247A1189E8D33">
+			<Item class="Texture" referent="RBXEB49C4EB841D48889DB85CDDA3A85C0C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10779,7 +10779,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX018A12F0F926419C85879D875A595D09">
+			<Item class="Texture" referent="RBX445A67447747439B8ED0A568518F077B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10799,7 +10799,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX8229623DEFBD4D45926F299EA91E35A3">
+			<Item class="Texture" referent="RBX8D9FA44926544D1393E6954BA2782A57">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10819,7 +10819,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX150BAB0D234F4951A2F1633EDE03F904">
+			<Item class="Texture" referent="RBXD648DC10487F4E198A7199E7A09C1478">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10839,7 +10839,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF9803137CB514489A7C49D01DD575265">
+			<Item class="Texture" referent="RBX0AE7DF3D346B42A280E17219F8B1CB3C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10859,7 +10859,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX3B34EEC1DBCE4D0A888AE6F8446E4423">
+			<Item class="Texture" referent="RBXD06B5D5B1ADD4925A49CB5252BC911A8">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10879,7 +10879,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX9277ED76F7BB4010AA5110C2526E4B70">
+			<Item class="Texture" referent="RBX59A0C582B7384577AB9F405DC0D0B207">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -10900,7 +10900,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXA86B4C1B636944A5A3253EC54593CB80">
+		<Item class="Part" referent="RBXA5C75F48B12741D89339EE888EF8A9D6">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -10981,7 +10981,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXF6638D9A020D4C56877310DB5545D310">
+			<Item class="Texture" referent="RBXA6A28A279AFC4C4995AD658FF48DC7C3">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11001,7 +11001,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXCEBEB636BB8E4D15A3CB5D5A13B08033">
+			<Item class="Texture" referent="RBXDA9458966F5B473691CC8FCE77848F06">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11021,7 +11021,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX54AE00998B3349FF9EEBE13CF71F1CAB">
+			<Item class="Texture" referent="RBX6ECF574815AF4BD5A27C45BD709C638D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11041,7 +11041,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX684E9D0E35F94623AA06035A53F16825">
+			<Item class="Texture" referent="RBX58ECAA72E5744CC68E69123ACCC7ADDB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11061,7 +11061,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX293ADA33366D4AA488F0849E3EE1C072">
+			<Item class="Texture" referent="RBXA79ED1A914664F74ABA34B4659B6093C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11081,7 +11081,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE918049EA5274E67B600A55B27145DBD">
+			<Item class="Texture" referent="RBXCD1D4D8D964B44BD96830BD655B2CB44">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11101,7 +11101,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX239E59E16EE74AAABF0A0BCBFFE32E48">
+			<Item class="Texture" referent="RBX7BB7AD41CA0E4740B7CFDE7163B7CBF7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11122,7 +11122,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX8E83EE07235D48329AF54322E93FF986">
+		<Item class="Part" referent="RBXBB3BCFAAAD1C4F0F86ACFF3570F558F4">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -11203,7 +11203,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXE74E42FBFCA343E08113F021E3811BF7">
+			<Item class="Texture" referent="RBXD846275EFF28453EAA8BC6505339D662">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11223,7 +11223,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB2F4983A736B4CBC9D588B74D06EB6B7">
+			<Item class="Texture" referent="RBX2CDAB4DB29BA49E28A4A88B1BB300DF1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11243,7 +11243,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXA7FAF4ED48BB41E18A1019FCAE94283D">
+			<Item class="Texture" referent="RBX03291DB1898D4F7BB1B98A158EB220A2">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11263,7 +11263,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX4D010A50435F4DA98930A5AB326C9E7A">
+			<Item class="Texture" referent="RBXA95FBB71BF0547A4B5448E47B3680EC5">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11283,7 +11283,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX46C537BBEE664C6FAF8D60770EC2B9DB">
+			<Item class="Texture" referent="RBXF4E50CD3F2BA4B1B9432A21B5D2F91B6">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11303,7 +11303,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE65BA57641BB4105A1DB9AFA0EFEF4EE">
+			<Item class="Texture" referent="RBXC94F604CE50140E5B02C1040E499EA7E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11323,7 +11323,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX2AAAE1AFFCB1461BBDD6FAD0BAD7C917">
+			<Item class="Texture" referent="RBX1A3B495878B8473E8583527B6A9850D1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11344,7 +11344,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX561E91F83A744A958FA30FBDFF1CAD90">
+		<Item class="Part" referent="RBX5A9F26DA795D4A349EAA1363D13FD967">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -11425,7 +11425,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXCBAC329C2A344974835A5AFF39A50B51">
+			<Item class="Texture" referent="RBX345BBEC64738494586E71E1C6C8DF2C8">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11445,7 +11445,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX64764E85BA234CFAA04EE8A8FA48A37B">
+			<Item class="Texture" referent="RBX2D7CCB8055004784B40B05155D5F15FC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11465,7 +11465,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX949E6F028CEE4DC4AD5776BBC37D4F27">
+			<Item class="Texture" referent="RBXC4E0F0B132094868BCAB55B912C797A7">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11485,7 +11485,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX70B03C5A565E4620BE4576D56A7831E7">
+			<Item class="Texture" referent="RBXE925980AB4614A458F82BE30EC3726ED">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11505,7 +11505,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX620F7EA1EAA54477B42BD8C1C1C15244">
+			<Item class="Texture" referent="RBX0BE470144F484F12B4ED239F6A868148">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11525,7 +11525,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD717E10D641043459B597C7F3D7D75B0">
+			<Item class="Texture" referent="RBXD2F41D5EA0AA423FACF87F6DD452738C">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11545,7 +11545,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX4C5DA729C2FB4A58BE7875DF4658C38D">
+			<Item class="Texture" referent="RBXC3FF6A1FA816469A85DA9F0DD66AC177">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11566,7 +11566,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX1C73C971DC6B4F8EB43B630FB6216D73">
+		<Item class="Part" referent="RBX7B8641D5B8F040B1A58E3A6E2E496EA1">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -11647,7 +11647,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX78C13BB8B063408093CD995459A1CE0C">
+			<Item class="Texture" referent="RBXDFD940A645CC4D299512A03DC483D6EC">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11667,7 +11667,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD0D0D53CA6404AC6B90DCC24C40FA176">
+			<Item class="Texture" referent="RBXD2751D4080EE44879C02D4DEF9F293DE">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11687,7 +11687,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXCCEA0548FF134BA5813BDB6D6F36E18F">
+			<Item class="Texture" referent="RBXBD463452187740E6808EC0F961BAE758">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11707,7 +11707,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXFC1A330A40C443A8A7DDF31CD0A19A1F">
+			<Item class="Texture" referent="RBX56511C6638FF4AFB835678244C3471A8">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11727,7 +11727,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXB48FDEFEA74B4DECBA25215D942451D9">
+			<Item class="Texture" referent="RBX35CF2196F9C44200BE123A928F98CD61">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11747,7 +11747,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX83D8D6EB10584208A16E84817719499E">
+			<Item class="Texture" referent="RBX8A27D98D7CD4486D9412DDFD807A4CC1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11767,7 +11767,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXCF1A0CA1464343CDADF83046B3B2062F">
+			<Item class="Texture" referent="RBXFF41A78C64784BE1AEED2219379BA6BD">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11788,7 +11788,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX0B91411428B14E15B3734AF281CBB0DB">
+		<Item class="Part" referent="RBXE8BB84E3A76848F7A2140A68750B1C70">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -11869,7 +11869,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBX2B76C313312B4FC69E4B79D04457C39B">
+			<Item class="Texture" referent="RBX7CE6D1D0960145F6948981D85844426B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11889,7 +11889,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX93A55D4F40A54FD6A0F5EDDFFD727E9F">
+			<Item class="Texture" referent="RBX3099EFB03D6F4A75A1DFBF8F4EAA6246">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11909,7 +11909,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX90573A20F7034D45B1B683892C126BC1">
+			<Item class="Texture" referent="RBX4C0AFEE426864BF0BAE2DE9ADF094192">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11929,7 +11929,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXEAA137BA7D4245AEA0B699CFBEEB447A">
+			<Item class="Texture" referent="RBXFE9B13EBE26D411A9CD0613BCCFE096F">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11949,7 +11949,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXAE9B1EE780E343E194593FE0A97444EB">
+			<Item class="Texture" referent="RBXB234CF35D9484CD18498EF4FA2D1930D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11969,7 +11969,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX63D19A11AE9246A2A6A1253C23439823">
+			<Item class="Texture" referent="RBX79629F0CD38247AA82A5ED30226D68FD">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -11989,7 +11989,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXEC024F1A5BC648359AB84396CF8BC6AA">
+			<Item class="Texture" referent="RBX89CA48E08B1A42E0A599EAD12BD2B51E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12010,7 +12010,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBXFC919F7EB8DD403BBD4EE6F44E00B832">
+		<Item class="Part" referent="RBX4A64EDC79CF54D43BCE891DD4DA888F9">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -12091,7 +12091,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXBF28AB36A9504AD19C85112D10708543">
+			<Item class="Texture" referent="RBXA73A7FCA29BC475BAC15A521A6DE1B88">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12111,7 +12111,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF94A812536C849DD95524065E3BA9137">
+			<Item class="Texture" referent="RBXD08BA2140F0A49ED923BD61CA87E2642">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12131,7 +12131,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX307B1342E99C47A895CAAED8B718C08D">
+			<Item class="Texture" referent="RBX23F70000F8CF488FBAA9843EA21932B5">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12151,7 +12151,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX29FB4CDEF75E4DB9A04906BCBF5039CB">
+			<Item class="Texture" referent="RBX74DBECE0D3B244E180057F82E546024D">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12171,7 +12171,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXE23B7B3C64D149BD83569EA300AED988">
+			<Item class="Texture" referent="RBX584AD1828F47474E8B78A48D00E30D28">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12191,7 +12191,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX6B39BD5975414E5286BAD3CB21A50EB3">
+			<Item class="Texture" referent="RBX6A73CC88F7DE447A853C598DE009ECC4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12211,7 +12211,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX37C71F5D39734D33ACA394359FD6B9D9">
+			<Item class="Texture" referent="RBXB1AC757198D340C19BFC4BEE54A95FFD">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12232,7 +12232,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX39EE04DE05A449378401F7CDCA6FABF4">
+		<Item class="Part" referent="RBX9D17AF9FD8B44C1FADFD8A6DCA7D0120">
 			<Properties>
 				<bool name="Anchored">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -12313,7 +12313,7 @@
 					<Z>4</Z>
 				</Vector3>
 			</Properties>
-			<Item class="Texture" referent="RBXB1656CE91836415BAE6B539AE7895DB3">
+			<Item class="Texture" referent="RBXF270787D701F42A49DF66C0D41610179">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12333,7 +12333,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXC0BD9DC5FC77439DA50833CA4BE35028">
+			<Item class="Texture" referent="RBX4C00B535262B40A190F70E948CF513DE">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12353,7 +12353,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX696D5B081AE24F6F8D84ADCCDC7AEA8E">
+			<Item class="Texture" referent="RBX60521686304945F0A13A04231F495F93">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12373,7 +12373,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXD6612EF03F444C7F8B477A79AA635354">
+			<Item class="Texture" referent="RBX522453E9EDE7447694472AC4E1805BC1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12393,7 +12393,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXF965DE82EC18480497900EA8616CAB1F">
+			<Item class="Texture" referent="RBX159EBAB8B1254D33B13F47A7371EB2B1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12413,7 +12413,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBXFAB15372BC464296BD9B16622D74F3B4">
+			<Item class="Texture" referent="RBXF4292BC4AFE04CD6BFD1EFE3EA6BF735">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
@@ -12433,7 +12433,7 @@
 					<float name="Transparency">0.75</float>
 				</Properties>
 			</Item>
-			<Item class="Texture" referent="RBX71006C4077AA452D9E4D0730DBD9F0E1">
+			<Item class="Texture" referent="RBXC612509D570A4213BEC2AB555370C36B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<Color3 name="Color3">
