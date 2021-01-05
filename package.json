@@ -18,12 +18,17 @@
   },
   "scripts": {
     "rojo": "start cmd.exe /C rojo serve",
-    "remodel": "remodel run add-models.lua",
-    "compile": "rbxtsc",
+    "rojo:packed": "start cmd.exe /C  rojo serve packed.project.json",
     "rojo:build": "rojo build -o dist/WorldTemplate.rbxlx",
+    "rojo:build:packed": "rojo build -o dist/WorldTemplate.rbxlx packed.project.json",
+    "remodel": "remodel run add-models.lua",
+    "remodel:packed": "remodel run add-models.lua packed",
+    "compile": "rbxtsc",
     "build": "npm run rojo:build && npm run remodel",
+    "build:packed": "npm run rojo:build:packed && npm run remodel:packed",
     "test:build": "npm run compile && npm run build",
     "test:serve": "npm run compile && npm run rojo",
+    "test:build:packed": "npm run compile && npm run build:packed",
     "eslint:fix": "eslint src --fix"
   },
   "devDependencies": {

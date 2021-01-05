@@ -1,0 +1,57 @@
+{
+	"name": "roblox-ts-game",
+	"tree": {
+		"$className": "DataModel",
+		"ReplciatedStorage": {
+			"$className": "ReplicatedStorage",
+			"Resources": {
+				"$className": "Folder",
+				"ServerScriptService": {
+					"$className": "Folder",
+					"TS": {
+						"$path": "out/server"
+					}
+				},
+				"ReplicatedStorage": {
+					"$className": "Folder",
+					"rbxts_include": {
+						"$path": "include",
+						"node_modules": {
+							"$path": "node_modules/@rbxts"
+						}
+					},
+					"TS": {
+						"$path": "out/shared"
+					}
+				},
+				"StarterPlayer": {
+					"$className": "Folder",
+					"StarterPlayerScripts": {
+						"$className": "Folder",
+						"TS": {
+							"$path": "out/client"
+						}
+					}
+				}
+			}
+		},
+		"Workspace": {
+			"$className": "Workspace",
+			"$properties": {
+				"FilteringEnabled": true
+			}
+		},				
+		"HttpService": {
+			"$className": "HttpService",
+			"$properties": {
+				"HttpEnabled": true
+			}
+		},
+		"SoundService": {
+			"$className": "SoundService",
+			"$properties": {
+				"RespectFilteringEnabled": true
+			}
+		}
+	}
+}
