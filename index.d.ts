@@ -50,21 +50,11 @@ declare enum Shapes {
 
 declare interface ReplicatedStorage {
 	BlockTypes: Folder & { [P in keyof typeof Shapes]: BasePart };
+	Template: Folder;
 }
 
 declare interface Workspace {
-	Blocks: Folder & BasePart[];
-}
-
-declare interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
-	/**
-	 * Values that will be displayed in Dropdown
-	 **/
-	Items: T[];
-	/**
-	 * Returns actual value from string passed.
-	 **/
-	GetValue: (value: V) => T;
+	Blocks: Folder;
 }
 
 declare interface Item {
@@ -159,4 +149,15 @@ declare interface PlacementSettings {
 
 declare interface IState {
 	PlacementSettings: PlacementSettings;
+}
+
+declare interface WorldInfo {
+	WorldId: number;
+	Name: string;
+	Owner: number;
+	Banned: number[];
+	Server: string;
+	MaxPlayers: number;
+	ActivePlayers: number;
+	Blocks: string;
 }

@@ -86,7 +86,7 @@ class BuildHandler {
 
 				block.Parent = Workspace.Blocks;
 
-				placeBlock.CallServer(placePosition, orientation, placementSettings);
+				placeBlock.GetInstance().InvokeServer(placePosition, orientation, placementSettings);
 
 				block.Destroy();
 			}

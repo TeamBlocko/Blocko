@@ -21,6 +21,8 @@ const shapes = ReplicatedStorage.BlockTypes;
 const placeBlock = new ServerFunction("PlaceBlock", t.Vector3, t.Vector3, placementSettings);
 const deleteBlock = new ServerFunction("DeleteBlock", t.instanceIsA("BasePart"));
 
+placeBlock.SetRateLimit(100);
+placeBlock.SetClientCache(0);
 placeBlock.SetCallback((_, placePosition, orientation, settings) => {
 	if (settings.Shape.IsDescendantOf(shapes)) {
 		const block = settings.Shape.Clone();
