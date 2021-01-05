@@ -1,7 +1,7 @@
 import { ReplicatedStorage } from "@rbxts/services";
 import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
-import { updateProperty } from "client/rodux/placementSettings";
+import { updateProperty, updateSetting } from "client/rodux/placementSettings";
 import ElementSeperator from "./misc/ElementSperator";
 import Dropdown from "./GraphicalWidget/Dropdown";
 import Slider from "./GraphicalWidget/Slider";
@@ -106,6 +106,13 @@ export default connect(
 				dispatch(
 					updateProperty({
 						propertyName,
+						value,
+					}),
+				);
+			} else if (propertyName === "Shape" && typeIs(value, "Instance") && value.IsA("BasePart")) {
+				dispatch(
+					updateSetting({
+						settingName: propertyName,
 						value,
 					}),
 				);

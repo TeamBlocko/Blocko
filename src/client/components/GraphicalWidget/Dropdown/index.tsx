@@ -5,13 +5,39 @@ import GWFrame from "client/components/misc/GWFrame";
 import DropdownButton from "./DropdownButton";
 import ItemList from "./ItemList";
 
-class Dropdown<T extends Item, V extends string> extends Component<
-	DropdownPropTypes<T, V>,
-	GWStateTypes<T> & { Expanded: boolean }
-> {
+interface DropdownStateTypes<T> extends GWStateTypes<T> {
+	Expanded: boolean;
+}
+
+interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
+	/**
+	 * Values that will be displayed in Dropdown
+	 **/
+	Items: T[];
+	/**
+	 * Returns actual value from string passed.
+	 **/
+	GetValue: (value: V) => T;
+}
+
+class Dropdown<T extends Item, V extends string> extends Component<DropdownPropTypes<T, V>, DropdownStateTypes<T>> {
 	private motor: SingleMotor;
 	private binding: RoactBinding<number>;
 	private setBinding: RoactBindingFunc<number>;
+
+	public getDerivedStateFromProps = (
+		nextProps: DropdownPropTypes<T, V>,
+		currState: DropdownStateTypes<T>,
+	): DropdownStateTypes<T> => {
+		if (nextProps.Default !== currState.Value) {
+			return {
+				Expanded: currState.Expanded,
+				Value: nextProps.Default,
+			};
+		} else {
+			return currState;
+		}
+	};
 
 	constructor(props: DropdownPropTypes<T, V>) {
 		super(props);
@@ -26,6 +52,14 @@ class Dropdown<T extends Item, V extends string> extends Component<
 		});
 	}
 
+	shouldUpdate(nextProps: DropdownPropTypes<T, V>, nextState: DropdownStateTypes<T>) {
+		const shouldUpdate = nextProps.Default.Name !== this.props.Default.Name || nextState.Value.Name !== this.state.Value.Name;
+		if (shouldUpdate) {
+			this.state.Value = nextProps.Default;
+		}
+		return shouldUpdate;
+	}
+
 	render() {
 		return (
 			<GWFrame Name={this.props.Name} LayoutOrder={this.props.LayoutOrder} SizeOffsetY={25}>
@@ -38,12 +72,10 @@ class Dropdown<T extends Item, V extends string> extends Component<
 						Activated: (e) => {
 							const newValue = this.props.GetValue(e.Name as V);
 							this.props.OnChange(newValue);
-							this.setState((oldState) => {
-								return {
-									...oldState,
-									Value: newValue,
-								};
-							});
+							this.setState((oldState) => ({
+								...oldState,
+								Value: newValue,
+							}));
 						},
 					}}
 				/>
