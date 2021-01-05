@@ -11,6 +11,8 @@ class Serializer {
 			return value;
 		} else if (typeIs(value, "number") && (typeIs(secondParam, "number") || typeIs(secondParam, "nil"))) {
 			return secondParam !== undefined ? `%.${secondParam}f`.format(value) : tostring(value);
+		} else if (typeIs(value, "boolean")) {
+			return value ? "1" : "0";
 		} else if (typeIs(value, "EnumItem")) {
 			return `${value.Value}`;
 		} else if (typeIs(value, "Color3")) {
@@ -18,7 +20,7 @@ class Serializer {
 		} else if (typeIs(value, "Vector3")) {
 			return `${value.X},${value.Y},${value.Z}`;
 		} else {
-			warn(`No implmented serializer for value of type ${value}`);
+			warn(`No implmented serializer for value of type ${typeOf(value)}`);
 			return tostring(value);
 		}
 	}
@@ -35,6 +37,8 @@ class Serializer {
 			return value;
 		} else if (type === "number") {
 			return tonumber(value);
+		} else if (type === "boolean") {
+			return value === "1" ? true : false;
 		} else if (type === "EnumItem") {
 			return value;
 		} else if (type === "Color3") {
@@ -42,6 +46,7 @@ class Serializer {
 		} else if (type === "Vector3") {
 			return new Vector3(...value.split(",").map((value) => tonumber(value) as number));
 		} else {
+			warn(`No implmented deserializer for value of type ${type}`);
 			return value;
 		}
 	}
