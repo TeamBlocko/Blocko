@@ -2,8 +2,8 @@
 	"name": "roblox-ts-game",
 	"tree": {
 		"$className": "DataModel",
-		"ReplciatedStorage": {
-			"$className": "ReplicatedStorage",
+		"ServerStorage": {
+			"$className": "ServerStorage",
 			"Resources": {
 				"$className": "Folder",
 				"ServerScriptService": {
