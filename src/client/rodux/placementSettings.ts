@@ -61,7 +61,7 @@ export const placementSettingsReducer = createReducer<PlacementSettings, Placeme
 		[ActionTypes.UPDATE_SETTINGS]: (state, action) => {
 			const newState = deepCopy(state);
 
-			newState[action.data.settingName] = action.data.value as BasePart & RawProperties;
+			newState[action.data.settingName] = action.data.value as BasePart & RawProperties & BuildMode;
 
 			return newState;
 		},

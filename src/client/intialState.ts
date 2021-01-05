@@ -4,6 +4,7 @@ const shapes = ReplicatedStorage.BlockTypes;
 
 export const intialPlacementSettings: PlacementSettings = {
 	Shape: shapes.Block,
+	BuildMode: "Spectate",
 	RawProperties: {
 		Material: Enum.Material.Plastic,
 		Anchored: true,

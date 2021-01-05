@@ -1,9 +1,10 @@
 import Roact from "@rbxts/roact";
+import { connect } from "@rbxts/roact-rodux";
 import { DragFrame, DragDropProvider } from "@rbxts/roact-dnd";
 import GWContainer from "./GWContainer";
 import DragDropContext from "client/dragDropContext";
 
-function BuildUI() {
+function BuildUI(props: PlacementSettings) {
 	return (
 		<DragDropProvider context={DragDropContext}>
 			<DragFrame
@@ -16,6 +17,7 @@ function BuildUI() {
 				Position={UDim2.fromScale(0.2, 0.5)}
 				Size={UDim2.fromOffset(225, 300)}
 				DragConstraint="Viewport"
+				Visible={props.BuildMode === "Place"}
 			>
 				<uicorner CornerRadius={new UDim(0, 10)} />
 				<GWContainer />
@@ -24,4 +26,4 @@ function BuildUI() {
 	);
 }
 
-export default BuildUI;
+export default connect((state: IState) => state.PlacementSettings)(BuildUI);

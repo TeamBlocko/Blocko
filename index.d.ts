@@ -144,6 +144,7 @@ declare interface RawProperties {
 
 declare interface PlacementSettings {
 	Shape: BasePart;
+	BuildMode: BuildMode;
 	RawProperties: RawProperties;
 }
 
@@ -161,3 +162,5 @@ declare interface WorldInfo {
 	ActivePlayers: number;
 	Blocks: string;
 }
+
+declare type BuildMode = "Spectate" | "Place" | "Delete"

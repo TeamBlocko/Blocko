@@ -1,6 +1,8 @@
 import { Workspace, ReplicatedStorage, UserInputService, RunService, TweenService, Players } from "@rbxts/services";
+import store from "client/store";
 import GridBase from "./GridBase";
 import BuildHandle from "./BuildHandle";
+import { updateSetting } from "client/rodux/placementSettings";
 
 const client = Players.LocalPlayer;
 const playerGui = client.WaitForChild("PlayerGui");
@@ -17,12 +19,20 @@ const gridBase = new GridBase({
 });
 const buildHandle = new BuildHandle(gridBase, shapes);
 
-let mode: "Spectate" | "Place" | "Delete" = "Spectate";
 const tweenInfo = new TweenInfo(0.1, Enum.EasingStyle.Quint);
+
+function updateMode(newMode: BuildMode) {
+	store.dispatch(
+		updateSetting({
+			settingName: "BuildMode",
+			value: newMode,
+		})
+	)
+}
 
 RunService.RenderStepped.Connect(() => {
 	const target = gridBase.mouseTarget();
-	switch (mode) {
+	switch (store.getState().PlacementSettings.BuildMode) {
 		case "Place":
 			if (target !== undefined) {
 				buildHandle.ghostPart.Parent = Workspace;
@@ -35,6 +45,8 @@ RunService.RenderStepped.Connect(() => {
 				tween.Completed.Wait();
 				tween.Destroy();
 				//buildHandle.placeOutline.Adornee = undefined;
+			} else {
+				buildHandle.ghostPart.Parent = undefined;
 			}
 			break;
 		case "Delete":
@@ -44,22 +56,22 @@ RunService.RenderStepped.Connect(() => {
 });
 
 UserInputService.InputBegan.Connect((input, gameProcessed) => {
+	const mode = store.getState().PlacementSettings.BuildMode;
 	if (gameProcessed) return;
 	switch (input.KeyCode) {
 		case Enum.KeyCode.Q:
 			switch (mode) {
 				case "Spectate":
-					mode = "Place";
+					updateMode("Place");
 					buildHandle.updateGhostPart();
 					break;
 				case "Place":
-					mode = "Delete";
+					updateMode("Delete");
 					break;
 				case "Delete":
-					mode = "Spectate";
+					updateMode("Spectate");
 					break;
 			}
-			print(mode);
 		case Enum.KeyCode.R:
 			gridBase.rotate();
 			break;
@@ -83,3 +95,5 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 		}
 	}
 });
+
+store.changed.connect(() => buildHandle.updateGhostPart());
