@@ -53,7 +53,7 @@ class Dropdown<T extends Item, V extends string> extends Component<DropdownPropT
 	}
 
 	shouldUpdate(nextProps: DropdownPropTypes<T, V>, nextState: DropdownStateTypes<T>) {
-		const shouldUpdate = nextProps.Default.Name !== this.props.Default.Name || nextState.Value.Name !== this.state.Value.Name;
+		const shouldUpdate = nextProps.Default.Name !== this.props.Default.Name || nextState !== this.state;
 		if (shouldUpdate) {
 			this.state.Value = nextProps.Default;
 		}
