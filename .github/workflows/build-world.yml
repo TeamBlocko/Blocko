@@ -32,6 +32,7 @@ jobs:
       - run: npm ci
         env:
           CI: true
+      - run: mkdir dist
 
       - name: get-npm-version
         id: package-version
@@ -54,16 +55,10 @@ jobs:
           prerelease: false
           body: |
             This release contains version ${{ steps.package-version.outputs.current-version}} of World Template.
-      - name: Build Project
-        run: |
-          rbxtsc
-          foreman -V
-          mkdir dist
-          rojo -V
-          rojo build -o dist/WorldTemplate.rbxlx
-          remodel run add-models.lua
+      - name: Build Project Unpacked
+        run: npm run project:build
 
-      - name: Upload .rbxlx
+      - name: Upload .rbxlx (unpacked)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -71,4 +66,17 @@ jobs:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
           asset_path: dist/WorldTemplate.rbxlx
           asset_name: WorldTemplate.rbxlx
+          asset_content_type: application/xml
+
+      - name: Build Project (packed)
+        run: npm run project:build:packed
+
+      - name: Upload .rbxlx unpacked
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: dist/WorldTemplate.rbxlx
+          asset_name: WorldTemplate (Packed).rbxlx
           asset_content_type: application/xml

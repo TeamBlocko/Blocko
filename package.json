@@ -14,7 +14,7 @@
     "@rbxts/roact-rodux": "^0.1.2",
     "@rbxts/rodux": "^1.1.0",
     "@rbxts/services": "^1.1.2",
-    "@rbxts/t": "^2.1.0"
+    "@rbxts/t": "^2.1.1"
   },
   "scripts": {
     "rojo": "start cmd.exe /C rojo serve",
@@ -26,9 +26,9 @@
     "compile": "rbxtsc",
     "build": "npm run rojo:build && npm run remodel",
     "build:packed": "npm run rojo:build:packed && npm run remodel:packed",
-    "test:build": "npm run compile && npm run build",
-    "test:serve": "npm run compile && npm run rojo",
-    "test:build:packed": "npm run compile && npm run build:packed",
+    "project:build": "npm run compile && npm run build",
+    "project:serve": "npm run compile && npm run rojo",
+    "project:build:packed": "npm run compile && npm run build:packed",
     "eslint:fix": "eslint src --fix"
   },
   "devDependencies": {
