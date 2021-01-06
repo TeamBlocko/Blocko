@@ -7,7 +7,7 @@ import WorldMenu from "./WorldMenu";
 function MainUI() {
 	return (
 		<StoreProvider store={store}>
-			<screengui ResetOnSpawn={false} ZIndexBehavior={Enum.ZIndexBehavior.Sibling}>
+			<screengui ResetOnSpawn={false} ZIndexBehavior={Enum.ZIndexBehavior.Sibling} IgnoreGuiInset={true}>
 				<BuildUI />
 				<WorldMenu />
 			</screengui>
