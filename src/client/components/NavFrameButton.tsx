@@ -49,7 +49,7 @@ function NavFrameButton(props: NavFrameButtonPropTypes) {
 				Padding={new UDim(0, 25)}
 			/>
 		</textbutton>
-	)
+	);
 }
 
 export default NavFrameButton;

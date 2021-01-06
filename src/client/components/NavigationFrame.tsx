@@ -34,9 +34,21 @@ function NavigationFrame() {
 					HorizontalAlignment={Enum.HorizontalAlignment.Center}
 					SortOrder={Enum.SortOrder.LayoutOrder}
 				/>
-				<NavFrameButton Text="World Info" Color={Color3.fromRGB(235, 235, 236)} Icon="rbxassetid://5627702525" LayoutOrder={1} Transparency={0.5}/>
+				<NavFrameButton
+					Text="World Info"
+					Color={Color3.fromRGB(235, 235, 236)}
+					Icon="rbxassetid://5627702525"
+					LayoutOrder={1}
+					Transparency={0.5}
+				/>
 				<ElementSeperator LayoutOrder={2} />
-				<NavFrameButton Text="Back To Hub" Color={Color3.fromRGB(200, 74, 74)} Icon="rbxassetid://5627768153" LayoutOrder={3} Transparency={0} />
+				<NavFrameButton
+					Text="Back To Hub"
+					Color={Color3.fromRGB(200, 74, 74)}
+					Icon="rbxassetid://5627768153"
+					LayoutOrder={3}
+					Transparency={0}
+				/>
 			</frame>
 		</frame>
 	);

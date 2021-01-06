@@ -26,8 +26,8 @@ function updateMode(newMode: BuildMode) {
 		updateSetting({
 			settingName: "BuildMode",
 			value: newMode,
-		})
-	)
+		}),
+	);
 }
 
 RunService.RenderStepped.Connect(() => {
