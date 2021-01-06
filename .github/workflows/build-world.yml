@@ -71,7 +71,7 @@ jobs:
       - name: Build Project (packed)
         run: npm run project:build:packed
 
-      - name: Upload .rbxlx unpacked
+      - name: Upload .rbxlx packed
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
