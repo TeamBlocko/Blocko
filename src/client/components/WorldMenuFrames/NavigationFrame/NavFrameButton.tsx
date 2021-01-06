@@ -1,16 +1,28 @@
-import Roact from "@rbxts/roact";
+import Roact, { createBinding } from "@rbxts/roact";
+import { SingleMotor, Spring } from "@rbxts/flipper";
 
 interface NavFrameButtonPropTypes {
 	Text: string;
 	Icon: string;
 	Color: Color3;
 	LayoutOrder: number;
-	Transparency: number;
+	OnClick: (e: GuiButton) => void;
 }
 
+const SPRING_SETTINGS = {
+	frequency: 4, // 4
+	dampingRatio: 1, // 1
+};
+
 function NavFrameButton(props: NavFrameButtonPropTypes) {
+	const motor = new SingleMotor(0.5);
+	const [binding, setBinding] = createBinding(motor.getValue());
+
+	motor.onStep(setBinding);
+
 	return (
 		<textbutton
+			Key={props.Text}
 			BackgroundColor3={Color3.fromRGB(30, 30, 30)}
 			BorderSizePixel={0}
 			Size={new UDim2(1, 0, 0, 60)}
@@ -20,6 +32,11 @@ function NavFrameButton(props: NavFrameButtonPropTypes) {
 			TextColor3={new Color3()}
 			TextSize={1}
 			LayoutOrder={props.LayoutOrder}
+			Event={{
+				MouseEnter: () => motor.setGoal(new Spring(0, SPRING_SETTINGS)),
+				MouseLeave: () => motor.setGoal(new Spring(0.5, SPRING_SETTINGS)),
+				Activated: (e) => props.OnClick(e),
+			}}
 		>
 			<textlabel
 				BackgroundTransparency={1}
@@ -29,7 +46,7 @@ function NavFrameButton(props: NavFrameButtonPropTypes) {
 				Text={props.Text}
 				TextColor3={props.Color}
 				TextSize={18}
-				TextTransparency={props.Transparency}
+				TextTransparency={binding.map((value) => value)}
 				TextXAlignment={Enum.TextXAlignment.Left}
 			/>
 			<imagelabel
@@ -38,7 +55,7 @@ function NavFrameButton(props: NavFrameButtonPropTypes) {
 				Size={UDim2.fromOffset(20, 20)}
 				Image={props.Icon}
 				ImageColor3={props.Color}
-				ImageTransparency={props.Transparency}
+				ImageTransparency={binding.map((value) => value)}
 				ScaleType={Enum.ScaleType.Fit}
 			/>
 			<uilistlayout

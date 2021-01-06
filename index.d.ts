@@ -164,3 +164,8 @@ declare interface WorldInfo {
 }
 
 declare type BuildMode = "Spectate" | "Place" | "Delete"
+
+declare interface WorldMenuFrames {
+	RefValue: Roact.Ref<Frame>;
+	OnClick: (e: GuiButton) => void;
+}

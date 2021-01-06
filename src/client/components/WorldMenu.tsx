@@ -1,7 +1,36 @@
-import Roact, { Component } from "@rbxts/roact";
-import NavigationFrame from "./NavigationFrame";
+import Roact, { Component, createRef } from "@rbxts/roact";
+import NavigationFrame from "./WorldMenuFrames/NavigationFrame";
+import WorldInfoFrame from "./WorldMenuFrames/WorldInfoFrame";
 
 class WorldMenu extends Component {
+	uiPagelayoutRef: Roact.Ref<UIPageLayout>;
+	navigationFrameRef: Roact.Ref<Frame>;
+	worldInfoFrameRef: Roact.Ref<Frame>;
+
+	constructor() {
+		super({});
+		this.uiPagelayoutRef = createRef();
+		this.navigationFrameRef = createRef();
+		this.worldInfoFrameRef = createRef();
+	}
+
+	onNavFrameButtonClick(e: GuiButton) {
+		const uiPagelayout = this.uiPagelayoutRef.getValue();
+		if (uiPagelayout === undefined) return;
+		switch (e.Name) {
+			case "World Info":
+				const worldInfo = this.worldInfoFrameRef.getValue();
+				if (worldInfo === undefined) return;
+				uiPagelayout.JumpTo(worldInfo);
+				break;
+			case "ReturnToNav":
+				const navFrame = this.navigationFrameRef.getValue();
+				if (navFrame=== undefined) return;
+				uiPagelayout.JumpTo(navFrame);
+				break;
+		}
+	}
+
 	render() {
 		return (
 			<frame
@@ -26,6 +55,7 @@ class WorldMenu extends Component {
 					VerticalScrollBarInset={Enum.ScrollBarInset.ScrollBar}
 				>
 					<uipagelayout
+						Ref={this.uiPagelayoutRef}
 						HorizontalAlignment={Enum.HorizontalAlignment.Center}
 						VerticalAlignment={Enum.VerticalAlignment.Center}
 						Circular={true}
@@ -35,7 +65,8 @@ class WorldMenu extends Component {
 						TouchInputEnabled={false}
 						TweenTime={0.5}
 					/>
-					<NavigationFrame />
+					<NavigationFrame RefValue={this.navigationFrameRef} OnClick={(e) => this.onNavFrameButtonClick(e)} />
+					<WorldInfoFrame RefValue={this.worldInfoFrameRef} OnClick={(e) => this.onNavFrameButtonClick(e)} />
 				</scrollingframe>
 				<imagelabel
 					AnchorPoint={new Vector2(0, 0.5)}

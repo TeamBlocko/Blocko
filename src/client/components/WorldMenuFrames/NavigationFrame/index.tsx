@@ -1,28 +1,14 @@
 import Roact from "@rbxts/roact";
-import ElementSeperator from "./misc/ElementSperator";
+import ElementSeperator from "client/components/misc/ElementSperator";
 import NavFrameButton from "./NavFrameButton";
+import Thumbnail from "client/components/misc/Thumbnail";
+import Container from "../WorldMenuFramesContainer";
 
-function NavigationFrame() {
+function NavigationFrame(props: WorldMenuFrames) {
 	return (
-		<frame
-			BackgroundColor3={Color3.fromRGB(57, 57, 57)}
-			BackgroundTransparency={1}
-			BorderColor3={new Color3()}
-			BorderSizePixel={0}
-			ClipsDescendants={true}
-			LayoutOrder={1}
-			Size={UDim2.fromScale(1, 1)}
-		>
+		<Container Name="NagiationFrame" LayoutOrder={1} RefValue={props.RefValue}>
 			<uicorner />
-			<imagelabel
-				AnchorPoint={new Vector2(0.5, 0)}
-				BackgroundColor3={Color3.fromRGB(57, 57, 57)}
-				BackgroundTransparency={0.8}
-				Position={UDim2.fromScale(0.5, 0)}
-				Size={UDim2.fromOffset(300, 180)}
-				Image={"rbxassetid://5303231665"}
-				ScaleType={Enum.ScaleType.Crop}
-			/>
+			<Thumbnail Position={UDim2.fromScale(0.5, 0)} />
 			<frame
 				AnchorPoint={new Vector2(0, 1)}
 				BackgroundColor3={new Color3(1, 1, 1)}
@@ -39,7 +25,7 @@ function NavigationFrame() {
 					Color={Color3.fromRGB(235, 235, 236)}
 					Icon="rbxassetid://5627702525"
 					LayoutOrder={1}
-					Transparency={0.5}
+					OnClick={(e) => props.OnClick(e)}
 				/>
 				<ElementSeperator LayoutOrder={2} />
 				<NavFrameButton
@@ -47,10 +33,10 @@ function NavigationFrame() {
 					Color={Color3.fromRGB(200, 74, 74)}
 					Icon="rbxassetid://5627768153"
 					LayoutOrder={3}
-					Transparency={0}
+					OnClick={() => print("Pressed")}
 				/>
 			</frame>
-		</frame>
+		</Container>
 	);
 }
 
