@@ -77,6 +77,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: dist/WorldTemplate.rbxlx
+          asset_path: dist/WorldTemplate.Packed.rbxlx
           asset_name: WorldTemplate (Packed).rbxlx
           asset_content_type: application/xml

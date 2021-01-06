@@ -1,10 +1,10 @@
-local loaderResourcesScript = require 'addLoadScript'
+local args = { ... }
+local isPacked = args[1] == "packed"
 
 local modelsPath = "./assets/models/"
-local worldPath = "./dist/WorldTemplate.rbxlx"
+local worldPath = not isPacked and "./dist/WorldTemplate.rbxlx" or "./dist/WorldTemplate.Packed.rbxlx"
 
 local game = remodel.readPlaceFile(worldPath)
-local args = { ... }
 
 for _, modelName in ipairs(remodel.readDir(modelsPath)) do
 	local models = remodel.readModelFile(modelsPath .. modelName)
@@ -12,12 +12,15 @@ for _, modelName in ipairs(remodel.readDir(modelsPath)) do
 	for _, model in ipairs(models) do
 		print((" "):rep(6) .. model.Name)
 		local serviceName = modelName:gsub("(.)%..+", "%1")
-		model.Parent = args[1] == "packed"
+		model.Parent = isPacked
 			and game:GetService("ServerStorage"):FindFirstChild("Resources"):FindFirstChild(serviceName)
 			or game:GetService(serviceName)
 	end
 end
 
-loaderResourcesScript.Parent = game:GetService("ServerScriptService")
+if isPacked then
+	local loaderResourcesScript = require 'addLoadScript'
+	loaderResourcesScript.Parent = game:GetService("ServerScriptService")
+end
 
 remodel.writePlaceFile(game, worldPath)
