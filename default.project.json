@@ -1,5 +1,5 @@
 {
-	"name": "roblox-ts-game",
+	"name": "Blocko World Template",
 	"tree": {
 		"$className": "DataModel",
 		"ServerScriptService": {
