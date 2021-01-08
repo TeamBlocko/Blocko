@@ -1,20 +1,15 @@
 declare type ValueOf<T> = T[keyof T];
 
 declare interface PropTypes {
-	/**
-	 * Number represting the place of element in an element using UIListLayout/UIGridLayout.
-	 **/
-	LayoutOrder: number;
-	Name: string;
 	[Roact.Children]?: RoactNode;
 }
 
-declare interface GWPropTypes<T> extends PropTypes {
+declare interface GWPropTypes<T> {
 	/**
 	 * Default value that will be given to the element.
 	 **/
 	Default: T;
-
+	Name: string;
 	OnChange: (newValue: T) => void;
 }
 

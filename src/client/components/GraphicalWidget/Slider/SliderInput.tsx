@@ -4,7 +4,6 @@ import NumberInput from "client/components/misc/NumberInput";
 function SliderInput(props: SliderDisplayPropTypes & { OnTextChange: (e: TextBox) => void }) {
 	return (
 		<NumberInput
-			Key="SliderNumber"
 			AnchorPoint={new Vector2(0.5, 0.5)}
 			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 			BackgroundTransparency={0}

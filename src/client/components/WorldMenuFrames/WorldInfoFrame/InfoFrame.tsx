@@ -40,7 +40,6 @@ function InfoFrame() {
 			AnchorPoint={new Vector2(0.5, 0.5)}
 			BackgroundColor3={new Color3()}
 			BorderSizePixel={0}
-			LayoutOrder={2}
 			Position={UDim2.fromScale(0.5, 1)}
 			Size={UDim2.fromOffset(300, 75)}
 		>
@@ -54,7 +53,6 @@ function InfoFrame() {
 				<uilistlayout
 					FillDirection={Enum.FillDirection.Horizontal}
 					HorizontalAlignment={Enum.HorizontalAlignment.Center}
-					SortOrder={Enum.SortOrder.LayoutOrder}
 					VerticalAlignment={Enum.VerticalAlignment.Bottom}
 					Padding={new UDim(0, 35)}
 				/>

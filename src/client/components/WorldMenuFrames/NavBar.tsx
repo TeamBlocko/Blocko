@@ -12,7 +12,7 @@ const SPRING_SETTINGS = {
 };
 
 function NavBar(props: NavBarPropTypes) {
-	const motor = new SingleMotor(0.5);
+	const motor = new SingleMotor(0);
 	const [binding, setBinding] = createBinding(motor.getValue());
 
 	motor.onStep(setBinding);
@@ -24,15 +24,8 @@ function NavBar(props: NavBarPropTypes) {
 			Position={UDim2.fromScale(0.5, 0)}
 			Size={UDim2.fromOffset(300, 45)}
 		>
-			<uilistlayout
-				FillDirection={Enum.FillDirection.Horizontal}
-				HorizontalAlignment={Enum.HorizontalAlignment.Center}
-				SortOrder={Enum.SortOrder.LayoutOrder}
-				VerticalAlignment={Enum.VerticalAlignment.Center}
-				Padding={new UDim(0, 10)}
-			/>
+			<screengui Key="ReturnToNav" />
 			<imagebutton
-				Key="ReturnToNav"
 				BackgroundTransparency={1}
 				Size={UDim2.fromOffset(25, 25)}
 				Image="rbxassetid://3926307971"
@@ -42,12 +35,11 @@ function NavBar(props: NavBarPropTypes) {
 				Event={{
 					MouseEnter: () => motor.setGoal(new Spring(0.5, SPRING_SETTINGS)),
 					MouseLeave: () => motor.setGoal(new Spring(0, SPRING_SETTINGS)),
-					Activated: (e) => props.OnClick(e),
+					Activated: (e) => props.OnClick(e.Parent as GuiButton),
 				}}
 			/>
 			<textlabel
 				BackgroundTransparency={1}
-				LayoutOrder={1}
 				Size={UDim2.fromScale(0.8, 0.9)}
 				Text={props.Text}
 				Font={Enum.Font.GothamSemibold}
@@ -55,6 +47,12 @@ function NavBar(props: NavBarPropTypes) {
 				TextSize={18}
 				TextTransparency={0.05}
 				TextXAlignment={Enum.TextXAlignment.Left}
+			/>
+			<uilistlayout
+				FillDirection={Enum.FillDirection.Horizontal}
+				HorizontalAlignment={Enum.HorizontalAlignment.Center}
+				VerticalAlignment={Enum.VerticalAlignment.Center}
+				Padding={new UDim(0, 10)}
 			/>
 		</frame>
 	);

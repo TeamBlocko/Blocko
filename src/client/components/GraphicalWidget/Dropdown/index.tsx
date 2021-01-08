@@ -62,7 +62,7 @@ class Dropdown<T extends Item, V extends string> extends Component<DropdownPropT
 
 	render() {
 		return (
-			<GWFrame Name={this.props.Name} LayoutOrder={this.props.LayoutOrder} SizeOffsetY={25}>
+			<GWFrame SizeOffsetY={25}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.5} />
 				<ItemList

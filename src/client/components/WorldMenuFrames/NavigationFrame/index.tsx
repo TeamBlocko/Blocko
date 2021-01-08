@@ -6,7 +6,7 @@ import Container from "../WorldMenuFramesContainer";
 
 function NavigationFrame(props: WorldMenuFrames) {
 	return (
-		<Container Name="NagiationFrame" LayoutOrder={1} RefValue={props.RefValue}>
+		<Container RefValue={props.RefValue}>
 			<uicorner />
 			<Thumbnail Position={UDim2.fromScale(0.5, 0)} />
 			<frame
@@ -16,25 +16,26 @@ function NavigationFrame(props: WorldMenuFrames) {
 				Position={UDim2.fromScale(0, 1)}
 				Size={new UDim2(1, 0, 1, -180)}
 			>
-				<uilistlayout
-					HorizontalAlignment={Enum.HorizontalAlignment.Center}
-					SortOrder={Enum.SortOrder.LayoutOrder}
-				/>
 				<NavFrameButton
 					Text="World Info"
 					Color={Color3.fromRGB(235, 235, 236)}
 					Icon="rbxassetid://5627702525"
-					LayoutOrder={1}
 					OnClick={(e) => props.OnClick(e)}
 				/>
-				<ElementSeperator LayoutOrder={2} />
+				<NavFrameButton
+					Text="World Settings"
+					Color={Color3.fromRGB(235, 235, 236)}
+					Icon="rbxassetid://5627731849"
+					OnClick={(e) => props.OnClick(e)}
+				/>
+				<ElementSeperator />
 				<NavFrameButton
 					Text="Back To Hub"
 					Color={Color3.fromRGB(200, 74, 74)}
 					Icon="rbxassetid://5627768153"
-					LayoutOrder={3}
 					OnClick={() => print("Pressed")}
 				/>
+				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
 			</frame>
 		</Container>
 	);

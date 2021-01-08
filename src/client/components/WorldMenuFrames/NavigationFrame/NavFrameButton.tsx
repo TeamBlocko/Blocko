@@ -5,7 +5,6 @@ interface NavFrameButtonPropTypes {
 	Text: string;
 	Icon: string;
 	Color: Color3;
-	LayoutOrder: number;
 	OnClick: (e: GuiButton) => void;
 }
 
@@ -22,7 +21,6 @@ function NavFrameButton(props: NavFrameButtonPropTypes) {
 
 	return (
 		<textbutton
-			Key={props.Text}
 			BackgroundColor3={Color3.fromRGB(30, 30, 30)}
 			BorderSizePixel={0}
 			Size={new UDim2(1, 0, 0, 60)}
@@ -31,16 +29,15 @@ function NavFrameButton(props: NavFrameButtonPropTypes) {
 			Text="0"
 			TextColor3={new Color3()}
 			TextSize={1}
-			LayoutOrder={props.LayoutOrder}
 			Event={{
 				MouseEnter: () => motor.setGoal(new Spring(0, SPRING_SETTINGS)),
 				MouseLeave: () => motor.setGoal(new Spring(0.5, SPRING_SETTINGS)),
 				Activated: (e) => props.OnClick(e),
 			}}
 		>
+			<screengui Key={props.Text} />
 			<textlabel
 				BackgroundTransparency={1}
-				LayoutOrder={1}
 				Size={UDim2.fromOffset(185, 25)}
 				Font={Enum.Font.Gotham}
 				Text={props.Text}
@@ -61,7 +58,6 @@ function NavFrameButton(props: NavFrameButtonPropTypes) {
 			<uilistlayout
 				FillDirection={Enum.FillDirection.Horizontal}
 				HorizontalAlignment={Enum.HorizontalAlignment.Center}
-				SortOrder={Enum.SortOrder.LayoutOrder}
 				VerticalAlignment={Enum.VerticalAlignment.Center}
 				Padding={new UDim(0, 25)}
 			/>

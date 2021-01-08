@@ -1,7 +1,7 @@
 import Roact from "@rbxts/roact";
 
 interface ThumbmailPropTypes {
-	Position: UDim2;
+	Position?: UDim2;
 }
 
 function Thumbnail(props: ThumbmailPropTypes) {

@@ -29,7 +29,6 @@ interface ItemListPropTypes<T> {
 function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 	return (
 		<frame
-			Key="Dropdown"
 			AnchorPoint={new Vector2(1, 0)}
 			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 			BorderSizePixel={0}
@@ -52,10 +51,7 @@ function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 				ScrollBarThickness={5}
 				VerticalScrollBarInset={Enum.ScrollBarInset.ScrollBar}
 			>
-				<uilistlayout
-					HorizontalAlignment={Enum.HorizontalAlignment.Center}
-					SortOrder={Enum.SortOrder.LayoutOrder}
-				/>
+				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
 				{props.Items.map((Item) => (
 					<ItemElement Value={Item} Handlers={props.Handlers} />
 				))}

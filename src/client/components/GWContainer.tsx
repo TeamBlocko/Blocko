@@ -29,17 +29,12 @@ function GWContainer(props: GWContainerPropTypes) {
 			ScrollBarThickness={4}
 			VerticalScrollBarInset={Enum.ScrollBarInset.Always}
 		>
-			<uilistlayout
-				HorizontalAlignment={Enum.HorizontalAlignment.Center}
-				SortOrder={Enum.SortOrder.LayoutOrder}
-				Padding={new UDim(0, 3)}
-			/>
-			<frame Size={UDim2.fromOffset(0, 5)} LayoutOrder={-2} />
-			<ElementSeperator LayoutOrder={-1} />
+			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 3)} />
+			<frame Size={UDim2.fromOffset(0, 5)} />
+			<ElementSeperator />
 			<Dropdown
 				Name="Shape"
 				Default={props.Shape}
-				LayoutOrder={0}
 				Items={Shapes.GetChildren()}
 				OnChange={(newValue: Instance) => props.OnDropdownUpdate("Shape", newValue)}
 				GetValue={(value: keyof typeof Shapes) => Shapes[value] as Instance}
@@ -47,20 +42,17 @@ function GWContainer(props: GWContainerPropTypes) {
 			<Dropdown
 				Name="Material"
 				Default={props.RawProperties.Material}
-				LayoutOrder={1}
 				Items={Enum.Material.GetEnumItems()}
 				OnChange={(newValue: Enum.Material) => props.OnDropdownUpdate("Material", newValue)}
 				GetValue={(value: keyof Omit<typeof Enum.Material, "GetEnumItems">) => Enum.Material[value]}
 			/>
 			<ColorDisplay
 				Name="Color"
-				LayoutOrder={2}
 				Default={props.RawProperties.Color}
 				OnChange={(newValue: Color3) => props.OnColorPickerUpdate("Color", newValue)}
 			/>
 			<Slider
 				Name="Transparency"
-				LayoutOrder={3}
 				Default={props.RawProperties.Transparency}
 				Min={0}
 				Max={10}
@@ -68,7 +60,6 @@ function GWContainer(props: GWContainerPropTypes) {
 			/>
 			<Slider
 				Name="Reflectance"
-				LayoutOrder={4}
 				Default={props.RawProperties.Reflectance}
 				Min={0}
 				Max={10}
@@ -77,13 +68,11 @@ function GWContainer(props: GWContainerPropTypes) {
 			<CheckBox
 				Name="Anchored"
 				Default={props.RawProperties.Anchored}
-				LayoutOrder={4}
 				OnChange={(newValue: boolean) => props.OnCheckBoxUpdate("Anchored", newValue)}
 			/>
 			<CheckBox
 				Name="Cast Shadow"
 				Default={props.RawProperties.CastShadow}
-				LayoutOrder={4}
 				OnChange={(newValue: boolean) => props.OnCheckBoxUpdate("CastShadow", newValue)}
 			/>
 		</scrollingframe>

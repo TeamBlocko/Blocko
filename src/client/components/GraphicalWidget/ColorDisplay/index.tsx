@@ -98,7 +98,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 
 	render() {
 		return (
-			<GWFrame Name={this.props.Name} LayoutOrder={this.props.LayoutOrder} SizeOffsetY={25}>
+			<GWFrame SizeOffsetY={25}>
 				<uicorner
 					CornerRadius={new UDim(0, 7)}
 					Ref={(n) => {

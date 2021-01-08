@@ -8,23 +8,18 @@ import NavBar from "../NavBar";
 
 function WorldInfoFrame(props: WorldMenuFrames) {
 	return (
-		<Container Name="WorldInfoFrame" LayoutOrder={2} RefValue={props.RefValue}>
+		<Container RefValue={props.RefValue}>
 			<uicorner />
 			<NavBar Text="World Info" OnClick={(e) => props.OnClick(e)} />
 			<frame
 				AnchorPoint={new Vector2(0.5, 0)}
 				BackgroundTransparency={1}
-				LayoutOrder={1}
 				Position={new UDim2(0.5, 0, 0, 245)}
 				Size={new UDim2(0, 275, 0.025, 175)}
 			>
-				<uilistlayout
-					HorizontalAlignment={Enum.HorizontalAlignment.Center}
-					SortOrder={Enum.SortOrder.LayoutOrder}
-					Padding={new UDim(0, 6)}
-				/>
+				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 6)} />
 				<Title />
-				<ElementSperator LayoutOrder={1} />
+				<ElementSperator />
 				<Description />
 			</frame>
 			<Thumbnail Position={new UDim2(0.5, 0, 0, 45)} />

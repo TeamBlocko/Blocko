@@ -21,7 +21,6 @@ function SliderBar(props: SliderBar) {
 
 	return (
 		<textbutton
-			Key="BackGreyFill"
 			AnchorPoint={new Vector2(0.5, 0.5)}
 			BackgroundColor3={new Color3(1, 1, 1)}
 			BackgroundTransparency={0.5}
@@ -35,7 +34,6 @@ function SliderBar(props: SliderBar) {
 		>
 			<uicorner />
 			<textbutton
-				Key="Slider"
 				AnchorPoint={new Vector2(0.5, 0.5)}
 				BackgroundColor3={Color3.fromRGB(89, 161, 255)}
 				Position={UDim2.fromScale(XPositionScale, 0.5)}
@@ -58,7 +56,6 @@ function SliderBar(props: SliderBar) {
 			<BarPoints Position={UDim2.fromScale(0.5, 0.5)} Value={props.Max.Value / 2} />
 			<BarPoints RefValue={props.Min.Ref} Position={UDim2.fromScale(0, 0.5)} Value={props.Min.Value} />
 			<textbutton
-				Key="BlueFill"
 				AnchorPoint={new Vector2(0, 0.5)}
 				BackgroundColor3={Color3.fromRGB(66, 126, 193)}
 				BorderSizePixel={0}

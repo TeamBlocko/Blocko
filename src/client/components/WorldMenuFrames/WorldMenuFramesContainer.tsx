@@ -9,7 +9,6 @@ function WorldMenuFramesContainer(props: PropTypes & { RefValue: Roact.Ref<Frame
 			BorderColor3={new Color3()}
 			BorderSizePixel={0}
 			ClipsDescendants={true}
-			LayoutOrder={1}
 			Size={UDim2.fromScale(1, 1)}
 		>
 			{props[Roact.Children]}

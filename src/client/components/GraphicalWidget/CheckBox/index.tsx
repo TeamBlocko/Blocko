@@ -20,7 +20,7 @@ class CheckBox extends Component<GWPropTypes<boolean>, GWStateTypes<boolean>> {
 
 	render() {
 		return (
-			<GWFrame Name={this.props.Name} SizeOffsetY={25} LayoutOrder={4}>
+			<GWFrame SizeOffsetY={25}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.5} />
 				<CheckBoxElement ScaleType={Enum.ScaleType.Fit} HandleInput={() => this.HandleInput()}>

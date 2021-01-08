@@ -9,7 +9,6 @@ interface DropdownButton {
 function DropdownButton(props: DropdownButton) {
 	return (
 		<textbutton
-			Key="DropdownButton"
 			AnchorPoint={new Vector2(1, 0.5)}
 			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 			Position={new UDim2(0.98, 0, 0.5, 0)}

@@ -19,10 +19,9 @@ function TopFrame(props: TopFramePropTypes) {
 			<uilistlayout
 				FillDirection={Enum.FillDirection.Horizontal}
 				HorizontalAlignment={Enum.HorizontalAlignment.Center}
-				SortOrder={Enum.SortOrder.LayoutOrder}
 				VerticalAlignment={Enum.VerticalAlignment.Center}
 			/>
-			<TitleText Text={props.Text} PosScaleY={0} SizeOffsetX={180} />
+			<TitleText Text={props.Text} PosScaleY={0} Size={UDim2.fromOffset(180, 14)} />
 			<CloseButton />
 		</frame>
 	);

@@ -3,7 +3,6 @@ import Roact from "@rbxts/roact";
 function SliderNumber(props: SliderDisplayPropTypes) {
 	return (
 		<textlabel
-			Key="SliderNumber"
 			AnchorPoint={new Vector2(0.5, 0.5)}
 			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 			BackgroundTransparency={1}

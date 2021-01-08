@@ -56,7 +56,7 @@ class Slider extends Component<SliderPropTypes<number>, GWStateTypes<number>> {
 
 	render() {
 		return (
-			<GWFrame Name={this.props.Name} LayoutOrder={this.props.LayoutOrder} SizeOffsetY={55}>
+			<GWFrame SizeOffsetY={55}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.225} />
 				<SliderBar

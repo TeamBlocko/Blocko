@@ -20,7 +20,6 @@ function BottomFrame(props: BottomFramePropTypes) {
 			<uilistlayout
 				FillDirection={Enum.FillDirection.Horizontal}
 				HorizontalAlignment={Enum.HorizontalAlignment.Center}
-				SortOrder={Enum.SortOrder.LayoutOrder}
 				VerticalAlignment={Enum.VerticalAlignment.Center}
 				Padding={new UDim(0, 8)}
 			/>
