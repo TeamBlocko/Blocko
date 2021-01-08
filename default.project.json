@@ -47,5 +47,8 @@
 				"RespectFilteringEnabled": true
 			}
 		}
-	}
+	},
+	"globIgnorePaths": [
+		"**/package.json"
+	]
 }
