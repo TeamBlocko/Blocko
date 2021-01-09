@@ -1,7 +1,8 @@
 import Roact, { Component } from "@rbxts/roact";
 import GWFrame from "client/components/misc/GWFrame";
 import TitleText from "client/components/misc/TitleText";
-import CheckBoxElement from "./CheckBoxElement";
+import Border from "./Border";
+import Check from "./Check";
 
 class CheckBox extends Component<GWPropTypes<boolean>, GWStateTypes<boolean>> {
 	constructor(props: GWPropTypes<boolean>) {
@@ -23,9 +24,9 @@ class CheckBox extends Component<GWPropTypes<boolean>, GWStateTypes<boolean>> {
 			<GWFrame SizeOffsetY={25}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.5} />
-				<CheckBoxElement ScaleType={Enum.ScaleType.Fit} HandleInput={() => this.HandleInput()}>
-					<CheckBoxElement Value={this.state.Value} Fill={true} HandleInput={() => this.HandleInput()} />
-				</CheckBoxElement>
+				<Border HandleInput={() => this.HandleInput()}>
+					<Check Value={this.state.Value} HandleInput={() => this.HandleInput()} />
+				</Border>
 			</GWFrame>
 		);
 	}
