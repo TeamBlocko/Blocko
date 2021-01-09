@@ -1,6 +1,7 @@
 import Roact from "@rbxts/roact";
 import Catagory from "./Catagory";
 import InputBox from "client/components/GraphicalWidget/InputFrame";
+import ImageInput from "./ImageInput";
 
 function WorldInfo() {
 	return (
@@ -9,6 +10,7 @@ function WorldInfo() {
 			<Catagory Text="World Info" Image="rbxassetid://3926305904" />
 			<InputBox Name="Name" Length={60} />
 			<InputBox Name="Description" Length={135} />
+			<ImageInput />
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 10)} />
 		</frame>
 	);
