@@ -4,6 +4,7 @@ import NavBar from "../NavBar";
 import Gap from "client/components/misc/Gap";
 import Search from "./Search";
 import WorldInfo from "./WorldInfo";
+import Lighting from "./Lighting";
 
 function SettingsFrame(props: WorldMenuFrames) {
 	return (
@@ -24,6 +25,7 @@ function SettingsFrame(props: WorldMenuFrames) {
 				ScrollBarThickness={3}
 			>
 				<WorldInfo />
+				<Lighting />
 				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 8)} />
 			</scrollingframe>
 		</Container>
