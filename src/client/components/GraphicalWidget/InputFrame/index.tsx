@@ -16,17 +16,18 @@ class InputFrame extends Component<InputFramePropTypes> {
 				<frame
 					BackgroundColor3={new Color3(1, 1, 1)}
 					BackgroundTransparency={0.95}
-					Size={new UDim2(0.95, 0, 0, 100)}
+					Size={new UDim2(0.95, 0, 0, this.props.Length - 25)}
 				>
 					<uicorner CornerRadius={new UDim(0, 5)} />
 					<textbox
 						AnchorPoint={new Vector2(0.5, 0.5)}
 						BackgroundTransparency={1}
 						Position={UDim2.fromScale(0.5, 0.5)}
-						Size={new UDim2(0.95, 0, 0, this.props.Length - 40)}
+						Size={UDim2.fromScale(0.95, 0.95)}
 						Font={Enum.Font.GothamSemibold}
 						Text=""
 						TextColor3={Color3.fromRGB(218, 218, 218)}
+						TextWrapped={true}
 						TextSize={15}
 						TextYAlignment={Enum.TextYAlignment.Top}
 						TextXAlignment={Enum.TextXAlignment.Left}
