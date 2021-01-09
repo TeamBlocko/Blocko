@@ -2,11 +2,10 @@ import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import { DragFrame, DragDropProvider } from "@rbxts/roact-dnd";
 import GWContainer from "./GWContainer";
-import DragDropContext from "client/dragDropContext";
 
 function BuildUI(props: PlacementSettings) {
 	return (
-		<DragDropProvider context={DragDropContext}>
+		<DragDropProvider>
 			<DragFrame
 				DropId="BuildUI"
 				DropResetsPosition={false}

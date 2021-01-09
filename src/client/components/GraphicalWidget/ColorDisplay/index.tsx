@@ -1,6 +1,6 @@
 import { Workspace } from "@rbxts/services";
+import { DragDropProvider, DragDropContext } from "@rbxts/roact-dnd";
 import Roact, { Component, Portal, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
-import DragDropContext from "client/dragDropContext";
 import GWFrame from "client/components/misc/GWFrame";
 import TitleText from "client/components/misc/TitleText";
 import ColorPicker from "../ColorPicker";
@@ -23,6 +23,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 	private updateColorPickerBinding: RoactBindingFunc<Binding>;
 	private selfRef: Binding;
 	private textChangedAllowed = true;
+	private context: DragDropContext;
 
 	constructor(props: GWPropTypes<Color3>) {
 		super(props);
@@ -31,10 +32,10 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 			Value: props.Default,
 			Selected: false,
 		});
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const self = this;
-		DragDropContext.dispatch = (function (_: typeof DragDropContext, action: Action<string>) {
-			print(action.type);
+		this.context = new DragDropContext();
+		this.context.dispatch = (function (_: typeof DragDropContext, action: Action<string>) {
+			print("DISPATCHED", action.type);
 			switch (action.type) {
 				case "DRAG/BEGIN":
 					self.setColorPickerPos();
@@ -98,40 +99,42 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 
 	render() {
 		return (
-			<GWFrame SizeOffsetY={25}>
-				<uicorner
-					CornerRadius={new UDim(0, 7)}
-					Ref={(n) => {
-						if (!n) return;
-						this.selfRef = n.Parent as Frame;
-					}}
-				/>
-				<TitleText Text={this.props.Name} PosScaleY={0.5} />
-				<PickButton
-					Value={this.state.Value}
-					HandleClick={(inputButton: TextButton) => {
-						this.root = inputButton.FindFirstAncestorOfClass("ScreenGui");
-						this.setState((oldState) => {
-							return {
-								...oldState,
-								Selected: !oldState.Selected,
-							};
-						});
-						this.setColorPickerPos();
-					}}
-				/>
-				<RGBValues Value={this.state.Value} onTextChange={(...args) => this.onTextChange(...args)} />
-				{this.state.Selected && this.root && (
-					<Portal target={this.root}>
-						<ColorPicker
-							Name={this.props.Name}
-							Value={this.state.Value}
-							onChange={(color: Color3) => this.onColorChange(color)}
-							UpdateColorPickerBinding={(e) => this.updateColorPickerBinding(e)}
-						/>
-					</Portal>
-				)}
-			</GWFrame>
+			<DragDropProvider context={this.context} >
+				<GWFrame SizeOffsetY={25}>
+					<uicorner
+						CornerRadius={new UDim(0, 7)}
+						Ref={(n) => {
+							if (!n) return;
+							this.selfRef = n.Parent as Frame;
+						}}
+					/>
+					<TitleText Text={this.props.Name} PosScaleY={0.5} />
+					<PickButton
+						Value={this.state.Value}
+						HandleClick={(inputButton: TextButton) => {
+							this.root = inputButton.FindFirstAncestorOfClass("ScreenGui");
+							this.setState((oldState) => {
+								return {
+									...oldState,
+									Selected: !oldState.Selected,
+								};
+							});
+							this.setColorPickerPos();
+						}}
+					/>
+					<RGBValues Value={this.state.Value} onTextChange={(...args) => this.onTextChange(...args)} />
+					{this.state.Selected && this.root && (
+						<Portal target={this.root}>
+							<ColorPicker
+								Name={this.props.Name}
+								Value={this.state.Value}
+								onChange={(color: Color3) => this.onColorChange(color)}
+								UpdateColorPickerBinding={(e) => this.updateColorPickerBinding(e)}
+							/>
+						</Portal>
+					)}
+				</GWFrame>
+			</DragDropProvider>
 		);
 	}
 }

@@ -5,6 +5,8 @@ import Gap from "client/components/misc/Gap";
 import Search from "./Search";
 import WorldInfo from "./WorldInfo";
 import Lighting from "./Lighting";
+import Sound from "./Sound";
+import Characters from "./Characters";
 
 function SettingsFrame(props: WorldMenuFrames) {
 	return (
@@ -26,6 +28,8 @@ function SettingsFrame(props: WorldMenuFrames) {
 			>
 				<WorldInfo />
 				<Lighting />
+				<Sound />
+				<Characters />
 				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 8)} />
 			</scrollingframe>
 		</Container>

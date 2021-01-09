@@ -2,7 +2,7 @@ import Roact, { Component } from "@rbxts/roact";
 import GWFrame from "client/components/misc/GWFrame";
 import TitleText from "client/components/misc/TitleText";
 
-interface InputFramePropTypes {
+interface InputFramePropTypes extends PropTypes {
 	Name: string;
 	Length: number;
 }
@@ -12,6 +12,7 @@ class InputFrame extends Component<InputFramePropTypes> {
 		return (
 			<GWFrame SizeOffsetY={this.props.Length}>
 				<uicorner />
+				{this.props[Roact.Children]}
 				<TitleText Text={this.props.Name} PosScaleY={0.25} Size={new UDim2(1, 0, 0, 20)} />
 				<frame
 					BackgroundColor3={new Color3(1, 1, 1)}
