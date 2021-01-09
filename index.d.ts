@@ -61,7 +61,9 @@ declare interface Range {
 	Max: number;
 }
 
-declare interface SliderPropTypes<T> extends Range, GWPropTypes<T> {}
+declare interface SliderPropTypes<T> extends Range, GWPropTypes<T> {
+	RefValue?: Roact.Ref<Frame>;
+}
 
 declare interface ColorDisplayStateTypes<T> extends GWStateTypes<T> {
 	Selected: boolean;

@@ -5,12 +5,12 @@ import GWFrame from "client/components/misc/GWFrame";
 import SliderBar from "./SliderBar";
 import { map, validateText } from "shared/utility";
 
-class Slider extends Component<SliderPropTypes<number>, GWStateTypes<number>> {
+class Slider extends Component<SliderPropTypes<number> & PropTypes, GWStateTypes<number>> {
 	private maxRef: Roact.Ref<Frame>;
 	private minRef: Roact.Ref<Frame>;
 	private connection: RBXScriptConnection | undefined;
 
-	constructor(props: SliderPropTypes<number>) {
+	constructor(props: SliderPropTypes<number> & PropTypes) {
 		super(props);
 		this.maxRef = createRef();
 		this.minRef = createRef();
@@ -56,7 +56,7 @@ class Slider extends Component<SliderPropTypes<number>, GWStateTypes<number>> {
 
 	render() {
 		return (
-			<GWFrame SizeOffsetY={55}>
+			<GWFrame SizeOffsetY={55} RefValue={this.props.RefValue}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.225} />
 				<SliderBar
@@ -66,6 +66,7 @@ class Slider extends Component<SliderPropTypes<number>, GWStateTypes<number>> {
 					HandleInput={(element, input) => this.HandleInput(element, input)}
 					OnTextChange={(e) => this.onTextChange(e)}
 				/>
+				{this.props[Roact.Children]}
 			</GWFrame>
 		);
 	}

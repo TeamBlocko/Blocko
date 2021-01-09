@@ -39,6 +39,7 @@ function SliderBar(props: SliderBar) {
 				Position={UDim2.fromScale(XPositionScale, 0.5)}
 				Text=""
 				Size={UDim2.fromOffset(7, 15)}
+				ZIndex={2}
 				Event={{
 					InputBegan: (element, input) => props.HandleInput(element, input),
 					InputEnded: (element, input) => props.HandleInput(element, input),
