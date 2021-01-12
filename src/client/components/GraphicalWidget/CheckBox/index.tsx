@@ -13,10 +13,7 @@ class CheckBox extends Component<GWPropTypes<boolean>, GWStateTypes<boolean>> {
 	}
 
 	HandleInput() {
-		this.setState((oldState) => {
-			this.props.OnChange(!oldState.Value);
-			return { Value: !oldState.Value };
-		});
+		this.props.OnChange(!this.props.Default);
 	}
 
 	render() {
@@ -25,7 +22,7 @@ class CheckBox extends Component<GWPropTypes<boolean>, GWStateTypes<boolean>> {
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.5} />
 				<Border HandleInput={() => this.HandleInput()}>
-					<Check Value={this.state.Value} HandleInput={() => this.HandleInput()} />
+					<Check Value={this.props.Default} HandleInput={() => this.HandleInput()} />
 				</Border>
 			</GWFrame>
 		);

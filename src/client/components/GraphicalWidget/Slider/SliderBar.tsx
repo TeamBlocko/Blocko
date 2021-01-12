@@ -47,7 +47,7 @@ function SliderBar(props: SliderBar) {
 			>
 				<uicorner />
 				<SliderInput
-					Value={math.floor(props.Value)}
+					Value={props.Value}
 					OnTextChange={(text) => props.OnTextChange(text)}
 					Range={{ Min: props.Min.Value, Max: props.Max.Value }}
 				/>

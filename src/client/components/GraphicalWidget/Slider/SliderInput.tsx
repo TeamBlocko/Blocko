@@ -10,7 +10,7 @@ function SliderInput(props: SliderDisplayPropTypes & { OnTextChange: (e: TextBox
 			Position={UDim2.fromScale(0.5, -0.5)}
 			Size={UDim2.fromOffset(20, 12)}
 			Font={Enum.Font.Gotham}
-			Text={tostring(props.Value)}
+			Text={"%.2f".format(`${props.Value}`)}
 			TextColor3={Color3.fromRGB(89, 161, 255)}
 			TextWrapped={true}
 			OnValidInput={(e) => props.OnTextChange(e)}

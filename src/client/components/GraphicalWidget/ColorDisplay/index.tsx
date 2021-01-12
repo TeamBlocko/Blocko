@@ -29,7 +29,6 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 		super(props);
 		[this.colorPickerBinding, this.updateColorPickerBinding] = createBinding<Binding>(undefined);
 		this.setState({
-			Value: props.Default,
 			Selected: false,
 		});
 		const self = this;
@@ -83,16 +82,10 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 			return;
 		}
 		this.props.OnChange(color);
-		this.setState((oldState) => {
-			return {
-				...oldState,
-				Value: color,
-			};
-		});
 	}
 
 	onTextChange(type: RGB, value: number): void {
-		const rgb = { r: this.state.Value.r, g: this.state.Value.g, b: this.state.Value.b };
+		const rgb = { r: this.props.Default.r, g: this.props.Default.g, b: this.props.Default.b };
 		rgb[type] = value / 255;
 		this.onColorChange(new Color3(rgb.r, rgb.g, rgb.b), true);
 	}
@@ -110,7 +103,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 					/>
 					<TitleText Text={this.props.Name} PosScaleY={0.5} />
 					<PickButton
-						Value={this.state.Value}
+						Value={this.props.Default}
 						HandleClick={(inputButton: TextButton) => {
 							this.root = inputButton.FindFirstAncestorOfClass("ScreenGui");
 							this.setState((oldState) => {
@@ -122,12 +115,12 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 							this.setColorPickerPos();
 						}}
 					/>
-					<RGBValues Value={this.state.Value} onTextChange={(...args) => this.onTextChange(...args)} />
+					<RGBValues Value={this.props.Default} onTextChange={(...args) => this.onTextChange(...args)} />
 					{this.state.Selected && this.root && (
 						<Portal target={this.root}>
 							<ColorPicker
 								Name={this.props.Name}
-								Value={this.state.Value}
+								Value={this.props.Default}
 								onChange={(color: Color3) => this.onColorChange(color)}
 								UpdateColorPickerBinding={(e) => this.updateColorPickerBinding(e)}
 							/>

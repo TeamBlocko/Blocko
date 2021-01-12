@@ -145,6 +145,29 @@ declare interface PlacementSettings {
 	RawProperties: RawProperties;
 }
 
+declare interface WorldSettings {
+	Name: string;
+	Description: string;
+	Thumbnail: string;
+	Ambient: Color3;
+	OutdoorAmbient: Color3;
+	Time: number;
+	CycleEnabled: boolean;
+	Cycle: number;
+	Brightness: number;
+	SoundID: string;
+	Volume: number;
+	Pitch: number;
+	ResetEnabled: boolean;
+	CollisionsEnabled: boolean;
+	UsernameDistance: number;
+	HealthDistance: number;
+	DefaultWalkSpeed: number;
+	DefaultJumpPower: number;
+	MinCameraZoom: number;
+	MaxCameraZoom: number;
+}
+
 declare interface IState {
 	PlacementSettings: PlacementSettings;
 }

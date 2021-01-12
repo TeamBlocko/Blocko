@@ -15,23 +15,17 @@ class SliderAndCheckBox extends Component<SliderAndCheckBoxPropTypes, GWStateTyp
 	constructor(props: SliderAndCheckBoxPropTypes) {
 		super(props);
 		this.sliderFrameRef = createRef();
-		this.setState({
-			Value: props.CheckBoxSettings.Default,
-		});
 	}
 
 	HandleInput() {
-		this.setState((oldState) => {
-			this.props.CheckBoxSettings.OnChange(!oldState.Value);
-			return { Value: !oldState.Value };
-		});
+		this.props.CheckBoxSettings.OnChange(!this.props.CheckBoxSettings.Default);
 	}
 
 	render() {
 		return (
 			<Slider Name={this.props.Name} {...this.props.SliderSettings} RefValue={this.sliderFrameRef}>
 				<Border HandleInput={() => this.HandleInput()} Position={UDim2.fromScale(0.925, 0.225)}>
-					<Check Value={this.state.Value} HandleInput={() => this.HandleInput()} />
+					<Check Value={this.props.CheckBoxSettings.Default} HandleInput={() => this.HandleInput()} />
 				</Border>
 			</Slider>
 		);

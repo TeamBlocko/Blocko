@@ -14,9 +14,6 @@ class Slider extends Component<SliderPropTypes<number> & PropTypes, GWStateTypes
 		super(props);
 		this.maxRef = createRef();
 		this.minRef = createRef();
-		this.setState({
-			Value: props.Default,
-		});
 	}
 
 	HandleInput(_: TextButton, input: InputObject) {
@@ -30,9 +27,6 @@ class Slider extends Component<SliderPropTypes<number> & PropTypes, GWStateTypes
 						const xPosition = math.clamp(mousePos.X - 3.5, minAbsPos, maxAbsPos);
 						const newValue = map(xPosition, minAbsPos, maxAbsPos, this.props.Min, this.props.Max);
 						this.props.OnChange(newValue);
-						this.setState(() => {
-							return { Value: newValue };
-						});
 					});
 					break;
 				case Enum.UserInputState.End:
@@ -49,9 +43,6 @@ class Slider extends Component<SliderPropTypes<number> & PropTypes, GWStateTypes
 		if (newValue === undefined) newValue = validateText(e.Text);
 		if (newValue === undefined) return;
 		this.props.OnChange(newValue);
-		this.setState(() => {
-			return { Value: e.Text };
-		});
 	}
 
 	render() {
@@ -62,7 +53,7 @@ class Slider extends Component<SliderPropTypes<number> & PropTypes, GWStateTypes
 				<SliderBar
 					Min={{ Value: this.props.Min, Ref: this.minRef }}
 					Max={{ Value: this.props.Max, Ref: this.maxRef }}
-					Value={this.state.Value}
+					Value={this.props.Default}
 					HandleInput={(element, input) => this.HandleInput(element, input)}
 					OnTextChange={(e) => this.onTextChange(e)}
 				/>
