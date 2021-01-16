@@ -1,12 +1,6 @@
-import { ReplicatedStorage } from "@rbxts/services";
 import Serializer from "./Serializer";
-import { BlockIds } from "./BlockIds";
 
-type BlockName = keyof typeof BlockIds;
-
-const shapes = ReplicatedStorage.BlockTypes;
-
-class BlocksSerializer extends Serializer {
+class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 	public allowedProperties: [keyof RawProperties | "Position" | "Orientation", unknown][] = [
 		["Material", "EnumItem"],
 		["Position", "Vector3"],
@@ -19,12 +13,26 @@ class BlocksSerializer extends Serializer {
 		["Color", "Color3"],
 	];
 
-	getIdByName(name: BlockName): string {
-		return BlockIds[name];
+	public readonly blockIds: T;
+	public readonly shapes: Folder & { [K in keyof T]: BasePart };
+
+	/**
+	 * @param blockIds An enum containing BlockNames and their Id
+	 * @param shapes folder of BaseParts to be used when deserializing, parts should be named as in blockIds
+	 */
+	constructor(blockIds: T, shapes: Folder & { [K in keyof T]: BasePart }) {
+		super()
+
+		this.blockIds = blockIds;
+		this.shapes = shapes;
 	}
 
-	getNameById(id: BlockName): string {
-		return BlockIds[id];
+	getIdByName(name: string): string {
+		return this.blockIds[name];
+	}
+
+	getNameById(id: string): string {
+		return this.blockIds[id];
 	}
 
 	serializeBlocks(value: BasePart[]): string {
@@ -32,7 +40,7 @@ class BlocksSerializer extends Serializer {
 		for (const part of value) {
 			const serializedProperties: string[] = [];
 
-			serializedProperties.push(this.getIdByName(part.Name as BlockName));
+			serializedProperties.push(this.getIdByName(part.Name));
 			for (const propertyInfo of this.allowedProperties) {
 				const propertyValue = part[propertyInfo[0]];
 				serializedProperties.push(this.serialize(propertyValue));
@@ -47,8 +55,11 @@ class BlocksSerializer extends Serializer {
 
 		for (const blockInfo of blockInfos) {
 			const propertiesInfo = blockInfo.split(";");
-			const id = this.getNameById(propertiesInfo.shift() as BlockName) as keyof typeof Shapes;
-			const block = shapes[id].Clone();
+			const partId = propertiesInfo.shift()
+			if (!partId) return;
+
+			const id = this.getNameById(partId);
+			const block = this.shapes[id].Clone();
 
 			for (let index = 0; index < this.allowedProperties.size(); index++) {
 				const [propertyName, type] = this.allowedProperties[index];
