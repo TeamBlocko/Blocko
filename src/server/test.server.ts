@@ -1,3 +1,4 @@
+/*
 import { Workspace } from "@rbxts/services";
 import BlocksSerializer from "shared/blocksSerializer";
 
@@ -8,3 +9,6 @@ const serialized = blocksSerializer.serializeBlocks(Workspace.Blocks.GetChildren
 print(serialized);
 
 blocksSerializer.deserializeBlocks(serialized, Workspace);
+*/
+
+export {}

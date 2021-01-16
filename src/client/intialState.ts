@@ -1,4 +1,5 @@
 import { ReplicatedStorage } from "@rbxts/services";
+import { retriveWorldSettings } from "./replicationManager";
 
 const shapes = ReplicatedStorage.BlockTypes;
 
@@ -18,4 +19,5 @@ export const intialPlacementSettings: PlacementSettings = {
 
 export const intialState: IState = {
 	PlacementSettings: intialPlacementSettings,
+	WorldSettings: retriveWorldSettings(),
 };
