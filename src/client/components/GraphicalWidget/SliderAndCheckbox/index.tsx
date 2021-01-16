@@ -5,7 +5,7 @@ import Check from "../CheckBox/Check";
 
 interface SliderAndCheckBoxPropTypes {
 	Name: string;
-	SliderSettings: Omit<SliderPropTypes<number>, "Name">;
+	SliderSettings: Omit<SliderPropTypes, "Name">;
 	CheckBoxSettings: Omit<GWPropTypes<boolean>, "Name">;
 }
 

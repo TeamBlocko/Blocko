@@ -5,12 +5,12 @@ import GWFrame from "client/components/misc/GWFrame";
 import SliderBar from "./SliderBar";
 import { map, validateText } from "shared/utility";
 
-class Slider extends Component<SliderPropTypes<number> & PropTypes, GWStateTypes<number>> {
+class Slider extends Component<SliderPropTypes & Partial<PropTypes>, GWStateTypes<number>> {
 	private maxRef: Roact.Ref<Frame>;
 	private minRef: Roact.Ref<Frame>;
 	private connection: RBXScriptConnection | undefined;
 
-	constructor(props: SliderPropTypes<number> & PropTypes) {
+	constructor(props: SliderPropTypes & Partial<PropTypes>) {
 		super(props);
 		this.maxRef = createRef();
 		this.minRef = createRef();
