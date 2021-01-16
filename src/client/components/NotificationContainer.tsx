@@ -1,0 +1,132 @@
+import { TextService, Workspace } from "@rbxts/services";
+import Roact, { Component } from "@rbxts/roact";
+import { Notification } from "./Notification";
+import { ApplyPrompt } from "./ApplyPrompt";
+import store from "client/notificationStore"
+
+const camera = Workspace.CurrentCamera as Camera;
+
+interface NotificationContainerPropTypes {
+	defaultNotificationWidth: number
+}
+
+export class NotificationContainer extends Component<NotificationContainerPropTypes, { notifications: iNotification[] }> {
+	
+	frameRef: Roact.Ref<ScrollingFrame>;
+
+	constructor(props: NotificationContainerPropTypes) {
+		super(props);
+
+		this.frameRef = Roact.createRef();
+
+		this.setState({
+			notifications: [],
+		})
+	}
+
+	didMount() {
+		const { defaultNotificationWidth } = this.props;
+
+		store.register({
+			addNotification: (notification) => this.add(notification),
+			removeNotification: (id) => this.remove(id),
+			removeAllNotifications: () => this.removeAllNotifications(),
+			defaultNotificationWidth,
+		});
+	}
+
+	add(notification: iNotification) {
+		this.setState(({ notifications }) => ({
+			notifications: [...notifications, notification]
+		}));
+
+		return notification.Id;
+	};
+
+	remove(id: string) {
+		this.setState(({ notifications }) => ({
+			notifications: notifications.map((notification) => {
+				if (notification.Id === id) {
+					notification.HasBeenRemoved = true;
+				}
+
+				return notification;
+			})
+		}));
+	};
+
+	removeAllNotifications() {
+		this.setState({
+			notifications: this.state.notifications.map((notification) => ({
+				...notification,
+				HasBeenRemoved: true
+			}))
+		});
+	};
+
+	renderNotifications() {
+		let currentPosition = 0;
+
+		const notifications = this.state.notifications.map((notification, index) => {
+			const textSize = TextService.GetTextSize(
+				notification.Message ?? "",
+				18,
+				Enum.Font.GothamSemibold,
+				new Vector2(),
+			)
+			
+			const maxWidth = camera.ViewportSize.X * 0.8
+			const computedFrameSize = math.min(maxWidth, textSize.X + 80)
+
+			const length = 50 + math.floor(computedFrameSize / maxWidth)
+
+			let element: Roact.Element;
+
+			if (!notification.isApplyPrompt)
+				element = <Notification
+					{...notification}
+					Position={new UDim2(0.5, 0, 0, currentPosition)}
+					FrameSize={computedFrameSize}
+					MaxWidth={camera.ViewportSize.X * 0.8}
+				/>
+			else
+				element = <ApplyPrompt
+					{...notification}
+					Position={new UDim2(0.5, 0, 0, currentPosition)}
+					FrameSize={computedFrameSize}
+					MaxWidth={camera.ViewportSize.X * 0.8}
+				/>
+
+			print(!notification.HasBeenRemoved ? length : 0)
+			currentPosition += (!notification.HasBeenRemoved ? length : 0)
+				+ (this.state.notifications.size() - 1 === index || notification.HasBeenRemoved ? 0 : 10)
+
+			return element
+		})
+
+		const frame = this.frameRef.getValue();
+
+		if (frame !== undefined)
+			frame.CanvasSize = UDim2.fromOffset(0, currentPosition)
+		
+		return notifications
+	}
+
+	render() {
+		return (
+			<scrollingframe
+				Ref={this.frameRef}
+				AnchorPoint={new Vector2(0.5, 0)}
+				BackgroundTransparency={1}
+				Position={UDim2.fromScale(0.5, 0)}
+				Size={UDim2.fromScale(0.8, 0.4)}
+				ClipsDescendants={true}
+				ScrollBarImageTransparency={0.85}
+				ScrollBarThickness={3}
+				CanvasSize={new UDim2()}
+			>
+				{this.renderNotifications()}
+			</scrollingframe>
+		)
+	}
+}

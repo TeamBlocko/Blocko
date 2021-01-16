@@ -1,7 +1,7 @@
 declare type ValueOf<T> = T[keyof T];
 
 declare interface PropTypes {
-	[Roact.Children]?: RoactNode;
+	[Roact.Children]: RoactNode;
 }
 
 declare interface GWPropTypes<T> {
@@ -61,7 +61,7 @@ declare interface Range {
 	Max: number;
 }
 
-declare interface SliderPropTypes<T> extends Range, GWPropTypes<T> {
+declare interface SliderPropTypes extends Range, GWPropTypes<number> {
 	RefValue?: Roact.Ref<Frame>;
 }
 
@@ -155,7 +155,7 @@ declare interface WorldSettings {
 	CycleEnabled: boolean;
 	Cycle: number;
 	Brightness: number;
-	SoundID: string;
+	SoundID: number;
 	Volume: number;
 	Pitch: number;
 	ResetEnabled: boolean;
@@ -170,17 +170,19 @@ declare interface WorldSettings {
 
 declare interface IState {
 	PlacementSettings: PlacementSettings;
+	WorldSettings: WorldSettings;
 }
 
 declare interface WorldInfo {
 	WorldId: number;
-	Name: string;
 	Owner: number;
 	Banned: number[];
 	Server: string;
 	MaxPlayers: number;
 	ActivePlayers: number;
 	Blocks: string;
+
+	WorldSettings: WorldSettings;
 }
 
 declare type BuildMode = "Spectate" | "Place" | "Delete"
@@ -188,4 +190,39 @@ declare type BuildMode = "Spectate" | "Place" | "Delete"
 declare interface WorldMenuFrames {
 	RefValue: Roact.Ref<Frame>;
 	OnClick: (e: GuiButton) => void;
+}
+
+declare type ValueOfWorldSettings = ValueOf<WorldSettings>;
+
+declare interface UpdateWorldSettingDataType {
+	readonly propertyName: keyof WorldSettings;
+	readonly value: string | boolean | number | Color3;
+}
+
+declare interface UpdateWorldSettings {
+	readonly data: UpdateWorldSettingDataType[];
+	readonly replicateBroadcast?: boolean;
+	readonly replicateTo?: number;
+	readonly replicated?: boolean;
+}
+
+declare interface ActionRecievedUpdateWorldSettings extends Rodux.Action<"UPDATE_WORLD_SETTINGS">, UpdateWorldSettings {}
+
+declare interface iNotification {
+  Id: string;
+  OnRemoval?: Function;
+  Title?: string;
+  Message?: string;
+  Width?: number;
+  HasBeenRemoved?: boolean;
+  Icon?: string;
+ 	isApplyPrompt?: boolean;
+	OnCancelPrompt?: () => void;
+	OnApplyPrompt?: () => void;
+}
+
+declare interface NotificationPropTypes extends iNotification {
+	Position: UDim2;
+	FrameSize: number;
+	MaxWidth: number;
 }

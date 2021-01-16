@@ -19,6 +19,10 @@
 		"baseUrl": "src",
 		"incremental": true,
 		"tsBuildInfoFile": "out/tsconfig.tsbuildinfo",
-		"removeComments": true
+		"removeComments": true,
+
+		"plugins": [
+			{"transform": "rbxts-transformer-t"}
+		]
 	}
 }
