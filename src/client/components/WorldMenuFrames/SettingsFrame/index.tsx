@@ -1,4 +1,9 @@
 import Roact from "@rbxts/roact";
+import { deepEquals, entries } from "@rbxts/object-utils";
+import { updateWorldSettings } from "shared/worldSettingsReducer";
+import { retriveWorldSettings, updateWorldSettings as updateServer } from "client/replicationManager";
+import store from "client/store";
+import notificationStore from "client/notificationStore";
 import Container from "../WorldMenuFramesContainer";
 import NavBar from "../NavBar";
 import Gap from "client/components/misc/Gap";
@@ -8,12 +13,36 @@ import Lighting from "./Lighting";
 import Sound from "./Sound";
 import Characters from "./Characters";
 
+function parseSettings(settings: WorldSettings) {
+	return updateWorldSettings(entries(settings).map(([propertyName, value]) => ({ propertyName, value })))
+}
+
 function SettingsFrame(props: WorldMenuFrames) {
 	return (
 		<Container RefValue={props.RefValue}>
 			<uicorner />
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
-			<NavBar Text="World Settings" OnClick={(e) => props.OnClick(e)} />
+			<NavBar Text="World Settings" OnClick={(e) => {
+				const worldSettings = retriveWorldSettings()
+				const currentWorldSettings = store.getState().WorldSettings;
+				if (deepEquals(worldSettings, currentWorldSettings))
+					props.OnClick(e)
+				else
+					notificationStore.addNotification({
+						Id: "ApplyPrompt",
+						isApplyPrompt: true,
+						OnCancelPrompt: () => {
+							print("CANCEL")
+							store.dispatch(parseSettings(worldSettings))
+							props.OnClick(e)
+						},
+						OnApplyPrompt: () => {
+							print("APPLY")
+							updateServer(parseSettings(currentWorldSettings))
+							props.OnClick(e)
+						},
+					})
+			}} />
 			<Gap Length={20} />
 			<Search />
 			<Gap Length={15} />
