@@ -1,7 +1,7 @@
 declare type ValueOf<T> = T[keyof T];
 
 declare interface PropTypes {
-	[Roact.Children]: RoactNode;
+	[Roact.Children]?: RoactNode;
 }
 
 declare interface GWPropTypes<T> {
