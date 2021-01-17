@@ -1,7 +1,7 @@
 import Rodux, { Store, combineReducers, AnyAction, Middleware } from "@rbxts/rodux";
 import { intialState } from "./intialState";
 import { worldSettingsReducerInitlizer } from "shared/worldSettingsReducer";
-import { updateWorldSettings } from "./replicationManager";
+// import { updateWorldSettings } from "./replicationManager";
 import { WorldSettingsActions } from "shared/worldSettingsActions";
 import { placementSettingsReducer, PlacementSettingsActions } from "./rodux/placementSettings";
 

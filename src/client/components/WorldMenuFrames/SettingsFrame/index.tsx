@@ -1,7 +1,8 @@
 import Roact from "@rbxts/roact";
+import { ClientEvent } from "@rbxts/net";
 import { deepEquals, entries } from "@rbxts/object-utils";
 import { updateWorldSettings } from "shared/worldSettingsReducer";
-import { retriveWorldSettings, updateWorldSettings as updateServer } from "client/replicationManager";
+import { retriveWorldSettings } from "client/replicationManager";
 import store from "client/store";
 import notificationStore from "client/notificationStore";
 import Container from "../WorldMenuFramesContainer";
@@ -12,6 +13,10 @@ import WorldInfo from "./WorldInfo";
 import Lighting from "./Lighting";
 import Sound from "./Sound";
 import Characters from "./Characters";
+
+const updateWorldSettingsRemote = new ClientEvent("UpdateWorldSettings");
+
+const updateServer = (action: ActionRecievedUpdateWorldSettings) => updateWorldSettingsRemote.SendToServer(action) 
 
 function parseSettings(settings: WorldSettings) {
 	return updateWorldSettings(entries(settings).map(([propertyName, value]) => ({ propertyName, value })))
@@ -33,11 +38,13 @@ function SettingsFrame(props: WorldMenuFrames) {
 						isApplyPrompt: true,
 						OnCancelPrompt: () => {
 							print("CANCEL")
+							notificationStore.removeNotification("ApplyPrompt")
 							store.dispatch(parseSettings(worldSettings))
 							props.OnClick(e)
 						},
 						OnApplyPrompt: () => {
 							print("APPLY")
+							notificationStore.removeNotification("ApplyPrompt")
 							updateServer(parseSettings(currentWorldSettings))
 							props.OnClick(e)
 						},
