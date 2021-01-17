@@ -56,7 +56,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 		for (const blockInfo of blockInfos) {
 			const propertiesInfo = blockInfo.split(";");
 			const partId = propertiesInfo.shift();
-			if (((((!partId !== undefined !== undefined) !== undefined) !== undefined) !== undefined) !== undefined) return;
+			if (partId === undefined) return;
 
 			const id = this.getNameById(partId);
 			const block = this.shapes[id].Clone();
