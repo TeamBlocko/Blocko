@@ -1,6 +1,7 @@
 import Roact from "@rbxts/roact";
+import { connect } from "@rbxts/roact-rodux";
 
-export function Title() {
+function TitleComp(props: WorldSettings) {
 	return (
 		<textlabel
 			AnchorPoint={new Vector2(0.5, 0.5)}
@@ -8,7 +9,7 @@ export function Title() {
 			BorderColor3={Color3.fromRGB(27, 42, 53)}
 			Size={new UDim2(0.95, 0, 0, 20)}
 			Font={Enum.Font.GothamBold}
-			Text="nyazem's World #1"
+			Text={props.Name}
 			TextColor3={new Color3(1, 1, 1)}
 			TextSize={17}
 			TextXAlignment={Enum.TextXAlignment.Left}
@@ -17,7 +18,7 @@ export function Title() {
 	);
 }
 
-export function Description() {
+function DescriptionComp(props: WorldSettings) {
 	return (
 		<textlabel
 			AnchorPoint={new Vector2(0.5, 0.5)}
@@ -25,7 +26,7 @@ export function Description() {
 			BorderColor3={Color3.fromRGB(27, 42, 53)}
 			Size={UDim2.fromScale(0.95, 1)}
 			Font={Enum.Font.Gotham}
-			Text="No description set."
+			Text={props.Description}
 			TextColor3={new Color3(1, 1, 1)}
 			TextSize={17}
 			TextXAlignment={Enum.TextXAlignment.Left}
@@ -33,3 +34,7 @@ export function Description() {
 		/>
 	);
 }
+
+export const Title = connect((state: IState) => state.WorldSettings)(TitleComp)
+
+export const Description = connect((state: IState) => state.WorldSettings)(DescriptionComp)
