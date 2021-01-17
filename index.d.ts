@@ -157,6 +157,7 @@ declare interface WorldSettings {
 	Brightness: number;
 	SoundID: number;
 	Volume: number;
+	IsPlaying: boolean;
 	Pitch: number;
 	ResetEnabled: boolean;
 	CollisionsEnabled: boolean;
