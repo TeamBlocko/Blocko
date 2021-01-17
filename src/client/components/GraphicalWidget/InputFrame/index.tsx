@@ -5,6 +5,7 @@ import TitleText from "client/components/misc/TitleText";
 interface InputFramePropTypes extends PropTypes {
 	Name: string;
 	Length: number;
+	OnChange: (newValue: string) => void;
 }
 
 class InputFrame extends Component<InputFramePropTypes> {
@@ -32,6 +33,9 @@ class InputFrame extends Component<InputFramePropTypes> {
 						TextSize={15}
 						TextYAlignment={Enum.TextYAlignment.Top}
 						TextXAlignment={Enum.TextXAlignment.Left}
+						Change={{
+							Text: (e) => this.props.OnChange(e.Text)
+						}}
 					/>
 				</frame>
 				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
