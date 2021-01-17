@@ -36,6 +36,7 @@ export class Notification extends Component<NotificationPropTypes> {
 
 	removeNotification() {
 		this.motor.setGoal(new Spring(1, SPRING_SETTINGS))
+		this.motor.onComplete(() => this.props.toggleRemoval(this.props.Id))
 	}
 
 	didMount() {

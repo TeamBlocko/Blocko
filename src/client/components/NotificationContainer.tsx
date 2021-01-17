@@ -64,6 +64,12 @@ export class NotificationContainer extends Component<NotificationContainerPropTy
 		});
 	};
 
+	toggleRemoval(id: string) {
+		this.setState(({ notifications }) => ({
+			notifications: notifications.filter((notification) => notification.Id !== id)
+		}));
+	}
+
 	renderNotifications() {
 		let currentPosition = 0;
 
@@ -88,6 +94,7 @@ export class NotificationContainer extends Component<NotificationContainerPropTy
 					Position={new UDim2(0.5, 0, 0, currentPosition)}
 					FrameSize={computedFrameSize}
 					MaxWidth={camera.ViewportSize.X * 0.8}
+					toggleRemoval={(id) => this.toggleRemoval(id)}
 				/>
 			else
 				element = <ApplyPrompt
@@ -95,6 +102,7 @@ export class NotificationContainer extends Component<NotificationContainerPropTy
 					Position={new UDim2(0.5, 0, 0, currentPosition)}
 					FrameSize={computedFrameSize}
 					MaxWidth={camera.ViewportSize.X * 0.8}
+					toggleRemoval={(id) => this.toggleRemoval(id)}
 				/>
 
 			print(!notification.HasBeenRemoved ? length : 0)

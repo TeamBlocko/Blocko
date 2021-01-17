@@ -225,4 +225,5 @@ declare interface NotificationPropTypes extends iNotification {
 	Position: UDim2;
 	FrameSize: number;
 	MaxWidth: number;
+  toggleRemoval: (id: string) => void
 }
