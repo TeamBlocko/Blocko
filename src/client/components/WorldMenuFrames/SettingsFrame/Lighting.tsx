@@ -7,10 +7,9 @@ import Slider from "client/components/GraphicalWidget/Slider";
 import SliderAndCheckBox from "client/components/GraphicalWidget/SliderAndCheckbox";
 
 interface LightingPropTypes extends WorldSettings {
-	OnSliderUpdate(propertyName: string, value: number): void;
-	// OnDropdownUpdate(propertyName: string, value: Instance | Enum.Material): void;
-	// OnCheckBoxUpdate(propertyName: string, value: boolean): void;
-	// OnColorPickerUpdate(propertyName: string, value: Color3): void;
+	OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time", value: number): void;
+	OnCheckBoxUpdate(propertyName: "CycleEnabled", value: boolean): void;
+	OnColorPickerUpdate(propertyName: "Ambient" | "OutdoorAmbient", value: Color3): void;
 }
 
 function Lighting(props: LightingPropTypes) {
@@ -18,9 +17,9 @@ function Lighting(props: LightingPropTypes) {
 		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 305)}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Lighting" Image="rbxassetid://3926307971" />
-			<ColorDisplay Name="Ambient" Default={new Color3()} OnChange={(newValue) => print(newValue)} />
-			<ColorDisplay Name="Outdoor Ambient" Default={new Color3()} OnChange={(newValue) => print(newValue)} />
-			<Slider Name="Time" Min={0} Max={12} Default={0} OnChange={(newValue) => print(newValue)} />
+			<ColorDisplay Name="Ambient" Default={props.Ambient} OnChange={(newValue) => props.OnColorPickerUpdate("Ambient", newValue)} />
+			<ColorDisplay Name="Outdoor Ambient" Default={props.OutdoorAmbient} OnChange={(newValue) => props.OnColorPickerUpdate("OutdoorAmbient", newValue)} />
+			<Slider Name="Time" Min={0} Max={12} Default={props.Time} OnChange={(newValue) => props.OnSliderUpdate("Time", newValue)} />
 			<Slider
 				Name="Brightness"
 				Min={0}
@@ -30,8 +29,8 @@ function Lighting(props: LightingPropTypes) {
 			/>
 			<SliderAndCheckBox
 				Name="Cycle"
-				SliderSettings={{ Min: 0, Max: 10, Default: 5, OnChange: (newValue) => print(newValue) }}
-				CheckBoxSettings={{ Default: false, OnChange: (newValue) => print(newValue) }}
+				SliderSettings={{ Min: 0, Max: 10, Default: props.Cycle, OnChange: (newValue) => props.OnSliderUpdate("Cycle", newValue) }}
+				CheckBoxSettings={{ Default: props.CycleEnabled, OnChange: (newValue) => props.OnCheckBoxUpdate("CycleEnabled", newValue) }}
 			/>
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 10)} />
 		</frame>
@@ -41,7 +40,7 @@ function Lighting(props: LightingPropTypes) {
 export default connect(
 	(state: IState) => state.WorldSettings,
 	(dispatch) => ({
-		OnSliderUpdate(propertyName: "Brightness", value: number) {
+		OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time", value: number) {
 			dispatch(
 				updateWorldSettings([
 					{
@@ -51,5 +50,26 @@ export default connect(
 				]),
 			);
 		},
+		OnCheckBoxUpdate(propertyName: "IsPlaying" | "CycleEnabled", value: boolean) {
+			dispatch(
+				updateWorldSettings([
+					{
+						propertyName,
+						value,
+					},
+				]),
+			);	
+		},
+		OnColorPickerUpdate(propertyName: "Ambient" | "OutdoorAmbient", value: Color3) {
+			dispatch(
+				updateWorldSettings([
+					{
+						propertyName,
+						value,
+					},
+				]),
+			);	
+		},
+
 	}),
 )(Lighting);
