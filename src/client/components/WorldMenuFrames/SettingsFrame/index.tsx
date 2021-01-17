@@ -1,6 +1,7 @@
 import Roact from "@rbxts/roact";
 import { ClientEvent } from "@rbxts/net";
-import { deepEquals, entries } from "@rbxts/object-utils";
+import { entries } from "@rbxts/object-utils";
+import { shallowEqual } from "shared/utility";
 import { updateWorldSettings } from "shared/worldSettingsReducer";
 import { retriveWorldSettings } from "client/replicationManager";
 import store from "client/store";
@@ -30,7 +31,9 @@ function SettingsFrame(props: WorldMenuFrames) {
 			<NavBar Text="World Settings" OnClick={(e) => {
 				const worldSettings = retriveWorldSettings()
 				const currentWorldSettings = store.getState().WorldSettings;
-				if (deepEquals(worldSettings, currentWorldSettings))
+				print("OLD", worldSettings)
+				print("NEW", currentWorldSettings)
+				if (shallowEqual(worldSettings, currentWorldSettings))
 					props.OnClick(e)
 				else
 					notificationStore.addNotification({
