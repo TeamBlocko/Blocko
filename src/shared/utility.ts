@@ -57,17 +57,17 @@ export function shallowEqual(t1: object, t2: object) {
 		if (key in t2) {
 			if (typeOf(value) === "number" && typeOf(t2[key]) === "number") {
 				if ("%.2f".format(value) !== "%.2f".format(t2[key])) {
-					return false
+					return false;
 				}
 			} else {
 				if (value !== t2[key]) {
-					return false
+					return false;
 				}
 			}
 		} else {
-			return false
+			return false;
 		}
 	}
 
-	return true
+	return true;
 }

@@ -12,13 +12,13 @@ export const storeReducer = combineReducers<IState>({
 	WorldSettings: worldSettingsReducerInitlizer(intialState.WorldSettings),
 });
 
-export default new Store<IState, StoreActions, typeof Rodux.loggerMiddleware/*, Middleware*/>(storeReducer, {}, [
+export default new Store<IState, StoreActions, typeof Rodux.loggerMiddleware /*, Middleware*/>(storeReducer, {}, [
 	Rodux.loggerMiddleware,
 	//(dispatch) => (action) => {
-    //    if (action.type === WorldSettingsActions.UPDATE_SETTINGS && !action.replcated)
-    //        updateWorldSettings(action);
-    //
-    //    dispatch(action);
+	//    if (action.type === WorldSettingsActions.UPDATE_SETTINGS && !action.replcated)
+	//        updateWorldSettings(action);
+	//
+	//    dispatch(action);
 
-    //}
+	//}
 ]);

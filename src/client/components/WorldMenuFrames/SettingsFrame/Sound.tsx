@@ -9,9 +9,7 @@ function Sound() {
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Sound" Image="rbxassetid://3926307971" />
 			<InputFrame Name="Audio ID" Length={40}>
-				<frame
-					Size={UDim2.fromScale(1, 0)}
-				>
+				<frame Size={UDim2.fromScale(1, 0)}>
 					<imagebutton
 						AnchorPoint={new Vector2(0.5, 0.5)}
 						BackgroundTransparency={1}

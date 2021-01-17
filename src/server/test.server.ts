@@ -11,4 +11,4 @@ print(serialized);
 blocksSerializer.deserializeBlocks(serialized, Workspace);
 */
 
-export {}
+export {};

@@ -8,7 +8,6 @@ const SPRING_SETTINGS = {
 };
 
 export class Notification extends Component<NotificationPropTypes> {
-
 	protected frameRef: Roact.Ref<Frame>;
 	protected motor: SingleMotor;
 	protected binding: RoactBinding<number>;
@@ -17,7 +16,6 @@ export class Notification extends Component<NotificationPropTypes> {
 	protected motor2: SingleMotor;
 	protected binding2: RoactBinding<number>;
 	protected setBinding2: RoactBindingFunc<number>;
-
 
 	constructor(props: NotificationPropTypes) {
 		super(props);
@@ -35,17 +33,16 @@ export class Notification extends Component<NotificationPropTypes> {
 	}
 
 	removeNotification() {
-		this.motor.setGoal(new Spring(1, SPRING_SETTINGS))
-		this.motor.onComplete(() => this.props.toggleRemoval(this.props.Id))
+		this.motor.setGoal(new Spring(1, SPRING_SETTINGS));
+		this.motor.onComplete(() => this.props.toggleRemoval(this.props.Id));
 	}
 
 	didMount() {
-		this.motor.setGoal(new Spring(0, SPRING_SETTINGS))
+		this.motor.setGoal(new Spring(0, SPRING_SETTINGS));
 	}
 
 	didUpdate() {
-		if (this.props.HasBeenRemoved)
-			this.removeNotification();
+		if (this.props.HasBeenRemoved) this.removeNotification();
 		this.motor2.setGoal(new Spring(1, SPRING_SETTINGS));
 	}
 
@@ -54,20 +51,19 @@ export class Notification extends Component<NotificationPropTypes> {
 			0,
 			math.min(this.props.MaxWidth, this.props.FrameSize),
 			0,
-			50 + math.floor(this.props.FrameSize / this.props.MaxWidth)
-		)
-		
+			50 + math.floor(this.props.FrameSize / this.props.MaxWidth),
+		);
+
 		return (
 			<frame
 				Key={this.props.Id}
 				AnchorPoint={new Vector2(0.5, 0)}
 				BackgroundColor3={new Color3()}
-				BackgroundTransparency={this.binding.map(value => map(value, 0, 1, 0.5, 1))}
-				Position={this.binding2.map(value => {
+				BackgroundTransparency={this.binding.map((value) => map(value, 0, 1, 0.5, 1))}
+				Position={this.binding2.map((value) => {
 					const frame = this.frameRef.getValue();
-					if (frame)
-						return frame.Position.Lerp(this.props.Position, value)
-					return this.props.Position
+					if (frame) return frame.Position.Lerp(this.props.Position, value);
+					return this.props.Position;
 				})}
 				Size={frameSize}
 				Ref={this.frameRef}
@@ -77,11 +73,14 @@ export class Notification extends Component<NotificationPropTypes> {
 					AnchorPoint={new Vector2(1, 0.5)}
 					BackgroundTransparency={1}
 					Position={new UDim2(1, -20, 0.5, 0)}
-					Size={UDim2.fromOffset(this.props.FrameSize - 80, 20 + math.floor((this.props.FrameSize - 80) / (this.props.MaxWidth - 80)))}
+					Size={UDim2.fromOffset(
+						this.props.FrameSize - 80,
+						20 + math.floor((this.props.FrameSize - 80) / (this.props.MaxWidth - 80)),
+					)}
 					Font={Enum.Font.GothamSemibold}
 					Text={this.props.Message}
 					RichText={true}
-					TextTransparency={this.binding.map(value => value)}
+					TextTransparency={this.binding.map((value) => value)}
 					TextColor3={new Color3(1, 1, 1)}
 					TextSize={18}
 					TextWrapped={true}
@@ -94,9 +93,9 @@ export class Notification extends Component<NotificationPropTypes> {
 					Size={UDim2.fromOffset(20, 20)}
 					Image={this.props.Icon}
 					ScaleType={Enum.ScaleType.Crop}
-					ImageTransparency={this.binding.map(value => value)}
+					ImageTransparency={this.binding.map((value) => value)}
 				/>
 			</frame>
-		)
+		);
 	}
 }

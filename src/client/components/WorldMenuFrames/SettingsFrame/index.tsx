@@ -17,10 +17,10 @@ import Characters from "./Characters";
 
 const updateWorldSettingsRemote = new ClientEvent("UpdateWorldSettings");
 
-const updateServer = (action: ActionRecievedUpdateWorldSettings) => updateWorldSettingsRemote.SendToServer(action) 
+const updateServer = (action: ActionRecievedUpdateWorldSettings) => updateWorldSettingsRemote.SendToServer(action);
 
 function parseSettings(settings: WorldSettings) {
-	return updateWorldSettings(entries(settings).map(([propertyName, value]) => ({ propertyName, value })))
+	return updateWorldSettings(entries(settings).map(([propertyName, value]) => ({ propertyName, value })));
 }
 
 function SettingsFrame(props: WorldMenuFrames) {
@@ -28,31 +28,33 @@ function SettingsFrame(props: WorldMenuFrames) {
 		<Container RefValue={props.RefValue}>
 			<uicorner />
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
-			<NavBar Text="World Settings" OnClick={(e) => {
-				const worldSettings = retriveWorldSettings()
-				const currentWorldSettings = store.getState().WorldSettings;
-				print("OLD", worldSettings)
-				print("NEW", currentWorldSettings)
-				if (shallowEqual(worldSettings, currentWorldSettings))
-					props.OnClick(e)
-				else
-					notificationStore.addNotification({
-						Id: "ApplyPrompt",
-						isApplyPrompt: true,
-						OnCancelPrompt: () => {
-							print("CANCEL")
-							notificationStore.removeNotification("ApplyPrompt")
-							store.dispatch(parseSettings(worldSettings))
-							props.OnClick(e)
-						},
-						OnApplyPrompt: () => {
-							print("APPLY")
-							notificationStore.removeNotification("ApplyPrompt")
-							updateServer(parseSettings(currentWorldSettings))
-							props.OnClick(e)
-						},
-					})
-			}} />
+			<NavBar
+				Text="World Settings"
+				OnClick={(e) => {
+					const worldSettings = retriveWorldSettings();
+					const currentWorldSettings = store.getState().WorldSettings;
+					print("OLD", worldSettings);
+					print("NEW", currentWorldSettings);
+					if (shallowEqual(worldSettings, currentWorldSettings)) props.OnClick(e);
+					else
+						notificationStore.addNotification({
+							Id: "ApplyPrompt",
+							isApplyPrompt: true,
+							OnCancelPrompt: () => {
+								print("CANCEL");
+								notificationStore.removeNotification("ApplyPrompt");
+								store.dispatch(parseSettings(worldSettings));
+								props.OnClick(e);
+							},
+							OnApplyPrompt: () => {
+								print("APPLY");
+								notificationStore.removeNotification("ApplyPrompt");
+								updateServer(parseSettings(currentWorldSettings));
+								props.OnClick(e);
+							},
+						});
+				}}
+			/>
 			<Gap Length={20} />
 			<Search />
 			<Gap Length={15} />

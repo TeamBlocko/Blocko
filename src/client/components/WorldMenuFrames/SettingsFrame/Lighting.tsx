@@ -1,7 +1,7 @@
 import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import Catagory from "./Catagory";
-import { updateWorldSettings } from "shared/worldSettingsReducer"
+import { updateWorldSettings } from "shared/worldSettingsReducer";
 import ColorDisplay from "client/components/GraphicalWidget/ColorDisplay";
 import Slider from "client/components/GraphicalWidget/Slider";
 import SliderAndCheckBox from "client/components/GraphicalWidget/SliderAndCheckbox";
@@ -21,7 +21,13 @@ function Lighting(props: LightingPropTypes) {
 			<ColorDisplay Name="Ambient" Default={new Color3()} OnChange={(newValue) => print(newValue)} />
 			<ColorDisplay Name="Outdoor Ambient" Default={new Color3()} OnChange={(newValue) => print(newValue)} />
 			<Slider Name="Time" Min={0} Max={12} Default={0} OnChange={(newValue) => print(newValue)} />
-			<Slider Name="Brightness" Min={0} Max={1} Default={props.Brightness} OnChange={(newValue) => props.OnSliderUpdate("Brightness", newValue)} />
+			<Slider
+				Name="Brightness"
+				Min={0}
+				Max={1}
+				Default={props.Brightness}
+				OnChange={(newValue) => props.OnSliderUpdate("Brightness", newValue)}
+			/>
 			<SliderAndCheckBox
 				Name="Cycle"
 				SliderSettings={{ Min: 0, Max: 10, Default: 5, OnChange: (newValue) => print(newValue) }}
@@ -37,12 +43,13 @@ export default connect(
 	(dispatch) => ({
 		OnSliderUpdate(propertyName: "Brightness", value: number) {
 			dispatch(
-				updateWorldSettings([{
+				updateWorldSettings([
+					{
 						propertyName,
 						value,
-					}]
-				)
-			)
-		}
-	})
+					},
+				]),
+			);
+		},
+	}),
 )(Lighting);

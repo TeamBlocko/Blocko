@@ -2,16 +2,18 @@ import { TextService, Workspace } from "@rbxts/services";
 import Roact, { Component } from "@rbxts/roact";
 import { Notification } from "./Notification";
 import { ApplyPrompt } from "./ApplyPrompt";
-import store from "client/notificationStore"
+import store from "client/notificationStore";
 
 const camera = Workspace.CurrentCamera as Camera;
 
 interface NotificationContainerPropTypes {
-	defaultNotificationWidth: number
+	defaultNotificationWidth: number;
 }
 
-export class NotificationContainer extends Component<NotificationContainerPropTypes, { notifications: iNotification[] }> {
-	
+export class NotificationContainer extends Component<
+	NotificationContainerPropTypes,
+	{ notifications: iNotification[] }
+> {
 	frameRef: Roact.Ref<ScrollingFrame>;
 
 	constructor(props: NotificationContainerPropTypes) {
@@ -21,7 +23,7 @@ export class NotificationContainer extends Component<NotificationContainerPropTy
 
 		this.setState({
 			notifications: [],
-		})
+		});
 	}
 
 	didMount() {
@@ -37,11 +39,11 @@ export class NotificationContainer extends Component<NotificationContainerPropTy
 
 	add(notification: iNotification) {
 		this.setState(({ notifications }) => ({
-			notifications: [...notifications, notification]
+			notifications: [...notifications, notification],
 		}));
 
 		return notification.Id;
-	};
+	}
 
 	remove(id: string) {
 		this.setState(({ notifications }) => ({
@@ -51,22 +53,22 @@ export class NotificationContainer extends Component<NotificationContainerPropTy
 				}
 
 				return notification;
-			})
+			}),
 		}));
-	};
+	}
 
 	removeAllNotifications() {
 		this.setState({
 			notifications: this.state.notifications.map((notification) => ({
 				...notification,
-				HasBeenRemoved: true
-			}))
+				HasBeenRemoved: true,
+			})),
 		});
-	};
+	}
 
 	toggleRemoval(id: string) {
 		this.setState(({ notifications }) => ({
-			notifications: notifications.filter((notification) => notification.Id !== id)
+			notifications: notifications.filter((notification) => notification.Id !== id),
 		}));
 	}
 
@@ -79,45 +81,49 @@ export class NotificationContainer extends Component<NotificationContainerPropTy
 				18,
 				Enum.Font.GothamSemibold,
 				new Vector2(),
-			)
-			
-			const maxWidth = camera.ViewportSize.X * 0.8
-			const computedFrameSize = math.min(maxWidth, textSize.X + 80)
+			);
 
-			const length = 50 + math.floor(computedFrameSize / maxWidth)
+			const maxWidth = camera.ViewportSize.X * 0.8;
+			const computedFrameSize = math.min(maxWidth, textSize.X + 80);
+
+			const length = 50 + math.floor(computedFrameSize / maxWidth);
 
 			let element: Roact.Element;
 
 			if (!notification.isApplyPrompt)
-				element = <Notification
-					{...notification}
-					Position={new UDim2(0.5, 0, 0, currentPosition)}
-					FrameSize={computedFrameSize}
-					MaxWidth={camera.ViewportSize.X * 0.8}
-					toggleRemoval={(id) => this.toggleRemoval(id)}
-				/>
+				element = (
+					<Notification
+						{...notification}
+						Position={new UDim2(0.5, 0, 0, currentPosition)}
+						FrameSize={computedFrameSize}
+						MaxWidth={camera.ViewportSize.X * 0.8}
+						toggleRemoval={(id) => this.toggleRemoval(id)}
+					/>
+				);
 			else
-				element = <ApplyPrompt
-					{...notification}
-					Position={new UDim2(0.5, 0, 0, currentPosition)}
-					FrameSize={computedFrameSize}
-					MaxWidth={camera.ViewportSize.X * 0.8}
-					toggleRemoval={(id) => this.toggleRemoval(id)}
-				/>
+				element = (
+					<ApplyPrompt
+						{...notification}
+						Position={new UDim2(0.5, 0, 0, currentPosition)}
+						FrameSize={computedFrameSize}
+						MaxWidth={camera.ViewportSize.X * 0.8}
+						toggleRemoval={(id) => this.toggleRemoval(id)}
+					/>
+				);
 
-			print(!notification.HasBeenRemoved ? length : 0)
-			currentPosition += (!notification.HasBeenRemoved ? length : 0)
-				+ (this.state.notifications.size() - 1 === index || notification.HasBeenRemoved ? 0 : 10)
+			print(!notification.HasBeenRemoved ? length : 0);
+			currentPosition +=
+				(!notification.HasBeenRemoved ? length : 0) +
+				(this.state.notifications.size() - 1 === index || notification.HasBeenRemoved ? 0 : 10);
 
-			return element
-		})
+			return element;
+		});
 
 		const frame = this.frameRef.getValue();
 
-		if (frame !== undefined)
-			frame.CanvasSize = UDim2.fromOffset(0, currentPosition)
-		
-		return notifications
+		if (frame !== undefined) frame.CanvasSize = UDim2.fromOffset(0, currentPosition);
+
+		return notifications;
 	}
 
 	render() {
@@ -135,6 +141,6 @@ export class NotificationContainer extends Component<NotificationContainerPropTy
 			>
 				{this.renderNotifications()}
 			</scrollingframe>
-		)
+		);
 	}
 }

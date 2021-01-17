@@ -7,26 +7,28 @@ export = (target: GuiBase2d | PlayerGui) => {
 
 	delay(5, () => {
 		notificationStore.addNotification({
-			Id:"LoL!",
+			Id: "LoL!",
 			Message: "WowWWW Letsss Go Mario!!",
 			Icon: "rbxassetid://5995661677",
-		})
+		});
 		notificationStore.addNotification({
-			Id:"LoL2!",
+			Id: "LoL2!",
 			isApplyPrompt: true,
-			Message: "Hey hazem. can you fix the dorpdown issue, hey hazem can you fix the dropdown issue, hey hazem can you-",
+			Message:
+				"Hey hazem. can you fix the dorpdown issue, hey hazem can you fix the dropdown issue, hey hazem can you-",
 			Icon: "rbxassetid://5995661677",
-		})
+		});
 		notificationStore.addNotification({
-			Id:"LoL3!",
-			Message: "Hey hazem. can you fix the dorpdown issue, hey hazem can you fix the dropdown issue, hey hazem can you-",
+			Id: "LoL3!",
+			Message:
+				"Hey hazem. can you fix the dorpdown issue, hey hazem can you fix the dropdown issue, hey hazem can you-",
 			Icon: "rbxassetid://5995661677",
-		})
+		});
 
 		delay(5, () => {
 			notificationStore.removeNotification("LoL2!");
-		})
-	})
+		});
+	});
 
 	return () => {
 		Roact.unmount(handle);

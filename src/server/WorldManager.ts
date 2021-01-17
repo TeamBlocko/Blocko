@@ -33,7 +33,7 @@ const DEFAULT_WORLD_SETTINGS = {
 	Description: "",
 	Thumbnail: "",
 	Ambient: new Color3(),
-	OutdoorAmbient: new Color3,
+	OutdoorAmbient: new Color3(),
 	Time: 0,
 	CycleEnabled: false,
 	Cycle: 0,
@@ -49,7 +49,7 @@ const DEFAULT_WORLD_SETTINGS = {
 	DefaultJumpPower: 10,
 	MinCameraZoom: 0,
 	MaxCameraZoom: 100,
-}
+};
 
 const DEFAULT_WORLDINFO: WorldInfo = {
 	WorldId: game.PlaceId,
@@ -59,7 +59,7 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 	MaxPlayers: 25,
 	ActivePlayers: 0,
 	Blocks: "",
- 
+
 	WorldSettings: DEFAULT_WORLD_SETTINGS,
 };
 
@@ -85,7 +85,7 @@ class WorldManager {
 		if (worldInfoProfile !== undefined && worldBlocksProfile !== undefined) {
 			worldInfoProfile.Reconcile();
 			worldBlocksProfile.Reconcile();
-			this.worldInfo = worldInfoProfile;;
+			this.worldInfo = worldInfoProfile;
 			this.worldBlocks = worldBlocksProfile;
 			this.store = storeInitializer(this.worldInfo.Data.WorldSettings);
 			this.Load();

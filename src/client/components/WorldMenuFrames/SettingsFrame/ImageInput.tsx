@@ -24,7 +24,7 @@ function ImageInput() {
 				<uicorner CornerRadius={new UDim(0, 5)} />
 			</textbox>
 		</imagebutton>
-	)
+	);
 }
 
 export default ImageInput;
