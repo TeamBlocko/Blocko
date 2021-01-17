@@ -29,8 +29,8 @@ export enum BlockIds {
 const serializer = new Serializer(BlockIds, ReplicatedStorage.BlockTypes);
 
 const DEFAULT_WORLD_SETTINGS = {
-	Name: "",
-	Description: "",
+	Name: "nyzem world #1",
+	Description: "No description set.",
 	Thumbnail: "",
 	Ambient: new Color3(),
 	OutdoorAmbient: new Color3(),
@@ -41,6 +41,7 @@ const DEFAULT_WORLD_SETTINGS = {
 	SoundID: 0,
 	Volume: 0.5,
 	Pitch: 0,
+	IsPlaying: false,
 	ResetEnabled: true,
 	CollisionsEnabled: true,
 	UsernameDistance: 200,
