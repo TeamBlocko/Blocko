@@ -23,7 +23,7 @@ function Lighting(props: LightingPropTypes) {
 			<Slider
 				Name="Brightness"
 				Min={0}
-				Max={1}
+				Max={10}
 				Default={props.Brightness}
 				OnChange={(newValue) => props.OnSliderUpdate("Brightness", newValue)}
 			/>
