@@ -1,3 +1,5 @@
+import { HttpService } from "@rbxts/services";
+
 interface iStore {
 	addNotification(notification: iNotification): string;
 	removeNotification(id: string): void;
@@ -25,10 +27,14 @@ class Store implements iStore {
 
 	private incrementCounter = () => (this.counter += 1);
 
-	public addNotification(notification: iNotification) {
+	public addNotification(notification: Partial<iNotification>) {
+		
+		if (!notification.Id) {
+			notification.Id = HttpService.GenerateGUID();
+		}
 		this.incrementCounter();
 
-		return this.add(notification);
+		return this.add(notification as iNotification);
 	}
 
 	public getCounter = () => this.counter;
