@@ -38,14 +38,11 @@ function Catagory(props: CatagoryPropTypes) {
 				BorderSizePixel={0}
 				Ref={(e) => {
 					if (e === undefined) return;
-					coroutine.wrap(() => {
-						let parentSize;
-						do {
-							wait();
-							parentSize = (e.Parent as Frame).AbsoluteSize.X;
-							e.Size = UDim2.fromOffset(parentSize - textSize - 20, 2);
-						} while (parentSize === 0);
-					})();
+					e.AncestryChanged.Connect((_, parent) => {
+						if (parent === undefined) return; 
+						const parentSize = (e.Parent as Frame).AbsoluteSize.X;
+						e.Size = UDim2.fromOffset(parentSize - textSize - 20, 2);
+					});
 				}}
 			/>
 			<uilistlayout
