@@ -36,7 +36,7 @@ export const Pitch = (newValue: number) => {
 		pitchModifier.Enabled = false;
 	else
 		pitchModifier.Enabled = true;
-		pitchModifier.Octave = newValue
+		pitchModifier.Octave = newValue/80
 }
 
 export const IsPlaying = (newValue: boolean) => newValue ? sound.Resume() : sound.Pause();
