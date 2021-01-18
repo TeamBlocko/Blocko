@@ -29,6 +29,7 @@ function DescriptionComp(props: WorldSettings) {
 			Text={props.Description}
 			TextColor3={new Color3(1, 1, 1)}
 			TextSize={17}
+			TextWrapped={true}
 			TextXAlignment={Enum.TextXAlignment.Left}
 			TextYAlignment={Enum.TextYAlignment.Top}
 		/>

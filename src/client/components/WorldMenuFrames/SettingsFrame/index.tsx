@@ -33,8 +33,21 @@ function SettingsFrame(props: WorldMenuFrames) {
 				OnClick={(e) => {
 					const worldSettings = retriveWorldSettings();
 					const currentWorldSettings = store.getState().WorldSettings;
-					print("OLD", worldSettings);
-					print("NEW", currentWorldSettings);
+					if (currentWorldSettings.Name.size() < 6) {
+						notificationStore.addNotification({
+							Message: "Name must be at least 6 characters long.",
+							Time: 5,
+						})
+						return
+					}
+					if (currentWorldSettings.Description.size() < 6) {
+						notificationStore.addNotification({
+							Message: "Description must be at least 6 characters long.",
+							Time: 5,
+						})
+						return
+					}
+
 					if (shallowEqual(worldSettings, currentWorldSettings)) props.OnClick(e);
 					else
 						notificationStore.addNotification({
