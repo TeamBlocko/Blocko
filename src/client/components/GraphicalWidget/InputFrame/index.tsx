@@ -5,6 +5,7 @@ import TitleText from "client/components/misc/TitleText";
 interface InputFramePropTypes extends PropTypes {
 	Name: string;
 	Length: number;
+	HandleInput?: (input: string) => string;
 	OnChange: (newValue: string) => void;
 }
 
@@ -34,7 +35,10 @@ class InputFrame extends Component<InputFramePropTypes> {
 						TextYAlignment={Enum.TextYAlignment.Top}
 						TextXAlignment={Enum.TextXAlignment.Left}
 						Change={{
-							Text: (e) => this.props.OnChange(e.Text)
+							Text: (e) => {
+								const text = this.props.HandleInput ? this.props.HandleInput(e.Text) : e.Text
+								this.props.OnChange(text)
+							}
 						}}
 					/>
 				</frame>

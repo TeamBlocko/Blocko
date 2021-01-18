@@ -16,7 +16,7 @@ function Sound(props: SoundPropTypes) {
 		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 225)}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Sound" Image="rbxassetid://3926307971" />
-			<InputFrame Name="Sound Id" Length={40} OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)}>
+			<InputFrame Name="Sound Id" Length={40} OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)} HandleInput={(input) => input.match("%d+")[0] as string || ""}>
 				<frame Size={UDim2.fromScale(1, 0)}>
 					<imagebutton
 						AnchorPoint={new Vector2(0.5, 0.5)}
