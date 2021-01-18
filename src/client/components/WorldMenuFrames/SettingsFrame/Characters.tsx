@@ -16,7 +16,7 @@ function Characters(props: CharactersPropTypes) {
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Characters" Image="rbxassetid://3926305904" />
 			<CheckBox Name="Reset Allowed" Default={props.ResetEnabled} OnChange={(newValue) => props.OnCheckBoxUpdate("ResetEnabled", newValue)} />
-			<CheckBox Name="Collision" Default={true} OnChange={(newValue) => props.OnCheckBoxUpdate("CollisionsEnabled", newValue)} />
+			<CheckBox Name="Collision" Default={props.CollisionsEnabled} OnChange={(newValue) => props.OnCheckBoxUpdate("CollisionsEnabled", newValue)} />
 			<Slider
 				Name="Username View Distance"
 				Min={0}
