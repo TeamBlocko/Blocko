@@ -2,11 +2,9 @@ import Roact, { Component } from "@rbxts/roact";
 import GWFrame from "client/components/misc/GWFrame";
 import TitleText from "client/components/misc/TitleText";
 
-interface InputFramePropTypes extends PropTypes {
-	Name: string;
+interface InputFramePropTypes extends PropTypes, GWPropTypes<string> {
 	Length: number;
 	HandleInput?: (input: string) => string;
-	OnChange: (newValue: string) => void;
 }
 
 class InputFrame extends Component<InputFramePropTypes> {
@@ -28,7 +26,8 @@ class InputFrame extends Component<InputFramePropTypes> {
 						Position={UDim2.fromScale(0.5, 0.5)}
 						Size={UDim2.fromScale(0.95, 0.95)}
 						Font={Enum.Font.GothamSemibold}
-						Text=""
+						Text={this.props.Default}
+						ClearTextOnFocus={false}
 						TextColor3={Color3.fromRGB(218, 218, 218)}
 						TextWrapped={true}
 						TextSize={15}
@@ -37,7 +36,10 @@ class InputFrame extends Component<InputFramePropTypes> {
 						Change={{
 							Text: (e) => {
 								const text = this.props.HandleInput ? this.props.HandleInput(e.Text) : e.Text
-								this.props.OnChange(text)
+								if (e.Text === text)
+									this.props.OnChange(text)
+								else
+									e.Text = text
 							}
 						}}
 					/>
