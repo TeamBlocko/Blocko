@@ -220,6 +220,7 @@ declare interface iNotification {
  	isApplyPrompt?: boolean;
 	OnCancelPrompt?: () => void;
 	OnApplyPrompt?: () => void;
+	Time?: number;
 }
 
 declare interface NotificationPropTypes extends iNotification {

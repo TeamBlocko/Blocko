@@ -15,6 +15,7 @@ export class NotificationContainer extends Component<
 	{ notifications: iNotification[] }
 > {
 	frameRef: Roact.Ref<ScrollingFrame>;
+	timeContainer: {[K: string]: boolean | undefined } = {};
 
 	constructor(props: NotificationContainerPropTypes) {
 		super(props);
@@ -39,7 +40,7 @@ export class NotificationContainer extends Component<
 
 	add(notification: iNotification) {
 		this.setState(({ notifications }) => ({
-			notifications: [...notifications, notification],
+			notifications: [notification, ...notifications],
 		}));
 
 		return notification.Id;
@@ -89,6 +90,14 @@ export class NotificationContainer extends Component<
 			const length = 50 + math.floor(computedFrameSize / maxWidth);
 
 			let element: Roact.Element;
+
+			if (notification.Time && !this.timeContainer[notification.Id]) {
+				this.timeContainer[notification.Id] = true
+				delay(notification.Time, () => {
+					this.timeContainer[notification.Id] = undefined;
+					this.remove(notification.Id)
+				})
+			}
 
 			if (!notification.isApplyPrompt)
 				element = (
