@@ -24,7 +24,6 @@ function updateSettings(state: WorldSettings) {
 updateSettings(WorldManager.store.getState());
 WorldManager.store.changed.connect((newState) => updateSettings(newState));
 
-
 while (true) {
 	wait(10);
 	WorldManager.Save();

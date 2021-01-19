@@ -16,7 +16,13 @@ function Sound(props: SoundPropTypes) {
 		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 225)}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Sound" Image="rbxassetid://3926307971" />
-			<InputFrame Name="Sound Id" Length={40} Default={tostring(props.SoundID)} OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)} HandleInput={(input) => input.match("%d+")[0] as string || ""}>
+			<InputFrame
+				Name="Sound Id"
+				Length={40}
+				Default={tostring(props.SoundID)}
+				OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)}
+				HandleInput={(input) => (input.match("%d+")[0] as string) || ""}
+			>
 				<frame Size={UDim2.fromScale(1, 0)}>
 					<imagebutton
 						AnchorPoint={new Vector2(0.5, 0.5)}
@@ -29,13 +35,25 @@ function Sound(props: SoundPropTypes) {
 						ImageRectSize={new Vector2(36, 36)}
 						ScaleType={Enum.ScaleType.Fit}
 						Event={{
-							Activated: () => props.OnCheckBoxUpdate("IsPlaying", !props.IsPlaying)
+							Activated: () => props.OnCheckBoxUpdate("IsPlaying", !props.IsPlaying),
 						}}
 					/>
 				</frame>
 			</InputFrame>
-			<Slider Name="Volume" Min={0} Max={10} Default={props.Volume} OnChange={(newValue) => props.OnSliderUpdate("Volume", newValue)} />
-			<Slider Name="Pitch" Min={0} Max={100} Default={props.Pitch} OnChange={(newValue) => props.OnSliderUpdate("Pitch", newValue)} />
+			<Slider
+				Name="Volume"
+				Min={0}
+				Max={10}
+				Default={props.Volume}
+				OnChange={(newValue) => props.OnSliderUpdate("Volume", newValue)}
+			/>
+			<Slider
+				Name="Pitch"
+				Min={0}
+				Max={100}
+				Default={props.Pitch}
+				OnChange={(newValue) => props.OnSliderUpdate("Pitch", newValue)}
+			/>
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 10)} />
 		</frame>
 	);
@@ -73,6 +91,6 @@ export default connect(
 					},
 				]),
 			);
-		}
+		},
 	}),
 )(Sound);

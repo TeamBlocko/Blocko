@@ -39,7 +39,7 @@ function Catagory(props: CatagoryPropTypes) {
 				Ref={(e) => {
 					if (e === undefined) return;
 					e.AncestryChanged.Connect((_, parent) => {
-						if (parent === undefined) return; 
+						if (parent === undefined) return;
 						const parentSize = (e.Parent as Frame).AbsoluteSize.X;
 						e.Size = UDim2.fromOffset(parentSize - textSize - 20, 2);
 					});

@@ -2,44 +2,43 @@ import { Lighting, RunService, Players, StarterGui } from "@rbxts/services";
 import store from "./store";
 
 // LIGHTING
-export const Brightness = (newValue: number) => Lighting.Brightness = newValue;
+export const Brightness = (newValue: number) => (Lighting.Brightness = newValue);
 
-export const Ambient = (newValue: Color3) => Lighting.Ambient = newValue;
+export const Ambient = (newValue: Color3) => (Lighting.Ambient = newValue);
 
-export const OutdoorAmbient = (newValue: Color3) => Lighting.OutdoorAmbient = newValue;
+export const OutdoorAmbient = (newValue: Color3) => (Lighting.OutdoorAmbient = newValue);
 
-const intialState = store.getState().WorldSettings
-const cycleInfo = { cycleRate: intialState.Cycle, enabled: intialState.CycleEnabled }
+const intialState = store.getState().WorldSettings;
+const cycleInfo = { cycleRate: intialState.Cycle, enabled: intialState.CycleEnabled };
 RunService.RenderStepped.Connect(() => {
-	if (cycleInfo.enabled)
-		Lighting.SetMinutesAfterMidnight(Lighting.GetMinutesAfterMidnight() + cycleInfo.cycleRate)
-})
+	if (cycleInfo.enabled) Lighting.SetMinutesAfterMidnight(Lighting.GetMinutesAfterMidnight() + cycleInfo.cycleRate);
+});
 
-export const Time = (newValue: number) => {if (!cycleInfo.enabled) Lighting.ClockTime = newValue};
+export const Time = (newValue: number) => {
+	if (!cycleInfo.enabled) Lighting.ClockTime = newValue;
+};
 
-export const Cycle = (newValue: number) => cycleInfo.cycleRate = newValue;
+export const Cycle = (newValue: number) => (cycleInfo.cycleRate = newValue);
 
-export const CycleEnabled = (newValue: boolean) => cycleInfo.enabled = newValue;
+export const CycleEnabled = (newValue: boolean) => (cycleInfo.enabled = newValue);
 
 // SOUND
 const sound = new Instance("Sound", Players.LocalPlayer);
 
-export const SoundID = (newValue: number) => sound.SoundId = `rbxassetid://${newValue}`;
+export const SoundID = (newValue: number) => (sound.SoundId = `rbxassetid://${newValue}`);
 
-export const Volume = (newValue: number) => sound.Volume = newValue;
+export const Volume = (newValue: number) => (sound.Volume = newValue);
 
 export const Pitch = (newValue: number) => {
 	const pitchModifier = sound.FindFirstChildOfClass("PitchShiftSoundEffect")
-		? sound.FindFirstChildOfClass("PitchShiftSoundEffect") as PitchShiftSoundEffect
+		? (sound.FindFirstChildOfClass("PitchShiftSoundEffect") as PitchShiftSoundEffect)
 		: new Instance("PitchShiftSoundEffect", sound);
-	if (newValue === 0)
-		pitchModifier.Enabled = false;
-	else
-		pitchModifier.Enabled = true;
-		pitchModifier.Octave = newValue/80
-}
+	if (newValue === 0) pitchModifier.Enabled = false;
+	else pitchModifier.Enabled = true;
+	pitchModifier.Octave = newValue / 80;
+};
 
-export const IsPlaying = (newValue: boolean) => newValue ? sound.Resume() : sound.Pause();
+export const IsPlaying = (newValue: boolean) => (newValue ? sound.Resume() : sound.Pause());
 
 // CHARACTERS
 const client = Players.LocalPlayer;
@@ -50,7 +49,7 @@ export const DefaultWalkSpeed = (newValue: number) => {
 	const character = client.Character ?? client.CharacterAdded.Wait()[0];
 	const humanoid = character.FindFirstChildOfClass("Humanoid");
 	if (humanoid) {
-		humanoid.WalkSpeed = newValue
+		humanoid.WalkSpeed = newValue;
 	}
 };
 
@@ -58,10 +57,10 @@ export const DefaultJumpPower = (newValue: number) => {
 	const character = client.Character ?? client.CharacterAdded.Wait()[0];
 	const humanoid = character.FindFirstChildOfClass("Humanoid");
 	if (humanoid) {
-		humanoid.JumpPower = newValue
+		humanoid.JumpPower = newValue;
 	}
-}
+};
 
-export const MinCameraZoom = (newValue: number) => client.CameraMinZoomDistance = newValue;
+export const MinCameraZoom = (newValue: number) => (client.CameraMinZoomDistance = newValue);
 
-export const MaxCameraZoom = (newValue: number) => client.CameraMaxZoomDistance = newValue;
+export const MaxCameraZoom = (newValue: number) => (client.CameraMaxZoomDistance = newValue);

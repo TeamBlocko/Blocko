@@ -17,9 +17,23 @@ function Lighting(props: LightingPropTypes) {
 		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 305)}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Lighting" Image="rbxassetid://3926307971" />
-			<ColorDisplay Name="Ambient" Default={props.Ambient} OnChange={(newValue) => props.OnColorPickerUpdate("Ambient", newValue)} />
-			<ColorDisplay Name="Outdoor Ambient" Default={props.OutdoorAmbient} OnChange={(newValue) => props.OnColorPickerUpdate("OutdoorAmbient", newValue)} />
-			<Slider Name="Time" Min={0} Max={12} Default={props.Time} OnChange={(newValue) => props.OnSliderUpdate("Time", newValue)} />
+			<ColorDisplay
+				Name="Ambient"
+				Default={props.Ambient}
+				OnChange={(newValue) => props.OnColorPickerUpdate("Ambient", newValue)}
+			/>
+			<ColorDisplay
+				Name="Outdoor Ambient"
+				Default={props.OutdoorAmbient}
+				OnChange={(newValue) => props.OnColorPickerUpdate("OutdoorAmbient", newValue)}
+			/>
+			<Slider
+				Name="Time"
+				Min={0}
+				Max={12}
+				Default={props.Time}
+				OnChange={(newValue) => props.OnSliderUpdate("Time", newValue)}
+			/>
 			<Slider
 				Name="Brightness"
 				Min={0}
@@ -29,8 +43,16 @@ function Lighting(props: LightingPropTypes) {
 			/>
 			<SliderAndCheckBox
 				Name="Cycle"
-				SliderSettings={{ Min: 0, Max: 10, Default: props.Cycle, OnChange: (newValue) => props.OnSliderUpdate("Cycle", newValue) }}
-				CheckBoxSettings={{ Default: props.CycleEnabled, OnChange: (newValue) => props.OnCheckBoxUpdate("CycleEnabled", newValue) }}
+				SliderSettings={{
+					Min: 0,
+					Max: 10,
+					Default: props.Cycle,
+					OnChange: (newValue) => props.OnSliderUpdate("Cycle", newValue),
+				}}
+				CheckBoxSettings={{
+					Default: props.CycleEnabled,
+					OnChange: (newValue) => props.OnCheckBoxUpdate("CycleEnabled", newValue),
+				}}
 			/>
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 10)} />
 		</frame>
@@ -58,7 +80,7 @@ export default connect(
 						value,
 					},
 				]),
-			);	
+			);
 		},
 		OnColorPickerUpdate(propertyName: "Ambient" | "OutdoorAmbient", value: Color3) {
 			dispatch(
@@ -68,8 +90,7 @@ export default connect(
 						value,
 					},
 				]),
-			);	
+			);
 		},
-
 	}),
 )(Lighting);

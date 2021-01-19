@@ -6,8 +6,17 @@ import Slider from "client/components/GraphicalWidget/Slider";
 import CheckBox from "client/components/GraphicalWidget/CheckBox";
 
 interface CharactersPropTypes extends WorldSettings {
-	OnSliderInputUpdate(propertyName: "UsernameDistance" | "HealthDistance" | "DefaultWalkSpeed" | "DefaultJumpPower" | "MinCameraZoom" | "MaxCameraZoom", newValue: number): void
-	OnCheckBoxUpdate(propertyName: "ResetEnabled" | "CollisionsEnabled", newValue: boolean): void
+	OnSliderInputUpdate(
+		propertyName:
+			| "UsernameDistance"
+			| "HealthDistance"
+			| "DefaultWalkSpeed"
+			| "DefaultJumpPower"
+			| "MinCameraZoom"
+			| "MaxCameraZoom",
+		newValue: number,
+	): void;
+	OnCheckBoxUpdate(propertyName: "ResetEnabled" | "CollisionsEnabled", newValue: boolean): void;
 }
 
 function Characters(props: CharactersPropTypes) {
@@ -15,8 +24,16 @@ function Characters(props: CharactersPropTypes) {
 		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 535)}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Characters" Image="rbxassetid://3926305904" />
-			<CheckBox Name="Reset Allowed" Default={props.ResetEnabled} OnChange={(newValue) => props.OnCheckBoxUpdate("ResetEnabled", newValue)} />
-			<CheckBox Name="Collision" Default={props.CollisionsEnabled} OnChange={(newValue) => props.OnCheckBoxUpdate("CollisionsEnabled", newValue)} />
+			<CheckBox
+				Name="Reset Allowed"
+				Default={props.ResetEnabled}
+				OnChange={(newValue) => props.OnCheckBoxUpdate("ResetEnabled", newValue)}
+			/>
+			<CheckBox
+				Name="Collision"
+				Default={props.CollisionsEnabled}
+				OnChange={(newValue) => props.OnCheckBoxUpdate("CollisionsEnabled", newValue)}
+			/>
 			<Slider
 				Name="Username View Distance"
 				Min={0}
@@ -31,8 +48,20 @@ function Characters(props: CharactersPropTypes) {
 				Default={props.HealthDistance}
 				OnChange={(newValue) => props.OnSliderInputUpdate("HealthDistance", newValue)}
 			/>
-			<Slider Name="Walk Speed" Min={0} Max={100} Default={props.DefaultWalkSpeed} OnChange={(newValue) => props.OnSliderInputUpdate("DefaultWalkSpeed", newValue)} />
-			<Slider Name="Minimum Camera Zoom" Min={0} Max={400} Default={props.MinCameraZoom} OnChange={(newValue) => props.OnSliderInputUpdate("MinCameraZoom", newValue)} />
+			<Slider
+				Name="Walk Speed"
+				Min={0}
+				Max={100}
+				Default={props.DefaultWalkSpeed}
+				OnChange={(newValue) => props.OnSliderInputUpdate("DefaultWalkSpeed", newValue)}
+			/>
+			<Slider
+				Name="Minimum Camera Zoom"
+				Min={0}
+				Max={400}
+				Default={props.MinCameraZoom}
+				OnChange={(newValue) => props.OnSliderInputUpdate("MinCameraZoom", newValue)}
+			/>
 			<Slider
 				Name="Maximum Camera Zoom"
 				Min={0}
@@ -48,21 +77,34 @@ function Characters(props: CharactersPropTypes) {
 export default connect(
 	(state: IState) => state.WorldSettings,
 	(dispatch) => ({
-		OnSliderInputUpdate(propertyName: "UsernameDistance" | "HealthDistance" | "DefaultWalkSpeed" | "DefaultJumpPower" | "MinCameraZoom" | "MaxCameraZoom", value: number) {
+		OnSliderInputUpdate(
+			propertyName:
+				| "UsernameDistance"
+				| "HealthDistance"
+				| "DefaultWalkSpeed"
+				| "DefaultJumpPower"
+				| "MinCameraZoom"
+				| "MaxCameraZoom",
+			value: number,
+		) {
 			dispatch(
-				updateWorldSettings([{
-					propertyName,
-					value,
-				}])
-			)
+				updateWorldSettings([
+					{
+						propertyName,
+						value,
+					},
+				]),
+			);
 		},
 		OnCheckBoxUpdate(propertyName: "ResetEnabled" | "CollisionsEnabled", value: boolean) {
 			dispatch(
-				updateWorldSettings([{
-					propertyName,
-					value,
-				}])
-			)
+				updateWorldSettings([
+					{
+						propertyName,
+						value,
+					},
+				]),
+			);
 		},
-	})
+	}),
 )(Characters);

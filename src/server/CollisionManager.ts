@@ -5,51 +5,54 @@ class CollisionManager {
 	public readonly previousCollisionGroups: Map<BasePart, number | undefined> = new Map();
 
 	constructor() {
-		PhysicsService.CreateCollisionGroup(this.playerCollisionGroupName)
-	
-		Players.PlayerAdded.Connect((player) => player.CharacterAdded.Connect((character) => this.onCharacterAdded(character)))
+		PhysicsService.CreateCollisionGroup(this.playerCollisionGroupName);
+
+		Players.PlayerAdded.Connect((player) =>
+			player.CharacterAdded.Connect((character) => this.onCharacterAdded(character)),
+		);
 	}
 
 	setCollisionGroup(object: Instance) {
 		if (object.IsA("BasePart")) {
-			this.previousCollisionGroups.set(object, object.CollisionGroupId)
-			PhysicsService.SetPartCollisionGroup(object, this.playerCollisionGroupName)
+			this.previousCollisionGroups.set(object, object.CollisionGroupId);
+			PhysicsService.SetPartCollisionGroup(object, this.playerCollisionGroupName);
 		}
 	}
 
 	setCollisionGroupRecursive(object: Instance) {
-		this.setCollisionGroup(object)
+		this.setCollisionGroup(object);
 
-		for (const child of object.GetChildren())
-			this.setCollisionGroupRecursive(child as BasePart)
+		for (const child of object.GetChildren()) this.setCollisionGroupRecursive(child as BasePart);
 	}
 
 	resetCollisionGroup(object: Instance) {
-		if (!object.IsA("BasePart"))
-			return
+		if (!object.IsA("BasePart")) return;
 
-		const previousCollisionGroupId = this.previousCollisionGroups.get(object)
+		const previousCollisionGroupId = this.previousCollisionGroups.get(object);
 
-		if (!previousCollisionGroupId)
-			return
+		if (((((!previousCollisionGroupId !== undefined !== undefined) !== undefined) !== undefined) !== undefined) !== undefined)
+			return;
 
-		const previousCollisionGroupName = PhysicsService.GetCollisionGroupName(previousCollisionGroupId)
+		const previousCollisionGroupName = PhysicsService.GetCollisionGroupName(previousCollisionGroupId);
 
-		if (!previousCollisionGroupName)
-			return
-		PhysicsService.SetPartCollisionGroup(object, previousCollisionGroupName)
-		this.previousCollisionGroups.set(object, undefined)
+		if (!previousCollisionGroupName) return;
+		PhysicsService.SetPartCollisionGroup(object, previousCollisionGroupName);
+		this.previousCollisionGroups.set(object, undefined);
 	}
 
 	onCharacterAdded(character: Model) {
-		this.setCollisionGroupRecursive(character)
+		this.setCollisionGroupRecursive(character);
 
-		character.DescendantAdded.Connect((object) => this.setCollisionGroup(object))
-		character.DescendantRemoving.Connect((object) => this.resetCollisionGroup(object))
+		character.DescendantAdded.Connect((object) => this.setCollisionGroup(object));
+		character.DescendantRemoving.Connect((object) => this.resetCollisionGroup(object));
 	}
 
 	setCollision(newValue: boolean) {
-		PhysicsService.CollisionGroupSetCollidable(this.playerCollisionGroupName, this.playerCollisionGroupName, newValue)		
+		PhysicsService.CollisionGroupSetCollidable(
+			this.playerCollisionGroupName,
+			this.playerCollisionGroupName,
+			newValue,
+		);
 	}
 }
 

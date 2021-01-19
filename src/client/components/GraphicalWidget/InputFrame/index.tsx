@@ -35,12 +35,10 @@ class InputFrame extends Component<InputFramePropTypes> {
 						TextXAlignment={Enum.TextXAlignment.Left}
 						Change={{
 							Text: (e) => {
-								const text = this.props.HandleInput ? this.props.HandleInput(e.Text) : e.Text
-								if (e.Text === text)
-									this.props.OnChange(text)
-								else
-									e.Text = text
-							}
+								const text = this.props.HandleInput ? this.props.HandleInput(e.Text) : e.Text;
+								if (e.Text === text) this.props.OnChange(text);
+								else e.Text = text;
+							},
 						}}
 					/>
 				</frame>

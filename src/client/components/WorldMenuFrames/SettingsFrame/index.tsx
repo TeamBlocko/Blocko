@@ -37,15 +37,15 @@ function SettingsFrame(props: WorldMenuFrames) {
 						notificationStore.addNotification({
 							Message: "Name must be at least 6 characters long.",
 							Time: 5,
-						})
-						return
+						});
+						return;
 					}
 					if (currentWorldSettings.Description.size() < 6) {
 						notificationStore.addNotification({
 							Message: "Description must be at least 6 characters long.",
 							Time: 5,
-						})
-						return
+						});
+						return;
 					}
 
 					if (shallowEqual(worldSettings, currentWorldSettings)) props.OnClick(e);
