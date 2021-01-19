@@ -5,7 +5,6 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 		["Material", "EnumItem"],
 		["Position", "Vector3"],
 		["Orientation", "Vector3"],
-		["Anchored", "boolean"],
 		["CastShadow", "boolean"],
 		["Size", "Vector3"],
 		["Transparency", "number"],

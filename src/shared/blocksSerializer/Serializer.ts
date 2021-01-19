@@ -1,3 +1,5 @@
+import { hexToColor3, color3ToHex } from "shared/utility";
+
 class Serializer {
 	protected serialize(value: string): string;
 	protected serialize(value: number, decimalPlace?: number): string;
@@ -16,7 +18,7 @@ class Serializer {
 		} else if (typeIs(value, "EnumItem")) {
 			return `${value.Value}`;
 		} else if (typeIs(value, "Color3")) {
-			return `${this.serialize(value.r, 3)},${this.serialize(value.g, 3)},${this.serialize(value.b, 3)}`;
+			return color3ToHex(value);
 		} else if (typeIs(value, "Vector3")) {
 			return `${value.X},${value.Y},${value.Z}`;
 		} else {
@@ -42,7 +44,7 @@ class Serializer {
 		} else if (type === "EnumItem") {
 			return value;
 		} else if (type === "Color3") {
-			return new Color3(...value.split(",").map((value) => tonumber(value) as number));
+			return hexToColor3(value);
 		} else if (type === "Vector3") {
 			return new Vector3(...value.split(",").map((value) => tonumber(value) as number));
 		} else {
