@@ -181,7 +181,7 @@ declare interface WorldInfo {
 	Server: string;
 	MaxPlayers: number;
 	ActivePlayers: number;
-	Blocks: string;
+	PlaceVisits: number;
 
 	WorldSettings: WorldSettings;
 }

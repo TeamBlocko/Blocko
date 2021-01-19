@@ -59,7 +59,7 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 	Server: game.JobId,
 	MaxPlayers: 25,
 	ActivePlayers: 0,
-	Blocks: "",
+	PlaceVisits: 0,
 
 	WorldSettings: DEFAULT_WORLD_SETTINGS,
 };
