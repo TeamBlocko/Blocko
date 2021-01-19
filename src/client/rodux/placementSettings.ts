@@ -54,8 +54,7 @@ export const placementSettingsReducer = createReducer<PlacementSettings, Placeme
 		[ActionTypes.UPDATE_PROPERTY]: (state, action) => {
 			const newState = deepCopy(state);
 
-			for (const data of action.data)
-				newState.RawProperties[data.propertyName] = data.value as never;
+			for (const data of action.data) newState.RawProperties[data.propertyName] = data.value as never;
 
 			return newState;
 		},

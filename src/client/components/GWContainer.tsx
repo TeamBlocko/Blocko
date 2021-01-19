@@ -82,19 +82,23 @@ export default connect(
 	(dispatch) => ({
 		OnSliderUpdate(propertyName: "Transparency" | "Reflectance", value: number) {
 			dispatch(
-				updateProperty([{
-					propertyName,
-					value,
-				}]),
+				updateProperty([
+					{
+						propertyName,
+						value,
+					},
+				]),
 			);
 		},
 		OnDropdownUpdate(propertyName: "Shape" | "Material", value: Instance | Enum.Material) {
 			if (propertyName === "Material" && typeIs(value, "EnumItem")) {
 				dispatch(
-					updateProperty([{
-						propertyName,
-						value,
-					}]),
+					updateProperty([
+						{
+							propertyName,
+							value,
+						},
+					]),
 				);
 			} else if (propertyName === "Shape" && typeIs(value, "Instance") && value.IsA("BasePart")) {
 				dispatch(
@@ -107,18 +111,22 @@ export default connect(
 		},
 		OnCheckBoxUpdate(propertyName: "CastShadow", value: boolean) {
 			dispatch(
-				updateProperty([{
-					propertyName,
-					value,
-				}]),
+				updateProperty([
+					{
+						propertyName,
+						value,
+					},
+				]),
 			);
 		},
 		OnColorPickerUpdate(propertyName: "Color", value: Color3) {
 			dispatch(
-				updateProperty([{
-					propertyName,
-					value,
-				}]),
+				updateProperty([
+					{
+						propertyName,
+						value,
+					},
+				]),
 			);
 		},
 	}),

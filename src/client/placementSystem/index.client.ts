@@ -12,16 +12,16 @@ const SPECTATE_COLOR = Color3.fromRGB(255, 255, 255),
 	BUILD_COLOR = Color3.fromRGB(65, 179, 255),
 	DELETE_COLOR = Color3.fromRGB(255, 110, 110);
 
-const ALT_PROPERTIES: (keyof RawProperties)[] = ["Material", "CastShadow", "Transparency", "Reflectance", "Color"]
+const ALT_PROPERTIES: (keyof RawProperties)[] = ["Material", "CastShadow", "Transparency", "Reflectance", "Color"];
 
-const ALT_SHIFT_PROPERTIES: (keyof RawProperties)[] = [...ALT_PROPERTIES, "Size"]
+const ALT_SHIFT_PROPERTIES: (keyof RawProperties)[] = [...ALT_PROPERTIES, "Size"];
 
-const placeOutline = new Instance("SelectionBox")
-placeOutline.Color3 = Color3.fromRGB(60, 164, 255)
+const placeOutline = new Instance("SelectionBox");
+placeOutline.Color3 = Color3.fromRGB(60, 164, 255);
 placeOutline.Parent = Workspace;
 
-const deleteOutline = new Instance("SelectionBox")
-deleteOutline.Color3 = Color3.fromRGB(255, 80, 80)
+const deleteOutline = new Instance("SelectionBox");
+deleteOutline.Color3 = Color3.fromRGB(255, 80, 80);
 deleteOutline.Parent = Workspace;
 
 const gridBase = new GridBase({
@@ -66,7 +66,7 @@ RunService.RenderStepped.Connect(() => {
 			placeOutline.Adornee = undefined;
 			buildHandle.ghostPart.Parent = undefined;
 
-			deleteOutline.Adornee = target
+			deleteOutline.Adornee = target;
 			break;
 		case "Spectate":
 			deleteOutline.Adornee = undefined;
@@ -107,25 +107,27 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 			if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
 				const target = gridBase.mouseTarget();
 				if (target === undefined) return;
-				const properties = ALT_SHIFT_PROPERTIES.map((propertyName) => ({propertyName, value: target[propertyName]}))
-				store.dispatch(
-					updateProperty(properties),
-				);
+				const properties = ALT_SHIFT_PROPERTIES.map((propertyName) => ({
+					propertyName,
+					value: target[propertyName],
+				}));
+				store.dispatch(updateProperty(properties));
 				store.dispatch(
 					updateSetting({
 						settingName: "Shape",
-						value: shapes[target.Name as keyof typeof Shapes]
-					})
-				)
+						value: shapes[target.Name as keyof typeof Shapes],
+					}),
+				);
 			} else {
 				const target = gridBase.mouseTarget();
 				if (target === undefined) return;
-				const properties = ALT_PROPERTIES.map((propertyName) => ({propertyName, value: target[propertyName]}))
-				store.dispatch(
-					updateProperty(properties),
-				);
+				const properties = ALT_PROPERTIES.map((propertyName) => ({
+					propertyName,
+					value: target[propertyName],
+				}));
+				store.dispatch(updateProperty(properties));
 			}
-			break
+			break;
 	}
 	if (input.UserInputType === Enum.UserInputType.MouseButton1) {
 		switch (mode) {

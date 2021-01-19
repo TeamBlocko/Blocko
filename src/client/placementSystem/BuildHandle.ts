@@ -39,9 +39,7 @@ class BuildHandler {
 		}
 
 		const placePosition = this.gridBase.mouseGridPosition();
-		if (placePosition)
-			this.ghostPart.Position = placePosition;
-
+		if (placePosition) this.ghostPart.Position = placePosition;
 
 		this.ghostPart.Anchored = true;
 		this.ghostPart.CanCollide = false;
