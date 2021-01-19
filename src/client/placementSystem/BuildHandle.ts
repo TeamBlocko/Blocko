@@ -37,6 +37,12 @@ class BuildHandler {
 		for (const [propertyName, value] of pairs(store.getState().PlacementSettings.RawProperties)) {
 			this.ghostPart[propertyName] = value as never;
 		}
+
+		const placePosition = this.gridBase.mouseGridPosition();
+		if (placePosition)
+			this.ghostPart.Position = placePosition;
+
+
 		this.ghostPart.Anchored = true;
 		this.ghostPart.CanCollide = false;
 		this.ghostPart.Name = "GhostPart";

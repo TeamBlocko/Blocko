@@ -12,6 +12,14 @@ const SPECTATE_COLOR = Color3.fromRGB(255, 255, 255),
 	BUILD_COLOR = Color3.fromRGB(65, 179, 255),
 	DELETE_COLOR = Color3.fromRGB(255, 110, 110);
 
+const placeOutline = new Instance("SelectionBox")
+placeOutline.Color3 = Color3.fromRGB(60, 164, 255)
+placeOutline.Parent = Workspace;
+
+const deleteOutline = new Instance("SelectionBox")
+deleteOutline.Color3 = Color3.fromRGB(255, 80, 80)
+deleteOutline.Parent = Workspace;
+
 const gridBase = new GridBase({
 	Blocks: Workspace.Blocks,
 	MaxPlaceDistance: 1e3,
@@ -36,6 +44,7 @@ RunService.RenderStepped.Connect(() => {
 		case "Place":
 			if (target !== undefined) {
 				buildHandle.ghostPart.Parent = Workspace;
+				placeOutline.Adornee = buildHandle.ghostPart;
 				const pos = gridBase.mouseGridPosition();
 				const tween = TweenService.Create(buildHandle.ghostPart, tweenInfo, {
 					Position: pos,
@@ -44,14 +53,19 @@ RunService.RenderStepped.Connect(() => {
 				tween.Play();
 				tween.Completed.Wait();
 				tween.Destroy();
-				//buildHandle.placeOutline.Adornee = undefined;
 			} else {
 				buildHandle.ghostPart.Parent = undefined;
+				placeOutline.Adornee = undefined;
 			}
 			break;
 		case "Delete":
+			placeOutline.Adornee = undefined;
 			buildHandle.ghostPart.Parent = undefined;
+
+			deleteOutline.Adornee = target
 			break;
+		case "Spectate":
+			deleteOutline.Adornee = undefined;
 	}
 });
 
