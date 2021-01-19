@@ -11,14 +11,13 @@ export function updateWorldSettings(data: UpdateWorldSettingDataType[]): ActionR
 	};
 }
 
-
 // WORLD INFO
 export function updateWorldInfo(data: UpdateWorldInfoDataType[]): ActionRecievedUpdateWorldInfo & AnyAction {
 	return {
 		type: WorldSettingsActions.UPDATE_WORLD_INFO,
 		data,
 		replicateBroadcast: true,
-	}
+	};
 }
 
 export const worldSettingsReducerInitlizer = (intialWorldSettings: WorldInfo) =>
@@ -36,5 +35,5 @@ export const worldSettingsReducerInitlizer = (intialWorldSettings: WorldInfo) =>
 			for (const data of action.data) newState[data.propertyName] = data.value as never;
 
 			return newState;
-		}
+		},
 	});

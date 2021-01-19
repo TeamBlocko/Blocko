@@ -30,7 +30,7 @@ class CollisionManager {
 
 		const previousCollisionGroupId = this.previousCollisionGroups.get(object);
 
-		if (!previousCollisionGroupId) return;
+		if (previousCollisionGroupId === undefined) return;
 
 		const previousCollisionGroupName = PhysicsService.GetCollisionGroupName(previousCollisionGroupId);
 

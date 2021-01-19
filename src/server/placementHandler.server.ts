@@ -25,10 +25,8 @@ const deleteBlock = new ServerFunction("DeleteBlock", t.instanceIsA("BasePart"))
 
 function updateNumOfBlocks() {
 	WorldManager.store.dispatch(
-		updateWorldInfo([
-			{ propertyName: "NumberOfBlocks", value: Workspace.Blocks.GetChildren().size() }
-		])
-	)
+		updateWorldInfo([{ propertyName: "NumberOfBlocks", value: Workspace.Blocks.GetChildren().size() }]),
+	);
 }
 
 placeBlock.SetRateLimit(100);
@@ -50,7 +48,7 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 
 deleteBlock.SetCallback((player, target) => {
 	if (WorldManager.store.getState().Owner === player.UserId && target.IsDescendantOf(Workspace.Blocks)) {
-		target.Destroy()
+		target.Destroy();
 		updateNumOfBlocks();
 	}
 });

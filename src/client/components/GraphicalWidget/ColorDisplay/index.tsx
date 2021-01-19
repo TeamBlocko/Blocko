@@ -31,19 +31,18 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 		this.setState({
 			Selected: false,
 		});
-		const self = this;
 		this.context = new DragDropContext();
-		this.context.dispatch = (function (_: typeof DragDropContext, action: Action<string>) {
+		this.context.dispatch = (((_: typeof DragDropContext, action: Action<string>) => {
 			print("DISPATCHED", action.type);
 			switch (action.type) {
 				case "DRAG/BEGIN":
-					self.setColorPickerPos();
+					this.setColorPickerPos();
 					break;
 				case "DRAG/DRAGGING":
-					self.setColorPickerPos();
+					this.setColorPickerPos();
 					break;
 			}
-		} as unknown) as (action: Action) => void;
+		}) as unknown) as (action: Action) => void;
 	}
 
 	setColorPickerPos() {

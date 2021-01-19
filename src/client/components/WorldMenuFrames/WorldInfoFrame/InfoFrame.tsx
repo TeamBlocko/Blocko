@@ -58,7 +58,11 @@ function InfoFrame(props: WorldInfo) {
 					Padding={new UDim(0, 35)}
 				/>
 				<Info Name="Blocks" Text={`${props.NumberOfBlocks}`} Image="rbxgameasset://Images/Block" />
-				<Info Name="Players" Text={`${props.ActivePlayers}/${props.MaxPlayers}`} Image="rbxassetid://3926305904" />
+				<Info
+					Name="Players"
+					Text={`${props.ActivePlayers}/${props.MaxPlayers}`}
+					Image="rbxassetid://3926305904"
+				/>
 				<Info Name="Visits" Text={`${props.PlaceVisits}`} Image="rbxassetid://3926307971" />
 			</frame>
 		</frame>

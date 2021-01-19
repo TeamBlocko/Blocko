@@ -17,7 +17,7 @@ retriveWorldSettingsRemote.SetCallback(() => WorldManager.store.getState());
 
 updateWorldSettingsRemote.Connect((player, action) => {
 	if (WorldManager.store.getState().Owner === player.UserId)
-		WorldManager.store.dispatch(action as any)
+		WorldManager.store.dispatch(action as WorldSettingsActionTypes);
 });
 
 function updateSettings(state: WorldSettings) {
@@ -31,14 +31,12 @@ WorldManager.store.changed.connect((newState) => updateSettings(newState.WorldSe
 
 function updatePlayers() {
 	WorldManager.store.dispatch(
-		updateWorldInfo([
-			{ propertyName: "ActivePlayers", value: Players.GetPlayers().size() }
-		])
-	)
+		updateWorldInfo([{ propertyName: "ActivePlayers", value: Players.GetPlayers().size() }]),
+	);
 }
 
-Players.PlayerAdded.Connect(updatePlayers)
-Players.PlayerRemoving.Connect(updatePlayers)
+Players.PlayerAdded.Connect(updatePlayers);
+Players.PlayerRemoving.Connect(updatePlayers);
 
 while (true) {
 	wait(10);

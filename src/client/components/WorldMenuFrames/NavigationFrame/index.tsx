@@ -24,14 +24,14 @@ function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 					Icon="rbxassetid://5627702525"
 					OnClick={(e) => props.OnClick(e)}
 				/>
-				{props.Owner ===  Players.LocalPlayer.UserId ?
+				{props.Owner === Players.LocalPlayer.UserId ? (
 					<NavFrameButton
 						Text="World Settings"
 						Color={Color3.fromRGB(235, 235, 236)}
 						Icon="rbxassetid://5627731849"
 						OnClick={(e) => props.OnClick(e)}
-					/> : undefined
-				}
+					/>
+				) : undefined}
 				<ElementSeperator />
 				<NavFrameButton
 					Text="Back To Hub"

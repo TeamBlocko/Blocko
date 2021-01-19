@@ -53,9 +53,8 @@ class WorldMenu extends Component {
 	didMount() {
 		UserInputService.InputBegan.Connect((input, gameProcessed) => {
 			if (gameProcessed) return;
-			if (input.KeyCode === Enum.KeyCode.V)
-				this.motor.setGoal(new Spring(this.motor.getValue() === 0 ? 1 : 0))
-		})
+			if (input.KeyCode === Enum.KeyCode.V) this.motor.setGoal(new Spring(this.motor.getValue() === 0 ? 1 : 0));
+		});
 	}
 
 	render() {
