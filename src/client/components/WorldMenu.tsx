@@ -1,13 +1,19 @@
-import Roact, { Component, createRef } from "@rbxts/roact";
+import { UserInputService } from "@rbxts/services";
+import Roact, { Component, createRef, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
+import { SingleMotor, Spring } from "@rbxts/flipper";
 import NavigationFrame from "./WorldMenuFrames/NavigationFrame";
 import WorldInfoFrame from "./WorldMenuFrames/WorldInfoFrame";
 import SettingsFrame from "./WorldMenuFrames/SettingsFrame";
 
 class WorldMenu extends Component {
-	uiPagelayoutRef: Roact.Ref<UIPageLayout>;
-	navigationFrameRef: Roact.Ref<Frame>;
-	worldInfoFrameRef: Roact.Ref<Frame>;
-	worldSettingsFrameRef: Roact.Ref<Frame>;
+	private uiPagelayoutRef: Roact.Ref<UIPageLayout>;
+	private navigationFrameRef: Roact.Ref<Frame>;
+	private worldInfoFrameRef: Roact.Ref<Frame>;
+	private worldSettingsFrameRef: Roact.Ref<Frame>;
+
+	private motor: SingleMotor;
+	private binding: RoactBinding<number>;
+	private setBinding: RoactBindingFunc<number>;
 
 	constructor() {
 		super({});
@@ -15,6 +21,11 @@ class WorldMenu extends Component {
 		this.navigationFrameRef = createRef();
 		this.worldInfoFrameRef = createRef();
 		this.worldSettingsFrameRef = createRef();
+
+		this.motor = new SingleMotor(0);
+		[this.binding, this.setBinding] = createBinding(this.motor.getValue());
+
+		this.motor.onStep(this.setBinding);
 	}
 
 	onNavFrameButtonClick(e: GuiObject) {
@@ -39,10 +50,18 @@ class WorldMenu extends Component {
 		}
 	}
 
+	didMount() {
+		UserInputService.InputBegan.Connect((input, gameProcessed) => {
+			if (gameProcessed) return;
+			if (input.KeyCode === Enum.KeyCode.V)
+				this.motor.setGoal(new Spring(this.motor.getValue() === 0 ? 1 : 0))
+		})
+	}
+
 	render() {
 		return (
 			<frame
-				AnchorPoint={new Vector2(1, 0)}
+				AnchorPoint={this.binding.map((value) => new Vector2(0, 0).Lerp(new Vector2(1, 0), value))}
 				BackgroundColor3={Color3.fromRGB(30, 30, 30)}
 				BorderSizePixel={0}
 				Position={UDim2.fromScale(1, 0)}
