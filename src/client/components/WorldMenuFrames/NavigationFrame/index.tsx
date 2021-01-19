@@ -1,10 +1,12 @@
+import { Players } from "@rbxts/services";
 import Roact from "@rbxts/roact";
+import { connect } from "@rbxts/roact-rodux";
 import ElementSeperator from "client/components/misc/ElementSperator";
 import NavFrameButton from "./NavFrameButton";
 import Thumbnail from "client/components/misc/Thumbnail";
 import Container from "../WorldMenuFramesContainer";
 
-function NavigationFrame(props: WorldMenuFrames) {
+function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 	return (
 		<Container RefValue={props.RefValue}>
 			<uicorner />
@@ -22,12 +24,14 @@ function NavigationFrame(props: WorldMenuFrames) {
 					Icon="rbxassetid://5627702525"
 					OnClick={(e) => props.OnClick(e)}
 				/>
-				<NavFrameButton
-					Text="World Settings"
-					Color={Color3.fromRGB(235, 235, 236)}
-					Icon="rbxassetid://5627731849"
-					OnClick={(e) => props.OnClick(e)}
-				/>
+				{props.Owner ===  Players.LocalPlayer.UserId ?
+					<NavFrameButton
+						Text="World Settings"
+						Color={Color3.fromRGB(235, 235, 236)}
+						Icon="rbxassetid://5627731849"
+						OnClick={(e) => props.OnClick(e)}
+					/> : undefined
+				}
 				<ElementSeperator />
 				<NavFrameButton
 					Text="Back To Hub"
@@ -41,4 +45,4 @@ function NavigationFrame(props: WorldMenuFrames) {
 	);
 }
 
-export default NavigationFrame;
+export default connect((state: IState) => state.WorldInfo)(NavigationFrame);

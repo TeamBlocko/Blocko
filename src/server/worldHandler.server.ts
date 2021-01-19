@@ -15,7 +15,10 @@ game.BindToClose(() => {
 
 retriveWorldSettingsRemote.SetCallback(() => WorldManager.store.getState());
 
-updateWorldSettingsRemote.Connect((player, action) => WorldManager.store.dispatch(action as any));
+updateWorldSettingsRemote.Connect((player, action) => {
+	if (WorldManager.store.getState().Owner === player.UserId)
+		WorldManager.store.dispatch(action as any)
+});
 
 function updateSettings(state: WorldSettings) {
 	for (const [propertyName, value] of pairs(state)) {

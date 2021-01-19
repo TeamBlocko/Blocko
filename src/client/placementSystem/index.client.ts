@@ -57,6 +57,7 @@ RunService.RenderStepped.Connect(() => {
 
 UserInputService.InputBegan.Connect((input, gameProcessed) => {
 	const mode = store.getState().PlacementSettings.BuildMode;
+	if (store.getState().WorldInfo.Owner !== client.UserId) return;
 	if (gameProcessed) return;
 	switch (input.KeyCode) {
 		case Enum.KeyCode.Q:
