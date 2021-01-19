@@ -18,10 +18,10 @@ export interface UpdatePropertyDataType {
 }
 
 export interface ActionRecievedUpdateProperty extends Action<ActionTypes.UPDATE_PROPERTY> {
-	readonly data: UpdatePropertyDataType;
+	readonly data: UpdatePropertyDataType[];
 }
 
-export function updateProperty(data: UpdatePropertyDataType): ActionRecievedUpdateProperty & AnyAction {
+export function updateProperty(data: UpdatePropertyDataType[]): ActionRecievedUpdateProperty & AnyAction {
 	return {
 		type: ActionTypes.UPDATE_PROPERTY,
 		data,
@@ -54,7 +54,8 @@ export const placementSettingsReducer = createReducer<PlacementSettings, Placeme
 		[ActionTypes.UPDATE_PROPERTY]: (state, action) => {
 			const newState = deepCopy(state);
 
-			newState.RawProperties[action.data.propertyName] = action.data.value as never;
+			for (const data of action.data)
+				newState.RawProperties[data.propertyName] = data.value as never;
 
 			return newState;
 		},

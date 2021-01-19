@@ -68,11 +68,6 @@ function GWContainer(props: GWContainerPropTypes) {
 				OnChange={(newValue: number) => props.OnSliderUpdate("Reflectance", newValue)}
 			/>
 			<CheckBox
-				Name="Anchored"
-				Default={props.RawProperties.Anchored}
-				OnChange={(newValue: boolean) => props.OnCheckBoxUpdate("Anchored", newValue)}
-			/>
-			<CheckBox
 				Name="Cast Shadow"
 				Default={props.RawProperties.CastShadow}
 				OnChange={(newValue: boolean) => props.OnCheckBoxUpdate("CastShadow", newValue)}
@@ -87,19 +82,19 @@ export default connect(
 	(dispatch) => ({
 		OnSliderUpdate(propertyName: "Transparency" | "Reflectance", value: number) {
 			dispatch(
-				updateProperty({
+				updateProperty([{
 					propertyName,
 					value,
-				}),
+				}]),
 			);
 		},
 		OnDropdownUpdate(propertyName: "Shape" | "Material", value: Instance | Enum.Material) {
 			if (propertyName === "Material" && typeIs(value, "EnumItem")) {
 				dispatch(
-					updateProperty({
+					updateProperty([{
 						propertyName,
 						value,
-					}),
+					}]),
 				);
 			} else if (propertyName === "Shape" && typeIs(value, "Instance") && value.IsA("BasePart")) {
 				dispatch(
@@ -110,20 +105,20 @@ export default connect(
 				);
 			}
 		},
-		OnCheckBoxUpdate(propertyName: "Anchored" | "CastShadow", value: boolean) {
+		OnCheckBoxUpdate(propertyName: "CastShadow", value: boolean) {
 			dispatch(
-				updateProperty({
+				updateProperty([{
 					propertyName,
 					value,
-				}),
+				}]),
 			);
 		},
 		OnColorPickerUpdate(propertyName: "Color", value: Color3) {
 			dispatch(
-				updateProperty({
+				updateProperty([{
 					propertyName,
 					value,
-				}),
+				}]),
 			);
 		},
 	}),
