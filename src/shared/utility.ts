@@ -71,3 +71,16 @@ export function shallowEqual(t1: object, t2: object) {
 
 	return true;
 }
+
+export function hexToColor3(hex: string) {
+	hex = hex.gsub("#","")[0]
+	const r = tonumber("0x" + hex.sub(1,2))
+	const g = tonumber("0x" + hex.sub(3,4))
+	const b = tonumber("0x" + hex.sub(5,6))
+	if (!(r && g && b)) return;
+	return Color3.fromRGB(r,g,b)
+}
+
+export function color3ToHex(color: Color3) {
+    return (`${color.r}.${color.g}.${color.b}`.gsub('.', (c) => '%02X'.format(c.byte()[0])))[0]
+}
