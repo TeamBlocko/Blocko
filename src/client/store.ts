@@ -1,24 +1,15 @@
-import Rodux, { Store, combineReducers, AnyAction, Middleware } from "@rbxts/rodux";
+import Rodux, { Store, combineReducers, AnyAction } from "@rbxts/rodux";
 import { intialState } from "./intialState";
 import { worldSettingsReducerInitlizer } from "shared/worldSettingsReducer";
-// import { updateWorldSettings } from "./replicationManager";
-import { WorldSettingsActions } from "shared/worldSettingsActions";
 import { placementSettingsReducer, PlacementSettingsActions } from "./rodux/placementSettings";
 
-export type StoreActions = (PlacementSettingsActions | ActionRecievedUpdateWorldSettings) & AnyAction;
+export type StoreActions = (PlacementSettingsActions | WorldSettingsActionTypes) & AnyAction;
 
 export const storeReducer = combineReducers<IState>({
 	PlacementSettings: placementSettingsReducer,
-	WorldSettings: worldSettingsReducerInitlizer(intialState.WorldSettings),
+	WorldInfo: worldSettingsReducerInitlizer(intialState.WorldInfo),
 });
 
-export default new Store<IState, StoreActions, typeof Rodux.loggerMiddleware /*, Middleware*/>(storeReducer, {}, [
+export default new Store<IState, StoreActions, typeof Rodux.loggerMiddleware>(storeReducer, {}, [
 	Rodux.loggerMiddleware,
-	//(dispatch) => (action) => {
-	//    if (action.type === WorldSettingsActions.UPDATE_SETTINGS && !action.replcated)
-	//        updateWorldSettings(action);
-	//
-	//    dispatch(action);
-
-	//}
 ]);

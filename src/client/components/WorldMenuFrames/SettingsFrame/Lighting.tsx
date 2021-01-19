@@ -60,7 +60,7 @@ function Lighting(props: LightingPropTypes) {
 }
 
 export default connect(
-	(state: IState) => state.WorldSettings,
+	(state: IState) => state.WorldInfo.WorldSettings,
 	(dispatch) => ({
 		OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time", value: number) {
 			dispatch(

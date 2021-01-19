@@ -171,7 +171,7 @@ declare interface WorldSettings {
 
 declare interface IState {
 	PlacementSettings: PlacementSettings;
-	WorldSettings: WorldSettings;
+	WorldInfo: WorldInfo;
 }
 
 declare interface WorldInfo {
@@ -182,6 +182,7 @@ declare interface WorldInfo {
 	MaxPlayers: number;
 	ActivePlayers: number;
 	PlaceVisits: number;
+	NumberOfBlocks: number;
 
 	WorldSettings: WorldSettings;
 }
@@ -200,6 +201,11 @@ declare interface UpdateWorldSettingDataType {
 	readonly value: string | boolean | number | Color3;
 }
 
+declare interface UpdateWorldInfoDataType {
+	readonly propertyName: keyof WorldInfo;
+	readonly value: string | number | number[];
+}
+
 declare interface UpdateWorldSettings {
 	readonly data: UpdateWorldSettingDataType[];
 	readonly replicateBroadcast?: boolean;
@@ -207,7 +213,19 @@ declare interface UpdateWorldSettings {
 	readonly replicated?: boolean;
 }
 
-declare interface ActionRecievedUpdateWorldSettings extends Rodux.Action<"UPDATE_WORLD_SETTINGS">, UpdateWorldSettings {}
+declare interface UpdateWorldInfo {
+	readonly data: UpdateWorldInfoDataType[];
+	readonly replicateBroadcast?: boolean;
+	readonly replicateTo?: number;
+	readonly replicated?: boolean;
+}
+
+declare type ActionRecievedUpdateWorldSettings = Rodux.Action<"UPDATE_WORLD_SETTINGS"> & UpdateWorldSettings
+
+declare type ActionRecievedUpdateWorldInfo = Rodux.Action<"UPDATE_WORLD_INFO"> & UpdateWorldInfo
+
+declare type WorldSettingsActionTypes = ActionRecievedUpdateWorldSettings | ActionRecievedUpdateWorldInfo;
+
 
 declare interface iNotification {
   Id: string;

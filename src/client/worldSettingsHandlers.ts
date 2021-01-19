@@ -8,7 +8,7 @@ export const Ambient = (newValue: Color3) => (Lighting.Ambient = newValue);
 
 export const OutdoorAmbient = (newValue: Color3) => (Lighting.OutdoorAmbient = newValue);
 
-const intialState = store.getState().WorldSettings;
+const intialState = store.getState().WorldInfo.WorldSettings;
 const cycleInfo = { cycleRate: intialState.Cycle, enabled: intialState.CycleEnabled };
 RunService.RenderStepped.Connect(() => {
 	if (cycleInfo.enabled) Lighting.SetMinutesAfterMidnight(Lighting.GetMinutesAfterMidnight() + cycleInfo.cycleRate);

@@ -19,5 +19,5 @@ export const intialPlacementSettings: PlacementSettings = {
 
 export const intialState: IState = {
 	PlacementSettings: intialPlacementSettings,
-	WorldSettings: retriveWorldSettings(),
+	WorldInfo: retriveWorldSettings(),
 };

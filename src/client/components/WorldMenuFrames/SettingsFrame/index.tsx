@@ -31,8 +31,8 @@ function SettingsFrame(props: WorldMenuFrames) {
 			<NavBar
 				Text="World Settings"
 				OnClick={(e) => {
-					const worldSettings = retriveWorldSettings();
-					const currentWorldSettings = store.getState().WorldSettings;
+					const worldSettings = retriveWorldSettings().WorldSettings;
+					const currentWorldSettings = store.getState().WorldInfo.WorldSettings;
 					if (currentWorldSettings.Name.size() < 6) {
 						notificationStore.addNotification({
 							Message: "Name must be at least 6 characters long.",

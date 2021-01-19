@@ -1,4 +1,4 @@
-import { Workspace, DataStoreService, ReplicatedStorage, RunService } from "@rbxts/services";
+import { Workspace, DataStoreService, ReplicatedStorage, RunService, Players } from "@rbxts/services";
 import { Store } from "@rbxts/rodux";
 import ProfileService from "@rbxts/profileservice";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
@@ -58,8 +58,9 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 	Banned: [],
 	Server: game.JobId,
 	MaxPlayers: 25,
-	ActivePlayers: 0,
+	ActivePlayers: Players.GetPlayers().size(),
 	PlaceVisits: 0,
+	NumberOfBlocks: ReplicatedStorage.Template.GetChildren().size(),
 
 	WorldSettings: DEFAULT_WORLD_SETTINGS,
 };
@@ -77,7 +78,7 @@ if (RunService.IsStudio() === true) {
 class WorldManager {
 	public readonly worldInfo!: Profile<WorldInfo>;
 	public readonly worldBlocks!: Profile<{ Blocks: string }>;
-	public readonly store!: Store<WorldSettings, ActionRecievedUpdateWorldSettings>;
+	public readonly store!: Store<WorldInfo, WorldSettingsActionTypes>;
 
 	constructor(placeId: number) {
 		const worldInfoProfile = worldsInfoStore.LoadProfileAsync(`${placeId}`, "ForceLoad");
@@ -88,7 +89,7 @@ class WorldManager {
 			worldBlocksProfile.Reconcile();
 			this.worldInfo = worldInfoProfile;
 			this.worldBlocks = worldBlocksProfile;
-			this.store = storeInitializer(this.worldInfo.Data.WorldSettings);
+			this.store = storeInitializer(this.worldInfo.Data);
 			this.Load();
 		} else {
 			// FAILED TO LOAD

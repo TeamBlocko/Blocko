@@ -28,9 +28,9 @@ class Store implements iStore {
 	private incrementCounter = () => (this.counter += 1);
 
 	public addNotification(notification: Partial<iNotification>) {
-		if (((((!notification.Id !== undefined !== undefined) !== undefined) !== undefined) !== undefined) !== undefined) {
-			notification.Id = HttpService.GenerateGUID();
-		}
+
+		if (!notification.Id) notification.Id = HttpService.GenerateGUID();
+
 		this.incrementCounter();
 
 		return this.add(notification as iNotification);

@@ -1,5 +1,7 @@
+import { Players } from "@rbxts/services";
 import { ServerFunction, ServerEvent } from "@rbxts/net";
 import { $terrify } from "rbxts-transformer-t";
+import { updateWorldInfo } from "shared/worldSettingsReducer";
 import * as handlers from "./worldSettingsHandlers";
 
 const retriveWorldSettingsRemote = new ServerFunction("Replication");
@@ -21,8 +23,19 @@ function updateSettings(state: WorldSettings) {
 	}
 }
 
-updateSettings(WorldManager.store.getState());
-WorldManager.store.changed.connect((newState) => updateSettings(newState));
+updateSettings(WorldManager.store.getState().WorldSettings);
+WorldManager.store.changed.connect((newState) => updateSettings(newState.WorldSettings));
+
+function updatePlayers() {
+	WorldManager.store.dispatch(
+		updateWorldInfo([
+			{ propertyName: "ActivePlayers", value: Players.GetPlayers().size() }
+		])
+	)
+}
+
+Players.PlayerAdded.Connect(updatePlayers)
+Players.PlayerRemoving.Connect(updatePlayers)
 
 while (true) {
 	wait(10);

@@ -35,7 +35,7 @@ function WorldInfo(props: WorldInfoPropTypes) {
 }
 
 export default connect(
-	(state: IState) => state.WorldSettings,
+	(state: IState) => state.WorldInfo.WorldSettings,
 	(dispatch) => ({
 		OnInputBoxUpdate(propertyName: "Name" | "Description", value: string) {
 			dispatch(

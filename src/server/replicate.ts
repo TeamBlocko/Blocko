@@ -5,9 +5,9 @@ import { deepCopy, assign } from "@rbxts/object-utils";
 const worldSettingsRemote = new ServerEvent("UpdateWorldSettings");
 
 export function replicate(
-	action: ActionRecievedUpdateWorldSettings,
-	beforeState: WorldSettings,
-	afterState: WorldSettings,
+	action: WorldSettingsActionTypes,
+	beforeState: WorldInfo,
+	afterState: WorldInfo,
 ) {
 	const replicatedAction = assign(deepCopy(action), {
 		replicated: true,

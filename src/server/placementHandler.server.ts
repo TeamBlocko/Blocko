@@ -1,6 +1,8 @@
 import { ReplicatedStorage, Workspace } from "@rbxts/services";
 import { ServerFunction } from "@rbxts/net";
 import { t } from "@rbxts/t";
+import { updateWorldInfo } from "shared/worldSettingsReducer";
+import WorldManager from "./WorldManager";
 
 const rawProperties = t.interface({
 	Material: t.enum(Enum.Material),
@@ -21,6 +23,14 @@ const shapes = ReplicatedStorage.BlockTypes;
 const placeBlock = new ServerFunction("PlaceBlock", t.Vector3, t.Vector3, placementSettings);
 const deleteBlock = new ServerFunction("DeleteBlock", t.instanceIsA("BasePart"));
 
+function updateNumOfBlocks() {
+	WorldManager.store.dispatch(
+		updateWorldInfo([
+			{ propertyName: "NumberOfBlocks", value: Workspace.Blocks.GetChildren().size() }
+		])
+	)
+}
+
 placeBlock.SetRateLimit(100);
 placeBlock.SetClientCache(0);
 placeBlock.SetCallback((_, placePosition, orientation, settings) => {
@@ -34,7 +44,11 @@ placeBlock.SetCallback((_, placePosition, orientation, settings) => {
 		}
 
 		block.Parent = Workspace.Blocks;
+		updateNumOfBlocks();
 	}
 });
 
-deleteBlock.SetCallback((_, target) => target.Destroy());
+deleteBlock.SetCallback((_, target) => {
+	target.Destroy()
+	updateNumOfBlocks();
+});

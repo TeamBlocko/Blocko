@@ -60,7 +60,7 @@ function Sound(props: SoundPropTypes) {
 }
 
 export default connect(
-	(state: IState) => state.WorldSettings,
+	(state: IState) => state.WorldInfo.WorldSettings,
 	(dispatch) => ({
 		OnSliderUpdate(propertyName: "Volume" | "Pitch", value: number) {
 			dispatch(

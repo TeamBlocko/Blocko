@@ -5,7 +5,7 @@ import * as handlers from "./worldSettingsHandlers";
 
 const updateWorldSettingsRemote = new ClientEvent("UpdateWorldSettings");
 
-updateWorldSettingsRemote.Connect((action: ActionRecievedUpdateWorldSettings & AnyAction) => store.dispatch(action));
+updateWorldSettingsRemote.Connect((action: WorldSettingsActionTypes & AnyAction) => store.dispatch(action));
 
 function updateSettings(state: WorldSettings) {
 	for (const [propertyName, value] of pairs(state)) {
@@ -13,5 +13,5 @@ function updateSettings(state: WorldSettings) {
 	}
 }
 
-updateSettings(store.getState().WorldSettings);
-store.changed.connect((newState) => updateSettings(newState.WorldSettings));
+updateSettings(store.getState().WorldInfo.WorldSettings);
+store.changed.connect((newState) => updateSettings(newState.WorldInfo.WorldSettings));
