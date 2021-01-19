@@ -2,7 +2,7 @@ import { Workspace, ReplicatedStorage, UserInputService, RunService, TweenServic
 import store from "client/store";
 import GridBase from "./GridBase";
 import BuildHandle from "./BuildHandle";
-import { updateSetting } from "client/rodux/placementSettings";
+import { updateProperty, updateSetting } from "client/rodux/placementSettings";
 
 const client = Players.LocalPlayer;
 const playerGui = client.WaitForChild("PlayerGui");
@@ -11,6 +11,10 @@ const shapes = ReplicatedStorage.BlockTypes;
 const SPECTATE_COLOR = Color3.fromRGB(255, 255, 255),
 	BUILD_COLOR = Color3.fromRGB(65, 179, 255),
 	DELETE_COLOR = Color3.fromRGB(255, 110, 110);
+
+const ALT_PROPERTIES: (keyof RawProperties)[] = ["Material", "CastShadow", "Transparency", "Reflectance", "Color"]
+
+const ALT_SHIFT_PROPERTIES: (keyof RawProperties)[] = [...ALT_PROPERTIES, "Size"]
 
 const placeOutline = new Instance("SelectionBox")
 placeOutline.Color3 = Color3.fromRGB(60, 164, 255)
@@ -99,6 +103,29 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 		case Enum.KeyCode.G:
 			buildHandle.nextBlockType();
 			break;
+		case Enum.KeyCode.LeftAlt:
+			if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
+				const target = gridBase.mouseTarget();
+				if (target === undefined) return;
+				const properties = ALT_SHIFT_PROPERTIES.map((propertyName) => ({propertyName, value: target[propertyName]}))
+				store.dispatch(
+					updateProperty(properties),
+				);
+				store.dispatch(
+					updateSetting({
+						settingName: "Shape",
+						value: shapes[target.Name as keyof typeof Shapes]
+					})
+				)
+			} else {
+				const target = gridBase.mouseTarget();
+				if (target === undefined) return;
+				const properties = ALT_PROPERTIES.map((propertyName) => ({propertyName, value: target[propertyName]}))
+				store.dispatch(
+					updateProperty(properties),
+				);
+			}
+			break
 	}
 	if (input.UserInputType === Enum.UserInputType.MouseButton1) {
 		switch (mode) {
