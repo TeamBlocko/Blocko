@@ -54,7 +54,7 @@ const DEFAULT_WORLD_SETTINGS = {
 
 const DEFAULT_WORLDINFO: WorldInfo = {
 	WorldId: game.PlaceId,
-	Owner: 0,
+	Owner: RunService.IsStudio() ? (Players.GetPlayers()[0] || Players.PlayerAdded.Wait()[0]).UserId : 0,
 	Banned: [],
 	Server: game.JobId,
 	MaxPlayers: 25,
