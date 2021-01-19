@@ -18,6 +18,8 @@ interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
 	 * Returns actual value from string passed.
 	 **/
 	GetValue: (value: V) => T;
+
+	ZIndex?: number;
 }
 
 class Dropdown<T extends Item, V extends string> extends Component<DropdownPropTypes<T, V>, DropdownStateTypes<T>> {
@@ -62,7 +64,7 @@ class Dropdown<T extends Item, V extends string> extends Component<DropdownPropT
 
 	render() {
 		return (
-			<GWFrame SizeOffsetY={25}>
+			<GWFrame SizeOffsetY={25} ZIndex={this.props.ZIndex}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.5} />
 				<ItemList

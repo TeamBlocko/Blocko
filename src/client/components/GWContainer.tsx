@@ -35,6 +35,7 @@ function GWContainer(props: GWContainerPropTypes) {
 			<Dropdown
 				Name="Shape"
 				Default={props.Shape}
+				ZIndex={12}
 				Items={Shapes.GetChildren()}
 				OnChange={(newValue: Instance) => props.OnDropdownUpdate("Shape", newValue)}
 				GetValue={(value: keyof typeof Shapes) => Shapes[value] as Instance}
@@ -42,6 +43,7 @@ function GWContainer(props: GWContainerPropTypes) {
 			<Dropdown
 				Name="Material"
 				Default={props.RawProperties.Material}
+				ZIndex={11}
 				Items={Enum.Material.GetEnumItems()}
 				OnChange={(newValue: Enum.Material) => props.OnDropdownUpdate("Material", newValue)}
 				GetValue={(value: keyof Omit<typeof Enum.Material, "GetEnumItems">) => Enum.Material[value]}
