@@ -23,7 +23,7 @@ function Sound(props: SoundPropTypes) {
 				OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)}
 				HandleInput={(input) => (input.match("%d+")[0] as string) || ""}
 			>
-				<frame Size={UDim2.fromScale(1, 0)}>
+				<frame Size={UDim2.fromScale(1, 0)} BackgroundTransparency={1}>
 					<imagebutton
 						AnchorPoint={new Vector2(0.5, 0.5)}
 						BackgroundTransparency={1}

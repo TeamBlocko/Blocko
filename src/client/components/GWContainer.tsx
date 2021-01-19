@@ -3,6 +3,7 @@ import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import { updateProperty, updateSetting } from "client/rodux/placementSettings";
 import ElementSeperator from "./misc/ElementSperator";
+import Gap from "./misc/Gap";
 import Dropdown from "./GraphicalWidget/Dropdown";
 import Slider from "./GraphicalWidget/Slider";
 import CheckBox from "./GraphicalWidget/CheckBox";
@@ -29,8 +30,7 @@ function GWContainer(props: GWContainerPropTypes) {
 			ScrollBarThickness={4}
 			VerticalScrollBarInset={Enum.ScrollBarInset.Always}
 		>
-			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 3)} />
-			<frame Size={UDim2.fromOffset(0, 5)} />
+			<Gap Length={5} />
 			<ElementSeperator />
 			<Dropdown
 				Name="Shape"
@@ -75,6 +75,7 @@ function GWContainer(props: GWContainerPropTypes) {
 				Default={props.RawProperties.CastShadow}
 				OnChange={(newValue: boolean) => props.OnCheckBoxUpdate("CastShadow", newValue)}
 			/>
+			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 3)} />
 		</scrollingframe>
 	);
 }
