@@ -1,23 +1,17 @@
 import { ReplicatedStorage, Workspace } from "@rbxts/services";
 import { ServerFunction } from "@rbxts/net";
+import { $terrify, instanceIsA } from "rbxts-transformer-t";
 import { t } from "@rbxts/t";
 import { updateWorldInfo } from "shared/worldSettingsReducer";
 import WorldManager from "./WorldManager";
 
-const rawProperties = t.interface({
-	Material: t.enum(Enum.Material),
-	Anchored: t.boolean,
-	CastShadow: t.boolean,
-	Size: t.Vector3,
-	Transparency: t.number,
-	Reflectance: t.number,
-	Color: t.Color3,
-});
+interface PlacementSettings {
+	Shape: instanceIsA<BasePart>;
+	BuildMode: BuildMode;
+	RawProperties: RawProperties;
+}
 
-const placementSettings = t.interface({
-	Shape: t.instanceIsA("BasePart"),
-	RawProperties: rawProperties,
-});
+const placementSettings = $terrify<PlacementSettings>();
 
 const shapes = ReplicatedStorage.BlockTypes;
 const placeBlock = new ServerFunction("PlaceBlock", t.Vector3, t.Vector3, placementSettings);
@@ -41,6 +35,7 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 			block[propertyName] = value as never;
 		}
 
+		block.Anchored = true;
 		block.Parent = Workspace.Blocks;
 		updateNumOfBlocks();
 	}
