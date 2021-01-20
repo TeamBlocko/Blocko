@@ -3,8 +3,9 @@ import { Store } from "@rbxts/rodux";
 import ProfileService from "@rbxts/profileservice";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { Profile } from "@rbxts/profileservice/globals";
-import { storeInitializer } from "./store";
-import Serializer from "shared/blocksSerializer";
+import { storeInitializer } from "server/store";
+import BlockSerializer from "shared/blocksSerializer";
+import WorldInfoSerializer from "./worldInfoSerializer";
 
 export enum BlockIds {
 	CornerInnerQuadrant = "0",
@@ -26,7 +27,8 @@ export enum BlockIds {
 	Wedge = "g",
 }
 
-const serializer = new Serializer(BlockIds, ReplicatedStorage.BlockTypes);
+const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTypes);
+const worldInfoSerializer = new WorldInfoSerializer()
 
 const DEFAULT_WORLD_SETTINGS = {
 	Name: "nyzem world #1",
@@ -54,7 +56,7 @@ const DEFAULT_WORLD_SETTINGS = {
 
 const DEFAULT_WORLDINFO: WorldInfo = {
 	WorldId: game.PlaceId,
-	Owner: RunService.IsStudio() ? (Players.GetPlayers()[0] || Players.PlayerAdded.Wait()[0]).UserId : 0,
+	Owner: (RunService.IsStudio() || game.CreatorId !== 6467229) ? (Players.GetPlayers()[0] || Players.PlayerAdded.Wait()[0]).UserId : 0,
 	Banned: [],
 	Server: game.JobId,
 	MaxPlayers: 25,
@@ -65,9 +67,11 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 	WorldSettings: DEFAULT_WORLD_SETTINGS,
 };
 
-let worldsInfoStore = ProfileService.GetProfileStore("Worlds", DEFAULT_WORLDINFO);
+const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[])
+
+let worldsInfoStore = ProfileService.GetProfileStore("Worlds", worldInfoSerializer.serializeInfo(DEFAULT_WORLDINFO));
 let worldBlocksStore = ProfileService.GetProfileStore("WorldBlocks", {
-	Blocks: serializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]),
+	Blocks: DEFAULT_TEMPLATE,
 });
 
 if (RunService.IsStudio() === true) {
@@ -76,7 +80,7 @@ if (RunService.IsStudio() === true) {
 }
 
 class WorldManager {
-	public readonly worldInfo!: Profile<WorldInfo>;
+	public readonly worldInfo!: Profile<SerializedWorldInfo>;
 	public readonly worldBlocks!: Profile<{ Blocks: string }>;
 	public readonly store!: Store<WorldInfo, WorldSettingsActionTypes>;
 
@@ -89,7 +93,7 @@ class WorldManager {
 			worldBlocksProfile.Reconcile();
 			this.worldInfo = worldInfoProfile;
 			this.worldBlocks = worldBlocksProfile;
-			this.store = storeInitializer(this.worldInfo.Data);
+			this.store = storeInitializer(worldInfoSerializer.deserializeInfo(this.worldInfo.Data));
 			this.Load();
 		} else {
 			// FAILED TO LOAD
@@ -97,13 +101,19 @@ class WorldManager {
 	}
 
 	Load() {
-		serializer.deserializeBlocks(this.worldBlocks.Data.Blocks, Workspace.Blocks);
+		const result = opcall(() => blockSerializer.deserializeBlocks(this.worldBlocks.Data.Blocks, Workspace.Blocks));
+		if (!result.success) {
+			Workspace.Blocks.ClearAllChildren();
+			blockSerializer.deserializeBlocks(DEFAULT_TEMPLATE, Workspace.Blocks);
+		}
 	}
 
 	Save() {
-		const serialized = serializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
+		const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 		print(abbreviateBytes(serialized.size()));
+		this.worldInfo.Data = worldInfoSerializer.serializeInfo(this.store.getState());
 		this.worldBlocks.Data.Blocks = serialized;
+		this.worldInfo.Save();
 		this.worldBlocks.Save();
 	}
 

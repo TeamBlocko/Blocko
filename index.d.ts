@@ -186,6 +186,21 @@ declare interface WorldInfo {
 	WorldSettings: WorldSettings;
 }
 
+declare type SerializedWorldSettings = { [K in keyof WorldSettings]: string };
+
+declare interface SerializedWorldInfo {
+	WorldId: string;
+	Owner: string;
+	Banned: string[];
+	Server: string;
+	MaxPlayers: string;
+	ActivePlayers: string;
+	PlaceVisits: string;
+	NumberOfBlocks: string;
+
+	WorldSettings: SerializedWorldSettings;
+}
+
 declare type BuildMode = "Spectate" | "Place" | "Delete"
 
 declare interface WorldMenuFrames {
