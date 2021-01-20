@@ -1,4 +1,4 @@
-import Serializer from "./Serializer";
+import Serializer from "shared/Serializer";
 
 class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 	public allowedProperties: [keyof RawProperties | "Position" | "Orientation", unknown][] = [
@@ -40,8 +40,8 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 			const serializedProperties: string[] = [];
 
 			serializedProperties.push(this.getIdByName(part.Name));
-			for (const propertyInfo of this.allowedProperties) {
-				const propertyValue = part[propertyInfo[0]];
+			for (const [propertyName] of this.allowedProperties) {
+				const propertyValue = part[propertyName];
 				serializedProperties.push(this.serialize(propertyValue));
 			}
 			serialized.push(serializedProperties.join(";"));
@@ -60,12 +60,14 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 			const id = this.getNameById(partId);
 			const block = this.shapes[id].Clone();
 
-			for (let index = 0; index < this.allowedProperties.size(); index++) {
-				const [propertyName, type] = this.allowedProperties[index];
-				const propertyValue = this.deserialize(propertiesInfo[index], type);
+			for (const [propertyName, type] of this.allowedProperties) {
+				const value = propertiesInfo.shift();
+				assert(value);
+				const propertyValue = this.deserialize(value, type);
 				block[propertyName] = propertyValue as never;
 			}
 
+			block.Anchored = true;
 			block.Parent = parent;
 		}
 	}
