@@ -243,7 +243,7 @@ declare type WorldSettingsActionTypes = ActionRecievedUpdateWorldSettings | Acti
 
 declare interface iNotification {
   Id: string;
-  OnRemoval?: Function;
+  OnRemoval?: () => void;
   Title?: string;
   Message?: string;
   Width?: number;
@@ -254,6 +254,8 @@ declare interface iNotification {
 	OnApplyPrompt?: () => void;
 	Time?: number;
 }
+
+declare type RemoteNotification = { Type: "Add", Data: iNotification } | { Type: "Remove", Data: string }
 
 declare interface NotificationPropTypes extends iNotification {
 	Position: UDim2;

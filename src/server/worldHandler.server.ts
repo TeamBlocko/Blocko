@@ -1,11 +1,11 @@
 import { Players } from "@rbxts/services";
-import { ServerFunction, ServerEvent } from "@rbxts/net";
+import { ServerFunction } from "@rbxts/net";
 import { $terrify } from "rbxts-transformer-t";
 import { updateWorldInfo } from "shared/worldSettingsReducer";
 import * as handlers from "./worldSettingsHandlers";
 
 const retriveWorldSettingsRemote = new ServerFunction("Replication");
-const updateWorldSettingsRemote = new ServerEvent("UpdateWorldSettings", $terrify<UpdateWorldSettings>());
+const updateWorldSettingsRemote = new ServerFunction("UpdateWorldSettings", $terrify<UpdateWorldSettings>());
 
 import WorldManager from "./WorldManager";
 
@@ -15,7 +15,7 @@ game.BindToClose(() => {
 
 retriveWorldSettingsRemote.SetCallback(() => WorldManager.store.getState());
 
-updateWorldSettingsRemote.Connect((player, action) => {
+updateWorldSettingsRemote.SetCallback((player, action) => {
 	if (WorldManager.store.getState().Owner === player.UserId)
 		WorldManager.store.dispatch(action as WorldSettingsActionTypes);
 });

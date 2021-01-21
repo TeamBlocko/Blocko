@@ -1,5 +1,6 @@
 import { Workspace, DataStoreService, ReplicatedStorage, RunService, Players } from "@rbxts/services";
 import { Store } from "@rbxts/rodux";
+import { ServerEvent } from "@rbxts/net";
 import ProfileService from "@rbxts/profileservice";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { Profile } from "@rbxts/profileservice/globals";
@@ -29,6 +30,8 @@ export enum BlockIds {
 
 const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTypes);
 const worldInfoSerializer = new WorldInfoSerializer()
+
+const notificationHandler = new ServerEvent("NotificationManager");
 
 const DEFAULT_WORLD_SETTINGS = {
 	Name: "nyzem world #1",
@@ -109,12 +112,29 @@ class WorldManager {
 	}
 
 	Save() {
+		notificationHandler.SendToAllPlayers({
+			Type: "Add",
+			Data: {
+				Id: "SaveStatus",
+				Message: "Saving World",
+				Time: 5,
+			}
+		})
 		const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 		print(abbreviateBytes(serialized.size()));
 		this.worldInfo.Data = worldInfoSerializer.serializeInfo(this.store.getState());
 		this.worldBlocks.Data.Blocks = serialized;
 		this.worldInfo.Save();
 		this.worldBlocks.Save();
+		notificationHandler.SendToAllPlayers(
+			{
+				Type: "Add",
+				Data: {
+					Id: "SaveStatus",
+					Message: `Done Saving. Current world size is at ${abbreviateBytes(serialized.size())}`,
+					Time: 5,
+				}
+			})
 	}
 
 	ShutDown() {}

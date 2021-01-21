@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { ClientEvent } from "@rbxts/net";
+import { ClientFunction } from "@rbxts/net";
 import { entries } from "@rbxts/object-utils";
 import { shallowEqual } from "shared/utility";
 import { updateWorldSettings } from "shared/worldSettingsReducer";
@@ -15,9 +15,11 @@ import Lighting from "./Lighting";
 import Sound from "./Sound";
 import Characters from "./Characters";
 
-const updateWorldSettingsRemote = new ClientEvent("UpdateWorldSettings");
+const updateWorldSettingsRemote = new ClientFunction("UpdateWorldSettings");
 
-const updateServer = (action: ActionRecievedUpdateWorldSettings) => updateWorldSettingsRemote.SendToServer(action);
+const updateServer = (action: ActionRecievedUpdateWorldSettings) => {
+	return updateWorldSettingsRemote.GetInstance().InvokeServer(action)
+};
 
 function parseSettings(settings: WorldSettings) {
 	return updateWorldSettings(entries(settings).map(([propertyName, value]) => ({ propertyName, value })));
@@ -62,7 +64,17 @@ function SettingsFrame(props: WorldMenuFrames) {
 							OnApplyPrompt: () => {
 								print("APPLY");
 								notificationStore.removeNotification("ApplyPrompt");
+								notificationStore.addNotification({
+									Id: "Syncing",
+									Message: "Syncing World Settings",
+								})
 								updateServer(parseSettings(currentWorldSettings));
+								notificationStore.removeNotification("Syncing")
+								notificationStore.addNotification({
+									Id: "Syncing",
+									Message: "Done Syncing",
+									Time: 5,
+								})
 								props.OnClick(e);
 							},
 						});
