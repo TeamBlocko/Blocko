@@ -1,4 +1,4 @@
- import { assign } from "@rbxts/object-utils";
+import { assign } from "@rbxts/object-utils";
 
 export const map = (value: number, x1: number, y1: number, x2: number, y2: number): number =>
 	((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
@@ -73,12 +73,12 @@ export function shallowEqual(t1: object, t2: object) {
 }
 
 export function hexToColor3(hex: string) {
-	const [r, g, b] = hex.match("([%a%d][%a%d])([%a%d][%a%d])([%a%d][%a%d])")
+	const [r, g, b] = hex.match("([%a%d][%a%d])([%a%d][%a%d])([%a%d][%a%d])");
 	return new Color3(
-		tonumber(r, 16) as number / 255,
-		tonumber(g, 16) as number / 255,
-		tonumber(b, 16) as number / 255
-	)
+		(tonumber(r, 16) as number) / 255,
+		(tonumber(g, 16) as number) / 255,
+		(tonumber(b, 16) as number) / 255,
+	);
 }
 
 export function getHex(num: number) {
@@ -86,5 +86,5 @@ export function getHex(num: number) {
 }
 
 export function color3ToHex(color: Color3) {
-	return [color.r, color.g, color.b].map((num) => getHex(num * 255)).join("")
+	return [color.r, color.g, color.b].map((num) => getHex(num * 255)).join("");
 }

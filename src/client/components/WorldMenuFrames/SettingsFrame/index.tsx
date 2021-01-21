@@ -18,7 +18,7 @@ import Characters from "./Characters";
 const updateWorldSettingsRemote = new ClientFunction("UpdateWorldSettings");
 
 const updateServer = (action: ActionRecievedUpdateWorldSettings) => {
-	return updateWorldSettingsRemote.GetInstance().InvokeServer(action)
+	return updateWorldSettingsRemote.GetInstance().InvokeServer(action);
 };
 
 function parseSettings(settings: WorldSettings) {
@@ -67,14 +67,14 @@ function SettingsFrame(props: WorldMenuFrames) {
 								notificationStore.addNotification({
 									Id: "Syncing",
 									Message: "Syncing World Settings",
-								})
+								});
 								updateServer(parseSettings(currentWorldSettings));
-								notificationStore.removeNotification("Syncing")
+								notificationStore.removeNotification("Syncing");
 								notificationStore.addNotification({
 									Id: "Syncing",
 									Message: "Done Syncing",
 									Time: 5,
-								})
+								});
 								props.OnClick(e);
 							},
 						});

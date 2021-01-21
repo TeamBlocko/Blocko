@@ -29,7 +29,7 @@ export enum BlockIds {
 }
 
 const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTypes);
-const worldInfoSerializer = new WorldInfoSerializer()
+const worldInfoSerializer = new WorldInfoSerializer();
 
 const notificationHandler = new ServerEvent("NotificationManager");
 
@@ -59,7 +59,10 @@ const DEFAULT_WORLD_SETTINGS = {
 
 const DEFAULT_WORLDINFO: WorldInfo = {
 	WorldId: game.PlaceId,
-	Owner: (RunService.IsStudio() || game.CreatorId !== 6467229) ? (Players.GetPlayers()[0] || Players.PlayerAdded.Wait()[0]).UserId : 0,
+	Owner:
+		RunService.IsStudio() || game.CreatorId !== 6467229
+			? (Players.GetPlayers()[0] || Players.PlayerAdded.Wait()[0]).UserId
+			: 0,
 	Banned: [],
 	Server: game.JobId,
 	MaxPlayers: 25,
@@ -70,7 +73,7 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 	WorldSettings: DEFAULT_WORLD_SETTINGS,
 };
 
-const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[])
+const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
 
 let worldsInfoStore = ProfileService.GetProfileStore("Worlds", worldInfoSerializer.serializeInfo(DEFAULT_WORLDINFO));
 let worldBlocksStore = ProfileService.GetProfileStore("WorldBlocks", {
@@ -118,23 +121,22 @@ class WorldManager {
 				Id: "SaveStatus",
 				Message: "Saving World",
 				Time: 5,
-			}
-		})
+			},
+		});
 		const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 		print(abbreviateBytes(serialized.size()));
 		this.worldInfo.Data = worldInfoSerializer.serializeInfo(this.store.getState());
 		this.worldBlocks.Data.Blocks = serialized;
 		this.worldInfo.Save();
 		this.worldBlocks.Save();
-		notificationHandler.SendToAllPlayers(
-			{
-				Type: "Add",
-				Data: {
-					Id: "SaveStatus",
-					Message: `Done Saving. Current world size is at ${abbreviateBytes(serialized.size())}`,
-					Time: 5,
-				}
-			})
+		notificationHandler.SendToAllPlayers({
+			Type: "Add",
+			Data: {
+				Id: "SaveStatus",
+				Message: `Done Saving. Current world size is at ${abbreviateBytes(serialized.size())}`,
+				Time: 5,
+			},
+		});
 	}
 
 	ShutDown() {}
