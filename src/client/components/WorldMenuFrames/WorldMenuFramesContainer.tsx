@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 
-function WorldMenuFramesContainer(props: PropTypes & { RefValue: Roact.Ref<Frame> }) {
+function WorldMenuFramesContainer(props: PropTypes & { RefValue: Roact.Ref<Frame>; Size?: UDim2 }) {
 	return (
 		<frame
 			Ref={props.RefValue}
@@ -9,7 +9,7 @@ function WorldMenuFramesContainer(props: PropTypes & { RefValue: Roact.Ref<Frame
 			BorderColor3={new Color3()}
 			BorderSizePixel={0}
 			ClipsDescendants={true}
-			Size={UDim2.fromScale(1, 1)}
+			Size={props.Size ?? UDim2.fromScale(1, 1)}
 		>
 			{props[Roact.Children]}
 		</frame>

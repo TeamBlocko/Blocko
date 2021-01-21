@@ -77,7 +77,10 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 				}}
 			>
 				<uicorner CornerRadius={new UDim(0, 10)} />
-				<TopFrame Text={this.props.Name} />
+				<TopFrame
+					Text={this.props.Name}
+					OnClose={(inputButton: ImageButton) => this.props.OnClose(inputButton)}
+				/>
 				<HueSaturationFrame RefValue={this.hsFrameRef} Manager={this.manager} />
 				<BottomFrame RefValue={this.valueFrame} Manager={this.manager} />
 			</DragFrame>

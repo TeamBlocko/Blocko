@@ -57,14 +57,14 @@ function GWContainer(props: GWContainerPropTypes) {
 				Name="Transparency"
 				Default={props.RawProperties.Transparency}
 				Min={0}
-				Max={1}
+				Max={10}
 				OnChange={(newValue: number) => props.OnSliderUpdate("Transparency", newValue)}
 			/>
 			<Slider
 				Name="Reflectance"
 				Default={props.RawProperties.Reflectance}
 				Min={0}
-				Max={1}
+				Max={10}
 				OnChange={(newValue: number) => props.OnSliderUpdate("Reflectance", newValue)}
 			/>
 			<CheckBox

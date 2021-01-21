@@ -4,6 +4,7 @@ import TitleText from "client/components/misc/TitleText";
 
 interface TopFramePropTypes {
 	Text: string;
+	OnClose: (inputButton: ImageButton) => void;
 }
 
 function TopFrame(props: TopFramePropTypes) {
@@ -22,7 +23,7 @@ function TopFrame(props: TopFramePropTypes) {
 				VerticalAlignment={Enum.VerticalAlignment.Center}
 			/>
 			<TitleText Text={props.Text} PosScaleY={0} Size={UDim2.fromOffset(180, 14)} />
-			<CloseButton />
+			<CloseButton OnClose={(inputButton: ImageButton) => props.OnClose(inputButton)} />
 		</frame>
 	);
 }

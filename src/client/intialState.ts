@@ -12,7 +12,7 @@ export const intialPlacementSettings: PlacementSettings = {
 		Size: new Vector3(2, 2, 2),
 		Transparency: 0,
 		Reflectance: 0,
-		Color: Color3.fromRGB(0, 0, 30),
+		Color: Color3.fromRGB(60, 164, 255),
 	},
 };
 

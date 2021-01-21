@@ -28,14 +28,17 @@ placeBlock.SetClientCache(0);
 placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 	if (settings.Shape.IsDescendantOf(shapes) && WorldManager.store.getState().Owner === player.UserId) {
 		const block = settings.Shape.Clone();
+		block.Anchored = true;
 		block.Position = placePosition;
 		block.Orientation = orientation;
 
 		for (const [propertyName, value] of pairs(settings.RawProperties)) {
-			block[propertyName] = value as never;
+			let propertyValue = value;
+			if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(propertyValue, "number"))
+				propertyValue /= 10;
+			block[propertyName] = propertyValue as never;
 		}
 
-		block.Anchored = true;
 		block.Parent = Workspace.Blocks;
 		updateNumOfBlocks();
 	}

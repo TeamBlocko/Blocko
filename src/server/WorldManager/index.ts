@@ -7,6 +7,7 @@ import { Profile } from "@rbxts/profileservice/globals";
 import { storeInitializer } from "server/store";
 import BlockSerializer from "shared/blocksSerializer";
 import WorldInfoSerializer from "./worldInfoSerializer";
+import MockODS from "./MockODS";
 
 export enum BlockIds {
 	CornerInnerQuadrant = "0",
@@ -37,8 +38,8 @@ const DEFAULT_WORLD_SETTINGS = {
 	Name: "nyzem world #1",
 	Description: "No description set.",
 	Thumbnail: "",
-	Ambient: new Color3(),
-	OutdoorAmbient: new Color3(),
+	Ambient: Color3.fromRGB(127, 127, 127),
+	OutdoorAmbient: Color3.fromRGB(127, 127, 127),
 	Time: 12,
 	CycleEnabled: false,
 	Cycle: 0,
@@ -75,6 +76,8 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
 
+const activeODS = !RunService.IsStudio() ? DataStoreService.GetOrderedDataStore("activeWorldsBetav-7") : MockODS;
+
 let worldsInfoStore = ProfileService.GetProfileStore("Worlds", worldInfoSerializer.serializeInfo(DEFAULT_WORLDINFO));
 let worldBlocksStore = ProfileService.GetProfileStore("WorldBlocks", {
 	Blocks: DEFAULT_TEMPLATE,
@@ -89,6 +92,8 @@ class WorldManager {
 	public readonly worldInfo!: Profile<SerializedWorldInfo>;
 	public readonly worldBlocks!: Profile<{ Blocks: string }>;
 	public readonly store!: Store<WorldInfo, WorldSettingsActionTypes>;
+
+	public isClosing = false;
 
 	constructor(placeId: number) {
 		const worldInfoProfile = worldsInfoStore.LoadProfileAsync(`${placeId}`, "ForceLoad");
@@ -123,6 +128,7 @@ class WorldManager {
 				Time: 5,
 			},
 		});
+		activeODS.SetAsync(this.worldInfo.Data.WorldId, this.worldInfo.Data.ActivePlayers);
 		const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 		print(abbreviateBytes(serialized.size()));
 		this.worldInfo.Data = worldInfoSerializer.serializeInfo(this.store.getState());
@@ -139,7 +145,10 @@ class WorldManager {
 		});
 	}
 
-	ShutDown() {}
+	ShutDown() {
+		this.isClosing = true;
+		activeODS.SetAsync(this.worldInfo.Data.WorldId, undefined);
+	}
 }
 
 export default new WorldManager(game.PlaceId);

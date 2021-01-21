@@ -9,7 +9,7 @@ class WorldInfoSerializer extends Serializer {
 			if (typeIs(value, "table")) result[property] = this.serializeInfo(value) as never;
 			else result[property] = [this.serialize(value), typeOf(value)] as never;
 		}
-		print("SERIALIZE", result);
+
 		return result as SerializedWorldInfo;
 	}
 

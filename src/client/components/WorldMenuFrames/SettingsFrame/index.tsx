@@ -27,7 +27,7 @@ function parseSettings(settings: WorldSettings) {
 
 function SettingsFrame(props: WorldMenuFrames) {
 	return (
-		<Container RefValue={props.RefValue}>
+		<Container RefValue={props.RefValue} Size={UDim2.fromScale(0.9, 1)}>
 			<uicorner />
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
 			<NavBar

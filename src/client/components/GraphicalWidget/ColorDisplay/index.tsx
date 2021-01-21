@@ -89,6 +89,17 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 		this.onColorChange(new Color3(rgb.r, rgb.g, rgb.b), true);
 	}
 
+	HandleClick(inputButton: TextButton | ImageButton) {
+		this.root = inputButton.FindFirstAncestorOfClass("ScreenGui");
+		this.setState((oldState) => {
+			return {
+				...oldState,
+				Selected: !oldState.Selected,
+			};
+		});
+		this.setColorPickerPos();
+	}
+
 	render() {
 		return (
 			<DragDropProvider context={this.context}>
@@ -103,16 +114,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 					<TitleText Text={this.props.Name} PosScaleY={0.5} />
 					<PickButton
 						Value={this.props.Default}
-						HandleClick={(inputButton: TextButton) => {
-							this.root = inputButton.FindFirstAncestorOfClass("ScreenGui");
-							this.setState((oldState) => {
-								return {
-									...oldState,
-									Selected: !oldState.Selected,
-								};
-							});
-							this.setColorPickerPos();
-						}}
+						HandleClick={(inputButton: TextButton) => this.HandleClick(inputButton)}
 					/>
 					<RGBValues Value={this.props.Default} onTextChange={(...args) => this.onTextChange(...args)} />
 					{this.state.Selected && this.root && (
@@ -122,6 +124,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 								Value={this.props.Default}
 								onChange={(color: Color3) => this.onColorChange(color)}
 								UpdateColorPickerBinding={(e) => this.updateColorPickerBinding(e)}
+								OnClose={(inputButton: ImageButton) => this.HandleClick(inputButton)}
 							/>
 						</Portal>
 					)}

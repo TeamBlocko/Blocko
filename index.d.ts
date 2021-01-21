@@ -69,12 +69,6 @@ declare interface ColorDisplayStateTypes<T> extends GWStateTypes<T> {
 	Selected: boolean;
 }
 
-declare interface ColorPickerPropTypes {
-	Value: Color3;
-	Name: string;
-	UpdateColorPickerBinding?: Roact.RoactBindingFunc<Frame | undefined>;
-}
-
 declare class ColorPicker extends Roact.Component<ColorPickerPropTypes, GWStateTypes<Color3>> {
 	public render(): Roact.Element | undefined;
 }
@@ -112,6 +106,7 @@ declare interface ColorPickerPropTypes {
 	Value: Color3;
 	Name: string;
 	onChange: (color: Color3) => void;
+	OnClose: (inputButton: ImageButton) => void;
 	UpdateColorPickerBinding?: Roact.RoactBindingFunc<Frame | undefined>;
 }
 
