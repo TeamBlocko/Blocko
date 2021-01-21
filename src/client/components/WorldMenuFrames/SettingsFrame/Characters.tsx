@@ -21,7 +21,7 @@ interface CharactersPropTypes extends WorldSettings {
 
 function Characters(props: CharactersPropTypes) {
 	return (
-		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 535)}>
+		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 555)}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Characters" Image="rbxassetid://3926305904" />
 			<CheckBox

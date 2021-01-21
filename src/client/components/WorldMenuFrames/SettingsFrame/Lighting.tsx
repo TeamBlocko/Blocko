@@ -14,7 +14,7 @@ interface LightingPropTypes extends WorldSettings {
 
 function Lighting(props: LightingPropTypes) {
 	return (
-		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 305)}>
+		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 300)}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Lighting" Image="rbxassetid://3926307971" />
 			<ColorDisplay

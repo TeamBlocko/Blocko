@@ -29,7 +29,6 @@ function SettingsFrame(props: WorldMenuFrames) {
 	return (
 		<Container RefValue={props.RefValue} Size={UDim2.fromScale(0.9, 1)}>
 			<uicorner />
-			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
 			<NavBar
 				Text="World Settings"
 				OnClick={(e) => {
@@ -96,8 +95,9 @@ function SettingsFrame(props: WorldMenuFrames) {
 				<Lighting />
 				<Sound />
 				<Characters />
-				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 8)} />
+				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 30)} />
 			</scrollingframe>
+			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center}/>
 		</Container>
 	);
 }

@@ -18,7 +18,7 @@ class CheckBox extends Component<GWPropTypes<boolean>, GWStateTypes<boolean>> {
 
 	render() {
 		return (
-			<GWFrame SizeOffsetY={25}>
+			<GWFrame SizeOffsetY={30}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.5} />
 				<Border HandleInput={() => this.HandleInput()}>

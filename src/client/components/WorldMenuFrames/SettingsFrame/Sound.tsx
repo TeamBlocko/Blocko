@@ -13,7 +13,7 @@ interface SoundPropTypes extends WorldSettings {
 
 function Sound(props: SoundPropTypes) {
 	return (
-		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 225)}>
+		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 205)}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Sound" Image="rbxassetid://3926307971" />
 			<InputFrame

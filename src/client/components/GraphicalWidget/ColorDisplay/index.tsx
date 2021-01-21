@@ -103,7 +103,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 	render() {
 		return (
 			<DragDropProvider context={this.context}>
-				<GWFrame SizeOffsetY={25}>
+				<GWFrame SizeOffsetY={30}>
 					<uicorner
 						CornerRadius={new UDim(0, 7)}
 						Ref={(n) => {
