@@ -1,6 +1,6 @@
 {
   "name": "blocko",
-  "version": "1.6.20",
+  "version": "1.6.21",
   "description": "",
   "main": "index.js",
   "dependencies": {
