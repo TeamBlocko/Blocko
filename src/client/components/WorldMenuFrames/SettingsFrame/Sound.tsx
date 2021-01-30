@@ -54,7 +54,7 @@ function Sound(props: SoundPropTypes) {
 				Default={props.Pitch}
 				OnChange={(newValue) => props.OnSliderUpdate("Pitch", newValue)}
 			/>
-			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 10)} />
+            <uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
 		</frame>
 	);
 }
