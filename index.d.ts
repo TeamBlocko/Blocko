@@ -62,6 +62,7 @@ declare interface Range {
 }
 
 declare interface SliderPropTypes extends Range, GWPropTypes<number> {
+    SizeYOffset?: number;
 	RefValue?: Roact.Ref<Frame>;
 }
 
