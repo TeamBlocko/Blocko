@@ -5,6 +5,7 @@ import TitleText from "client/components/misc/TitleText";
 interface InputFramePropTypes extends PropTypes, GWPropTypes<string>, RbxJsxProps {
 	Length: number;
 	HandleInput?: (input: string) => string;
+    TextYAlignment?: Enum.TextYAlignment
 }
 
 class InputFrame extends Component<InputFramePropTypes> {
@@ -32,7 +33,7 @@ class InputFrame extends Component<InputFramePropTypes> {
 						TextColor3={Color3.fromRGB(218, 218, 218)}
 						TextWrapped={true}
 						TextSize={15}
-						TextYAlignment={Enum.TextYAlignment.Top}
+						TextYAlignment={this.props.TextYAlignment ?? Enum.TextYAlignment.Top}
 						TextXAlignment={Enum.TextXAlignment.Left}
 						Change={{
 							Text: (e) => {
