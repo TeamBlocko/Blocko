@@ -74,7 +74,7 @@ function RGBValues(props: RGBValuesPropTypes) {
 				SortOrder={Enum.SortOrder.LayoutOrder}
 				VerticalAlignment={Enum.VerticalAlignment.Center}
 			/>
-			{(["r", "g", "b"] as RGB[]).map((value: RGB, index) => (
+			{(["R", "G", "B"] as RGB[]).map((value: RGB, index) => (
 				<Roact.Fragment>
 					<NumberDisplay
 						Type={value}

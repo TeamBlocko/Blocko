@@ -90,7 +90,7 @@ declare class ColorPickerManager {
 	HandleValueInput(input: InputObject): void;
 }
 
-declare type RGB = "r" | "g" | "b";
+declare type RGB = "R" | "G" | "B";
 
 declare interface onTextChange {
 	(type: RGB, value: number): void;

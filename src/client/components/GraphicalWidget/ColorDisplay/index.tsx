@@ -84,9 +84,11 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 	}
 
 	onTextChange(type: RGB, value: number): void {
-		const rgb = { r: this.props.Default.r, g: this.props.Default.g, b: this.props.Default.b };
+		const rgb = { R: this.props.Default.R, G: this.props.Default.G, B: this.props.Default.B };
+
 		rgb[type] = value / 255;
-		this.onColorChange(new Color3(rgb.r, rgb.g, rgb.b), true);
+
+		this.onColorChange(new Color3(rgb.R, rgb.G, rgb.B), true);
 	}
 
 	HandleClick(inputButton: TextButton | ImageButton) {

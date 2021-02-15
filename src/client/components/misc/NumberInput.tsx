@@ -30,7 +30,7 @@ function NumberInput(props: NumberInputPropTypes) {
 	validProps.OnValidInput = undefined;
 	validProps.Options = undefined;
 
-    let prevText: string = props.Text;
+    let prevText = props.Text;
 	return (
 		<textbox
 			{...validProps}
@@ -38,7 +38,7 @@ function NumberInput(props: NumberInputPropTypes) {
 				FocusLost: (element, a, inputObject) => {
 					focusLost === undefined || focusLost(element, a, inputObject);
 					if (element.Text === "" && prevText !== undefined) {
-						element.Text = prevText;
+						element.Text = prevText as string;
 					}
 				},
 			}}
