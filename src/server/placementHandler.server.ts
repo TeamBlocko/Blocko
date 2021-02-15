@@ -1,12 +1,12 @@
 import { ReplicatedStorage, Workspace } from "@rbxts/services";
 import { ServerFunction } from "@rbxts/net";
-import { $terrify, instanceIsA } from "rbxts-transformer-t";
+import { $terrify } from "rbxts-transformer-t";
 import { t } from "@rbxts/t";
 import { updateWorldInfo } from "shared/worldSettingsReducer";
 import WorldManager from "./WorldManager";
 
 interface PlacementSettings {
-	Shape: instanceIsA<BasePart>;
+	Shape: BasePart;
 	BuildMode: BuildMode;
 	RawProperties: RawProperties;
 }
