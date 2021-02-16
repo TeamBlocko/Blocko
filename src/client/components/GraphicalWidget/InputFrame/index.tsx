@@ -2,9 +2,10 @@ import Roact, { Component } from "@rbxts/roact";
 import GWFrame from "client/components/misc/GWFrame";
 import TitleText from "client/components/misc/TitleText";
 
-interface InputFramePropTypes extends PropTypes, GWPropTypes<string> {
+interface InputFramePropTypes extends PropTypes, GWPropTypes<string>, RbxJsxProps {
 	Length: number;
 	HandleInput?: (input: string) => string;
+    TextYAlignment?: Enum.TextYAlignment
 }
 
 class InputFrame extends Component<InputFramePropTypes> {
@@ -12,8 +13,9 @@ class InputFrame extends Component<InputFramePropTypes> {
 		return (
 			<GWFrame SizeOffsetY={this.props.Length}>
 				<uicorner />
-				{this.props[Roact.Children]}
-				<TitleText Text={this.props.Name} PosScaleY={0.25} Size={new UDim2(1, 0, 0, 20)} />
+				<TitleText Text={this.props.Name} PosScaleY={0.25} Size={new UDim2(1, 0, 0, 20)}>
+                    {this.props[Roact.Children]}
+                </TitleText>
 				<frame
 					BackgroundColor3={new Color3(1, 1, 1)}
 					BackgroundTransparency={0.95}
@@ -31,7 +33,7 @@ class InputFrame extends Component<InputFramePropTypes> {
 						TextColor3={Color3.fromRGB(218, 218, 218)}
 						TextWrapped={true}
 						TextSize={15}
-						TextYAlignment={Enum.TextYAlignment.Top}
+						TextYAlignment={this.props.TextYAlignment ?? Enum.TextYAlignment.Top}
 						TextXAlignment={Enum.TextXAlignment.Left}
 						Change={{
 							Text: (e) => {

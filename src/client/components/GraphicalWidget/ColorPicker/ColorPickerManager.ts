@@ -32,7 +32,7 @@ class ColorPickerManager {
 	}
 
 	RGBtoHSV(color: Color3): HSV {
-		const [r, g, b] = [color.r, color.g, color.b];
+		const [r, g, b] = [color.R, color.G, color.B];
 
 		const max = math.max(r, g, b),
 			min = math.min(r, g, b);

@@ -4,8 +4,8 @@ import TitleText from "client/components/misc/TitleText";
 import Border from "./Border";
 import Check from "./Check";
 
-class CheckBox extends Component<GWPropTypes<boolean>, GWStateTypes<boolean>> {
-	constructor(props: GWPropTypes<boolean>) {
+class CheckBox extends Component<GWPropTypes<boolean> & { SizeYOffset?: number }, GWStateTypes<boolean>> {
+    constructor(props: GWPropTypes<boolean> & { SizeYOffset?: number }) {
 		super(props);
 		this.setState({
 			Value: props.Default,
@@ -18,7 +18,7 @@ class CheckBox extends Component<GWPropTypes<boolean>, GWStateTypes<boolean>> {
 
 	render() {
 		return (
-			<GWFrame SizeOffsetY={30}>
+			<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.5} />
 				<Border HandleInput={() => this.HandleInput()}>

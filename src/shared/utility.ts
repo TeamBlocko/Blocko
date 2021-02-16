@@ -3,7 +3,7 @@ import { assign } from "@rbxts/object-utils";
 export const map = (value: number, x1: number, y1: number, x2: number, y2: number): number =>
 	((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
 
-export const inverseColor = (color: Color3): Color3 => new Color3(1 - color.r, 1 - color.g, 1 - color.b);
+export const inverseColor = (color: Color3): Color3 => new Color3(1 - color.R, 1 - color.G, 1 - color.B);
 
 export function getPosOnAxis(v1: Vector2, v2: Vector2, dist: number): Vector2 {
 	const deltaX = v1.X - v2.X;
@@ -86,5 +86,5 @@ export function getHex(num: number) {
 }
 
 export function color3ToHex(color: Color3) {
-	return [color.r, color.g, color.b].map((num) => getHex(num * 255)).join("");
+	return [color.R, color.G, color.B].map((num) => getHex(num * 255)).join("");
 }

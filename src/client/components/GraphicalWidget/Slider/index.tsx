@@ -47,7 +47,7 @@ class Slider extends Component<SliderPropTypes & Partial<PropTypes>, GWStateType
 
 	render() {
 		return (
-			<GWFrame SizeOffsetY={55} RefValue={this.props.RefValue}>
+            <GWFrame SizeOffsetY={this.props.SizeYOffset ?? 70} RefValue={this.props.RefValue}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} PosScaleY={0.225} />
 				<SliderBar

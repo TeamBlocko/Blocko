@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 
-interface TitleTextPropTypes {
+interface TitleTextPropTypes extends RbxJsxProps {
 	Text: string;
 	PosScaleY: number;
 	Size?: UDim2;
@@ -18,7 +18,9 @@ function TitleText(props: TitleTextPropTypes): Roact.Element {
 			TextColor3={Color3.fromRGB(184, 184, 184)}
 			TextSize={14}
 			TextXAlignment={Enum.TextXAlignment.Left}
-		/>
+		>
+            {props[Roact.Children]}
+        </textlabel>
 	);
 }
 

@@ -17,7 +17,7 @@ interface Action<A = any> {
 
 type Binding = Frame | undefined;
 
-class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes<Color3>> {
+class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: number }, ColorDisplayStateTypes<Color3>> {
 	private root: ScreenGui | undefined;
 	private colorPickerBinding: RoactBinding<Binding>;
 	private updateColorPickerBinding: RoactBindingFunc<Binding>;
@@ -25,7 +25,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 	private textChangedAllowed = true;
 	private context: DragDropContext;
 
-	constructor(props: GWPropTypes<Color3>) {
+    constructor(props: GWPropTypes<Color3> & { SizeYOffset?: number }) {
 		super(props);
 		[this.colorPickerBinding, this.updateColorPickerBinding] = createBinding<Binding>(undefined);
 		this.setState({
@@ -84,9 +84,11 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 	}
 
 	onTextChange(type: RGB, value: number): void {
-		const rgb = { r: this.props.Default.r, g: this.props.Default.g, b: this.props.Default.b };
+		const rgb = { R: this.props.Default.R, G: this.props.Default.G, B: this.props.Default.B };
+
 		rgb[type] = value / 255;
-		this.onColorChange(new Color3(rgb.r, rgb.g, rgb.b), true);
+
+		this.onColorChange(new Color3(rgb.R, rgb.G, rgb.B), true);
 	}
 
 	HandleClick(inputButton: TextButton | ImageButton) {
@@ -103,7 +105,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3>, ColorDisplayStateTypes
 	render() {
 		return (
 			<DragDropProvider context={this.context}>
-				<GWFrame SizeOffsetY={30}>
+                <GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30}>
 					<uicorner
 						CornerRadius={new UDim(0, 7)}
 						Ref={(n) => {
