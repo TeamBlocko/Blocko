@@ -1,4 +1,4 @@
-import { Players } from "@rbxts/services";
+import { Players, TeleportService } from "@rbxts/services";
 import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import ElementSeperator from "client/components/misc/ElementSperator";
@@ -37,7 +37,7 @@ function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 					Text="Back To Hub"
 					Color={Color3.fromRGB(200, 74, 74)}
 					Icon="rbxassetid://5627768153"
-					OnClick={() => print("Pressed")}
+					OnClick={() => TeleportService.Teleport(5102036961, Players.LocalPlayer)}
 				/>
 				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
 			</frame>
