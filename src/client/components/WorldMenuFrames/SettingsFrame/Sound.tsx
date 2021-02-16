@@ -18,7 +18,7 @@ function Sound(props: SoundPropTypes) {
 			<Catagory Text="Sound" Image="rbxassetid://3926307971" />
 			<InputFrame
 				Name="Sound Id"
-				Length={60}
+				Length={50}
 				TextYAlignment={Enum.TextYAlignment.Center}
 				Default={tostring(props.SoundID)}
 				OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)}
