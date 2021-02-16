@@ -97,7 +97,7 @@ function SettingsFrame(props: WorldMenuFrames) {
 				<Characters />
 				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 30)} />
 			</scrollingframe>
-			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center}/>
+			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
 		</Container>
 	);
 }

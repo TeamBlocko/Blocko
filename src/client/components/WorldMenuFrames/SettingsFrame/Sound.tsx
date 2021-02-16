@@ -19,20 +19,20 @@ function Sound(props: SoundPropTypes) {
 			<InputFrame
 				Name="Sound Id"
 				Length={60}
-                TextYAlignment={Enum.TextYAlignment.Center}
+				TextYAlignment={Enum.TextYAlignment.Center}
 				Default={tostring(props.SoundID)}
 				OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)}
 				HandleInput={(input) => (input.match("%d+")[0] as string) || ""}
 			>
 				<imagebutton
 					AnchorPoint={new Vector2(0, 0.5)}
-                    BackgroundTransparency={1}
-                    Position={new UDim2(0.9, 0, 0.5, 0)}
-                    Size={UDim2.fromOffset(20, 20)}
+					BackgroundTransparency={1}
+					Position={new UDim2(0.9, 0, 0.5, 0)}
+					Size={UDim2.fromOffset(20, 20)}
 					Image={!props.IsPlaying ? "rbxassetid://3926307971" : "rbxassetid://3926307971"}
 					ImageColor3={!props.IsPlaying ? Color3.fromRGB(199, 199, 199) : Color3.fromRGB(84, 169, 199)}
 					ImageRectOffset={!props.IsPlaying ? new Vector2(764, 244) : new Vector2(804, 124)}
-                    ImageRectSize={new Vector2(36, 36)}
+					ImageRectSize={new Vector2(36, 36)}
 					ScaleType={Enum.ScaleType.Fit}
 					Event={{
 						Activated: () => props.OnCheckBoxUpdate("IsPlaying", !props.IsPlaying),
@@ -53,7 +53,7 @@ function Sound(props: SoundPropTypes) {
 				Default={props.Pitch}
 				OnChange={(newValue) => props.OnSliderUpdate("Pitch", newValue)}
 			/>
-            <uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
+			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
 		</frame>
 	);
 }

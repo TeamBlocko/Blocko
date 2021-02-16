@@ -5,7 +5,7 @@ import Border from "./Border";
 import Check from "./Check";
 
 class CheckBox extends Component<GWPropTypes<boolean> & { SizeYOffset?: number }, GWStateTypes<boolean>> {
-    constructor(props: GWPropTypes<boolean> & { SizeYOffset?: number }) {
+	constructor(props: GWPropTypes<boolean> & { SizeYOffset?: number }) {
 		super(props);
 		this.setState({
 			Value: props.Default,

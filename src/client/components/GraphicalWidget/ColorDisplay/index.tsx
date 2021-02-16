@@ -25,7 +25,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 	private textChangedAllowed = true;
 	private context: DragDropContext;
 
-    constructor(props: GWPropTypes<Color3> & { SizeYOffset?: number }) {
+	constructor(props: GWPropTypes<Color3> & { SizeYOffset?: number }) {
 		super(props);
 		[this.colorPickerBinding, this.updateColorPickerBinding] = createBinding<Binding>(undefined);
 		this.setState({
@@ -105,7 +105,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 	render() {
 		return (
 			<DragDropProvider context={this.context}>
-                <GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30}>
+				<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30}>
 					<uicorner
 						CornerRadius={new UDim(0, 7)}
 						Ref={(n) => {

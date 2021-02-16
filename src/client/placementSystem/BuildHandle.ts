@@ -84,7 +84,7 @@ class BuildHandler {
 				const placementSettings = store.getState().PlacementSettings;
 				const block = placementSettings.Shape.Clone();
 
-                block.Anchored = true
+				block.Anchored = true;
 				block.Position = placePosition;
 				block.Orientation = orientation;
 

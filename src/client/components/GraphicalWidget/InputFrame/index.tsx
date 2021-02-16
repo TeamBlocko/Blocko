@@ -5,7 +5,7 @@ import TitleText from "client/components/misc/TitleText";
 interface InputFramePropTypes extends PropTypes, GWPropTypes<string>, RbxJsxProps {
 	Length: number;
 	HandleInput?: (input: string) => string;
-    TextYAlignment?: Enum.TextYAlignment
+	TextYAlignment?: Enum.TextYAlignment;
 }
 
 class InputFrame extends Component<InputFramePropTypes> {
@@ -14,8 +14,8 @@ class InputFrame extends Component<InputFramePropTypes> {
 			<GWFrame SizeOffsetY={this.props.Length}>
 				<uicorner />
 				<TitleText Text={this.props.Name} PosScaleY={0.25} Size={new UDim2(1, 0, 0, 20)}>
-                    {this.props[Roact.Children]}
-                </TitleText>
+					{this.props[Roact.Children]}
+				</TitleText>
 				<frame
 					BackgroundColor3={new Color3(1, 1, 1)}
 					BackgroundTransparency={0.95}

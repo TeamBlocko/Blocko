@@ -19,8 +19,8 @@ function TitleText(props: TitleTextPropTypes): Roact.Element {
 			TextSize={14}
 			TextXAlignment={Enum.TextXAlignment.Left}
 		>
-            {props[Roact.Children]}
-        </textlabel>
+			{props[Roact.Children]}
+		</textlabel>
 	);
 }
 

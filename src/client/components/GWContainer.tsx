@@ -50,9 +50,9 @@ function GWContainer(props: GWContainerPropTypes) {
 			/>
 			<ColorDisplay
 				Name="Color"
-			Default={props.RawProperties.Color}
+				Default={props.RawProperties.Color}
 				OnChange={(newValue: Color3) => props.OnColorPickerUpdate("Color", newValue)}
-                SizeYOffset={25}
+				SizeYOffset={25}
 			/>
 			<Slider
 				Name="Transparency"
@@ -60,7 +60,7 @@ function GWContainer(props: GWContainerPropTypes) {
 				Min={0}
 				Max={10}
 				OnChange={(newValue: number) => props.OnSliderUpdate("Transparency", newValue)}
-                SizeYOffset={55}
+				SizeYOffset={55}
 			/>
 			<Slider
 				Name="Reflectance"
@@ -68,13 +68,13 @@ function GWContainer(props: GWContainerPropTypes) {
 				Min={0}
 				Max={10}
 				OnChange={(newValue: number) => props.OnSliderUpdate("Reflectance", newValue)}
-                SizeYOffset={55}
+				SizeYOffset={55}
 			/>
 			<CheckBox
 				Name="Cast Shadow"
 				Default={props.RawProperties.CastShadow}
 				OnChange={(newValue: boolean) => props.OnCheckBoxUpdate("CastShadow", newValue)}
-                SizeYOffset={25}
+				SizeYOffset={25}
 			/>
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 3)} />
 		</scrollingframe>
