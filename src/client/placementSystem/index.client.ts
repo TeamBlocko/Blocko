@@ -42,7 +42,7 @@ function updateMode(newMode: BuildMode) {
 	);
 }
 
-RunService.RenderStepped.Connect(() => {
+RunService.PreSimulation.Connect(() => {
 	const target = gridBase.mouseTarget();
 	switch (store.getState().PlacementSettings.BuildMode) {
 		case "Place":

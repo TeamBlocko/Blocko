@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"name": "WorldTemplate",
+			"path": ".",
+			"folder_exclude_patterns": ["dist/", "include/", "node_modules/", "out/"]
+		}
+	],
+	"settings": {
+		"LSP": {
+			"LSP-deno": {
+				"enabled": false
+			}
+		}
+	},
+}
