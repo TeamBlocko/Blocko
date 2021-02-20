@@ -15,7 +15,7 @@ export class NotificationContainer extends Component<
 	{ notifications: iNotification[] }
 > {
 	frameRef: Roact.Ref<ScrollingFrame>;
-	timeContainer: { [K: string]: boolean | undefined } = {};
+	timeContainer = new Map<string, boolean>();
 
 	constructor(props: NotificationContainerPropTypes) {
 		super(props);
@@ -91,10 +91,10 @@ export class NotificationContainer extends Component<
 
 			let element: Roact.Element;
 
-			if (notification.Time !== undefined && !this.timeContainer[notification.Id]) {
-				this.timeContainer[notification.Id] = true;
+			if (notification.Time !== undefined && !this.timeContainer.get(notification.Id)) {
+				this.timeContainer.set(notification.Id, true);
 				delay(notification.Time, () => {
-					this.timeContainer[notification.Id] = undefined;
+					this.timeContainer.delete(notification.Id);
 					this.remove(notification.Id);
 				});
 			}
