@@ -3,18 +3,17 @@ import { entries } from "@rbxts/object-utils";
 import { updateWorldInfo } from "shared/worldSettingsReducer";
 import WorldManager from "./WorldManager";
 
-const timeList: { [Id: number]: number } = {};
+const timeList = new Map<number, number>();
 
 function onPlayerJoined(player: Player) {
-	timeList[player.UserId] = os.clock();
+	timeList.set(player.UserId, os.clock());
 }
 
 function onPlayerRemoving(player: Player) {
-	delete timeList[player.UserId]
+	timeList.delete(player.UserId);
 }
 
-for (const player of Players.GetPlayers())
-	onPlayerJoined(player)
+for (const player of Players.GetPlayers()) onPlayerJoined(player);
 
 Players.PlayerAdded.Connect(onPlayerJoined);
 Players.PlayerRemoving.Connect(onPlayerRemoving);
@@ -24,9 +23,11 @@ RunService.PostSimulation.Connect(() => {
 		const current = os.clock();
 		if (current - joinTime > 60 * 5) {
 			WorldManager.store.dispatch(
-				updateWorldInfo([{ propertyName: "PlaceVisits", value: WorldManager.store.getState().PlaceVisits + 1 }]),
+				updateWorldInfo([
+					{ propertyName: "PlaceVisits", value: WorldManager.store.getState().PlaceVisits + 1 },
+				]),
 			);
-			delete timeList[id]
+			timeList.delete(id);
 		}
 	}
-})
+});
