@@ -1,5 +1,6 @@
 import { Workspace, DataStoreService, ReplicatedStorage, RunService, Players } from "@rbxts/services";
 import { Store } from "@rbxts/rodux";
+import { $env } from "rbxts-transform-env";
 import { ser } from "@rbxts/ser";
 import { ServerEvent } from "@rbxts/net";
 import ProfileService from "@rbxts/profileservice";
@@ -7,7 +8,6 @@ import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { Profile } from "@rbxts/profileservice/globals";
 import { storeInitializer } from "server/store";
 import BlockSerializer from "shared/blocksSerializer";
-// import WorldInfoSerializer from "./worldInfoSerializer";
 import MockODS from "./MockODS";
 
 export enum BlockIds {
@@ -31,7 +31,6 @@ export enum BlockIds {
 }
 
 const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTypes);
-// const worldInfoSerializer = new WorldInfoSerializer();
 
 const notificationHandler = new ServerEvent("NotificationManager");
 
@@ -112,10 +111,9 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
 
-const activeODS = !RunService.IsStudio() ? DataStoreService.GetOrderedDataStore("activeWorldsBetav-7") : MockODS;
-
-let worldsInfoStore = ProfileService.GetProfileStore("Worlds", worldInfoSerializer.serialize(DEFAULT_WORLDINFO));
-let worldBlocksStore = ProfileService.GetProfileStore("WorldBlocks", {
+const activeODS = !RunService.IsStudio() ? DataStoreService.GetOrderedDataStore(`activeWorlds${$env("DATASTORE_VERSION")}`) : MockODS;
+let worldsInfoStore = ProfileService.GetProfileStore(`Worlds${$env("DATASTORE_VERSION")}`, worldInfoSerializer.serialize(DEFAULT_WORLDINFO));
+let worldBlocksStore = ProfileService.GetProfileStore(`WorldBlocks${$env("DATASTORE_VERSION")}`, {
 	Blocks: DEFAULT_TEMPLATE,
 });
 
