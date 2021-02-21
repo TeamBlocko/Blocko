@@ -1,12 +1,13 @@
 import { Workspace, DataStoreService, ReplicatedStorage, RunService, Players } from "@rbxts/services";
 import { Store } from "@rbxts/rodux";
+import { ser } from "@rbxts/ser";
 import { ServerEvent } from "@rbxts/net";
 import ProfileService from "@rbxts/profileservice";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { Profile } from "@rbxts/profileservice/globals";
 import { storeInitializer } from "server/store";
 import BlockSerializer from "shared/blocksSerializer";
-import WorldInfoSerializer from "./worldInfoSerializer";
+// import WorldInfoSerializer from "./worldInfoSerializer";
 import MockODS from "./MockODS";
 
 export enum BlockIds {
@@ -30,9 +31,44 @@ export enum BlockIds {
 }
 
 const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTypes);
-const worldInfoSerializer = new WorldInfoSerializer();
+// const worldInfoSerializer = new WorldInfoSerializer();
 
 const notificationHandler = new ServerEvent("NotificationManager");
+
+const worldInfoSerializer = ser.interface("WorldInfo", {
+	WorldId: ser.number,
+	Owner: ser.number,
+	Banned: ser.array(ser.number),
+	Server: ser.optional(ser.string),
+	MaxPlayers: ser.number,
+	ActivePlayers: ser.number,
+	PlaceVisits: ser.number,
+	NumberOfBlocks: ser.number,
+
+	WorldSettings: ser.interface("WorldSettings", {
+		Name: ser.string,
+		Description: ser.string,
+		Thumbnail: ser.string,
+		Ambient: ser.Color3,
+		OutdoorAmbient: ser.Color3,
+		Time: ser.number,
+		CycleEnabled: ser.boolean,
+		Cycle: ser.number,
+		Brightness: ser.number,
+		SoundID: ser.number,
+		Volume: ser.number,
+		Pitch: ser.number,
+		IsPlaying: ser.boolean,
+		ResetEnabled: ser.boolean,
+		CollisionsEnabled: ser.boolean,
+		UsernameDistance: ser.number,
+		HealthDistance: ser.number,
+		DefaultWalkSpeed: ser.number,
+		DefaultJumpPower: ser.number,
+		MinCameraZoom: ser.number,
+		MaxCameraZoom: ser.number,
+	})
+})
 
 const DEFAULT_WORLD_SETTINGS = {
 	Name: "nyzem world #1",
@@ -78,7 +114,7 @@ const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Templ
 
 const activeODS = !RunService.IsStudio() ? DataStoreService.GetOrderedDataStore("activeWorldsBetav-7") : MockODS;
 
-let worldsInfoStore = ProfileService.GetProfileStore("Worlds", worldInfoSerializer.serializeInfo(DEFAULT_WORLDINFO));
+let worldsInfoStore = ProfileService.GetProfileStore("Worlds", worldInfoSerializer.serialize(DEFAULT_WORLDINFO));
 let worldBlocksStore = ProfileService.GetProfileStore("WorldBlocks", {
 	Blocks: DEFAULT_TEMPLATE,
 });
@@ -89,7 +125,7 @@ if (RunService.IsStudio() === true) {
 }
 
 class WorldManager {
-	public readonly worldInfo!: Profile<SerializedWorldInfo>;
+	public readonly worldInfo!: Profile<ser.Serialized<WorldInfo>>;
 	public readonly worldBlocks!: Profile<{ Blocks: string }>;
 	public readonly store!: Store<WorldInfo, WorldSettingsActionTypes>;
 
@@ -104,7 +140,7 @@ class WorldManager {
 			worldBlocksProfile.Reconcile();
 			this.worldInfo = worldInfoProfile;
 			this.worldBlocks = worldBlocksProfile;
-			this.store = storeInitializer(worldInfoSerializer.deserializeInfo(this.worldInfo.Data));
+			this.store = storeInitializer(worldInfoSerializer.deserialize(this.worldInfo.Data));
 			this.Load();
 		} else {
 			// FAILED TO LOAD
@@ -128,10 +164,11 @@ class WorldManager {
 				Time: 5,
 			},
 		});
-		activeODS.SetAsync(this.worldInfo.Data.WorldId, this.worldInfo.Data.ActivePlayers);
+		const state = this.store.getState()
+		activeODS.SetAsync(this.worldInfo.Data.WorldId, state.ActivePlayers);
 		const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 		print(abbreviateBytes(serialized.size()));
-		this.worldInfo.Data = worldInfoSerializer.serializeInfo(this.store.getState());
+		this.worldInfo.Data = worldInfoSerializer.serialize(state);
 		this.worldBlocks.Data.Blocks = serialized;
 		this.worldInfo.Save();
 		this.worldBlocks.Save();
