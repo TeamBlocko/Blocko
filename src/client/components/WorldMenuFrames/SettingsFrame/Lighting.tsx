@@ -1,6 +1,7 @@
 import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import Catagory from "./Catagory";
+import Container from "./SettingsContainer";
 import { updateWorldSettings } from "shared/worldSettingsReducer";
 import ColorDisplay from "client/components/GraphicalWidget/ColorDisplay";
 import Slider from "client/components/GraphicalWidget/Slider";
@@ -14,7 +15,7 @@ interface LightingPropTypes extends WorldSettings {
 
 function Lighting(props: LightingPropTypes) {
 	return (
-		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 300)}>
+		<Container>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Lighting" Image="rbxassetid://3926307971" />
 			<ColorDisplay
@@ -55,7 +56,7 @@ function Lighting(props: LightingPropTypes) {
 				}}
 			/>
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
-		</frame>
+		</Container>
 	);
 }
 

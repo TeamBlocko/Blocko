@@ -1,5 +1,6 @@
 import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
+import Container from "./SettingsContainer";
 import { updateWorldSettings } from "shared/worldSettingsReducer";
 import Catagory from "./Catagory";
 import Slider from "client/components/GraphicalWidget/Slider";
@@ -13,13 +14,13 @@ interface SoundPropTypes extends WorldSettings {
 
 function Sound(props: SoundPropTypes) {
 	return (
-		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 205)}>
+		<Container>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Sound" Image="rbxassetid://3926307971" />
 			<InputFrame
 				Name="Sound Id"
 				Length={50}
-				TextYAlignment={Enum.TextYAlignment.Center}
+				Alignment={"Center"}
 				Default={tostring(props.SoundID)}
 				OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)}
 				HandleInput={(input) => (input.match("%d+")[0] as string) || ""}
@@ -54,7 +55,7 @@ function Sound(props: SoundPropTypes) {
 				OnChange={(newValue) => props.OnSliderUpdate("Pitch", newValue)}
 			/>
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
-		</frame>
+		</Container>
 	);
 }
 

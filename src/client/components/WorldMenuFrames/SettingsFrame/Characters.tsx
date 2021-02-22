@@ -1,5 +1,6 @@
 import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
+import Container from "./SettingsContainer";
 import Catagory from "./Catagory";
 import { updateWorldSettings } from "shared/worldSettingsReducer";
 import Slider from "client/components/GraphicalWidget/Slider";
@@ -21,7 +22,7 @@ interface CharactersPropTypes extends WorldSettings {
 
 function Characters(props: CharactersPropTypes) {
 	return (
-		<frame BackgroundTransparency={1} Size={new UDim2(0.95, 0, 0, 555)}>
+		<Container>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Characters" Image="rbxassetid://3926305904" />
 			<CheckBox
@@ -70,7 +71,7 @@ function Characters(props: CharactersPropTypes) {
 				OnChange={(newValue) => props.OnSliderInputUpdate("MaxCameraZoom", newValue)}
 			/>
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
-		</frame>
+		</Container>
 	);
 }
 

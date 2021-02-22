@@ -5,7 +5,7 @@ import TitleText from "client/components/misc/TitleText";
 interface InputFramePropTypes extends PropTypes, GWPropTypes<string>, RbxJsxProps {
 	Length: number;
 	HandleInput?: (input: string) => string;
-	TextYAlignment?: Enum.TextYAlignment;
+	Alignment?: Exclude<keyof typeof Enum.TextYAlignment, "GetEnumItems">;
 }
 
 class InputFrame extends Component<InputFramePropTypes> {
@@ -33,7 +33,7 @@ class InputFrame extends Component<InputFramePropTypes> {
 						TextColor3={Color3.fromRGB(218, 218, 218)}
 						TextWrapped={true}
 						TextSize={15}
-						TextYAlignment={this.props.TextYAlignment ?? Enum.TextYAlignment.Top}
+						TextYAlignment={this.props.Alignment ?? Enum.TextYAlignment.Top}
 						TextXAlignment={Enum.TextXAlignment.Left}
 						Change={{
 							Text: (e) => {
@@ -45,7 +45,7 @@ class InputFrame extends Component<InputFramePropTypes> {
 						}}
 					/>
 				</frame>
-				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
+				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} VerticalAlignment={this.props.Alignment} />
 			</GWFrame>
 		);
 	}
