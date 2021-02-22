@@ -23,6 +23,7 @@
 
 		"plugins": [
 			{"transform": "rbxts-transformer-t"},
+			{"transform": "rbxts-transform-env"}
 		]
 	}
 }

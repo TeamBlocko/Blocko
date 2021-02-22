@@ -1,4 +1,5 @@
 import { UserInputService } from "@rbxts/services";
+import { $env } from "rbxts-transform-env";
 import Roact, { Component, createRef, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
 import { SingleMotor, Spring } from "@rbxts/flipper";
 import NavigationFrame from "./WorldMenuFrames/NavigationFrame";
@@ -66,6 +67,18 @@ class WorldMenu extends Component {
 				Position={UDim2.fromScale(1, 0)}
 				Size={new UDim2(0, 300, 1, 0)}
 			>
+				<textlabel
+					AnchorPoint={new Vector2(0, 1)}
+					BackgroundTransparency={1}
+					Position={UDim2.fromScale(0, 1)}
+					Size={new UDim2(1, 0, 0, 10)}
+					Font={Enum.Font.SourceSans}
+					Text={$env("VERSION")}
+					TextColor3={new Color3(1, 1, 1)}
+					TextSize={14}
+					TextXAlignment={Enum.TextXAlignment.Right}
+					ZIndex={2}
+				/>
 				<scrollingframe
 					AnchorPoint={new Vector2(0.5, 1)}
 					BackgroundColor3={Color3.fromRGB(30, 30, 30)}

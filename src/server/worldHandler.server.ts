@@ -11,7 +11,6 @@ import WorldManager from "./WorldManager";
 
 game.BindToClose(() => {
 	WorldManager.ShutDown();
-	WorldManager.Save();
 });
 
 retriveWorldSettingsRemote.SetCallback(() => WorldManager.store.getState());
@@ -36,6 +35,7 @@ function updatePlayers() {
 	);
 }
 
+updatePlayers();
 Players.PlayerAdded.Connect(updatePlayers);
 Players.PlayerRemoving.Connect(updatePlayers);
 

@@ -164,11 +164,11 @@ class WorldManager {
 			},
 		});
 		const state = this.store.getState()
-		const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 		activeODS.SetAsync(this.worldInfo.Data.WorldId, state.ActivePlayers);
+		print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId))
+		const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 		this.worldInfo.Data = worldInfoSerializer.serialize(state);
 		this.worldBlocks.Data.Blocks = serialized;
-		this.worldInfo.Save();
 		notificationHandler.SendToAllPlayers({
 			Type: "Add",
 			Data: {
@@ -181,9 +181,10 @@ class WorldManager {
 
 	ShutDown() {
 		this.isClosing = true;
+		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait()
 		this.worldInfo.Data.Server = undefined;
 		activeODS.SetAsync(this.worldInfo.Data.WorldId, undefined);
-
+		print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId))
 	}
 }
 
