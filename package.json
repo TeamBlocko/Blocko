@@ -19,8 +19,8 @@
 		"@rbxts/t": "^2.1.1"
 	},
 	"scripts": {
-		"rojo": "cmd.exe /C start cmd.exe /C rojo serve",
-		"rojo:packed": "start cmd.exe /C  rojo serve packed.project.json",
+		"rojo": "rojo serve",
+		"rojo:packed": "rojo serve packed.project.json",
 		"rojo:build": "rojo build -o dist/WorldTemplate.rbxlx",
 		"rojo:build:packed": "rojo build -o dist/WorldTemplate.Packed.rbxlx packed.project.json",
 		"remodel": "remodel run add-models.lua",
@@ -33,7 +33,7 @@
 		"project:serve": "npm run compile && npm run rojo",
 		"project:build:packed": "npm run compile && npm run build:packed",
 		"eslint:fix": "eslint src --fix",
-		"project:version": "for /F \"tokens=*\" %n IN ('git describe --tags --first-parent --long --always') DO @(echo VERSION=%n > .env)"
+		"project:version": "echo VERSION=$(git describe --tags --first-parent --long --always) > .env"
 	},
 	"devDependencies": {
 		"@rbxts/types": "^1.0.455",
