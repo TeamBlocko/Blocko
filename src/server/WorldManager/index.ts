@@ -112,7 +112,7 @@ const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Templ
 
 const DATASTORE_VERSION = "Betav-12"
 
-const activeODS = DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`);
+const activeODS = !RunService.IsStudio() ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
 let worldsInfoStore = ProfileService.GetProfileStore(`Worlds${DATASTORE_VERSION}`, worldInfoSerializer.serialize(DEFAULT_WORLDINFO));
 let worldBlocksStore = ProfileService.GetProfileStore(`WorldBlocks${DATASTORE_VERSION}`, {
 	Blocks: DEFAULT_TEMPLATE,
