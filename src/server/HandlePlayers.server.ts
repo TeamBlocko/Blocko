@@ -1,5 +1,4 @@
 import { Players, RunService } from "@rbxts/services";
-import { entries } from "@rbxts/object-utils";
 import { updateWorldInfo } from "shared/worldSettingsReducer";
 import WorldManager from "./WorldManager";
 
@@ -19,7 +18,7 @@ Players.PlayerAdded.Connect(onPlayerJoined);
 Players.PlayerRemoving.Connect(onPlayerRemoving);
 
 RunService.PostSimulation.Connect(() => {
-	for (const [id, joinTime] of entries(timeList)) {
+	for (const [id, joinTime] of timeList) {
 		const current = os.clock();
 		if (current - joinTime > 60 * 5) {
 			WorldManager.store.dispatch(

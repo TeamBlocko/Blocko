@@ -10,8 +10,8 @@ const updateWorldSettingsRemote = new ServerFunction("UpdateWorldSettings", $ter
 import WorldManager from "./WorldManager";
 
 game.BindToClose(() => {
-	WorldManager.Save();
 	WorldManager.ShutDown();
+	WorldManager.Save();
 });
 
 retriveWorldSettingsRemote.SetCallback(() => WorldManager.store.getState());

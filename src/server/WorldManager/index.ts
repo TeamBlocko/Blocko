@@ -1,6 +1,5 @@
 import { Workspace, DataStoreService, ReplicatedStorage, RunService, Players } from "@rbxts/services";
 import { Store } from "@rbxts/rodux";
-import { $env } from "rbxts-transform-env";
 import { ser } from "@rbxts/ser";
 import { ServerEvent } from "@rbxts/net";
 import ProfileService from "@rbxts/profileservice";
@@ -111,9 +110,11 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
 
-const activeODS = !RunService.IsStudio() ? DataStoreService.GetOrderedDataStore(`activeWorlds${$env("DATASTORE_VERSION")}`) : MockODS;
-let worldsInfoStore = ProfileService.GetProfileStore(`Worlds${$env("DATASTORE_VERSION")}`, worldInfoSerializer.serialize(DEFAULT_WORLDINFO));
-let worldBlocksStore = ProfileService.GetProfileStore(`WorldBlocks${$env("DATASTORE_VERSION")}`, {
+const DATASTORE_VERSION = "Betav-12"
+
+const activeODS = DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`);
+let worldsInfoStore = ProfileService.GetProfileStore(`Worlds${DATASTORE_VERSION}`, worldInfoSerializer.serialize(DEFAULT_WORLDINFO));
+let worldBlocksStore = ProfileService.GetProfileStore(`WorldBlocks${DATASTORE_VERSION}`, {
 	Blocks: DEFAULT_TEMPLATE,
 });
 
@@ -163,13 +164,11 @@ class WorldManager {
 			},
 		});
 		const state = this.store.getState()
-		activeODS.SetAsync(this.worldInfo.Data.WorldId, state.ActivePlayers);
 		const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
-		print(abbreviateBytes(serialized.size()));
+		activeODS.SetAsync(this.worldInfo.Data.WorldId, state.ActivePlayers);
 		this.worldInfo.Data = worldInfoSerializer.serialize(state);
 		this.worldBlocks.Data.Blocks = serialized;
 		this.worldInfo.Save();
-		this.worldBlocks.Save();
 		notificationHandler.SendToAllPlayers({
 			Type: "Add",
 			Data: {
@@ -182,7 +181,9 @@ class WorldManager {
 
 	ShutDown() {
 		this.isClosing = true;
+		this.worldInfo.Data.Server = undefined;
 		activeODS.SetAsync(this.worldInfo.Data.WorldId, undefined);
+
 	}
 }
 
