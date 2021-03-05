@@ -14,6 +14,7 @@ export const intialPlacementSettings: PlacementSettings = {
 		Reflectance: 0,
 		Color: Color3.fromRGB(60, 164, 255),
 	},
+	Functionalities: []
 };
 
 export const intialState: IState = {

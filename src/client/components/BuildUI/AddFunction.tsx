@@ -1,12 +1,27 @@
+import { HttpService } from "@rbxts/services"
 import Roact from "@rbxts/roact"
+import { connect } from "@rbxts/roact-rodux"
+import functionalities from "./Functionalities"
+import { deepCopy, assign } from "@rbxts/object-utils"
+import { getAvliableFunctionalities } from "./FunctionalityUtility";
+import { updateSetting } from "client/rodux/placementSettings"
 
-function AddFunction() {
+interface AddFunctionProps extends PlacementSettings {
+	addFunctionality(): void;
+	LayoutOrder?: number;
+}
+
+function AddFunction(props: AddFunctionProps) {
 	return (
 		<textbutton
 			BackgroundColor3={new Color3(1, 1, 1)}
 			BackgroundTransparency={0.9}
 			Size={new UDim2(0.975, 0, 0, 25)}
 			Text=""
+			LayoutOrder={props.LayoutOrder}
+			Event={{
+				Activated: () => props.addFunctionality()
+			}}
 		>
 			<uicorner CornerRadius={new UDim(0, 7)} />
 			<imagelabel
@@ -37,4 +52,25 @@ function AddFunction() {
 	)
 }
 
-export default AddFunction
+export default connect(
+	(state: IState) => state.PlacementSettings,
+	(dispatch) => ({
+		addFunctionality(this: AddFunctionProps) {
+			const GUID = HttpService.GenerateGUID(false)
+			const functionalityCopy = deepCopy(getAvliableFunctionalities()[0])
+			const newFunctionalities = deepCopy(this.Functionalities)
+
+			const newFunctionality = assign(functionalityCopy, {
+				GUID
+			})
+
+			newFunctionalities.push(newFunctionality)
+			dispatch(
+				updateSetting({
+					settingName: "Functionalities",
+					value: newFunctionalities
+				})
+			)
+		}
+	})
+)(AddFunction)

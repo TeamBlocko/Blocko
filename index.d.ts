@@ -11,6 +11,8 @@ declare interface GWPropTypes<T> {
 	Default: T;
 	Name: string;
 	OnChange: (newValue: T) => void;
+
+	LayoutOrder?: number;
 }
 
 declare interface GWStateTypes<T> {
@@ -138,6 +140,7 @@ declare interface PlacementSettings {
 	Shape: BasePart;
 	BuildMode: BuildMode;
 	RawProperties: RawProperties;
+	Functionalities: FunctionalityInstance[];
 }
 
 declare interface WorldSettings {
@@ -244,3 +247,17 @@ declare interface NotificationPropTypes extends iNotification {
 	MaxWidth: number;
   toggleRemoval: (id: string) => void
 }
+
+type FunctionalityProperties =
+	(Range & Omit<GWPropTypes<number>, "OnChange"> & { Type: "number", Current: number })
+
+interface Functionality {
+	Name: string,
+	Multiple: boolean,
+	Properties: { [Key: string]: FunctionalityProperties }
+}
+
+interface FunctionalityInstance extends Functionality {
+	GUID: string
+}
+
