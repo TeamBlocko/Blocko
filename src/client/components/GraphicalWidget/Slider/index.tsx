@@ -20,7 +20,7 @@ class Slider extends Component<SliderPropTypes & Partial<PropTypes>, GWStateType
 		if (input.UserInputType === Enum.UserInputType.MouseButton1) {
 			switch (input.UserInputState) {
 				case Enum.UserInputState.Begin:
-					this.connection = RunService.PreSimulation.Connect(() => {
+					this.connection = RunService.RenderStepped.Connect(() => {
 						const mousePos = UserInputService.GetMouseLocation();
 						const minAbsPos = this.minRef.getValue()?.AbsolutePosition.X as number;
 						const maxAbsPos = this.maxRef.getValue()?.AbsolutePosition.X as number;

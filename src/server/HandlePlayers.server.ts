@@ -17,7 +17,7 @@ for (const player of Players.GetPlayers()) onPlayerJoined(player);
 Players.PlayerAdded.Connect(onPlayerJoined);
 Players.PlayerRemoving.Connect(onPlayerRemoving);
 
-RunService.PostSimulation.Connect(() => {
+RunService.Heartbeat.Connect(() => {
 	for (const [id, joinTime] of timeList) {
 		const current = os.clock();
 		if (current - joinTime > 60 * 5) {
