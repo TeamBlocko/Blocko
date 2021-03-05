@@ -22,7 +22,7 @@ function TopFrame(props: TopFramePropTypes) {
 				HorizontalAlignment={Enum.HorizontalAlignment.Center}
 				VerticalAlignment={Enum.VerticalAlignment.Center}
 			/>
-			<TitleText Text={props.Text} PosScaleY={0} Size={UDim2.fromOffset(180, 14)} />
+			<TitleText Text={props.Text} Size={UDim2.fromOffset(180, 14)} />
 			<CloseButton OnClose={(inputButton: ImageButton) => props.OnClose(inputButton)} />
 		</frame>
 	);

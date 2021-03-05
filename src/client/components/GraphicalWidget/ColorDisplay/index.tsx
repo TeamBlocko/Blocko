@@ -105,7 +105,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 	render() {
 		return (
 			<DragDropProvider context={this.context}>
-				<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30}>
+				<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30} LayoutOrder={this.props.LayoutOrder}>
 					<uicorner
 						CornerRadius={new UDim(0, 7)}
 						Ref={(n) => {
@@ -113,7 +113,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 							this.selfRef = n.Parent as Frame;
 						}}
 					/>
-					<TitleText Text={this.props.Name} PosScaleY={0.5} />
+					<TitleText Text={this.props.Name} YOffset={this.props.SizeYOffset && 10}  />
 					<PickButton
 						Value={this.props.Default}
 						HandleClick={(inputButton: TextButton) => this.HandleClick(inputButton)}
