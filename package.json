@@ -33,7 +33,7 @@
 		"project:serve": "npm run compile && npm run rojo",
 		"project:build:packed": "npm run compile && npm run build:packed",
 		"eslint:fix": "eslint src --fix",
-		"project:version": "echo VERSION=$(git describe --tags --first-parent --long --always) > .env"
+		"project:version": "echo VERSION=$(git describe --tags --first-parent --long --always) | tee .env"
 	},
 	"devDependencies": {
 		"@rbxts/types": "^1.0.456",
