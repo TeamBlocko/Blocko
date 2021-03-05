@@ -1,6 +1,6 @@
 import Roact, { RoactBinding } from "@rbxts/roact";
 
-function ItemElement<T extends Item>(props: { Value: T; Handlers: RoactEvents<TextButton> }) {
+function ItemElement<T extends Item>(props: { Value: T; Handler: NonNullable<RoactEvents<TextButton>["Activated"]> }) {
 	return (
 		<textbutton
 			Key={props.Value.Name}
@@ -13,16 +13,18 @@ function ItemElement<T extends Item>(props: { Value: T; Handlers: RoactEvents<Te
 			TextColor3={Color3.fromRGB(217, 217, 217)}
 			TextSize={10}
 			TextXAlignment={Enum.TextXAlignment.Left}
-			Event={props.Handlers}
+			Event={{
+				Activated: props.Handler
+			}}
 		>
 			<uicorner CornerRadius={new UDim(0.25, 0)} />
 		</textbutton>
 	);
 }
 
-interface ItemListPropTypes<T> {
+export interface ItemListPropTypes<T> {
 	Items: T[];
-	Handlers: RoactEvents<TextButton>;
+	OnSelected: NonNullable<RoactEvents<TextButton>["Activated"]>;
 	Binding: RoactBinding<number>;
 }
 
@@ -32,7 +34,7 @@ function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 			AnchorPoint={new Vector2(1, 0)}
 			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 			BorderSizePixel={0}
-			Position={UDim2.fromScale(0.98, 1)}
+			Position={new UDim2(1, 0, 1, 5)}
 			Size={props.Binding.map((value) => UDim2.fromOffset(135, 0).Lerp(UDim2.fromOffset(135, 150), value))}
 			ZIndex={10}
 		>
@@ -53,7 +55,7 @@ function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 			>
 				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
 				{props.Items.map((Item) => (
-					<ItemElement Value={Item} Handlers={props.Handlers} />
+					<ItemElement Value={Item} Handler={props.OnSelected} />
 				))}
 			</scrollingframe>
 		</frame>
