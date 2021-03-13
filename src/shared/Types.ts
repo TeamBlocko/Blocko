@@ -1,4 +1,4 @@
-import { FunctionalitiesInstances } from "shared/Functionalities"
+import { FunctionalitiesInstances } from "shared/Functionalities";
 
 export interface IState {
 	PlacementSettings: PlacementSettings;

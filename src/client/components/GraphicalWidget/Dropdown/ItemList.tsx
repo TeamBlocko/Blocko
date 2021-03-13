@@ -14,7 +14,7 @@ function ItemElement<T extends Item>(props: { Value: T; Handler: NonNullable<Roa
 			TextSize={10}
 			TextXAlignment={Enum.TextXAlignment.Left}
 			Event={{
-				Activated: props.Handler
+				Activated: props.Handler,
 			}}
 		>
 			<uicorner CornerRadius={new UDim(0.25, 0)} />

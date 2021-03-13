@@ -24,7 +24,7 @@ function Sound(props: SoundPropTypes) {
 				Alignment={"Center"}
 				Default={tostring(props.SoundID)}
 				OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)}
-				HandleInput={(input) => (input.match("%d+")[0] as string) || ""}
+				HandleInput={(input) => (input.match("%d+")[0] as string) ?? ""}
 			>
 				<imagebutton
 					AnchorPoint={new Vector2(0, 0.5)}

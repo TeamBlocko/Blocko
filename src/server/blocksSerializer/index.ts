@@ -1,6 +1,6 @@
 import Serializer from "shared/Serializer";
-import * as FunctionalityHandler from "server/placementHandler/FunctionalitiesHandler"
-import * as Functionality from "shared/Functionalities"
+import * as FunctionalityHandler from "server/placementHandler/FunctionalitiesHandler";
+import * as Functionality from "shared/Functionalities";
 import { values, assign } from "@rbxts/object-utils";
 
 class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
@@ -49,15 +49,24 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 				serializedProperties.push(this.serialize(propertyValue));
 			}
 
-			const functionalityFolder = part.FindFirstChild("Functionalities")
-			print(functionalityFolder)
+			const functionalityFolder = part.FindFirstChild("Functionalities");
+			print(functionalityFolder);
 			if (functionalityFolder) {
-				for (const functionality of functionalityFolder.GetChildren() as (BasePart & { Name: keyof Functionality.Functionalities })[]) {
-					const currentFunctionality = Functionality.functionalities[functionality.Name]
-					const propertiesInfo = (functionality.GetChildren() as (ValueBase & { Name: keyof Functionality.IntersectionProperties })[])
-						.map((instance) => `${(currentFunctionality.Properties as Functionality.IntersectionProperties)[instance.Name].Id}:${instance.Value}`)
-					print(`${currentFunctionality.Id}|${propertiesInfo.join("|")}`)
-					serializedProperties.push(`${currentFunctionality.Id}|${propertiesInfo.join("|")}`)
+				for (const functionality of functionalityFolder.GetChildren() as (BasePart & {
+					Name: keyof Functionality.Functionalities;
+				})[]) {
+					const currentFunctionality = Functionality.functionalities[functionality.Name];
+					const propertiesInfo = (functionality.GetChildren() as (ValueBase & {
+						Name: keyof Functionality.IntersectionProperties;
+					})[]).map(
+						(instance) =>
+							`${
+								(currentFunctionality.Properties as Functionality.IntersectionProperties)[instance.Name]
+									.Id
+							}:${instance.Value}`,
+					);
+					print(`${currentFunctionality.Id}|${propertiesInfo.join("|")}`);
+					serializedProperties.push(`${currentFunctionality.Id}|${propertiesInfo.join("|")}`);
 				}
 			}
 			serialized.push(serializedProperties.join(";"));
@@ -83,27 +92,31 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 				block[propertyName] = propertyValue as never;
 			}
 
-			const blockFunctionalities = propertiesInfo.mapFiltered(functionalityInfo => {
-				const info = functionalityInfo.split("|")
-				const functionalityId = info.shift()
-				const currentFunctionality = values(Functionality.functionalities).find((functionality) => functionality.Id === functionalityId)
+			const blockFunctionalities = propertiesInfo.mapFiltered((functionalityInfo) => {
+				const info = functionalityInfo.split("|");
+				const functionalityId = info.shift();
+				const currentFunctionality = values(Functionality.functionalities).find(
+					(functionality) => functionality.Id === functionalityId,
+				);
 				if (!currentFunctionality) return undefined;
 
-				const functionality = Functionality.createFunctionality(currentFunctionality)
+				const functionality = Functionality.createFunctionality(currentFunctionality);
 
 				for (const propertyUnparsed of info) {
-					const propertyInfo = propertyUnparsed.split(":")
-					const property = values(currentFunctionality.Properties as Functionality.FunctionalitiesPropertiesValues[]).find(property => property.Id === propertyInfo[0])
+					const propertyInfo = propertyUnparsed.split(":");
+					const property = values(
+						currentFunctionality.Properties as Functionality.FunctionalitiesPropertiesValues[],
+					).find((property) => property.Id === propertyInfo[0]);
 					if (!property) continue;
 					assign((functionality.Properties as Functionality.IntersectionProperties)[property.Name], {
-						Current: tonumber(propertiesInfo[1])
-					})
+						Current: tonumber(propertiesInfo[1]),
+					});
 				}
 
-				return functionality
-			})
+				return functionality;
+			});
 
-			FunctionalityHandler.addPart(block, blockFunctionalities)
+			FunctionalityHandler.addPart(block, blockFunctionalities);
 
 			block.Anchored = true;
 			block.Parent = parent;

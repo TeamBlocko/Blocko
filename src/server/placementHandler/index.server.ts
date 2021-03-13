@@ -5,13 +5,13 @@ import { t } from "@rbxts/t";
 import { updateWorldInfo } from "shared/worldSettingsReducer";
 import WorldManager from "../WorldManager";
 import { addPart } from "./FunctionalitiesHandler";
-import { FunctionalitiesInstances } from "shared/Functionalities"
+import { FunctionalitiesInstances } from "shared/Functionalities";
 
 interface FunctionalityInstance {
-	Name: string,
-	Multiple: boolean,
-	Properties: { [Key: string]: any }
-	GUID: string
+	Name: string;
+	Multiple: boolean;
+	Properties: { [Key: string]: any };
+	GUID: string;
 }
 
 declare interface PlacementSettings {
@@ -20,7 +20,6 @@ declare interface PlacementSettings {
 	RawProperties: RawProperties;
 	Functionalities: FunctionalityInstance[];
 }
-
 
 const placementSettings = $terrify<PlacementSettings>();
 
@@ -50,7 +49,7 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 			block[propertyName] = propertyValue as never;
 		}
 
-		addPart(block, settings.Functionalities as FunctionalitiesInstances[])
+		addPart(block, settings.Functionalities as FunctionalitiesInstances[]);
 
 		block.Parent = Workspace.Blocks;
 		updateNumOfBlocks();

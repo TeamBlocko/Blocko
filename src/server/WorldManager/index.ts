@@ -65,8 +65,8 @@ const worldInfoSerializer = ser.interface("WorldInfo", {
 		DefaultJumpPower: ser.number,
 		MinCameraZoom: ser.number,
 		MaxCameraZoom: ser.number,
-	})
-})
+	}),
+});
 
 const DEFAULT_WORLD_SETTINGS = {
 	Name: "nyzem world #1",
@@ -110,10 +110,13 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
 
-const DATASTORE_VERSION = "Betav-12"
+const DATASTORE_VERSION = "Betav-12";
 
 const activeODS = DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`);
-let worldsInfoStore = ProfileService.GetProfileStore(`Worlds${DATASTORE_VERSION}`, worldInfoSerializer.serialize(DEFAULT_WORLDINFO));
+let worldsInfoStore = ProfileService.GetProfileStore(
+	`Worlds${DATASTORE_VERSION}`,
+	worldInfoSerializer.serialize(DEFAULT_WORLDINFO),
+);
 let worldBlocksStore = ProfileService.GetProfileStore(`WorldBlocks${DATASTORE_VERSION}`, {
 	Blocks: DEFAULT_TEMPLATE,
 });
@@ -164,9 +167,9 @@ class WorldManager {
 					Time: 5,
 				},
 			});
-			const state = this.store.getState()
+			const state = this.store.getState();
 			activeODS.SetAsync(this.worldInfo.Data.WorldId, state.ActivePlayers);
-			print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId))
+			print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId));
 			const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 			this.worldInfo.Data = worldInfoSerializer.serialize(state);
 			this.worldBlocks.Data.Blocks = serialized;
@@ -178,23 +181,23 @@ class WorldManager {
 					Time: 5,
 				},
 			});
-		} catch(err) {
+		} catch (err) {
 			notificationHandler.SendToAllPlayers({
 				Type: "Add",
 				Data: {
 					Id: "SaveStatus",
-					Message: `Failed to save with error: ${err}`
-				}
-			})
+					Message: `Failed to save with error: ${err}`,
+				},
+			});
 		}
 	}
 
 	ShutDown() {
 		this.isClosing = true;
-		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait()
+		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait();
 		this.worldInfo.Data.Server = undefined;
 		activeODS.RemoveAsync(this.worldInfo.Data.WorldId);
-		print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId))
+		print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId));
 	}
 }
 

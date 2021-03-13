@@ -27,7 +27,10 @@ export interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
 	Position?: UDim2;
 }
 
-class DropdownButton<T extends Item, V extends string> extends Component<DropdownPropTypes<T, V>, DropdownStateTypes<T>> {
+class DropdownButton<T extends Item, V extends string> extends Component<
+	DropdownPropTypes<T, V>,
+	DropdownStateTypes<T>
+> {
 	private motor: SingleMotor;
 	private binding: RoactBinding<number>;
 	private setBinding: RoactBindingFunc<number>;
@@ -72,7 +75,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<Dropdow
 			<textbutton
 				AnchorPoint={new Vector2(1, 0)}
 				BackgroundColor3={Color3.fromRGB(60, 60, 60)}
-				Position={this.props.Position ?? new UDim2(0.98, 0, 0, this.props.Name.size() < 10 ? 3 : 25) }
+				Position={this.props.Position ?? new UDim2(0.98, 0, 0, this.props.Name.size() < 10 ? 3 : 25)}
 				Size={UDim2.fromOffset(135, 18)}
 				Font={Enum.Font.GothamBold}
 				AutoButtonColor={false}
@@ -81,15 +84,15 @@ class DropdownButton<T extends Item, V extends string> extends Component<Dropdow
 				TextSize={12}
 				TextXAlignment={Enum.TextXAlignment.Left}
 				Event={{
-					Activated: 	() => {
-							this.motor.setGoal(new Spring(!this.state.Expanded ? 0 : 1));
-							this.setState((oldState) => {
-								return {
-									...oldState,
-									Expanded: !oldState.Expanded,
-								};
-							})
-						}
+					Activated: () => {
+						this.motor.setGoal(new Spring(!this.state.Expanded ? 0 : 1));
+						this.setState((oldState) => {
+							return {
+								...oldState,
+								Expanded: !oldState.Expanded,
+							};
+						});
+					},
 				}}
 			>
 				<imagelabel
@@ -110,16 +113,14 @@ class DropdownButton<T extends Item, V extends string> extends Component<Dropdow
 				<ItemList
 					Binding={this.binding}
 					Items={this.props.Items}
-					OnSelected={
-						(e) => {
-							const newValue = this.props.GetValue(e.Name as V);
-							this.props.OnChange(newValue);
-							this.setState((oldState) => ({
-								...oldState,
-								Value: newValue,
-							}))
-						}
-					}
+					OnSelected={(e) => {
+						const newValue = this.props.GetValue(e.Name as V);
+						this.props.OnChange(newValue);
+						this.setState((oldState) => ({
+							...oldState,
+							Value: newValue,
+						}));
+					}}
 				/>
 				<uicorner CornerRadius={new UDim(0, 5)} />
 			</textbutton>

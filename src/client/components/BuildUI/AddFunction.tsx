@@ -1,10 +1,10 @@
-import Roact from "@rbxts/roact"
-import { connect } from "@rbxts/roact-rodux"
-import { createFunctionality } from "shared/Functionalities"
-import { deepCopy } from "@rbxts/object-utils"
+import Roact from "@rbxts/roact";
+import { connect } from "@rbxts/roact-rodux";
+import { createFunctionality } from "shared/Functionalities";
+import { deepCopy } from "@rbxts/object-utils";
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
-import { updateSetting } from "client/rodux/placementSettings"
-import { IState, PlacementSettings } from "shared/Types"
+import { updateSetting } from "client/rodux/placementSettings";
+import { IState, PlacementSettings } from "shared/Types";
 
 interface AddFunctionProps extends PlacementSettings {
 	addFunctionality(): void;
@@ -20,7 +20,7 @@ function AddFunction(props: AddFunctionProps) {
 			Text=""
 			LayoutOrder={props.LayoutOrder}
 			Event={{
-				Activated: () => props.addFunctionality()
+				Activated: () => props.addFunctionality(),
 			}}
 		>
 			<uicorner CornerRadius={new UDim(0, 7)} />
@@ -49,24 +49,24 @@ function AddFunction(props: AddFunctionProps) {
 				VerticalAlignment={Enum.VerticalAlignment.Center}
 			/>
 		</textbutton>
-	)
+	);
 }
 
 export default connect(
 	(state: IState) => state.PlacementSettings,
 	(dispatch) => ({
 		addFunctionality(this: AddFunctionProps) {
-			const newFunctionalities = deepCopy(this.Functionalities)
+			const newFunctionalities = deepCopy(this.Functionalities);
 
-			const newFunctionality = createFunctionality(getAvliableFunctionalities()[0])
+			const newFunctionality = createFunctionality(getAvliableFunctionalities()[0]);
 
-			newFunctionalities.push(newFunctionality)
+			newFunctionalities.push(newFunctionality);
 			dispatch(
 				updateSetting({
 					settingName: "Functionalities",
-					value: newFunctionalities
-				})
-			)
-		}
-	})
-)(AddFunction)
+					value: newFunctionalities,
+				}),
+			);
+		},
+	}),
+)(AddFunction);

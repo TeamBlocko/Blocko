@@ -34,7 +34,7 @@ class CollisionManager {
 
 		const previousCollisionGroupName = PhysicsService.GetCollisionGroupName(previousCollisionGroupId);
 
-		if (!previousCollisionGroupName) return;
+		if (previousCollisionGroupName === undefined) return;
 		PhysicsService.SetPartCollisionGroup(object, previousCollisionGroupName);
 		this.previousCollisionGroups.set(object, undefined);
 	}

@@ -47,9 +47,13 @@ class Slider extends Component<SliderPropTypes & Partial<PropTypes>, GWStateType
 
 	render() {
 		return (
-			<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 70} RefValue={this.props.RefValue} LayoutOrder={this.props.LayoutOrder}>
+			<GWFrame
+				SizeOffsetY={this.props.SizeYOffset ?? 70}
+				RefValue={this.props.RefValue}
+				LayoutOrder={this.props.LayoutOrder}
+			>
 				<uicorner CornerRadius={new UDim(0, 7)} />
-				<TitleText Text={this.props.Name}  />
+				<TitleText Text={this.props.Name} />
 				<SliderBar
 					Min={{ Value: this.props.Min, Ref: this.minRef }}
 					Max={{ Value: this.props.Max, Ref: this.maxRef }}

@@ -13,7 +13,7 @@ class InputFrame extends Component<InputFramePropTypes> {
 		return (
 			<GWFrame SizeOffsetY={this.props.Length} LayoutOrder={this.props.LayoutOrder}>
 				<uicorner />
-				<TitleText Text={this.props.Name}  Size={new UDim2(1, 0, 0, 20)}>
+				<TitleText Text={this.props.Name} Size={new UDim2(1, 0, 0, 20)}>
 					{this.props[Roact.Children]}
 				</TitleText>
 				<frame
@@ -45,7 +45,10 @@ class InputFrame extends Component<InputFramePropTypes> {
 						}}
 					/>
 				</frame>
-				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} VerticalAlignment={this.props.Alignment} />
+				<uilistlayout
+					HorizontalAlignment={Enum.HorizontalAlignment.Center}
+					VerticalAlignment={this.props.Alignment}
+				/>
 			</GWFrame>
 		);
 	}

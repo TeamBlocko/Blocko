@@ -8,9 +8,9 @@ const SPRING_SETTINGS = {
 };
 
 type Goals = {
-	Transparency: number,
-	Position: number
-}
+	Transparency: number;
+	Position: number;
+};
 
 export class Notification extends Component<NotificationPropTypes> {
 	protected frameRef: Roact.Ref<Frame>;
@@ -25,7 +25,7 @@ export class Notification extends Component<NotificationPropTypes> {
 
 		this.motor = new GroupMotor<Goals>({ Transparency: 1, Position: 0 });
 
-		[this.binding, this.setBinding] = createBinding(this.motor.getValue())
+		[this.binding, this.setBinding] = createBinding(this.motor.getValue());
 
 		this.motor.onStep(this.setBinding);
 	}
@@ -41,7 +41,7 @@ export class Notification extends Component<NotificationPropTypes> {
 
 	didUpdate() {
 		if (this.props.HasBeenRemoved) this.removeNotification();
-		this.motor.setGoal({ Position: new Spring(1, SPRING_SETTINGS)});
+		this.motor.setGoal({ Position: new Spring(1, SPRING_SETTINGS) });
 	}
 
 	render() {
