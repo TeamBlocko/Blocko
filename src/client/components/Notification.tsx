@@ -1,5 +1,5 @@
 import Roact, { Component, createBinding, createRef, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
-import { SingleMotor, Spring } from "@rbxts/flipper";
+import { Spring, GroupMotor } from "@rbxts/flipper";
 import { map } from "shared/utility";
 
 const SPRING_SETTINGS = {
@@ -7,43 +7,41 @@ const SPRING_SETTINGS = {
 	dampingRatio: 1, // 1
 };
 
+type Goals = {
+	Transparency: number,
+	Position: number
+}
+
 export class Notification extends Component<NotificationPropTypes> {
 	protected frameRef: Roact.Ref<Frame>;
-	protected motor: SingleMotor;
-	protected binding: RoactBinding<number>;
-	protected setBinding: RoactBindingFunc<number>;
-
-	protected motor2: SingleMotor;
-	protected binding2: RoactBinding<number>;
-	protected setBinding2: RoactBindingFunc<number>;
+	protected motor: GroupMotor<Goals>;
+	protected binding: RoactBinding<Goals>;
+	protected setBinding: RoactBindingFunc<Goals>;
 
 	constructor(props: NotificationPropTypes) {
 		super(props);
 
 		this.frameRef = createRef();
-		this.motor = new SingleMotor(1);
-		[this.binding, this.setBinding] = createBinding(this.motor.getValue());
+
+		this.motor = new GroupMotor<Goals>({ Transparency: 1, Position: 0 });
+
+		[this.binding, this.setBinding] = createBinding(this.motor.getValue())
 
 		this.motor.onStep(this.setBinding);
-
-		this.motor2 = new SingleMotor(0);
-		[this.binding2, this.setBinding2] = createBinding(this.motor2.getValue());
-
-		this.motor2.onStep(this.setBinding2);
 	}
 
 	removeNotification() {
-		this.motor.setGoal(new Spring(1, SPRING_SETTINGS));
+		this.motor.setGoal({ Transparency: new Spring(1, SPRING_SETTINGS) });
 		this.motor.onComplete(() => this.props.toggleRemoval(this.props.Id));
 	}
 
 	didMount() {
-		this.motor.setGoal(new Spring(0, SPRING_SETTINGS));
+		this.motor.setGoal({ Transparency: new Spring(0, SPRING_SETTINGS) });
 	}
 
 	didUpdate() {
 		if (this.props.HasBeenRemoved) this.removeNotification();
-		this.motor2.setGoal(new Spring(1, SPRING_SETTINGS));
+		this.motor.setGoal({ Position: new Spring(1, SPRING_SETTINGS)});
 	}
 
 	render() {
@@ -59,10 +57,10 @@ export class Notification extends Component<NotificationPropTypes> {
 				Key={this.props.Id}
 				AnchorPoint={new Vector2(0.5, 0)}
 				BackgroundColor3={new Color3()}
-				BackgroundTransparency={this.binding.map((value) => map(value, 0, 1, 0.5, 1))}
-				Position={this.binding2.map((value) => {
+				BackgroundTransparency={this.binding.map((value) => map(value.Transparency, 0, 1, 0.5, 1))}
+				Position={this.binding.map((value) => {
 					const frame = this.frameRef.getValue();
-					if (frame) return frame.Position.Lerp(this.props.Position, value);
+					if (frame) return frame.Position.Lerp(this.props.Position, value.Position);
 					return this.props.Position;
 				})}
 				Size={frameSize}
@@ -80,7 +78,7 @@ export class Notification extends Component<NotificationPropTypes> {
 					Font={Enum.Font.GothamSemibold}
 					Text={this.props.Message}
 					RichText={true}
-					TextTransparency={this.binding.map((value) => value)}
+					TextTransparency={this.binding.map((value) => value.Transparency)}
 					TextColor3={new Color3(1, 1, 1)}
 					TextSize={18}
 					TextWrapped={true}
@@ -93,7 +91,7 @@ export class Notification extends Component<NotificationPropTypes> {
 					Size={UDim2.fromOffset(20, 20)}
 					Image={this.props.Icon}
 					ScaleType={Enum.ScaleType.Crop}
-					ImageTransparency={this.binding.map((value) => value)}
+					ImageTransparency={this.binding.map((value) => value.Transparency)}
 				/>
 			</frame>
 		);
