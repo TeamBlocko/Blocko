@@ -3,13 +3,24 @@ import { ServerFunction } from "@rbxts/net";
 import { $terrify } from "rbxts-transformer-t";
 import { t } from "@rbxts/t";
 import { updateWorldInfo } from "shared/worldSettingsReducer";
-import WorldManager from "./WorldManager";
+import WorldManager from "../WorldManager";
+import { addPart } from "./FunctionalitiesHandler";
+import { FunctionalitiesInstances } from "shared/Functionalities"
 
-interface PlacementSettings {
+interface FunctionalityInstance {
+	Name: string,
+	Multiple: boolean,
+	Properties: { [Key: string]: any }
+	GUID: string
+}
+
+declare interface PlacementSettings {
 	Shape: BasePart;
 	BuildMode: BuildMode;
 	RawProperties: RawProperties;
+	Functionalities: FunctionalityInstance[];
 }
+
 
 const placementSettings = $terrify<PlacementSettings>();
 
@@ -38,6 +49,8 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 				propertyValue /= 10;
 			block[propertyName] = propertyValue as never;
 		}
+
+		addPart(block, settings.Functionalities as FunctionalitiesInstances[])
 
 		block.Parent = Workspace.Blocks;
 		updateNumOfBlocks();

@@ -105,7 +105,7 @@ class BuildHandler {
 		const target = this.gridBase.mouseTarget();
 		if (target !== undefined) {
 			target.Destroy();
-			deleteBlock.CallServer(target);
+			deleteBlock.GetInstance().InvokeServer(target);
 		}
 	}
 }

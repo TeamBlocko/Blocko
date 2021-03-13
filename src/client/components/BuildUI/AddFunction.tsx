@@ -1,10 +1,10 @@
-import { HttpService } from "@rbxts/services"
 import Roact from "@rbxts/roact"
 import { connect } from "@rbxts/roact-rodux"
-import functionalities from "./Functionalities"
-import { deepCopy, assign } from "@rbxts/object-utils"
+import { createFunctionality } from "shared/Functionalities"
+import { deepCopy } from "@rbxts/object-utils"
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
 import { updateSetting } from "client/rodux/placementSettings"
+import { IState, PlacementSettings } from "shared/Types"
 
 interface AddFunctionProps extends PlacementSettings {
 	addFunctionality(): void;
@@ -56,13 +56,9 @@ export default connect(
 	(state: IState) => state.PlacementSettings,
 	(dispatch) => ({
 		addFunctionality(this: AddFunctionProps) {
-			const GUID = HttpService.GenerateGUID(false)
-			const functionalityCopy = deepCopy(getAvliableFunctionalities()[0])
 			const newFunctionalities = deepCopy(this.Functionalities)
 
-			const newFunctionality = assign(functionalityCopy, {
-				GUID
-			})
+			const newFunctionality = createFunctionality(getAvliableFunctionalities()[0])
 
 			newFunctionalities.push(newFunctionality)
 			dispatch(

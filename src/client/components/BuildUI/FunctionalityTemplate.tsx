@@ -1,17 +1,18 @@
 import Roact from "@rbxts/roact"
 import { connect } from "@rbxts/roact-rodux"
-import { deepCopy, assign } from "@rbxts/object-utils"
+import { values } from "@rbxts/object-utils"
 import Slider from "../GraphicalWidget/Slider";
-import CheckBox from "../GraphicalWidget/CheckBox";
 import Dropdown from "../GraphicalWidget/Dropdown"
-import functionalities from "./Functionalities"
+import * as Functionalities from "shared/Functionalities"
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
-import { updateSetting } from "client/rodux/placementSettings"
+import { updateFunctionality, updateFunctionalityProperty } from "client/rodux/placementSettings"
+import { IState, PlacementSettings} from "shared/Types";
 
 interface FunctionTemplatePropTypes extends PlacementSettings {
-	Functionality: FunctionalityInstance;
+	Functionality: Functionalities.FunctionalitiesInstances;
 	LayoutOrder?: number;
-	UpdateFunctionality(this: FunctionTemplatePropTypes, value: Functionality): void;
+	UpdateFunctionality(this: FunctionTemplatePropTypes, value: Functionalities.FunctionalitiesValues): void;
+	UpdateFunctionalityProperty(this: FunctionTemplatePropTypes, property: string, value: number): void;
 }
 
 function FunctionTemplate(props: FunctionTemplatePropTypes) {
@@ -28,11 +29,21 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 					Name="Functionality"
 					Items={getAvliableFunctionalities()}
 					GetValue={value => 
-						functionalities.find(functionality => functionality.Name === value) ?? props.Functionality
+						values( Functionalities.functionalities).find(functionality => functionality.Name === value) ?? props.Functionality
 					}
-					Default={props.Functionality}
+					Default={props.Functionality as Functionalities.FunctionalitiesValues }
 					OnChange={(value) => props.UpdateFunctionality(value)}
 				/>
+				{
+					(values(props.Functionality.Properties) as Functionalities.FunctionalitiesPropertiesInstance[]).map(property => {
+						switch (property.Type) {
+							case "number":
+								return <Slider {...property} SizeYOffset={55} Default={property.Current} OnChange={(value) => {
+										props.UpdateFunctionalityProperty(property.Name, value)
+								}} />
+						}
+					})
+				}
 				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Ref={
 					(e) => {
 						if (!e) return;
@@ -48,23 +59,24 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 export default connect(
 	(state: IState) => state.PlacementSettings,
 	(dispatch) => ({
-		UpdateFunctionality(this: FunctionTemplatePropTypes, value: Functionality) {
-			const functionalityCopy = deepCopy(value)
-			const newFunctionalities = deepCopy(this.Functionalities)
-
-			const newFunctionality = assign(functionalityCopy, {
-				GUID: this.Functionality.GUID
-			})
-
-			const functionalityIndex = this.Functionalities.findIndex((value) => value.GUID === newFunctionality.GUID)
-		
-			newFunctionalities[functionalityIndex] = newFunctionality
+		UpdateFunctionality(this: FunctionTemplatePropTypes, value: Functionalities.FunctionalitiesValues) {
+			
+			const newFunctionality = Functionalities.createFunctionality(value, { GUID: this.Functionality.GUID })
 
 			dispatch(
-				updateSetting({
-					settingName: "Functionalities",
-					value: newFunctionalities
-				})
+				updateFunctionality(
+					this.Functionality.GUID,
+					newFunctionality as Functionalities.FunctionalitiesInstances
+				)
+			)
+		},
+		UpdateFunctionalityProperty(this: FunctionTemplatePropTypes, property: string, value: number) {
+			dispatch(
+				updateFunctionalityProperty(
+					this.Functionality.GUID,
+					property,
+					value
+				)
 			)
 		}
 	})
