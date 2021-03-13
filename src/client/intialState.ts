@@ -1,4 +1,5 @@
 import { ReplicatedStorage } from "@rbxts/services";
+import { IState, PlacementSettings } from "shared/Types";
 import { retriveWorldSettings } from "./replicationManager";
 
 const shapes = ReplicatedStorage.BlockTypes;

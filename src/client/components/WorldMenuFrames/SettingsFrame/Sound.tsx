@@ -5,6 +5,7 @@ import { updateWorldSettings } from "shared/worldSettingsReducer";
 import Catagory from "./Catagory";
 import Slider from "client/components/GraphicalWidget/Slider";
 import InputFrame from "client/components/GraphicalWidget/InputFrame";
+import { IState } from "shared/Types";
 
 interface SoundPropTypes extends WorldSettings {
 	OnSliderUpdate(propertyName: "Volume" | "Pitch", value: number): void;

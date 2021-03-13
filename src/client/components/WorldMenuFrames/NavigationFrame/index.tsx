@@ -5,6 +5,7 @@ import ElementSeperator from "client/components/misc/ElementSperator";
 import NavFrameButton from "./NavFrameButton";
 import Thumbnail from "client/components/misc/Thumbnail";
 import Container from "../WorldMenuFramesContainer";
+import { IState } from "shared/Types";
 
 function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 	return (

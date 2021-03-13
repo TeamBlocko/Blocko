@@ -5,6 +5,7 @@ import { updateWorldSettings } from "shared/worldSettingsReducer";
 import Catagory from "./Catagory";
 import InputBox from "client/components/GraphicalWidget/InputFrame";
 import ImageInput from "./ImageInput";
+import { IState } from "shared/Types";
 
 interface WorldInfoPropTypes extends WorldSettings {
 	OnInputBoxUpdate(propertyName: "Name" | "Description", value: string): void;

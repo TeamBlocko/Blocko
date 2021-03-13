@@ -2,6 +2,7 @@ import Rodux, { Store, combineReducers, AnyAction } from "@rbxts/rodux";
 import { intialState } from "./intialState";
 import { worldSettingsReducerInitlizer } from "shared/worldSettingsReducer";
 import { placementSettingsReducer, PlacementSettingsActions } from "./rodux/placementSettings";
+import { IState } from "shared/Types";
 
 export type StoreActions = (PlacementSettingsActions | WorldSettingsActionTypes) & AnyAction;
 

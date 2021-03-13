@@ -12,6 +12,7 @@ import AddFunction from "./AddFunction";
 import FunctionalityTemplate from "./FunctionalityTemplate"
 
 import { updateProperty, updateSetting } from "client/rodux/placementSettings";
+import { IState, PlacementSettings } from "shared/Types";
 
 interface BuildUIPros extends PlacementSettings {
 	OnSliderUpdate(propertyName: string, value: number): void;

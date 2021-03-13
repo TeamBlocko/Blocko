@@ -8,6 +8,7 @@ import Dropdown from "./GraphicalWidget/Dropdown";
 import Slider from "./GraphicalWidget/Slider";
 import CheckBox from "./GraphicalWidget/CheckBox";
 import ColorDisplay from "./GraphicalWidget/ColorDisplay";
+import { IState, PlacementSettings } from "shared/Types";
 
 interface GWContainerPropTypes extends PlacementSettings {
 	OnSliderUpdate(propertyName: string, value: number): void;

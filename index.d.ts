@@ -136,13 +136,6 @@ declare interface RawProperties {
 	Color: Color3;
 }
 
-declare interface PlacementSettings {
-	Shape: BasePart;
-	BuildMode: BuildMode;
-	RawProperties: RawProperties;
-	Functionalities: FunctionalityInstance[];
-}
-
 declare interface WorldSettings {
 	Name: string;
 	Description: string;
@@ -165,11 +158,6 @@ declare interface WorldSettings {
 	DefaultJumpPower: number;
 	MinCameraZoom: number;
 	MaxCameraZoom: number;
-}
-
-declare interface IState {
-	PlacementSettings: PlacementSettings;
-	WorldInfo: WorldInfo;
 }
 
 declare interface WorldInfo {
@@ -247,17 +235,3 @@ declare interface NotificationPropTypes extends iNotification {
 	MaxWidth: number;
   toggleRemoval: (id: string) => void
 }
-
-type FunctionalityProperties =
-	(Range & Omit<GWPropTypes<number>, "OnChange"> & { Type: "number", Current: number })
-
-interface Functionality {
-	Name: string,
-	Multiple: boolean,
-	Properties: { [Key: string]: FunctionalityProperties }
-}
-
-interface FunctionalityInstance extends Functionality {
-	GUID: string
-}
-

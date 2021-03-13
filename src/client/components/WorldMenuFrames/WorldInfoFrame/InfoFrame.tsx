@@ -1,5 +1,6 @@
 import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
+import { IState } from "shared/Types";
 
 interface InfoPropTypes {
 	Text: string;

@@ -6,6 +6,7 @@ import { updateWorldSettings } from "shared/worldSettingsReducer";
 import ColorDisplay from "client/components/GraphicalWidget/ColorDisplay";
 import Slider from "client/components/GraphicalWidget/Slider";
 import SliderAndCheckBox from "client/components/GraphicalWidget/SliderAndCheckbox";
+import { IState } from "shared/Types";
 
 interface LightingPropTypes extends WorldSettings {
 	OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time", value: number): void;

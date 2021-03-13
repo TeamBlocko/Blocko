@@ -5,6 +5,7 @@ import Catagory from "./Catagory";
 import { updateWorldSettings } from "shared/worldSettingsReducer";
 import Slider from "client/components/GraphicalWidget/Slider";
 import CheckBox from "client/components/GraphicalWidget/CheckBox";
+import { IState } from "shared/Types";
 
 interface CharactersPropTypes extends WorldSettings {
 	OnSliderInputUpdate(
@@ -55,6 +56,13 @@ function Characters(props: CharactersPropTypes) {
 				Max={100}
 				Default={props.DefaultWalkSpeed}
 				OnChange={(newValue) => props.OnSliderInputUpdate("DefaultWalkSpeed", newValue)}
+			/>
+			<Slider
+				Name="Jump Power"
+				Min={0}
+				Max={100}
+				Default={props.DefaultJumpPower}
+				OnChange={(newValue) => props.OnSliderInputUpdate("DefaultJumpPower", newValue)}
 			/>
 			<Slider
 				Name="Minimum Camera Zoom"
