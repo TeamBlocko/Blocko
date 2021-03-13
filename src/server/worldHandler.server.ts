@@ -1,5 +1,6 @@
 import { Players } from "@rbxts/services";
 import { ServerFunction } from "@rbxts/net";
+import SyncedPoller from "@rbxts/synced-poller"
 import { $terrify } from "rbxts-transformer-t";
 import { updateWorldInfo } from "shared/worldSettingsReducer";
 import * as handlers from "./worldSettingsHandlers";
@@ -39,7 +40,4 @@ updatePlayers();
 Players.PlayerAdded.Connect(updatePlayers);
 Players.PlayerRemoving.Connect(updatePlayers);
 
-while (!WorldManager.isClosing) {
-	WorldManager.Save();
-	wait(10);
-}
+new SyncedPoller(10, () => WorldManager.Save(), () => !WorldManager.isClosing)
