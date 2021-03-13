@@ -6,8 +6,8 @@ import ProfileService from "@rbxts/profileservice";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { Profile } from "@rbxts/profileservice/globals";
 import { storeInitializer } from "server/store";
-import BlockSerializer from "shared/blocksSerializer";
-import MockODS from "./MockODS";
+import BlockSerializer from "server/blocksSerializer";
+// import MockODS from "./MockODS";
 
 export enum BlockIds {
 	CornerInnerQuadrant = "0",
@@ -87,7 +87,7 @@ const DEFAULT_WORLD_SETTINGS = {
 	UsernameDistance: 50,
 	HealthDistance: 50,
 	DefaultWalkSpeed: 16,
-	DefaultJumpPower: 10,
+	DefaultJumpPower: 50,
 	MinCameraZoom: 0,
 	MaxCameraZoom: 100,
 };
@@ -112,7 +112,7 @@ const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Templ
 
 const DATASTORE_VERSION = "Betav-12"
 
-const activeODS = !RunService.IsStudio() ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
+const activeODS = DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`);
 let worldsInfoStore = ProfileService.GetProfileStore(`Worlds${DATASTORE_VERSION}`, worldInfoSerializer.serialize(DEFAULT_WORLDINFO));
 let worldBlocksStore = ProfileService.GetProfileStore(`WorldBlocks${DATASTORE_VERSION}`, {
 	Blocks: DEFAULT_TEMPLATE,
@@ -155,35 +155,45 @@ class WorldManager {
 	}
 
 	Save() {
-		notificationHandler.SendToAllPlayers({
-			Type: "Add",
-			Data: {
-				Id: "SaveStatus",
-				Message: "Saving World",
-				Time: 5,
-			},
-		});
-		const state = this.store.getState()
-		activeODS.SetAsync(this.worldInfo.Data.WorldId, state.ActivePlayers);
-		print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId))
-		const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
-		this.worldInfo.Data = worldInfoSerializer.serialize(state);
-		this.worldBlocks.Data.Blocks = serialized;
-		notificationHandler.SendToAllPlayers({
-			Type: "Add",
-			Data: {
-				Id: "SaveStatus",
-				Message: `Done Saving. Current world size is at ${abbreviateBytes(serialized.size())}`,
-				Time: 5,
-			},
-		});
+		try {
+			notificationHandler.SendToAllPlayers({
+				Type: "Add",
+				Data: {
+					Id: "SaveStatus",
+					Message: "Saving World",
+					Time: 5,
+				},
+			});
+			const state = this.store.getState()
+			activeODS.SetAsync(this.worldInfo.Data.WorldId, state.ActivePlayers);
+			print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId))
+			const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
+			this.worldInfo.Data = worldInfoSerializer.serialize(state);
+			this.worldBlocks.Data.Blocks = serialized;
+			notificationHandler.SendToAllPlayers({
+				Type: "Add",
+				Data: {
+					Id: "SaveStatus",
+					Message: `Done Saving. Current world size is at ${abbreviateBytes(serialized.size())}`,
+					Time: 5,
+				},
+			});
+		} catch(err) {
+			notificationHandler.SendToAllPlayers({
+				Type: "Add",
+				Data: {
+					Id: "SaveStatus",
+					Message: `Failed to save with error: ${err}`
+				}
+			})
+		}
 	}
 
 	ShutDown() {
 		this.isClosing = true;
 		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait()
 		this.worldInfo.Data.Server = undefined;
-		activeODS.SetAsync(this.worldInfo.Data.WorldId, undefined);
+		activeODS.RemoveAsync(this.worldInfo.Data.WorldId);
 		print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId))
 	}
 }
