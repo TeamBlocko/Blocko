@@ -33,9 +33,15 @@ const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTyp
 
 const notificationHandler = new ServerEvent("NotificationManager");
 
+const PermissionInfo = ser.interface("PermissionInfo", {
+	UserId: ser.number,
+	Type: ser.string as ser.SerializerStructure<PermissionTypes>
+})
+
 const worldInfoSerializer = ser.interface("WorldInfo", {
 	WorldId: ser.number,
 	Owner: ser.number,
+	Permissions: ser.array(PermissionInfo),
 	Banned: ser.array(ser.number),
 	Server: ser.optional(ser.string),
 	MaxPlayers: ser.number,
@@ -98,6 +104,7 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 		RunService.IsStudio() || game.CreatorId !== 6467229
 			? (Players.GetPlayers()[0] || Players.PlayerAdded.Wait()[0]).UserId
 			: 0,
+	Permissions: [],
 	Banned: [],
 	Server: game.JobId,
 	MaxPlayers: 25,

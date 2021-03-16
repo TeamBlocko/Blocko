@@ -160,9 +160,17 @@ declare interface WorldSettings {
 	MaxCameraZoom: number;
 }
 
+declare type PermissionTypes = "Builder" | "Admin" | "Visitor" | "Owner"
+
+declare interface PermissionsInfo {
+	UserId: number;
+	Type: PermissionTypes
+}
+
 declare interface WorldInfo {
 	WorldId: number;
 	Owner: number;
+	Permissions: PermissionsInfo[];
 	Banned: number[];
 	Server?: string;
 	MaxPlayers: number;

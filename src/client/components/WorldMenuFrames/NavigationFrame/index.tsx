@@ -26,12 +26,20 @@ function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 					OnClick={(e) => props.OnClick(e)}
 				/>
 				{props.Owner === Players.LocalPlayer.UserId ? (
-					<NavFrameButton
-						Text="World Settings"
-						Color={Color3.fromRGB(235, 235, 236)}
-						Icon="rbxassetid://5627731849"
-						OnClick={(e) => props.OnClick(e)}
-					/>
+					<>
+						<NavFrameButton
+							Text="World Settings"
+							Color={Color3.fromRGB(235, 235, 236)}
+							Icon="rbxassetid://5627731849"
+							OnClick={(e) => props.OnClick(e)}
+						/>
+						<NavFrameButton
+							Text="Permissions"
+							Color={Color3.fromRGB(235, 235, 236)}
+							Icon="rbxassetid://5627731849"
+							OnClick={(e) => props.OnClick(e)}	
+						/>
+					</>
 				) : undefined}
 				<ElementSeperator />
 				<NavFrameButton

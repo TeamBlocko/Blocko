@@ -5,12 +5,14 @@ import { SingleMotor, Spring } from "@rbxts/flipper";
 import NavigationFrame from "./WorldMenuFrames/NavigationFrame";
 import WorldInfoFrame from "./WorldMenuFrames/WorldInfoFrame";
 import SettingsFrame from "./WorldMenuFrames/SettingsFrame";
+import Permissions from "./WorldMenuFrames/Permissions";
 
 class WorldMenu extends Component {
 	private uiPagelayoutRef: Roact.Ref<UIPageLayout>;
 	private navigationFrameRef: Roact.Ref<Frame>;
 	private worldInfoFrameRef: Roact.Ref<Frame>;
 	private worldSettingsFrameRef: Roact.Ref<Frame>;
+	private permissionsFrameRef: Roact.Ref<Frame>;
 
 	private motor: SingleMotor;
 	private binding: RoactBinding<number>;
@@ -22,6 +24,7 @@ class WorldMenu extends Component {
 		this.navigationFrameRef = createRef();
 		this.worldInfoFrameRef = createRef();
 		this.worldSettingsFrameRef = createRef();
+		this.permissionsFrameRef = createRef();
 
 		this.motor = new SingleMotor(0);
 		[this.binding, this.setBinding] = createBinding(this.motor.getValue());
@@ -42,6 +45,11 @@ class WorldMenu extends Component {
 				const worldSettings = this.worldSettingsFrameRef.getValue();
 				if (worldSettings === undefined) return;
 				uiPagelayout.JumpTo(worldSettings);
+				break;
+			case "Permissions":
+				const permissions = this.permissionsFrameRef.getValue();
+				if (permissions === undefined) return;
+				uiPagelayout.JumpTo(permissions);
 				break;
 			case "ReturnToNav":
 				const navFrame = this.navigationFrameRef.getValue();
@@ -111,6 +119,10 @@ class WorldMenu extends Component {
 					<WorldInfoFrame RefValue={this.worldInfoFrameRef} OnClick={(e) => this.onNavFrameButtonClick(e)} />
 					<SettingsFrame
 						RefValue={this.worldSettingsFrameRef}
+						OnClick={(e) => this.onNavFrameButtonClick(e)}
+					/>
+					<Permissions
+						RefValue={this.permissionsFrameRef}
 						OnClick={(e) => this.onNavFrameButtonClick(e)}
 					/>
 				</scrollingframe>
