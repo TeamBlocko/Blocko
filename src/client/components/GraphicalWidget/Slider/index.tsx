@@ -65,11 +65,6 @@ class Slider extends Component<SliderPropTypes & Partial<PropTypes>, GWStateType
 			</GWFrame>
 		);
 	}
-
-	didMount() {
-		print(this.maxRef.getValue()?.AbsolutePosition);
-		print(this.minRef.getValue()?.AbsolutePosition);
-	}
 }
 
 export default Slider;

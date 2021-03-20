@@ -12,12 +12,9 @@ const remoteNotification = $terrify<RemoteNotification>();
 
 ClientEvent.WaitFor("NotificationManager").andThen((remote) =>
 	remote.Connect((data: RemoteNotification | RemoteNotification[]) => {
-		print(1);
 		if (remoteNotification(data)) {
-			print(2);
 			handleNotification(data);
 		} else if (t.array(remoteNotification)(data)) {
-			print(3);
 			for (const notification of data) handleNotification(notification);
 		}
 	}),

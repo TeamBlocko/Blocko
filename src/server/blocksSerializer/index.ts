@@ -50,7 +50,6 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 			}
 
 			const functionalityFolder = part.FindFirstChild("Functionalities");
-			print(functionalityFolder);
 			if (functionalityFolder) {
 				for (const functionality of functionalityFolder.GetChildren() as (BasePart & {
 					Name: keyof Functionality.Functionalities;
@@ -65,7 +64,6 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 									.Id
 							}:${instance.Value}`,
 					);
-					print(`${currentFunctionality.Id}|${propertiesInfo.join("|")}`);
 					serializedProperties.push(`${currentFunctionality.Id}|${propertiesInfo.join("|")}`);
 				}
 			}

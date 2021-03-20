@@ -176,7 +176,7 @@ class WorldManager {
 			});
 			const state = this.store.getState();
 			activeODS.SetAsync(this.worldInfo.Data.WorldId, state.ActivePlayers);
-			print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId));
+			// print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId));
 			const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 			this.worldInfo.Data = worldInfoSerializer.serialize(state);
 			this.worldBlocks.Data.Blocks = serialized;
@@ -204,7 +204,7 @@ class WorldManager {
 		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait();
 		this.worldInfo.Data.Server = undefined;
 		activeODS.RemoveAsync(this.worldInfo.Data.WorldId);
-		print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId));
+		// print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId));
 	}
 }
 

@@ -57,7 +57,6 @@ export function addPart(part: BasePart, functionalities: Functionalities.Functio
 		for (const property of (values(
 			functionality.Properties,
 		) as unknown) as Functionalities.FunctionalitiesPropertiesInstance[]) {
-			print(property);
 			const [propertyInstanceType] = property.Type.gsub("^.", (s) => s.upper());
 			const propertyValue: ValueBase = new Instance(
 				`${propertyInstanceType}Value` as ValueObjectClassNames,
@@ -104,7 +103,6 @@ RunService.Heartbeat.Connect(() => {
 
 						if (time === undefined || os.time() - time > functionality.Cooldown.Value) {
 							if (humanoid !== undefined) {
-								print(`Gave ${functionality.Damage.Value} to ${player.Name}`);
 								humanoid.TakeDamage(functionality.Damage.Value);
 
 								debounce.get(functionality)!.set(player, os.time());
