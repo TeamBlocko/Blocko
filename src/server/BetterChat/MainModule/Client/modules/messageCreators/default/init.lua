@@ -143,7 +143,7 @@ return function(chat,messageData,messageUtility,richText,font,initializeWhisper,
 		if(newObject.options ~= nil and newObject.options.textColor ~= nil) then
 			ui.Label.TextColor3 = newObject.options.textColor;
 		end
-		
+
 		local original = newObject.fromSpeaker;
 		local isDisplayName = false;
 		messageData = newObject or messageData;
@@ -182,9 +182,14 @@ return function(chat,messageData,messageUtility,richText,font,initializeWhisper,
 			}};
 		end
 		
+		functions:clearChildren()
 		if(messageData.chatTags) then
 			for key,tag in pairs(messageData.chatTags) do
-				tags = tags..string.format("[%s] ",tag.Text);
+				tags = tags.. tag.Icon and (" "):rep(5) or "" ..string.format("[%s] ",tag.Text);
+
+				if tag.Icon then
+					functions:AddIconLabel(tag.Icon)	
+				end
 			end
 		end
 		
@@ -198,9 +203,15 @@ return function(chat,messageData,messageUtility,richText,font,initializeWhisper,
 		nametag = getColorTag(isDisplayName and displayNamesItalics and italics(nametag) or nametag,messageUtility:getNameColor(messageData));
 		
 		local tags = "";
+		
+		functions:clearChildren()
 		if(messageData.chatTags ~= nil) then
-			for _,tag in pairs(messageData.chatTags) do
-				tags = tags..getColorTag(string.format("[%s] ",tag.Text),tag.Color);
+			for _,tag in ipairs(messageData.chatTags) do
+				tags = tags.. tag.Icon and (" "):rep(5) or "" ..getColorTag(string.format("[%s] ",tag.Text),tag.Color);
+				
+				if tag.Icon then
+					functions:AddIconLabel(tag.Icon)	
+				end
 			end
 		end
 		
@@ -234,6 +245,7 @@ return function(chat,messageData,messageUtility,richText,font,initializeWhisper,
 		end
 		
 		scale(richText.stripTags(tags..nametag..msg));
+		
 		checkMentioned();
 		ui.Label.Text = tags..nametag..msg;
 		if(selectionEnabled) then

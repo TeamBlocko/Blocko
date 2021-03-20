@@ -76,6 +76,7 @@ return {
 			
 			Text = "Owner", --> The given chat tag text.
 			Color = Color3.fromRGB(255,255,0), --> The given chat color.
+			Icon = "rbxassetid://519213189",
 			PermissionRank = 3 --> The rank required to have an owner tag. This is default to the owner permission set above.
 		}
 	},

@@ -55,6 +55,10 @@ return function(font,textStroke,selectionEnabled)
 	messageLabel.TextStrokeTransparency = textStroke.Transparency;
 	messageLabel.TextStrokeColor3 = textStroke.Color;
 	
+	local iconsFolder = Instance.new("Folder")
+	iconsFolder.Name = "Icons"
+	iconsFolder.Parent = defaultMessage	
+	
 	local functionality = {};
 	
 	function functionality:scale()
@@ -84,5 +88,33 @@ return function(font,textStroke,selectionEnabled)
 		end
 	end
 	
+	local numberOfIcons = 0
+
+	function functionality:clearChildren()
+		numberOfIcons = 0
+		iconsFolder:ClearAllChildren()
+	end
+	
+	function functionality:AddIconLabel(iconAddress)
+		local iconSize=Vector2.new(18, 18) --use the constant we defined earlier
+		local IconLabel= Instance.new("ImageLabel")
+		--set various properties of the IconLabel to what we want.
+		IconLabel.Selectable=false
+		IconLabel.Size=UDim2.new(0,iconSize.X,0,iconSize.Y)
+		IconLabel.Position=UDim2.new(0,numberOfIcons * iconSize.X + numberOfIcons ~= 0 and 4 or 0,0,0)
+		IconLabel.BackgroundTransparency=1
+		IconLabel.ImageTransparency=0
+		IconLabel.ScaleType=Enum.ScaleType.Fit
+		IconLabel.ImageColor3=Color3.new(1,1,1)
+		--Assign the IconLabel the image we want.
+		IconLabel.Image=iconAddress
+		IconLabel.Visible=true
+		--Add it to the base message.
+		IconLabel.Parent=iconsFolder
+
+		--Return it to wherever the function was called from.
+		return IconLabel
+	end
+
 	return defaultMessage,functionality;
 end
