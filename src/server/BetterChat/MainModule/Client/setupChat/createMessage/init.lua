@@ -78,7 +78,7 @@ return function(chat,configuration,network,serverConfig,richText,detectPlatform,
 	end
 	
 	local systemMessage = function(message,channel,name)
-		name = name or "System";
+		name = name or "";
 		onCreate({
 			ID = game:GetService("HttpService"):GenerateGUID(),
 			channel = channel,
