@@ -25,13 +25,14 @@ export const worldSettingsReducerInitlizer = (intialWorldSettings: WorldInfo) =>
 		[WorldSettingsActions.UPDATE_SETTINGS]: (state, action) => {
 			const newState = deepCopy(state);
 
+			print("UPDATING WORLD SETTINGS")
 			for (const data of action.data) newState.WorldSettings[data.propertyName] = data.value as never;
 
 			return newState;
 		},
 		[WorldSettingsActions.UPDATE_WORLD_INFO]: (state, action) => {
 			const newState = deepCopy(state);
-
+			print("UPDATING WORLD INFO")
 			for (const data of action.data) newState[data.propertyName] = data.value as never;
 
 			return newState;

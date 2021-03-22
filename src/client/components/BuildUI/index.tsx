@@ -11,7 +11,7 @@ import ColorDisplay from "../GraphicalWidget/ColorDisplay";
 import AddFunction from "./AddFunction";
 import FunctionalityTemplate from "./FunctionalityTemplate";
 
-import { updateProperty, updateSetting } from "client/rodux/placementSettings";
+import { updateProperty, UpdateBasePart } from "client/rodux/placementSettings";
 import { IState, PlacementSettings } from "shared/Types";
 
 interface BuildUIPros extends PlacementSettings {
@@ -152,10 +152,7 @@ export default connect(
 				);
 			} else if (propertyName === "Shape" && typeIs(value, "Instance") && value.IsA("BasePart")) {
 				dispatch(
-					updateSetting({
-						settingName: propertyName,
-						value,
-					}),
+					UpdateBasePart(value),
 				);
 			}
 		},

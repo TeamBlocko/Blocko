@@ -2,7 +2,6 @@ import { Players } from "@rbxts/services";
 
 import { ServerAPI, Message } from "./APITypes"
 
-import WorldManager from "server/WorldManager";
 import { isPermed } from "shared/permissionsUtility";
 import { isValidCommand, commands, Arg, Command } from "./commands";
 

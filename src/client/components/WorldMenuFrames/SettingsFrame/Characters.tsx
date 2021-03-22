@@ -22,6 +22,7 @@ interface CharactersPropTypes extends WorldSettings {
 }
 
 function Characters(props: CharactersPropTypes) {
+	print("ResetEnabled", props.ResetEnabled)
 	return (
 		<Container>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />

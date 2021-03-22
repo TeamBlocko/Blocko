@@ -2,7 +2,7 @@ import { Workspace, ReplicatedStorage, UserInputService, RunService, TweenServic
 import store from "client/store";
 import GridBase from "./GridBase";
 import BuildHandle from "./BuildHandle";
-import { updateProperty, updateSetting } from "client/rodux/placementSettings";
+import { updateProperty, UpdateBuildMode, UpdateBasePart } from "client/rodux/placementSettings";
 
 const client = Players.LocalPlayer;
 const playerGui = client.WaitForChild("PlayerGui");
@@ -35,10 +35,7 @@ const tweenInfo = new TweenInfo(0.1, Enum.EasingStyle.Quint);
 
 function updateMode(newMode: BuildMode) {
 	store.dispatch(
-		updateSetting({
-			settingName: "BuildMode",
-			value: newMode,
-		}),
+		UpdateBuildMode(newMode),
 	);
 }
 
@@ -113,10 +110,7 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 				}));
 				store.dispatch(updateProperty(properties));
 				store.dispatch(
-					updateSetting({
-						settingName: "Shape",
-						value: shapes[target.Name as keyof typeof Shapes],
-					}),
+					UpdateBasePart(shapes[target.Name as keyof typeof Shapes]),
 				);
 			} else {
 				const target = gridBase.mouseTarget();

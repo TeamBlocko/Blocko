@@ -3,7 +3,7 @@ import { connect } from "@rbxts/roact-rodux";
 import { createFunctionality } from "shared/Functionalities";
 import { deepCopy } from "@rbxts/object-utils";
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
-import { updateSetting } from "client/rodux/placementSettings";
+import { addFunctionality } from "client/rodux/placementSettings";
 import { IState, PlacementSettings } from "shared/Types";
 
 interface AddFunctionProps extends PlacementSettings {
@@ -56,16 +56,9 @@ export default connect(
 	(state: IState) => state.PlacementSettings,
 	(dispatch) => ({
 		addFunctionality(this: AddFunctionProps) {
-			const newFunctionalities = deepCopy(this.Functionalities);
-
 			const newFunctionality = createFunctionality(getAvliableFunctionalities()[0]);
-
-			newFunctionalities.push(newFunctionality);
 			dispatch(
-				updateSetting({
-					settingName: "Functionalities",
-					value: newFunctionalities,
-				}),
+				addFunctionality(newFunctionality)
 			);
 		},
 	}),

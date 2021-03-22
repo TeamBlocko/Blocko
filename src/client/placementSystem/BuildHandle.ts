@@ -1,7 +1,7 @@
 import { Workspace, Players, UserInputService } from "@rbxts/services";
 import { ClientFunction } from "@rbxts/net";
 import GridBase from "./GridBase";
-import { updateSetting } from "../rodux/placementSettings";
+import { UpdateBasePart } from "../rodux/placementSettings";
 import store from "../store";
 import { previousInTable, nextInTable } from "shared/utility";
 
@@ -51,22 +51,19 @@ class BuildHandler {
 
 	nextBlockType() {
 		store.dispatch(
-			updateSetting({
-				settingName: "Shape",
-				value: nextInTable(this.shapes.GetChildren() as BasePart[], store.getState().PlacementSettings.Shape),
-			}),
+			UpdateBasePart(
+				nextInTable(this.shapes.GetChildren() as BasePart[], store.getState().PlacementSettings.Shape),
+			),
 		);
 	}
 
 	previousBlockType() {
 		store.dispatch(
-			updateSetting({
-				settingName: "Shape",
-				value: previousInTable(
+			UpdateBasePart(previousInTable(
 					this.shapes.GetChildren() as BasePart[],
 					store.getState().PlacementSettings.Shape,
 				),
-			}),
+			),
 		);
 	}
 

@@ -1,5 +1,7 @@
 import { Players } from "@rbxts/services";
 import { PermissionRanks } from "shared/permissionsUtility";
+import WorldManager from "server/WorldManager";
+import { updateWorldInfo } from "shared/worldSettingsReducer";
 
 export interface Arg<T = defined> {
 	name: string,

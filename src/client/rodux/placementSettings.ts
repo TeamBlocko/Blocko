@@ -1,21 +1,26 @@
-import { createReducer, Action, AnyAction } from "@rbxts/rodux";
-import { deepCopy, values } from "@rbxts/object-utils";
+import { createReducer, Action, AnyAction, combineReducers } from "@rbxts/rodux";
+import { assign, deepCopy } from "@rbxts/object-utils";
 import { intialPlacementSettings } from "client/intialState";
 import * as Functionalities from "shared/Functionalities";
 import { PlacementSettings } from "shared/Types";
 
 export enum ActionTypes {
 	UPDATE_PROPERTY = "UPDATE_PROPERTY",
-	UPDATE_SETTINGS = "UPDATE_SETTINGS",
 	UPDATE_FUNCTIONALITY = "UPDATE_FUNCTIONALITY",
 	UPDATE_FUNCTIONALITY_PROPERTY = "UPDATE_FUNCTIONALITY_PROPERTY",
+	UPDATE_BASE_PART = "UPDATE_BASE_PART",
+	UPDATE_BUILD_MODE = "UPDATE_BUILD_MODE",
+	ADD_FUNCTIONALITY = "ADD_FUNCTIONALITY",
+	REMOVE_FUNCTIONALITY = "REMOVE_FUNCTIONALITY",
 }
 
 export type PlacementSettingsActions =
 	| ActionRecievedUpdateProperty
-	| ActionRecievedUpdateSettings
+	| ActionRecievedAddFunctionality
 	| ActionRecievedUpdateFunctionality
-	| ActionRecievedUpdateFunctionalityProperty;
+	| ActionRecievedUpdateFunctionalityProperty
+	| UpdateBasePart
+	| UpdateBuildMode
 
 //UPDATE PROPERTY
 type ValueOfRawProperties = ValueOf<RawProperties>;
@@ -32,25 +37,6 @@ export interface ActionRecievedUpdateProperty extends Action<ActionTypes.UPDATE_
 export function updateProperty(data: UpdatePropertyDataType[]): ActionRecievedUpdateProperty & AnyAction {
 	return {
 		type: ActionTypes.UPDATE_PROPERTY,
-		data,
-	};
-}
-
-//UPDATE SETTINGS
-type ValueOfPlacementSettings = ValueOf<PlacementSettings>;
-
-export interface UpdateSettingDataType {
-	readonly settingName: keyof PlacementSettings;
-	readonly value: ValueOfPlacementSettings;
-}
-
-export interface ActionRecievedUpdateSettings extends Action<ActionTypes.UPDATE_SETTINGS> {
-	readonly data: UpdateSettingDataType;
-}
-
-export function updateSetting(data: UpdateSettingDataType): ActionRecievedUpdateSettings & AnyAction {
-	return {
-		type: ActionTypes.UPDATE_SETTINGS,
 		data,
 	};
 }
@@ -92,53 +78,103 @@ export function updateFunctionalityProperty(
 	};
 }
 
-//-------------------
-export const placementSettingsReducer = createReducer<PlacementSettings, PlacementSettingsActions>(
-	intialPlacementSettings,
-	{
-		[ActionTypes.UPDATE_PROPERTY]: (state, action) => {
-			const newState = deepCopy(state);
+export interface ActionRecievedAddFunctionality extends Action<ActionTypes.ADD_FUNCTIONALITY> {
+	functionality: Functionalities.FunctionalitiesInstances
+}
 
-			for (const data of action.data) newState.RawProperties[data.propertyName] = data.value as never;
+export function addFunctionality(functionality: Functionalities.FunctionalitiesInstances): ActionRecievedAddFunctionality & AnyAction {
+	return {
+		type: ActionTypes.ADD_FUNCTIONALITY,
+		functionality
+	}
+}
 
-			return newState;
-		},
-		[ActionTypes.UPDATE_SETTINGS]: (state, action) => {
-			const newState = deepCopy(state);
+export interface ActionRecievedRemoveFunctionality extends Action<ActionTypes.REMOVE_FUNCTIONALITY> {
+	guid: string
+}
 
-			newState[action.data.settingName] = action.data.value as never;
+export function removeFunctionality(guid: string): ActionRecievedRemoveFunctionality & AnyAction {
+	return {
+		type: ActionTypes.REMOVE_FUNCTIONALITY,
+		guid
+	}
+}
 
-			return newState;
-		},
+//----
+
+interface UpdateBasePart extends Action<ActionTypes.UPDATE_BASE_PART> {
+	value: BasePart
+}
+
+export function UpdateBasePart(value: BasePart): UpdateBasePart & AnyAction {
+	return {
+		type: ActionTypes.UPDATE_BASE_PART,
+		value
+	}
+}
+
+interface UpdateBuildMode extends Action<ActionTypes.UPDATE_BUILD_MODE> {
+	value: BuildMode
+}
+
+export function UpdateBuildMode(value: BuildMode): UpdateBuildMode & AnyAction {
+	return {
+		type: ActionTypes.UPDATE_BUILD_MODE,
+		value
+	}
+}
+
+type FunctionalitiesActions = ActionRecievedUpdateFunctionality | ActionRecievedUpdateFunctionalityProperty | ActionRecievedAddFunctionality | ActionRecievedRemoveFunctionality
+
+export const placementSettingsReducer = combineReducers<PlacementSettings>({
+	Shape: createReducer<BasePart, UpdateBasePart>(intialPlacementSettings.Shape, {
+		[ActionTypes.UPDATE_BASE_PART]: (_, action) => action.value
+	}),
+	BuildMode: createReducer<BuildMode, UpdateBuildMode>(intialPlacementSettings.BuildMode, {
+		[ActionTypes.UPDATE_BUILD_MODE]: (_, action) => action.value
+	}),
+	Functionalities: createReducer<Functionalities.FunctionalitiesInstances[], FunctionalitiesActions>([], {
 		[ActionTypes.UPDATE_FUNCTIONALITY]: (state, action) => {
-			const newState = deepCopy(state);
+			const newState = deepCopy(state)
 
-			const functionalityIndex = newState.Functionalities.findIndex(
-				(functionality) => functionality.GUID === action.guid,
-			);
+			const functionalityIndex = newState.findIndex(functionality => functionality.GUID === action.guid)
+			newState[functionalityIndex] = action.value
 
-			newState.Functionalities[functionalityIndex] = action.value;
-
-			return newState;
+			return newState
 		},
 		[ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY]: (state, action) => {
-			const newState = deepCopy(state);
+			const newState = deepCopy(state)
 
-			const functionality = newState.Functionalities.find((functionality) => functionality.GUID === action.guid);
+			const functionalityIndex = newState.findIndex(functionality => functionality.GUID === action.guid)
+			assign(newState[functionalityIndex].Properties, {
+				[action.property]: action.value	
+			})
 
-			if (!functionality) return newState;
+			return newState	
+		},
+		[ActionTypes.ADD_FUNCTIONALITY]: (state, action) => {
+			const newState = deepCopy(state)
 
-			const property = (values(
-				functionality.Properties,
-			) as Functionalities.FunctionalitiesPropertiesInstance[]).find(
-				(property) => property.Name === action.property,
-			);
+			newState.push(action.functionality)
 
-			if (!property) return newState;
+			return newState
+		},
+		[ActionTypes.REMOVE_FUNCTIONALITY]: (state, action) => {
+			const newState = deepCopy(state)
 
-			property.Current = action.value;
+			const functionalityIndex = newState.findIndex(functionality => functionality.GUID === action.guid)
+			newState.unorderedRemove(functionalityIndex)
+
+			return newState
+		}
+	}),
+	RawProperties: createReducer<RawProperties, ActionRecievedUpdateProperty>(intialPlacementSettings.RawProperties, {
+		[ActionTypes.UPDATE_PROPERTY]: (state, action) => {
+			const newState = deepCopy(state)
+
+			for (const data of action.data) newState[data.propertyName] = data.value as never;
 
 			return newState;
-		},
-	},
-);
+		}
+	})
+})
