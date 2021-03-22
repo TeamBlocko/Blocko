@@ -37,9 +37,9 @@
 		"project:version": "echo VERSION=$(git describe --tags --first-parent --long --always) | tee .env"
 	},
 	"devDependencies": {
-		"@rbxts/types": "^1.0.462",
-		"@typescript-eslint/eslint-plugin": "^4.17.0",
-		"@typescript-eslint/parser": "^4.17.0",
+		"@rbxts/types": "^1.0.464",
+		"@typescript-eslint/eslint-plugin": "^4.18.0",
+		"@typescript-eslint/parser": "^4.18.0",
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^6.15.0",
 		"eslint-plugin-prettier": "^3.3.1",
