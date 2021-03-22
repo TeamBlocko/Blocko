@@ -46,6 +46,12 @@
 			"$properties": {
 				"RespectFilteringEnabled": true
 			}
+		},
+		"Chat": {
+			"$className": "Chat",
+			"$properties": {
+				"LoadDefaultChat": false
+			}
 		}
 	},
 	"globIgnorePaths": [
