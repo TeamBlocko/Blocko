@@ -20,7 +20,7 @@ class CheckBox extends Component<GWPropTypes<boolean> & { SizeYOffset?: number }
 		return (
 			<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30} LayoutOrder={this.props.LayoutOrder}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
-				<TitleText Text={this.props.Name} />
+				<TitleText Text={this.props.Name} Position={UDim2.fromScale(0, 0.5)} AnchorPoint={new Vector2(0, 0.5)} />
 				<Border HandleInput={() => this.HandleInput()}>
 					<Check Value={this.props.Default} HandleInput={() => this.HandleInput()} />
 				</Border>

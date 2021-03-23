@@ -3,14 +3,16 @@ import Roact from "@rbxts/roact";
 interface TitleTextPropTypes extends RbxJsxProps {
 	Text: string;
 	Size?: UDim2;
-	YOffset?: number;
+	AnchorPoint?: Vector2;
+	Position?: UDim2;
 }
 
 function TitleText(props: TitleTextPropTypes): Roact.Element {
 	return (
 		<textlabel
 			BackgroundTransparency={1}
-			Position={UDim2.fromOffset(0, props.YOffset ?? 5)}
+			AnchorPoint={props.AnchorPoint}
+			Position={props.Position ?? UDim2.fromOffset(0, 5)}
 			Size={props.Size !== undefined ? props.Size : new UDim2(1, 0, 0, 14)}
 			Font={Enum.Font.GothamSemibold}
 			Text={`  ${props.Text}`}

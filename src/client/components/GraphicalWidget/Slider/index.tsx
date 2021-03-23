@@ -50,6 +50,7 @@ class Slider extends Component<SliderPropTypes & Partial<PropTypes>, GWStateType
 			<GWFrame
 				SizeOffsetY={this.props.SizeYOffset ?? 70}
 				RefValue={this.props.RefValue}
+				BackgroundTransparency={this.props.BackgroundTransparency}
 				LayoutOrder={this.props.LayoutOrder}
 			>
 				<uicorner CornerRadius={new UDim(0, 7)} />

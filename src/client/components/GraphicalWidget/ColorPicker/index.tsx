@@ -2,7 +2,7 @@ import Roact, { Component, createRef } from "@rbxts/roact";
 import { DragFrame } from "@rbxts/roact-dnd";
 import BottomFrame from "./BottomFrame";
 import HueSaturationFrame from "./HueSaturationFrame";
-import TopFrame from "./TopFrame";
+import TopFrame from "client/components/misc/TopFrame";
 import ColorPickerManager from "./ColorPickerManager";
 
 class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes> {

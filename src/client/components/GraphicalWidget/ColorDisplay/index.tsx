@@ -113,7 +113,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 							this.selfRef = n.Parent as Frame;
 						}}
 					/>
-					<TitleText Text={this.props.Name} YOffset={this.props.SizeYOffset ?? 10} />
+					<TitleText Text={this.props.Name} Position={UDim2.fromScale(0, 0.5)} AnchorPoint={new Vector2(0, 0.5)} />
 					<PickButton
 						Value={this.props.Default}
 						HandleClick={(inputButton: TextButton) => this.HandleClick(inputButton)}

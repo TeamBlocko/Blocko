@@ -1,7 +1,6 @@
 import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import { createFunctionality } from "shared/Functionalities";
-import { deepCopy } from "@rbxts/object-utils";
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
 import { addFunctionality } from "client/rodux/placementSettings";
 import { IState, PlacementSettings } from "shared/Types";

@@ -53,6 +53,7 @@ export type FunctionalitiesValues = ValueOf<Functionalities>;
 export type FunctionalitiesProperties = FunctionalitiesValues["Properties"];
 export type IntersectionProperties = UnionToIntersection<FunctionalitiesProperties>;
 
+export type FunctionalitiesPropertiesNames = keyof IntersectionProperties
 export type FunctionalitiesPropertiesValues = ValueOf<IntersectionProperties>;
 
 export type FunctionalitiesInstances = {

@@ -47,6 +47,7 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 									{...property}
 									SizeYOffset={55}
 									Default={property.Current}
+									BackgroundTransparency={1}
 									OnChange={(value) => {
 										props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
 									}}
@@ -61,7 +62,7 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 					if (!e) return;
 
 					const parent = e.Parent as Frame;
-					parent.Size = new UDim2(1, 0, 0, e.AbsoluteContentSize.Y);
+					parent.Size = new UDim2(0.975, 0, 0, e.AbsoluteContentSize.Y);
 				}}
 			/>
 		</frame>

@@ -64,8 +64,9 @@ declare interface Range {
 }
 
 declare interface SliderPropTypes extends Range, GWPropTypes<number> {
-    SizeYOffset?: number;
+  SizeYOffset?: number;
 	RefValue?: Roact.Ref<Frame>;
+	BackgroundTransparency?: number;
 }
 
 declare interface ColorDisplayStateTypes<T> extends GWStateTypes<T> {
