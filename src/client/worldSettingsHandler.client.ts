@@ -2,6 +2,7 @@ import store from "./store";
 import { ClientEvent } from "@rbxts/net";
 import { AnyAction } from "@rbxts/rodux";
 import * as handlers from "./worldSettingsHandlers";
+import { WorldSettingsActionTypes } from "shared/worldSettingsReducer";
 
 const updateWorldSettingsRemote = new ClientEvent("UpdateWorldSettings");
 
@@ -13,5 +14,5 @@ function updateSettings(state: WorldSettings) {
 	}
 }
 
-updateSettings(store.getState().WorldInfo.WorldSettings);
-store.changed.connect((newState) => updateSettings(newState.WorldInfo.WorldSettings));
+updateSettings(store.getState().World.Settings);
+store.changed.connect((newState) => updateSettings(newState.World.Settings));

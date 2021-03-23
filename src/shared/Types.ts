@@ -2,7 +2,7 @@ import { FunctionalitiesInstances } from "shared/Functionalities";
 
 export interface IState {
 	PlacementSettings: PlacementSettings;
-	WorldInfo: WorldInfo;
+	World: World;
 }
 
 export interface PlacementSettings {

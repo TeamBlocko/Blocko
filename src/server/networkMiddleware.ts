@@ -1,12 +1,13 @@
 import { Middleware, Store } from "@rbxts/rodux";
+import { WorldSettingsActionTypes } from "shared/worldSettingsReducer";
 
 interface ReplicateFunc {
-	(action: WorldSettingsActionTypes, nextState: WorldInfo, prevState: WorldInfo): void;
+	(action: WorldSettingsActionTypes, nextState: World, prevState: World): void;
 }
 
 export const networkMiddlewareInitlizer: (replicate: ReplicateFunc) => Middleware = (replicate) => (
 	nextDispatch,
-	store: Store<WorldInfo>,
+	store: Store<World>,
 ) => (action) => {
 	const beforeState = store.getState();
 	const result = nextDispatch(action);

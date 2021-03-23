@@ -2,17 +2,19 @@ import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import { values } from "@rbxts/object-utils";
 import Slider from "../GraphicalWidget/Slider";
-import Dropdown from "../GraphicalWidget/Dropdown";
+import Dropdown from "../GraphicalWidget/Dropdown/DropdownButton";
 import * as Functionalities from "shared/Functionalities";
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
-import { updateFunctionality, updateFunctionalityProperty } from "client/rodux/placementSettings";
+import { updateFunctionality, updateFunctionalityProperty, removeFunctionality } from "client/rodux/placementSettings";
 import { IState, PlacementSettings } from "shared/Types";
+import TopFrame from "../misc/TopFrame";
 
 interface FunctionTemplatePropTypes extends PlacementSettings {
 	Functionality: Functionalities.FunctionalitiesInstances;
 	LayoutOrder?: number;
-	UpdateFunctionality(this: FunctionTemplatePropTypes, value: Functionalities.FunctionalitiesValues): void;
-	UpdateFunctionalityProperty(this: FunctionTemplatePropTypes, property: string, value: number): void;
+	UpdateFunctionality(guid: string, value: Functionalities.FunctionalitiesValues): void;
+	UpdateFunctionalityProperty(guid: string, property: Functionalities.FunctionalitiesPropertiesNames, value: number): void;
+	RemoveFunctionality(guid: string): void;
 }
 
 function FunctionTemplate(props: FunctionTemplatePropTypes) {
@@ -25,6 +27,7 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 			LayoutOrder={props.LayoutOrder}
 		>
 			<uicorner CornerRadius={new UDim(0, 7)} />
+			<TopFrame Text="Functionality" OnClose={() => props.RemoveFunctionality(props.Functionality.GUID)} />
 			<Dropdown
 				Name="Functionality"
 				Items={getAvliableFunctionalities()}
@@ -33,7 +36,7 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 					props.Functionality
 				}
 				Default={props.Functionality as Functionalities.FunctionalitiesValues}
-				OnChange={(value) => props.UpdateFunctionality(value)}
+				OnChange={(value) => props.UpdateFunctionality(props.Functionality.GUID, value)}
 			/>
 			{(values(props.Functionality.Properties) as Functionalities.FunctionalitiesPropertiesInstance[]).map(
 				(property) => {
@@ -45,7 +48,7 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 									SizeYOffset={55}
 									Default={property.Current}
 									OnChange={(value) => {
-										props.UpdateFunctionalityProperty(property.Name, value);
+										props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
 									}}
 								/>
 							);
@@ -68,18 +71,21 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 export default connect(
 	(state: IState) => state.PlacementSettings,
 	(dispatch) => ({
-		UpdateFunctionality(this: FunctionTemplatePropTypes, value: Functionalities.FunctionalitiesValues) {
-			const newFunctionality = Functionalities.createFunctionality(value, { GUID: this.Functionality.GUID });
+		UpdateFunctionality(guid: string, value: Functionalities.FunctionalitiesValues) {
+			const newFunctionality = Functionalities.createFunctionality(value, { GUID: guid });
 
 			dispatch(
 				updateFunctionality(
-					this.Functionality.GUID,
+					guid,
 					newFunctionality as Functionalities.FunctionalitiesInstances,
 				),
 			);
 		},
-		UpdateFunctionalityProperty(this: FunctionTemplatePropTypes, property: string, value: number) {
-			dispatch(updateFunctionalityProperty(this.Functionality.GUID, property, value));
+		UpdateFunctionalityProperty(guid: string, property: Functionalities.FunctionalitiesPropertiesNames, value: number) {
+			dispatch(updateFunctionalityProperty(guid, property, value));
 		},
+		RemoveFunctionality(guid: string) {
+			dispatch(removeFunctionality(guid))
+		}
 	}),
 )(FunctionTemplate);

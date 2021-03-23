@@ -85,7 +85,7 @@ function Characters(props: CharactersPropTypes) {
 }
 
 export default connect(
-	(state: IState) => state.WorldInfo.WorldSettings,
+	(state: IState) => state.World.Settings,
 	(dispatch) => ({
 		OnSliderInputUpdate(
 			propertyName:

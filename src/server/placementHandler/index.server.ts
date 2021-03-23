@@ -36,7 +36,7 @@ function updateNumOfBlocks() {
 placeBlock.SetRateLimit(100);
 placeBlock.SetClientCache(0);
 placeBlock.SetCallback((player, placePosition, orientation, settings) => {
-	if (settings.Shape.IsDescendantOf(shapes) && WorldManager.store.getState().Owner === player.UserId) {
+	if (settings.Shape.IsDescendantOf(shapes) && WorldManager.store.getState().Info.Owner === player.UserId) {
 		const block = settings.Shape.Clone();
 		block.Anchored = true;
 		block.Position = placePosition;
@@ -57,7 +57,7 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 });
 
 deleteBlock.SetCallback((player, target) => {
-	if (WorldManager.store.getState().Owner === player.UserId && target.IsDescendantOf(Workspace.Blocks)) {
+	if (WorldManager.store.getState().Info.Owner === player.UserId && target.IsDescendantOf(Workspace.Blocks)) {
 		target.Destroy();
 		updateNumOfBlocks();
 	}

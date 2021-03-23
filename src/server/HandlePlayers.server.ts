@@ -23,7 +23,7 @@ RunService.Heartbeat.Connect(() => {
 		if (current - joinTime > 60 * 5) {
 			WorldManager.store.dispatch(
 				updateWorldInfo([
-					{ propertyName: "PlaceVisits", value: WorldManager.store.getState().PlaceVisits + 1 },
+					{ propertyName: "PlaceVisits", value: WorldManager.store.getState().Info.PlaceVisits + 1 },
 				]),
 			);
 			timeList.delete(id);

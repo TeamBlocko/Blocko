@@ -54,4 +54,4 @@ function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 	);
 }
 
-export default connect((state: IState) => state.WorldInfo)(NavigationFrame);
+export default connect((state: IState) => state.World.Info)(NavigationFrame);

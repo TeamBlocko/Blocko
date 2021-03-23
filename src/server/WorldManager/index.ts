@@ -7,6 +7,7 @@ import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { Profile } from "@rbxts/profileservice/globals";
 import { storeInitializer } from "server/store";
 import BlockSerializer from "server/blocksSerializer";
+import { WorldSettingsActionTypes } from "shared/worldSettingsReducer";
 // import MockODS from "./MockODS";
 
 export enum BlockIds {
@@ -38,18 +39,19 @@ const PermissionInfo = ser.interface("PermissionInfo", {
 	Type: ser.string as ser.SerializerStructure<PermissionTypes>
 })
 
-const worldInfoSerializer = ser.interface("WorldInfo", {
-	WorldId: ser.number,
-	Owner: ser.number,
-	Permissions: ser.array(PermissionInfo),
-	Banned: ser.array(ser.number),
-	Server: ser.optional(ser.string),
-	MaxPlayers: ser.number,
-	ActivePlayers: ser.number,
-	PlaceVisits: ser.number,
-	NumberOfBlocks: ser.number,
-
-	WorldSettings: ser.interface("WorldSettings", {
+const worldInfoSerializer = ser.interface("World", {
+	Info: ser.interface("WorldInfo", {
+		WorldId: ser.number,
+		Owner: ser.number,
+		Permissions: ser.array(PermissionInfo),
+		Banned: ser.array(ser.number),
+		Server: ser.optional(ser.string),
+		MaxPlayers: ser.number,
+		ActivePlayers: ser.number,
+		PlaceVisits: ser.number,
+		NumberOfBlocks: ser.number,
+	}),
+	Settings: ser.interface("WorldSettings", {
 		Name: ser.string,
 		Description: ser.string,
 		Thumbnail: ser.string,
@@ -74,7 +76,7 @@ const worldInfoSerializer = ser.interface("WorldInfo", {
 	}),
 });
 
-const DEFAULT_WORLD_SETTINGS = {
+const DEFAULT_WORLD_SETTINGS: WorldSettings = {
 	Name: "nyzem world #1",
 	Description: "No description set.",
 	Thumbnail: "",
@@ -98,7 +100,7 @@ const DEFAULT_WORLD_SETTINGS = {
 	MaxCameraZoom: 100,
 };
 
-const DEFAULT_WORLDINFO: WorldInfo = {
+const DEFAULT_WORLD_INFO: WorldInfo = {
 	WorldId: game.PlaceId,
 	Owner:
 		RunService.IsStudio() || game.CreatorId !== 6467229
@@ -111,8 +113,11 @@ const DEFAULT_WORLDINFO: WorldInfo = {
 	ActivePlayers: Players.GetPlayers().size(),
 	PlaceVisits: 0,
 	NumberOfBlocks: ReplicatedStorage.Template.GetChildren().size(),
+}
 
-	WorldSettings: DEFAULT_WORLD_SETTINGS,
+const DEFAULT_WORLD: World = {
+	Info: DEFAULT_WORLD_INFO,
+	Settings: DEFAULT_WORLD_SETTINGS,
 };
 
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
@@ -122,7 +127,7 @@ const DATASTORE_VERSION = "Betav-12";
 const activeODS = DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`);
 let worldsInfoStore = ProfileService.GetProfileStore(
 	`Worlds${DATASTORE_VERSION}`,
-	worldInfoSerializer.serialize(DEFAULT_WORLDINFO),
+	worldInfoSerializer.serialize(DEFAULT_WORLD),
 );
 let worldBlocksStore = ProfileService.GetProfileStore(`WorldBlocks${DATASTORE_VERSION}`, {
 	Blocks: DEFAULT_TEMPLATE,
@@ -134,9 +139,9 @@ if (RunService.IsStudio() === true) {
 }
 
 class WorldManager {
-	public readonly worldInfo!: Profile<ser.Serialized<WorldInfo>>;
+	public readonly worldInfo!: Profile<ser.Serialized<World>>;
 	public readonly worldBlocks!: Profile<{ Blocks: string }>;
-	public readonly store!: Store<WorldInfo, WorldSettingsActionTypes>;
+	public readonly store!: Store<World, WorldSettingsActionTypes & Rodux.AnyAction>;
 
 	public isClosing = false;
 
@@ -175,7 +180,7 @@ class WorldManager {
 				},
 			});
 			const state = this.store.getState();
-			activeODS.SetAsync(this.worldInfo.Data.WorldId, state.ActivePlayers);
+			activeODS.SetAsync(this.worldInfo.Data.Info.WorldId, state.Info.ActivePlayers);
 			// print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId));
 			const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 			this.worldInfo.Data = worldInfoSerializer.serialize(state);
@@ -202,8 +207,8 @@ class WorldManager {
 	ShutDown() {
 		this.isClosing = true;
 		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait();
-		this.worldInfo.Data.Server = undefined;
-		activeODS.RemoveAsync(this.worldInfo.Data.WorldId);
+		this.worldInfo.Data.Info.Server = undefined;
+		activeODS.RemoveAsync(this.worldInfo.Data.Info.WorldId);
 		// print(this.worldInfo.Data.WorldId, activeODS.GetAsync(this.worldInfo.Data.WorldId));
 	}
 }

@@ -38,4 +38,4 @@ function Permissions(props: WorldMenuFrames) {
 	)
 }
 
-export default connect((state: IState) => state.WorldInfo)(Permissions)
+export default connect((state: IState) => state.World.Info)(Permissions)

@@ -1,6 +1,6 @@
 import Rodux, { Store, combineReducers, AnyAction } from "@rbxts/rodux";
 import { intialState } from "./intialState";
-import { worldSettingsReducerInitlizer } from "shared/worldSettingsReducer";
+import { WorldSettingsActionTypes, worldSettingsReducerInitlizer } from "shared/worldSettingsReducer";
 import { placementSettingsReducer, PlacementSettingsActions } from "./rodux/placementSettings";
 import { IState } from "shared/Types";
 
@@ -8,7 +8,7 @@ export type StoreActions = (PlacementSettingsActions | WorldSettingsActionTypes)
 
 export const storeReducer = combineReducers<IState>({
 	PlacementSettings: placementSettingsReducer,
-	WorldInfo: worldSettingsReducerInitlizer(intialState.WorldInfo),
+	World: worldSettingsReducerInitlizer(intialState.World),
 });
 
 export default new Store<IState, StoreActions, typeof Rodux.loggerMiddleware>(storeReducer, {}, [

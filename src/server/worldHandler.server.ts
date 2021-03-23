@@ -2,8 +2,15 @@ import { Players } from "@rbxts/services";
 import { ServerFunction } from "@rbxts/net";
 import SyncedPoller from "@rbxts/synced-poller";
 import { $terrify } from "rbxts-transformer-t";
-import { updateWorldInfo } from "shared/worldSettingsReducer";
+import { updateWorldInfo, UpdateWorldSettingDataType, WorldSettingsActionTypes } from "shared/worldSettingsReducer";
 import * as handlers from "./worldSettingsHandlers";
+
+declare interface UpdateWorldSettings {
+	readonly data: UpdateWorldSettingDataType[];
+	readonly replicateBroadcast?: boolean;
+	readonly replicateTo?: number;
+	readonly replicated?: boolean;
+}
 
 const retriveWorldSettingsRemote = new ServerFunction("Replication");
 const updateWorldSettingsRemote = new ServerFunction("UpdateWorldSettings", $terrify<UpdateWorldSettings>());
@@ -17,8 +24,8 @@ game.BindToClose(() => {
 retriveWorldSettingsRemote.SetCallback(() => WorldManager.store.getState());
 
 updateWorldSettingsRemote.SetCallback((player, action) => {
-	if (WorldManager.store.getState().Owner === player.UserId)
-		WorldManager.store.dispatch(action as WorldSettingsActionTypes);
+	if (WorldManager.store.getState().Info.Owner === player.UserId)
+		WorldManager.store.dispatch(action as WorldSettingsActionTypes & Rodux.AnyAction);
 });
 
 function updateSettings(state: WorldSettings) {
@@ -27,8 +34,8 @@ function updateSettings(state: WorldSettings) {
 	}
 }
 
-updateSettings(WorldManager.store.getState().WorldSettings);
-WorldManager.store.changed.connect((newState) => updateSettings(newState.WorldSettings));
+updateSettings(WorldManager.store.getState().Settings);
+WorldManager.store.changed.connect((newState) => updateSettings(newState.Settings));
 
 function updatePlayers() {
 	WorldManager.store.dispatch(

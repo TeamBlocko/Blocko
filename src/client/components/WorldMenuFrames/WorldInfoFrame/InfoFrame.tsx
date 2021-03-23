@@ -70,4 +70,4 @@ function InfoFrame(props: WorldInfo) {
 	);
 }
 
-export default connect((state: IState) => state.WorldInfo)(InfoFrame);
+export default connect((state: IState) => state.World.Info)(InfoFrame);

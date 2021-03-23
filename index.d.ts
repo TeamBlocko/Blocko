@@ -160,14 +160,7 @@ declare interface WorldSettings {
 	MaxCameraZoom: number;
 }
 
-declare type PermissionTypes = "Builder" | "Admin" | "Visitor" | "Owner"
-
-declare interface PermissionsInfo {
-	UserId: number;
-	Type: PermissionTypes
-}
-
-declare interface WorldInfo {
+interface WorldInfo {
 	WorldId: number;
 	Owner: number;
 	Permissions: PermissionsInfo[];
@@ -177,8 +170,18 @@ declare interface WorldInfo {
 	ActivePlayers: number;
 	PlaceVisits: number;
 	NumberOfBlocks: number;
+}
 
-	WorldSettings: WorldSettings;
+declare type PermissionTypes = "Builder" | "Admin" | "Visitor" | "Owner"
+
+declare interface PermissionsInfo {
+	UserId: number;
+	Type: PermissionTypes
+}
+
+declare interface World {
+	Info: WorldInfo,
+	Settings: WorldSettings
 }
 
 declare type BuildMode = "Spectate" | "Place" | "Delete"
@@ -187,39 +190,6 @@ declare interface WorldMenuFrames {
 	RefValue: Roact.Ref<Frame>;
 	OnClick: (e: GuiButton) => void;
 }
-
-declare type ValueOfWorldSettings = ValueOf<WorldSettings>;
-
-declare interface UpdateWorldSettingDataType {
-	readonly propertyName: keyof WorldSettings;
-	readonly value: string | boolean | number | Color3;
-}
-
-declare interface UpdateWorldInfoDataType {
-	readonly propertyName: keyof WorldInfo;
-	readonly value: string | number | number[];
-}
-
-declare interface UpdateWorldSettings {
-	readonly data: UpdateWorldSettingDataType[];
-	readonly replicateBroadcast?: boolean;
-	readonly replicateTo?: number;
-	readonly replicated?: boolean;
-}
-
-declare interface UpdateWorldInfo {
-	readonly data: UpdateWorldInfoDataType[];
-	readonly replicateBroadcast?: boolean;
-	readonly replicateTo?: number;
-	readonly replicated?: boolean;
-}
-
-declare type ActionRecievedUpdateWorldSettings = Rodux.Action<"UPDATE_WORLD_SETTINGS"> & UpdateWorldSettings
-
-declare type ActionRecievedUpdateWorldInfo = Rodux.Action<"UPDATE_WORLD_INFO"> & UpdateWorldInfo
-
-declare type WorldSettingsActionTypes = ActionRecievedUpdateWorldSettings | ActionRecievedUpdateWorldInfo;
-
 
 declare interface iNotification {
   Id: string;

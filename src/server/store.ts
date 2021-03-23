@@ -1,10 +1,10 @@
-import { Middleware, Store } from "@rbxts/rodux";
+import { Middleware, Store, AnyAction } from "@rbxts/rodux";
 import { replicate } from "./replicate";
 import { networkMiddlewareInitlizer } from "./networkMiddleware";
-import { worldSettingsReducerInitlizer } from "shared/worldSettingsReducer";
+import { WorldSettingsActionTypes, worldSettingsReducerInitlizer } from "shared/worldSettingsReducer";
 
-export const storeInitializer = (intialWorldSettings: WorldInfo) =>
-	new Store<WorldInfo, WorldSettingsActionTypes, [Middleware]>(
+export const storeInitializer = (intialWorldSettings: World) =>
+	new Store<World, WorldSettingsActionTypes & AnyAction, [Middleware]>(
 		worldSettingsReducerInitlizer(intialWorldSettings),
 		intialWorldSettings,
 		[networkMiddlewareInitlizer(replicate)],

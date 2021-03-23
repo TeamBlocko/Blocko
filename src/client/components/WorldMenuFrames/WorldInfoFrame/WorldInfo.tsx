@@ -38,6 +38,6 @@ function DescriptionComp(props: WorldSettings) {
 	);
 }
 
-export const Title = connect((state: IState) => state.WorldInfo.WorldSettings)(TitleComp);
+export const Title = connect((state: IState) => state.World.Settings)(TitleComp);
 
-export const Description = connect((state: IState) => state.WorldInfo.WorldSettings)(DescriptionComp);
+export const Description = connect((state: IState) => state.World.Settings)(DescriptionComp);

@@ -1,5 +1,5 @@
 import { createReducer, Action, AnyAction, combineReducers } from "@rbxts/rodux";
-import { assign, deepCopy } from "@rbxts/object-utils";
+import { assign, copy as shallowCopy } from "@rbxts/object-utils";
 import { intialPlacementSettings } from "client/intialState";
 import * as Functionalities from "shared/Functionalities";
 import { PlacementSettings } from "shared/Types";
@@ -61,13 +61,13 @@ export function updateFunctionality(
 //UPDATE FUNCTIONALITY PROPERTY
 export interface ActionRecievedUpdateFunctionalityProperty extends Action<ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY> {
 	guid: string;
-	property: string;
+	property: Functionalities.FunctionalitiesPropertiesNames;
 	value: number;
 }
 
 export function updateFunctionalityProperty(
 	guid: string,
-	property: string,
+	property: Functionalities.FunctionalitiesPropertiesNames,
 	value: number,
 ): ActionRecievedUpdateFunctionalityProperty & AnyAction {
 	return {
@@ -134,33 +134,27 @@ export const placementSettingsReducer = combineReducers<PlacementSettings>({
 		[ActionTypes.UPDATE_BUILD_MODE]: (_, action) => action.value
 	}),
 	Functionalities: createReducer<Functionalities.FunctionalitiesInstances[], FunctionalitiesActions>([], {
-		[ActionTypes.UPDATE_FUNCTIONALITY]: (state, action) => {
-			const newState = deepCopy(state)
-
-			const functionalityIndex = newState.findIndex(functionality => functionality.GUID === action.guid)
-			newState[functionalityIndex] = action.value
-
-			return newState
-		},
-		[ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY]: (state, action) => {
-			const newState = deepCopy(state)
-
-			const functionalityIndex = newState.findIndex(functionality => functionality.GUID === action.guid)
-			assign(newState[functionalityIndex].Properties, {
-				[action.property]: action.value	
-			})
-
-			return newState	
-		},
+		[ActionTypes.UPDATE_FUNCTIONALITY]: (state, action) =>
+			state.map((functionality) => functionality.GUID === action.guid ? action.value : functionality),
+		[ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY]: (state, action) =>
+			state.map((functionality) => {
+				if (functionality.GUID === action.guid)
+					assign(
+						(functionality.Properties as Functionalities.IntersectionProperties)[action.property], {
+							Current: action.value
+						}
+					)
+				return functionality
+			}),
 		[ActionTypes.ADD_FUNCTIONALITY]: (state, action) => {
-			const newState = deepCopy(state)
+			const newState = shallowCopy(state)
 
 			newState.push(action.functionality)
 
 			return newState
 		},
 		[ActionTypes.REMOVE_FUNCTIONALITY]: (state, action) => {
-			const newState = deepCopy(state)
+			const newState = shallowCopy(state)
 
 			const functionalityIndex = newState.findIndex(functionality => functionality.GUID === action.guid)
 			newState.unorderedRemove(functionalityIndex)
@@ -170,7 +164,7 @@ export const placementSettingsReducer = combineReducers<PlacementSettings>({
 	}),
 	RawProperties: createReducer<RawProperties, ActionRecievedUpdateProperty>(intialPlacementSettings.RawProperties, {
 		[ActionTypes.UPDATE_PROPERTY]: (state, action) => {
-			const newState = deepCopy(state)
+			const newState = shallowCopy(state)
 
 			for (const data of action.data) newState[data.propertyName] = data.value as never;
 

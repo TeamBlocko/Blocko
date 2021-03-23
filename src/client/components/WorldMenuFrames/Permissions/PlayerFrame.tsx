@@ -25,12 +25,12 @@ function PermissionType(props: { Name: PermissionTypes }) {
 	)
 }
 
-class PlayerFrame extends Roact.Component<PlayerFramePropTypes & IState> {
+class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
 
 	avatarImage: Roact.Ref<ImageLabel>;
 	name: Roact.Ref<TextLabel>;
 
-	constructor(props: PlayerFramePropTypes & IState) {
+	constructor(props: PlayerFramePropTypes & World) {
 		super(props);
 
 		this.avatarImage = Roact.createRef()
@@ -76,7 +76,7 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & IState> {
 					Position={UDim2.fromScale(0.23, 0.86)}
 					Size={UDim2.fromScale(0.725, 0.35)}
 				>
-					<PermissionType Name={getUserPermissions(this.props.WorldInfo, this.props.UserId).Type}/>	
+					<PermissionType Name={getUserPermissions(this.props.Info, this.props.UserId).Type}/>	
 					<uilistlayout
 						FillDirection={Enum.FillDirection.Horizontal}
 						VerticalAlignment={Enum.VerticalAlignment.Center}
@@ -99,4 +99,4 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & IState> {
 	}
 }
 
-export default connect((state: IState) => state)(PlayerFrame)
+export default connect((state: IState) => state.World)(PlayerFrame)

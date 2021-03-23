@@ -2,7 +2,7 @@ import Roact from "@rbxts/roact";
 import { ClientFunction } from "@rbxts/net";
 import { entries } from "@rbxts/object-utils";
 import { shallowEqual } from "shared/utility";
-import { updateWorldSettings } from "shared/worldSettingsReducer";
+import { ActionRecievedUpdateWorldSettings, updateWorldSettings, } from "shared/worldSettingsReducer";
 import { retriveWorldSettings } from "client/replicationManager";
 import store from "client/store";
 import notificationStore from "client/notificationStore";
@@ -32,8 +32,8 @@ function SettingsFrame(props: WorldMenuFrames) {
 			<NavBar
 				Text="World Settings"
 				OnClick={(e) => {
-					const worldSettings = retriveWorldSettings().WorldSettings;
-					const currentWorldSettings = store.getState().WorldInfo.WorldSettings;
+					const worldSettings = retriveWorldSettings().Settings;
+					const currentWorldSettings = store.getState().World.Settings;
 					if (currentWorldSettings.Name.size() < 6) {
 						notificationStore.addNotification({
 							Message: "Name must be at least 6 characters long.",
