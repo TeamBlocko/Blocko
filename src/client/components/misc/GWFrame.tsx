@@ -4,7 +4,7 @@ interface ContainerPropTypes extends PropTypes {
 	RefValue?: Roact.Ref<Frame>;
 	SizeOffsetY: number;
 	ZIndex?: number;
-	BackgroundTransparency: number;
+	BackgroundTransparency?: number;
 	LayoutOrder?: number;
 }
 
