@@ -185,7 +185,7 @@ return function(chat,messageData,messageUtility,richText,font,initializeWhisper,
 		functions:clearChildren()
 		if(messageData.chatTags) then
 			for key,tag in pairs(messageData.chatTags) do
-				tags = tags.. tag.Icon and (" "):rep(5) or "" ..string.format("[%s] ",tag.Text);
+				tags = tags.. (tag.Icon and (" "):rep(5) or "") ..string.format("[%s] ",tag.Text);
 
 				if tag.Icon then
 					functions:AddIconLabel(tag.Icon)	
@@ -207,7 +207,7 @@ return function(chat,messageData,messageUtility,richText,font,initializeWhisper,
 		functions:clearChildren()
 		if(messageData.chatTags ~= nil) then
 			for _,tag in ipairs(messageData.chatTags) do
-				tags = tags.. tag.Icon and (" "):rep(5) or "" ..getColorTag(string.format("[%s] ",tag.Text),tag.Color);
+				tags = tags.. (tag.Icon and (" "):rep(5) or "") ..getColorTag(string.format("[%s] ",tag.Text),tag.Color);
 				
 				if tag.Icon then
 					functions:AddIconLabel(tag.Icon)	

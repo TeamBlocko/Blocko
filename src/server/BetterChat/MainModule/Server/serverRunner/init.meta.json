@@ -1,5 +1,6 @@
 {
-	"$properties": {
-		"Disabled": true
+	"properties": {
+			"Disabled": true
+
 	}
 }

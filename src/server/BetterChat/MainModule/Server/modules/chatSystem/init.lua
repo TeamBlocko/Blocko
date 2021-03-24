@@ -59,6 +59,7 @@ local getTags = function(player)
 			if(resolveToRankID(tag.PermissionRank) == playerRank or isUser(tag,player)) then
 				table.insert(options,{
 					Color = tag.Color,
+					Icon = tag.Icon,
 					Text = tag.Name or tag.Text
 				});
 			end
