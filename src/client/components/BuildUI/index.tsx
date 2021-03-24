@@ -103,7 +103,7 @@ function BuildUI(props: BuildUIPros) {
 					<AddFunction LayoutOrder={8} />
 					<frame BackgroundTransparency={1} Size={UDim2.fromScale(1, 0)} LayoutOrder={9}>
 						{props.Functionalities.map((functionality, index) => (
-							<FunctionalityTemplate Functionality={functionality} LayoutOrder={index} />
+							<FunctionalityTemplate Functionality={functionality} LayoutOrder={index} ZIndex={props.Functionalities.size() - index} />
 						))}
 						<uilistlayout
 							HorizontalAlignment={Enum.HorizontalAlignment.Center}

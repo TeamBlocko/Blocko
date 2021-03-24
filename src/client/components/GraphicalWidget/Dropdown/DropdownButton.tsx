@@ -83,6 +83,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 				TextColor3={Color3.fromRGB(217, 217, 217)}
 				TextSize={12}
 				TextXAlignment={Enum.TextXAlignment.Left}
+				ZIndex={this.props.ZIndex}
 				Event={{
 					Activated: () => {
 						this.motor.setGoal(new Spring(!this.state.Expanded ? 0 : 1));

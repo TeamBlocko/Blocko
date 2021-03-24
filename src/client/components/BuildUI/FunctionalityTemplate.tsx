@@ -12,6 +12,7 @@ import TopFrame from "../misc/TopFrame";
 interface FunctionTemplatePropTypes extends PlacementSettings {
 	Functionality: Functionalities.FunctionalitiesInstances;
 	LayoutOrder?: number;
+	ZIndex?: number;
 	UpdateFunctionality(guid: string, value: Functionalities.FunctionalitiesValues): void;
 	UpdateFunctionalityProperty(guid: string, property: Functionalities.FunctionalitiesPropertiesNames, value: number): void;
 	RemoveFunctionality(guid: string): void;
@@ -24,6 +25,7 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 			BackgroundColor3={new Color3(1, 1, 1)}
 			BackgroundTransparency={0.95}
 			Size={new UDim2(0.975, 0, 0, 25)}
+			ZIndex={props.ZIndex}
 			LayoutOrder={props.LayoutOrder}
 		>
 			<uicorner CornerRadius={new UDim(0, 7)} />
@@ -35,6 +37,7 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 					values(Functionalities.functionalities).find((functionality) => functionality.Name === value) ??
 					props.Functionality
 				}
+				ZIndex={11}
 				Default={props.Functionality as Functionalities.FunctionalitiesValues}
 				OnChange={(value) => props.UpdateFunctionality(props.Functionality.GUID, value)}
 			/>
