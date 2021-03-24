@@ -1,33 +1,54 @@
 import { Players } from "@rbxts/services";
-import { PermissionRanks } from "shared/permissionsUtility";
+import { PermissionRanks, getUserRank, getRank } from "shared/permissionsUtility";
 import WorldManager from "server/WorldManager";
-import { updateWorldInfo } from "shared/worldSettingsReducer";
+import { updateWorldPermission } from "shared/worldSettingsReducer";
+import { constructMessage, errorMsg } from "./messageUtility";
 
-export interface Arg<T = defined> {
+export const PREFIX = "!"
+
+export interface Arg {
 	name: string,
-	description: string,
-	validate: (value: string) => T | undefined;
+	description: string
 }
 
 export interface Command {
 	name: string,
 	args: Arg[],
-	execute: (...args: unknown[]) => void
+	execute(caller: Player, ...args: string[]): string | undefined
 }
 
 export const commands = {
 	perm: identity<Command>({
 		name: "Perm",
 		args: [
-			{ name: "Player", description: "The player you want to change the permission of.", validate: (value) => {
-				return Players.GetPlayers().find(player => !!player.Name.lower().match(`^${value.lower()}`)[0])
-			}},
-			{ name: "Permission Level", description: "The new permission level for the player.", validate: (value) => {
-				return PermissionRanks.find(permission => !!permission.lower().match(`^${value.lower()}`)[0])
-			}}
+			{ name: "Player", description: "The player you want to change the permission of."},
+			{ name: "Permission Level", description: "The new permission level for the player."}
 		],
-		execute: (player, permissionLevel) => {
-			print(player, permissionLevel)
+		execute(caller, playerValue, permissionLevelValue) {
+			const player = Players.GetPlayers().find(player => !!player.Name.lower().match(`^${playerValue.lower()}`)[0])
+			if (!player)
+				return constructMessage(PREFIX, this, `Invalid value passed for Player`, this.args[0], playerValue)
+
+			const stateInfo = WorldManager.store.getState().Info
+			const callerRank = getUserRank(stateInfo, caller.UserId)
+
+			const permissionLevel = PermissionRanks.find(permission => !!permission.lower().match(`^${permissionLevelValue.lower()}`)[0])
+			if (!permissionLevel) {
+				const validPermissionLevels = PermissionRanks.filter((_, index) => callerRank > index)
+				return constructMessage(PREFIX, this,
+					`Invalid value passed for PermissionLevel ${
+						validPermissionLevels.size() !== 0 ? `, valid values include ${validPermissionLevels.join(", ")}` : ""
+					}`,
+					this.args[1], permissionLevelValue)
+			}
+
+			if (callerRank <= getRank(permissionLevel))
+				return errorMsg(`Your permission level is lower than the one you want to assign to ${player.Name}.`)
+			
+			if (callerRank <= getUserRank(stateInfo, player.UserId))
+				return errorMsg(`${player.Name} has a higher permission level.`)
+
+			WorldManager.store.dispatch(updateWorldPermission(player.UserId, permissionLevel))
 		}
 	})
 }

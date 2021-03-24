@@ -1,14 +1,11 @@
-import { Players } from "@rbxts/services";
-
 import { ServerAPI, Message } from "./APITypes"
+import { isValidCommand, commands, PREFIX } from "./commands";
+import { constructMessage } from "./messageUtility";
 
-import { isPermed } from "shared/permissionsUtility";
-import { isValidCommand, commands, Arg, Command } from "./commands";
 
-const PREFIX = "!"
 
 function parseMessage(message: string) {
-	const messageIter = message.gmatch("[%b''%S]+")
+	const messageIter = message.gmatch("%S+")
 	const ordered = []
 	const nonOrdered = new Map<string, string>()
 	for (const [word] of messageIter) {
@@ -26,20 +23,13 @@ function parseMessage(message: string) {
 	}
 }
 
-function constructMessage(command: Command, err: string, arg: Arg, value?: string): string {
-	const message = `${PREFIX}${command.name} ${command.args.map(arg => arg.name).join(" ")}`
 
-	const [modifiedMessage] = value !== undefined ?
-		message.gsub(arg.name, `(255, 0, 0 / __${arg.name}: ${value}__)`)
-		: message.gsub(arg.name, `(255, 0, 0 / __${arg.name}__)`)
-
-	return `(255, 0, 0 / ${err}): ${modifiedMessage}`
-}
 
 function registerProcessCommandsFunction(api: ServerAPI, messageObject: Message): [boolean, string] {
 	const channel = api.channel.getChannel(messageObject.channel)
-
-	if (channel) {
+	const caller = api.speaker.getSpeaker(messageObject.fromSpeaker)?.getPlayer?.()
+	
+	if (channel && caller) {
 		const parsed = parseMessage(messageObject.unfilteredMessage)
 
 		const commandName = parsed.Ordered.shift()?.sub(PREFIX.size() + 1)
@@ -49,24 +39,20 @@ function registerProcessCommandsFunction(api: ServerAPI, messageObject: Message)
 		}
 
 		const command = commands[commandName]
-		const valided: defined[] = []
-		for (const arg of command.args) {
-			const passedValue = parsed.Ordered.shift()
-			if (passedValue !== undefined) {
-				const validated = arg.validate(passedValue)
-				if (validated) {
-					valided.push(validated)
-				} else {
-					const finalMessage = constructMessage(command, `Invalid value passed at ${arg.name}`, arg, passedValue)
-					return [true, finalMessage]
-				}
-			} else {
-				const finalMessage = constructMessage(command, `No value passed for ${arg.name}`, arg)
+		
+		for (const [index, arg] of ipairs(command.args)) {
+			const passedValue = parsed.Ordered[index - 1]
+			if (passedValue === undefined) {
+				const finalMessage = constructMessage(PREFIX, command, `No value passed for ${arg.name}`, arg)
 				return [true, finalMessage]
 			}
 		}
-		command.execute(...valided)
-		return [true, "Ran successfully!"]
+
+		const result = command.execute(caller, ...parsed.Ordered)
+		if (result)
+			return [true, result]
+		else
+			return [true, ""]
 	}
 	return [false, ""]
 }

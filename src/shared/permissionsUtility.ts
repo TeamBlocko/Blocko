@@ -21,6 +21,10 @@ export function getRank(type: PermissionTypes): number {
 	return PermissionRanks.size() - PermissionRanks.findIndex(permission => permission === type)
 }
 
+export function getUserRank(worldInfo: WorldInfo ,userId: number): number {
+	return getRank(getUserPermissions(worldInfo, userId).Type)
+}
+
 export function isUserBanned(worldInfo: WorldInfo, userId: number): boolean {
 	return !worldInfo.Banned.find((id) => id === userId)
 }
