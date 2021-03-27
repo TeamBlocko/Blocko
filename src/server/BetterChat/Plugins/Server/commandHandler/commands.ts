@@ -35,9 +35,11 @@ export const commands = {
 			const permissionLevel = PermissionRanks.find(permission => !!permission.lower().match(`^${permissionLevelValue.lower()}`)[0])
 			if (!permissionLevel) {
 				const validPermissionLevels = PermissionRanks.filter((_, index) => callerRank > index)
+				const lastPermission = validPermissionLevels.pop()
+				const permissions = `${validPermissionLevels.join(", ")}, and ${lastPermission}`
 				return constructMessage(PREFIX, this,
-					`Invalid value passed for PermissionLevel ${
-						validPermissionLevels.size() !== 0 ? `, valid values include ${validPermissionLevels.join(", ")}` : ""
+					`Invalid value passed for PermissionLevel${
+						validPermissionLevels.size() !== 0 ? `, valid values include ${permissions}` : ""
 					}`,
 					this.args[1], permissionLevelValue)
 			}

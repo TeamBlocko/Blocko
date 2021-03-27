@@ -24,6 +24,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -42,7 +45,13 @@ jobs:
         uses: rojo-rbx/setup-foreman@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
+      - name: Setup cargo
+        uses: actions-rs/cargo
+        with:
+          command: install
+          args: remodel --git https://github.com/alihsaas/remodel
+
       - name: Create release
         id: create-release
         uses: actions/create-release@v1

@@ -22,8 +22,8 @@
 	"scripts": {
 		"rojo": "rojo serve",
 		"rojo:packed": "rojo serve packed.project.json",
-		"rojo:build": "rojo build -o dist/WorldTemplate.rbxlx",
-		"rojo:build:packed": "rojo build -o dist/WorldTemplate.Packed.rbxlx packed.project.json",
+		"rojo:build": "rojo build -o dist/WorldTemplate.rbxl",
+		"rojo:build:packed": "rojo build -o dist/WorldTemplate.Packed.rbxl packed.project.json",
 		"remodel": "remodel run add-models.lua",
 		"remodel:packed": "remodel run add-models.lua packed",
 		"compile": "rbxtsc",

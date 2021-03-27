@@ -2,7 +2,7 @@ local args = { ... }
 local isPacked = args[1] == "packed"
 
 local modelsPath = "./assets/models/"
-local worldPath = not isPacked and "./dist/WorldTemplate.rbxlx" or "./dist/WorldTemplate.Packed.rbxlx"
+local worldPath = not isPacked and "./dist/WorldTemplate.rbxl" or "./dist/WorldTemplate.Packed.rbxl"
 
 local game = remodel.readPlaceFile(worldPath)
 

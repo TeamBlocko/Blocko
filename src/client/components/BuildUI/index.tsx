@@ -23,6 +23,8 @@ interface BuildUIPros extends PlacementSettings {
 
 const Shapes = ReplicatedStorage.BlockTypes;
 
+const cellMaterials = Enum.CellMaterial.GetEnumItems()
+
 function BuildUI(props: BuildUIPros) {
 	return (
 		<DragDropProvider>
@@ -63,7 +65,7 @@ function BuildUI(props: BuildUIPros) {
 						Name="Material"
 						Default={props.RawProperties.Material}
 						ZIndex={11}
-						Items={Enum.Material.GetEnumItems()}
+						Items={Enum.Material.GetEnumItems().filter((material) => !!cellMaterials.find(cellMaterial => cellMaterial.Name === material.Name))}
 						OnChange={(newValue: Enum.Material) => props.OnDropdownUpdate("Material", newValue)}
 						GetValue={(value: keyof Omit<typeof Enum.Material, "GetEnumItems">) => Enum.Material[value]}
 						LayoutOrder={3}
