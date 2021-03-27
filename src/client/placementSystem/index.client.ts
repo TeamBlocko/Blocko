@@ -16,6 +16,8 @@ const ALT_PROPERTIES: (keyof RawProperties)[] = ["Material", "CastShadow", "Tran
 
 const ALT_SHIFT_PROPERTIES: (keyof RawProperties)[] = [...ALT_PROPERTIES, "Size"];
 
+const outlineTweenInfo = new TweenInfo(2.5)
+
 const placeOutline = new Instance("SelectionBox");
 placeOutline.Color3 = Color3.fromRGB(60, 164, 255);
 placeOutline.Parent = Workspace;
@@ -33,27 +35,47 @@ const buildHandle = new BuildHandle(gridBase, shapes);
 
 const tweenInfo = new TweenInfo(0.1, Enum.EasingStyle.Quint);
 
+function tweenOutlines(selection: SelectionBox, colors: Color3[]) {
+	coroutine.wrap(() => {
+		while (true) {
+			for (const color of colors) {
+				const tween = TweenService.Create(selection, outlineTweenInfo, { Color3: color })
+				tween.Play()
+				tween.Completed.Wait()
+			}
+		}
+	})()
+}
+
 function updateMode(newMode: BuildMode) {
 	store.dispatch(
 		UpdateBuildMode(newMode),
 	);
 }
 
+tweenOutlines(placeOutline, [Color3.fromRGB(60, 164, 255), Color3.fromRGB(161, 211, 255)])
+tweenOutlines(deleteOutline, [Color3.fromRGB(255, 80, 80), Color3.fromRGB(255, 145, 145)])
+
+let tween : TweenBase | undefined;
+
 RunService.RenderStepped.Connect(() => {
 	const target = gridBase.mouseTarget();
 	switch (store.getState().PlacementSettings.BuildMode) {
 		case "Place":
 			if (target !== undefined) {
-				buildHandle.ghostPart.Parent = Workspace;
-				placeOutline.Adornee = buildHandle.ghostPart;
-				const pos = gridBase.mouseGridPosition();
-				const tween = TweenService.Create(buildHandle.ghostPart, tweenInfo, {
-					Position: pos,
-				});
-				buildHandle.ghostPart.Orientation = gridBase.getSmoothOrientation();
-				tween.Play();
-				tween.Completed.Wait();
-				tween.Destroy();
+				if (tween === undefined) {
+					buildHandle.ghostPart.Parent = Workspace;
+					placeOutline.Adornee = buildHandle.ghostPart;
+					const pos = gridBase.mouseGridPosition();
+					tween = TweenService.Create(buildHandle.ghostPart, tweenInfo, {
+						Position: pos,
+					});
+					buildHandle.ghostPart.Orientation = gridBase.getSmoothOrientation();
+					tween.Play();
+					tween.Completed.Wait();
+					tween.Destroy();
+					tween = undefined;
+				}
 			} else {
 				buildHandle.ghostPart.Parent = undefined;
 				placeOutline.Adornee = undefined;
