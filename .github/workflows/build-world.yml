@@ -50,7 +50,7 @@ jobs:
         uses: actions-rs/cargo
         with:
           command: install
-          args: remodel --git https://github.com/alihsaas/remodel
+          args: remodel --git alihsaas/remodel
 
       - name: Create release
         id: create-release
