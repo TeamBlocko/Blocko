@@ -1,4 +1,4 @@
-import { Workspace, Players, UserInputService } from "@rbxts/services";
+import { Workspace, Players, UserInputService, TweenService } from "@rbxts/services";
 import { ClientFunction } from "@rbxts/net";
 import GridBase from "./GridBase";
 import { UpdateBasePart } from "../rodux/placementSettings";
@@ -10,6 +10,8 @@ const playerGui = client.FindFirstChildOfClass("PlayerGui") as PlayerGui;
 
 const placeBlock = new ClientFunction("PlaceBlock");
 const deleteBlock = new ClientFunction("DeleteBlock");
+
+const SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Bounce)
 
 class BuildHandler {
 	public ghostPart: BasePart;
@@ -86,13 +88,24 @@ class BuildHandler {
 				block.Orientation = orientation;
 
 				for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {
-					block[propertyName] = value as never;
+					let propertyValue = value;
+					if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(propertyValue, "number"))
+						propertyValue /= 10;
+					block[propertyName] = propertyValue as never;
 				}
 
+				block.Size = new Vector3(0, 0, 0)
 				block.Parent = Workspace.Blocks;
 
-				placeBlock.GetInstance().InvokeServer(placePosition, orientation, placementSettings);
+				const tween = TweenService.Create(block, SIZE_TWEEN, { Size: placementSettings.RawProperties.Size })
+				tween.Play()
 
+				const serverBlock: BasePart | undefined = placeBlock.GetInstance().InvokeServer(placePosition, orientation, placementSettings);
+
+				if (tween.PlaybackState !== Enum.PlaybackState.Completed) tween.Completed.Wait()
+				if (serverBlock !== undefined) {
+					serverBlock.Transparency = placementSettings.RawProperties.Transparency / 10	
+				}
 				block.Destroy();
 			}
 		}

@@ -33,7 +33,7 @@ function updateNumOfBlocks() {
 	);
 }
 
-placeBlock.SetRateLimit(100);
+placeBlock.SetRateLimit(1000);
 placeBlock.SetClientCache(0);
 placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 	if (settings.Shape.IsDescendantOf(shapes) && WorldManager.store.getState().Info.Owner === player.UserId) {
@@ -49,10 +49,11 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 			block[propertyName] = propertyValue as never;
 		}
 
+		block.Transparency = 1
 		addPart(block, settings.Functionalities as FunctionalitiesInstances[]);
-
 		block.Parent = Workspace.Blocks;
 		updateNumOfBlocks();
+		return block
 	}
 });
 
