@@ -8,7 +8,7 @@ import { Profile } from "@rbxts/profileservice/globals";
 import { storeInitializer } from "server/store";
 import BlockSerializer from "server/blocksSerializer";
 import { WorldSettingsActionTypes } from "shared/worldSettingsReducer";
-// import MockODS from "./MockODS";
+import MockODS from "./MockODS";
 
 export enum BlockIds {
 	CornerInnerQuadrant = "0",
@@ -124,7 +124,7 @@ const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Templ
 
 const DATASTORE_VERSION = "Betav-12";
 
-const activeODS = DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`);
+const activeODS = game.CreatorId !== 0 ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
 let worldsInfoStore = ProfileService.GetProfileStore(
 	`Worlds${DATASTORE_VERSION}`,
 	worldInfoSerializer.serialize(DEFAULT_WORLD),
