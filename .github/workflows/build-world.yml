@@ -67,25 +67,25 @@ jobs:
       - name: Build Project Unpacked
         run: npm run project:build
 
-      - name: Upload .rbxlx (unpacked)
+      - name: Upload .rbxl (unpacked)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: dist/WorldTemplate.rbxlx
-          asset_name: WorldTemplate.rbxlx
-          asset_content_type: application/xml
+          asset_path: dist/WorldTemplate.rbxl
+          asset_name: WorldTemplate.rbxl
+          asset_content_type: application/octet-stream
 
       - name: Build Project (packed)
         run: npm run project:build:packed
 
-      - name: Upload .rbxlx packed
+      - name: Upload .rbxl packed
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: dist/WorldTemplate.Packed.rbxlx
-          asset_name: WorldTemplate (Packed).rbxlx
-          asset_content_type: application/xml
+          asset_path: dist/WorldTemplate.Packed.rbxl
+          asset_name: WorldTemplate (Packed).rbxl
+          asset_content_type: application/octet-stream
