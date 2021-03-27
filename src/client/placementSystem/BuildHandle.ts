@@ -29,14 +29,15 @@ class BuildHandler {
 	}
 
 	updateGhostPart() {
-		if (this.ghostPart !== undefined) {
+		const placementSettings = store.getState().PlacementSettings
+		if (this.ghostPart !== undefined && this.ghostPart.GetAttribute("PartType") !== placementSettings.Shape.Name) {
 			this.ghostPart.Destroy();
+			this.ghostPart = placementSettings.Shape.Clone();
 		}
 
-		this.ghostPart = store.getState().PlacementSettings.Shape.Clone();
 		this.gridBase.clearBuildCache();
 
-		for (const [propertyName, value] of pairs(store.getState().PlacementSettings.RawProperties)) {
+		for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {
 			let propertyValue = value;
 			if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(propertyValue, "number"))
 				propertyValue /= 10;
@@ -47,6 +48,7 @@ class BuildHandler {
 		const placePosition = this.gridBase.mouseGridPosition();
 		if (placePosition) this.ghostPart.Position = placePosition;
 
+		this.ghostPart.SetAttribute("PartType", placementSettings.Shape.Name)
 		this.ghostPart.CanCollide = false;
 		this.ghostPart.Name = "GhostPart";
 	}

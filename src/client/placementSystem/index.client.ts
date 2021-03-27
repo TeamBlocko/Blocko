@@ -72,9 +72,10 @@ RunService.RenderStepped.Connect(() => {
 					});
 					buildHandle.ghostPart.Orientation = gridBase.getSmoothOrientation();
 					tween.Play();
-					tween.Completed.Wait();
-					tween.Destroy();
-					tween = undefined;
+					tween.Completed.Connect(() => {
+						tween!.Destroy();
+						tween = undefined;	
+					})
 				}
 			} else {
 				buildHandle.ghostPart.Parent = undefined;
