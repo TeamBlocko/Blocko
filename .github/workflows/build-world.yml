@@ -47,10 +47,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup cargo
-        uses: actions-rs/cargo
+        uses: actions-rs/cargo@v1
         with:
           command: install
-          args: remodel --git alihsaas/remodel
+          args: remodel --git https://github.com/alihsaas/remodel
 
       - name: Create release
         id: create-release
