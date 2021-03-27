@@ -1,19 +1,33 @@
 import { UserInputService, RunService } from "@rbxts/services";
-import Roact, { Component, createRef } from "@rbxts/roact";
+import Roact from "@rbxts/roact";
+import { SingleMotor, Spring } from "@rbxts/flipper";
 import TitleText from "client/components/misc/TitleText";
 import GWFrame from "client/components/misc/GWFrame";
 import SliderBar from "./SliderBar";
 import { map, validateText } from "shared/utility";
 
-class Slider extends Component<SliderPropTypes & Partial<PropTypes>, GWStateTypes<number>> {
+class Slider extends Roact.Component<SliderPropTypes & PropTypes, GWStateTypes<number>> {
+	private frameRef: Roact.Ref<Frame>;
 	private maxRef: Roact.Ref<Frame>;
 	private minRef: Roact.Ref<Frame>;
 	private connection: RBXScriptConnection | undefined;
 
-	constructor(props: SliderPropTypes & Partial<PropTypes>) {
+	mouseEnterConnection: RBXScriptConnection | undefined;
+	mouseLeaveConnection: RBXScriptConnection | undefined;
+
+	motor: SingleMotor;
+	binding: Roact.RoactBinding<number>;
+	setBinding: Roact.RoactBindingFunc<number>;
+
+	constructor(props: SliderPropTypes & PropTypes) {
 		super(props);
-		this.maxRef = createRef();
-		this.minRef = createRef();
+		this.frameRef = props.RefValue ?? Roact.createRef();
+		this.maxRef = Roact.createRef();
+		this.minRef = Roact.createRef();
+
+		this.motor = new SingleMotor(1);
+		[this.binding, this.setBinding] = Roact.createBinding(this.motor.getValue())
+		this.motor.onStep(this.setBinding)
 	}
 
 	HandleInput(_: TextButton, input: InputObject) {
@@ -49,13 +63,14 @@ class Slider extends Component<SliderPropTypes & Partial<PropTypes>, GWStateType
 		return (
 			<GWFrame
 				SizeOffsetY={this.props.SizeYOffset ?? 70}
-				RefValue={this.props.RefValue}
+				RefValue={this.frameRef}
 				BackgroundTransparency={this.props.BackgroundTransparency}
 				LayoutOrder={this.props.LayoutOrder}
 			>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} />
 				<SliderBar
+					Binding={this.binding}
 					Min={{ Value: this.props.Min, Ref: this.minRef }}
 					Max={{ Value: this.props.Max, Ref: this.maxRef }}
 					Value={this.props.Default}
@@ -65,6 +80,24 @@ class Slider extends Component<SliderPropTypes & Partial<PropTypes>, GWStateType
 				{this.props[Roact.Children]}
 			</GWFrame>
 		);
+	}
+
+	setUpConnections() {
+		const frame = this.frameRef?.getValue()
+		if (frame === undefined) return
+
+		this.mouseEnterConnection?.Disconnect()
+		this.mouseLeaveConnection?.Disconnect()
+		this.mouseEnterConnection = frame.MouseEnter.Connect(() => this.motor.setGoal(new Spring(0)))
+		this.mouseLeaveConnection = frame.MouseLeave.Connect(() => this.motor.setGoal(new Spring(1)))
+	}
+
+	didMount() {
+		this.setUpConnections()
+	}
+
+	didUpdate() {
+		this.setUpConnections()
 	}
 }
 

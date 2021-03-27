@@ -1,4 +1,4 @@
-import Roact from "@rbxts/roact";
+import Roact, { RoactBinding } from "@rbxts/roact";
 import BarPoints from "./BarPoints";
 import SliderInput from "./SliderInput";
 import { map } from "shared/utility";
@@ -12,6 +12,7 @@ interface SliderBar {
 	Min: MinMax;
 	Max: MinMax;
 	Value: number;
+	Binding: RoactBinding<number>;
 	HandleInput: (element: TextButton, InputObject: InputObject) => void;
 	OnTextChange: (text: TextBox) => void;
 }
@@ -47,6 +48,7 @@ function SliderBar(props: SliderBar) {
 			>
 				<uicorner />
 				<SliderInput
+					Binding={props.Binding}
 					Value={props.Value}
 					OnTextChange={(text) => props.OnTextChange(text)}
 					Range={{ Min: props.Min.Value, Max: props.Max.Value }}
