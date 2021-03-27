@@ -36,16 +36,6 @@ function NavFrameButton(props: NavFrameButtonPropTypes) {
 			}}
 		>
 			<screengui Key={props.Text} />
-			<textlabel
-				BackgroundTransparency={1}
-				Size={UDim2.fromOffset(185, 25)}
-				Font={Enum.Font.Gotham}
-				Text={props.Text}
-				TextColor3={props.Color}
-				TextSize={18}
-				TextTransparency={binding.map((value) => value)}
-				TextXAlignment={Enum.TextXAlignment.Left}
-			/>
 			<imagelabel
 				BackgroundTransparency={1}
 				Position={UDim2.fromScale(-0.4, 0.6)}
@@ -54,6 +44,16 @@ function NavFrameButton(props: NavFrameButtonPropTypes) {
 				ImageColor3={props.Color}
 				ImageTransparency={binding.map((value) => value)}
 				ScaleType={Enum.ScaleType.Fit}
+			/>
+			<textlabel
+				BackgroundTransparency={1}
+				Size={UDim2.fromOffset(185, 25)}
+				Font={Enum.Font.Gotham}
+				Text={props.Text}
+				TextColor3={props.Color}
+				TextSize={18}
+				TextTransparency={binding.map((value) => value)}
+				TextXAlignment={Enum.TextXAlignment.Right}
 			/>
 			<uilistlayout
 				FillDirection={Enum.FillDirection.Horizontal}
