@@ -57,32 +57,44 @@ tweenOutlines(placeOutline, [Color3.fromRGB(60, 164, 255), Color3.fromRGB(161, 2
 tweenOutlines(deleteOutline, [Color3.fromRGB(255, 80, 80), Color3.fromRGB(255, 145, 145)])
 
 let tween : TweenBase | undefined;
+let previousPosition: Vector3 | undefined;
 
 RunService.RenderStepped.Connect(() => {
 	const target = gridBase.mouseTarget();
 	switch (store.getState().PlacementSettings.BuildMode) {
 		case "Place":
 			if (target !== undefined) {
+				buildHandle.ghostPart.Parent = Workspace;
+				placeOutline.Adornee = buildHandle.ghostPart;
+				buildHandle.ghostPart.Orientation = gridBase.getSmoothOrientation();
+
 				if (tween === undefined) {
-					buildHandle.ghostPart.Parent = Workspace;
-					placeOutline.Adornee = buildHandle.ghostPart;
 					const pos = gridBase.mouseGridPosition();
-					tween = TweenService.Create(buildHandle.ghostPart, tweenInfo, {
-						Position: pos,
-					});
-					buildHandle.ghostPart.Orientation = gridBase.getSmoothOrientation();
-					tween.Play();
-					tween.Completed.Connect(() => {
-						tween!.Destroy();
-						tween = undefined;	
-					})
+					if (pos !== undefined) {
+						if (previousPosition !== undefined) {
+							tween = TweenService.Create(buildHandle.ghostPart, tweenInfo, {
+								Position: pos,
+							});
+							tween.Play();
+							tween.Completed.Connect(() => {
+								tween!.Destroy();
+								tween = undefined;	
+							})
+							previousPosition = pos
+						} else {
+							buildHandle.ghostPart.Position = pos
+							previousPosition = pos
+						}
+					}
 				}
 			} else {
+				previousPosition = undefined
 				buildHandle.ghostPart.Parent = undefined;
 				placeOutline.Adornee = undefined;
 			}
 			break;
 		case "Delete":
+			previousPosition = undefined
 			placeOutline.Adornee = undefined;
 			buildHandle.ghostPart.Parent = undefined;
 
