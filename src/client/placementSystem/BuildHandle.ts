@@ -89,6 +89,13 @@ class BuildHandler {
 				block.Position = placePosition;
 				block.Orientation = orientation;
 
+				const hitboxPart = new Instance("Part")
+				hitboxPart.Size = placementSettings.RawProperties.Size
+				hitboxPart.Transparency = 1
+				hitboxPart.Position = placePosition
+				hitboxPart.CanCollide = false
+				hitboxPart.Parent = Workspace.Blocks
+
 				for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {
 					let propertyValue = value;
 					if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(propertyValue, "number"))
@@ -108,6 +115,7 @@ class BuildHandler {
 				if (serverBlock !== undefined) {
 					serverBlock.Transparency = placementSettings.RawProperties.Transparency / 10	
 				}
+				hitboxPart.Destroy()
 				block.Destroy();
 			}
 		}
