@@ -23,7 +23,18 @@ interface BuildUIPros extends PlacementSettings {
 
 const Shapes = ReplicatedStorage.BlockTypes;
 
-const cellMaterials = Enum.CellMaterial.GetEnumItems()
+const ignoreMaterials: Enum.Material[] = [
+    Enum.Material.Air, Enum.Material.Water,
+    Enum.Material.Rock, Enum.Material.Asphalt,
+    Enum.Material.Snow, Enum.Material.Glacier,
+    Enum.Material.Sandstone, Enum.Material.Mud,
+    Enum.Material.Basalt, Enum.Material.Ground,
+    Enum.Material.CrackedLava, Enum.Material.Salt,
+    Enum.Material.LeafyGrass, Enum.Material.Limestone,
+    Enum.Material.Pavement,
+]
+
+const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMaterials.includes(material))
 
 function BuildUI(props: BuildUIPros) {
 	return (
@@ -65,7 +76,7 @@ function BuildUI(props: BuildUIPros) {
 						Name="Material"
 						Default={props.RawProperties.Material}
 						ZIndex={11}
-						Items={Enum.Material.GetEnumItems().filter((material) => !!cellMaterials.find(cellMaterial => cellMaterial.Name === material.Name))}
+						Items={materials}
 						OnChange={(newValue: Enum.Material) => props.OnDropdownUpdate("Material", newValue)}
 						GetValue={(value: keyof Omit<typeof Enum.Material, "GetEnumItems">) => Enum.Material[value]}
 						LayoutOrder={3}
