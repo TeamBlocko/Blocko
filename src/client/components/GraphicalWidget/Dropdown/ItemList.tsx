@@ -35,7 +35,7 @@ function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 			BorderSizePixel={0}
 			Position={new UDim2(1, 0, 1, 5)}
-			Size={props.Binding.map((value) => UDim2.fromOffset(135, 0).Lerp(UDim2.fromOffset(135, 150), value))}
+			Size={props.Binding.map((value) => UDim2.fromOffset(135, 150 * value))}
 			ZIndex={10}
 		>
 			<uicorner CornerRadius={new UDim(0, 5)} />
@@ -50,6 +50,7 @@ function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 				ScrollingDirection={Enum.ScrollingDirection.Y}
 				CanvasSize={UDim2.fromOffset(125, 18 * props.Items.size())}
 				ScrollBarImageColor3={Color3.fromRGB(31, 31, 31)}
+				ScrollBarImageTransparency={props.Binding.map((value) => -value)}
 				ScrollBarThickness={5}
 				VerticalScrollBarInset={Enum.ScrollBarInset.ScrollBar}
 			>
