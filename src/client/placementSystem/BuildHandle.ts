@@ -94,6 +94,7 @@ class BuildHandler {
 				hitboxPart.Transparency = 1
 				hitboxPart.Position = placePosition
 				hitboxPart.CanCollide = false
+				hitboxPart.Anchored = true
 				hitboxPart.Parent = Workspace.Blocks
 
 				for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {

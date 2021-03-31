@@ -193,11 +193,11 @@ class GridBase {
 		const pos = edge.add(size.div(2).mul(normal).mul(sign)).sub(size.div(2).mul(opposite));
 
 		const firstAxis = validFound[0];
-		for (let column = 0; column <= math.max(0, targetSize[firstAxis] - size[firstAxis]) / 2; column++) {
+		for (let column = 0; column <= math.abs(targetSize[firstAxis] - size[firstAxis]) / 2; column++) {
 			const secondAxis = validFound[1];
 			const firstAxisSize = Vector3.FromAxis(Enum.Axis[firstAxis]).mul(size).mul(column);
 
-			for (let row = 0; row <= (targetSize[secondAxis] - size[secondAxis]) / 2; row++) {
+			for (let row = 0; row <= math.abs(targetSize[secondAxis] - size[secondAxis]) / 2; row++) {
 				const secondAxisSize = Vector3.FromAxis(Enum.Axis[secondAxis]).mul(size).mul(row);
 				const position = pos.sub(firstAxisSize).sub(secondAxisSize);
 				const finalPosition = target.CFrame.Inverse().mul(new CFrame(position));
