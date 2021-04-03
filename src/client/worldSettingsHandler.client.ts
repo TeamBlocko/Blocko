@@ -1,12 +1,12 @@
 import store from "./store";
-import { ClientEvent } from "@rbxts/net";
+import { Client } from "@rbxts/net";
 import { AnyAction } from "@rbxts/rodux";
 import * as handlers from "./worldSettingsHandlers";
 import { WorldSettingsActionTypes } from "shared/worldSettingsReducer";
 
-const updateWorldSettingsRemote = new ClientEvent("UpdateWorldSettings");
+const updateWorldSettingsRemote = new Client.Event<[action: WorldSettingsActionTypes & AnyAction]>("UpdateWorldSettings");
 
-updateWorldSettingsRemote.Connect((action: WorldSettingsActionTypes & AnyAction) => store.dispatch(action));
+updateWorldSettingsRemote.Connect((action) => store.dispatch(action));
 
 function updateSettings(state: WorldSettings) {
 	for (const [propertyName, value] of pairs(state)) {

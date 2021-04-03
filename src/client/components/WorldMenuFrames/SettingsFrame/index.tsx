@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { ClientFunction } from "@rbxts/net";
+import { Client } from "@rbxts/net";
 import { entries } from "@rbxts/object-utils";
 import { shallowEqual } from "shared/utility";
 import { ActionRecievedUpdateWorldSettings, updateWorldSettings, } from "shared/worldSettingsReducer";
@@ -15,10 +15,10 @@ import Lighting from "./Lighting";
 import Sound from "./Sound";
 import Characters from "./Characters";
 
-const updateWorldSettingsRemote = new ClientFunction("UpdateWorldSettings");
+const updateWorldSettingsRemote = new Client.Function<[ActionRecievedUpdateWorldSettings]>("UpdateWorldSettings");
 
 const updateServer = (action: ActionRecievedUpdateWorldSettings) => {
-	return updateWorldSettingsRemote.GetInstance().InvokeServer(action);
+	return updateWorldSettingsRemote.CallServer(action);
 };
 
 function parseSettings(settings: WorldSettings) {

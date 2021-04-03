@@ -1,7 +1,5 @@
 import { ReplicatedStorage, Workspace } from "@rbxts/services";
-import { ServerFunction } from "@rbxts/net";
-import { $terrify } from "rbxts-transformer-t";
-import { t } from "@rbxts/t";
+import { Server } from "@rbxts/net";
 import { updateWorldInfo } from "shared/worldSettingsReducer";
 import WorldManager from "../WorldManager";
 import { addPart } from "./FunctionalitiesHandler";
@@ -21,11 +19,9 @@ declare interface PlacementSettings {
 	Functionalities: FunctionalityInstance[];
 }
 
-const placementSettings = $terrify<PlacementSettings>();
-
 const shapes = ReplicatedStorage.BlockTypes;
-const placeBlock = new ServerFunction("PlaceBlock", t.Vector3, t.Vector3, placementSettings);
-const deleteBlock = new ServerFunction("DeleteBlock", t.instanceIsA("BasePart"));
+const placeBlock = new Server.Function<[placePosition: Vector3, orientation: Vector3, settings: PlacementSettings]>("PlaceBlock");
+const deleteBlock = new Server.Function<[target: BasePart]>("DeleteBlock");
 
 function updateNumOfBlocks() {
 	WorldManager.store.dispatch(
@@ -33,8 +29,6 @@ function updateNumOfBlocks() {
 	);
 }
 
-placeBlock.SetRateLimit(1000);
-placeBlock.SetClientCache(0);
 placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 	if (settings.Shape.IsDescendantOf(shapes) && WorldManager.store.getState().Info.Owner === player.UserId) {
 		const block = settings.Shape.Clone();

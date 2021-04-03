@@ -1,4 +1,4 @@
-import { ClientEvent } from "@rbxts/net";
+import { Client } from "@rbxts/net";
 import { t } from "@rbxts/t";
 import { $terrify } from "rbxts-transformer-t";
 import notificationStore from "./notificationStore";
@@ -10,8 +10,8 @@ function handleNotification(notification: RemoteNotification) {
 
 const remoteNotification = $terrify<RemoteNotification>();
 
-ClientEvent.WaitFor("NotificationManager").andThen((remote) =>
-	remote.Connect((data: RemoteNotification | RemoteNotification[]) => {
+Client.Event.Wait<[data: RemoteNotification | RemoteNotification[]]>("NotificationManager").andThen((remote) =>
+	remote.Connect((data) => {
 		if (remoteNotification(data)) {
 			handleNotification(data);
 		} else if (t.array(remoteNotification)(data)) {

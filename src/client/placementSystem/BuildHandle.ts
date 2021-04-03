@@ -1,15 +1,16 @@
 import { Workspace, Players, UserInputService, TweenService } from "@rbxts/services";
-import { ClientFunction } from "@rbxts/net";
+import { Client } from "@rbxts/net";
 import GridBase from "./GridBase";
 import { UpdateBasePart } from "../rodux/placementSettings";
 import store from "../store";
 import { previousInTable, nextInTable } from "shared/utility";
+import { PlacementSettings } from "shared/Types";
 
 const client = Players.LocalPlayer;
 const playerGui = client.FindFirstChildOfClass("PlayerGui") as PlayerGui;
 
-const placeBlock = new ClientFunction("PlaceBlock");
-const deleteBlock = new ClientFunction("DeleteBlock");
+const placeBlock = new Client.Function<[Vector3, Vector3, PlacementSettings]>("PlaceBlock");
+const deleteBlock = new Client.Function<[BasePart]>("DeleteBlock");
 
 const SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Bounce)
 
@@ -112,7 +113,7 @@ class BuildHandler {
 
 				tween.Completed.Wait()
 
-				placeBlock.GetInstance().InvokeServer(placePosition, orientation, placementSettings);
+				placeBlock.CallServer(placePosition, orientation, placementSettings);
 
 				hitboxPart.Destroy()
 				block.Destroy();
@@ -129,7 +130,7 @@ class BuildHandler {
 
 			target.Destroy();
 
-			deleteBlock.GetInstance().InvokeServer(target);
+			deleteBlock.CallServer(target);
 		}
 	}
 }

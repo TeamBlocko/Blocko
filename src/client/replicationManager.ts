@@ -1,5 +1,5 @@
-import { ClientFunction } from "@rbxts/net";
+import { Client } from "@rbxts/net";
 
-const retriveWorldSettingsRemote = new ClientFunction<World>("Replication");
+const retriveWorldSettingsRemote = new Client.Function<[], World>("Replication");
 
 export const retriveWorldSettings = () => retriveWorldSettingsRemote.CallServer();

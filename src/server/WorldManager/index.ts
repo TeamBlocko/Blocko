@@ -1,7 +1,7 @@
 import { Workspace, DataStoreService, ReplicatedStorage, RunService, Players } from "@rbxts/services";
 import { Store } from "@rbxts/rodux";
 import { ser } from "@rbxts/ser";
-import { ServerEvent } from "@rbxts/net";
+import { Server } from "@rbxts/net";
 import ProfileService from "@rbxts/profileservice";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { Profile } from "@rbxts/profileservice/globals";
@@ -32,7 +32,7 @@ export enum BlockIds {
 
 const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTypes);
 
-const notificationHandler = new ServerEvent("NotificationManager");
+const notificationHandler = new Server.Event<[], [RemoteNotification]>("NotificationManager");
 
 const PermissionInfo = ser.interface("PermissionInfo", {
 	UserId: ser.number,

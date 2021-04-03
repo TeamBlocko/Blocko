@@ -1,7 +1,6 @@
 import { Players } from "@rbxts/services";
-import { ServerFunction } from "@rbxts/net";
+import { Server } from "@rbxts/net";
 import SyncedPoller from "@rbxts/synced-poller";
-import { $terrify } from "rbxts-transformer-t";
 import { updateWorldInfo, UpdateWorldSettingDataType, WorldSettingsActionTypes } from "shared/worldSettingsReducer";
 import * as handlers from "./worldSettingsHandlers";
 
@@ -12,8 +11,8 @@ declare interface UpdateWorldSettings {
 	readonly replicated?: boolean;
 }
 
-const retriveWorldSettingsRemote = new ServerFunction("Replication");
-const updateWorldSettingsRemote = new ServerFunction("UpdateWorldSettings", $terrify<UpdateWorldSettings>());
+const retriveWorldSettingsRemote = new Server.Function("Replication");
+const updateWorldSettingsRemote = new Server.Function<[action: UpdateWorldSettings]>("UpdateWorldSettings");
 
 import WorldManager from "./WorldManager";
 

@@ -1,9 +1,9 @@
-import { ServerEvent } from "@rbxts/net";
+import { Server } from "@rbxts/net";
 import { Players } from "@rbxts/services";
 import { deepCopy, assign } from "@rbxts/object-utils";
 import { WorldSettingsActionTypes } from "shared/worldSettingsReducer";
 
-const worldSettingsRemote = new ServerEvent("UpdateWorldSettings");
+const worldSettingsRemote = new Server.Event("UpdateWorldSettings");
 
 export function replicate(action: WorldSettingsActionTypes, beforeState: World, afterState: World) {
 	const replicatedAction = assign(deepCopy(action), {
