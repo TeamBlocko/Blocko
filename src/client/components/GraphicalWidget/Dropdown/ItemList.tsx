@@ -50,7 +50,7 @@ function ItemList<T extends Item>(props: ItemListPropTypes<T>) {
 				ScrollingDirection={Enum.ScrollingDirection.Y}
 				CanvasSize={UDim2.fromOffset(125, 18 * props.Items.size())}
 				ScrollBarImageColor3={Color3.fromRGB(31, 31, 31)}
-				ScrollBarImageTransparency={props.Binding.map((value) => -value)}
+				ScrollBarImageTransparency={props.Binding.map((value) => 1 - value)}
 				ScrollBarThickness={5}
 				VerticalScrollBarInset={Enum.ScrollBarInset.ScrollBar}
 			>
