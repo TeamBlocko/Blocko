@@ -110,12 +110,10 @@ class BuildHandler {
 				const tween = TweenService.Create(block, SIZE_TWEEN, { Size: placementSettings.RawProperties.Size })
 				tween.Play()
 
-				const serverBlock: BasePart | undefined = placeBlock.GetInstance().InvokeServer(placePosition, orientation, placementSettings);
+				tween.Completed.Wait()
 
-				if (tween.PlaybackState !== Enum.PlaybackState.Completed) tween.Completed.Wait()
-				if (serverBlock !== undefined) {
-					serverBlock.Transparency = placementSettings.RawProperties.Transparency / 10	
-				}
+				placeBlock.GetInstance().InvokeServer(placePosition, orientation, placementSettings);
+
 				hitboxPart.Destroy()
 				block.Destroy();
 			}
@@ -125,7 +123,12 @@ class BuildHandler {
 	deleteBlock() {
 		const target = this.gridBase.mouseTarget();
 		if (target !== undefined) {
+			const tween = TweenService.Create(target, SIZE_TWEEN, { Size: new Vector3(0, 0, 0) })
+			tween.Play()
+			tween.Completed.Wait()
+
 			target.Destroy();
+
 			deleteBlock.GetInstance().InvokeServer(target);
 		}
 	}

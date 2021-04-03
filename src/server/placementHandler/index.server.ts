@@ -49,7 +49,6 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 			block[propertyName] = propertyValue as never;
 		}
 
-		block.Transparency = 1
 		addPart(block, settings.Functionalities as FunctionalitiesInstances[]);
 		block.Parent = Workspace.Blocks;
 		updateNumOfBlocks();
