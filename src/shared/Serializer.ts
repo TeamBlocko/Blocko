@@ -27,28 +27,28 @@ class Serializer {
 		}
 	}
 
-	protected deserialize(value: string, type: "string"): string;
-	protected deserialize(value: string, type: "number"): number;
-	protected deserialize(value: string, type: "EnumItem"): EnumItem;
-	protected deserialize(value: string, type: "Color3"): Color3;
-	protected deserialize(value: string, type: "Vector3"): Vector3;
-	protected deserialize(value: string, type: unknown): unknown;
+	protected deserialize(value: string, valueType: "string"): string;
+	protected deserialize(value: string, valueType: "number"): number;
+	protected deserialize(value: string, valueType: "EnumItem"): EnumItem;
+	protected deserialize(value: string, valueType: "Color3"): Color3;
+	protected deserialize(value: string, valueType: "Vector3"): Vector3;
+	protected deserialize(value: string, valueType: unknown): unknown;
 
-	protected deserialize(value: string, type: unknown): unknown {
-		if (type === "string") {
+	protected deserialize(value: string, valueType: unknown): unknown {
+		if (valueType === "string") {
 			return value;
-		} else if (type === "number") {
+		} else if (valueType === "number") {
 			return tonumber(value);
-		} else if (type === "boolean") {
+		} else if (valueType === "boolean") {
 			return value === "1" ? true : false;
-		} else if (type === "EnumItem") {
+		} else if (valueType === "EnumItem") {
 			return value;
-		} else if (type === "Color3") {
+		} else if (valueType === "Color3") {
 			return hexToColor3(value);
-		} else if (type === "Vector3") {
+		} else if (valueType === "Vector3") {
 			return new Vector3(...value.split(",").map((value) => tonumber(value) as number));
 		} else {
-			warn(`No implmented deserializer for value of type ${type}`);
+			warn(`No implmented deserializer for value of type ${valueType}`);
 			return value;
 		}
 	}

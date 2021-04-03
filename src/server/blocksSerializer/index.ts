@@ -83,10 +83,10 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 			const id = this.getNameById(partId);
 			const block = this.shapes[id].Clone();
 
-			for (const [propertyName, type] of this.allowedProperties) {
+			for (const [propertyName, propertyType] of this.allowedProperties) {
 				const value = propertiesInfo.shift();
 				assert(value);
-				const propertyValue = this.deserialize(value, type);
+				const propertyValue = this.deserialize(value, propertyType);
 				block[propertyName] = propertyValue as never;
 			}
 

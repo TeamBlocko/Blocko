@@ -83,10 +83,10 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 		this.props.OnChange(color);
 	}
 
-	onTextChange(type: RGB, value: number): void {
+	onTextChange(colorComponent: RGB, value: number): void {
 		const rgb = { R: this.props.Default.R, G: this.props.Default.G, B: this.props.Default.B };
 
-		rgb[type] = value / 255;
+		rgb[colorComponent] = value / 255;
 
 		this.onColorChange(new Color3(rgb.R, rgb.G, rgb.B), true);
 	}
