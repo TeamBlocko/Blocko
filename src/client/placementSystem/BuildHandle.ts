@@ -12,7 +12,8 @@ const playerGui = client.FindFirstChildOfClass("PlayerGui") as PlayerGui;
 const placeBlock = new Client.Function<[Vector3, Vector3, PlacementSettings]>("PlaceBlock");
 const deleteBlock = new Client.Function<[BasePart]>("DeleteBlock");
 
-const SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Bounce)
+const PLACE_SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Bounce)
+const DELETE_SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Quint)
 
 class BuildHandler {
 	public ghostPart: BasePart;
@@ -108,7 +109,7 @@ class BuildHandler {
 				block.Size = new Vector3(0, 0, 0)
 				block.Parent = Workspace.Blocks;
 
-				const tween = TweenService.Create(block, SIZE_TWEEN, { Size: placementSettings.RawProperties.Size })
+				const tween = TweenService.Create(block, PLACE_SIZE_TWEEN, { Size: placementSettings.RawProperties.Size })
 				tween.Play()
 
 				tween.Completed.Wait()
@@ -124,7 +125,9 @@ class BuildHandler {
 	deleteBlock() {
 		const target = this.gridBase.mouseTarget();
 		if (target !== undefined) {
-			const tween = TweenService.Create(target, SIZE_TWEEN, { Size: new Vector3(0, 0, 0) })
+			target.Parent = Workspace
+
+			const tween = TweenService.Create(target, DELETE_SIZE_TWEEN, { Size: new Vector3(0, 0, 0) })
 			tween.Play()
 			tween.Completed.Wait()
 
