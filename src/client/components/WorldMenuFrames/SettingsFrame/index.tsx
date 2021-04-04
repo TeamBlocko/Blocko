@@ -98,15 +98,17 @@ function SettingsFrame(props: WorldMenuFrames) {
 				<uilistlayout
 					HorizontalAlignment={Enum.HorizontalAlignment.Center}
 					Padding={new UDim(0, 30)}
-					Ref={(e) =>
-						e.AncestryChanged.Connect(() => {
-							const parent = e.Parent as ScrollingFrame;
-							const contentSize = e.AbsoluteContentSize;
-							parent.CanvasSize = UDim2.fromOffset(
-								0,
-								contentSize.Y + 30 * (parent.GetChildren().size() - 1),
-							);
-						})
+					Ref={(e) => {
+							if (!e) return;
+							e.AncestryChanged.Connect(() => {
+								const parent = e.Parent as ScrollingFrame;
+								const contentSize = e.AbsoluteContentSize;
+								parent.CanvasSize = UDim2.fromOffset(
+									0,
+									contentSize.Y + 30 * (parent.GetChildren().size() - 1),
+								);
+							})
+						}
 					}
 				/>
 			</scrollingframe>
