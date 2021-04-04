@@ -120,7 +120,6 @@ export class NotificationContainer extends Component<
 					/>
 				);
 
-			print(!notification.HasBeenRemoved ? length : 0);
 			currentPosition +=
 				(!notification.HasBeenRemoved ? length : 0) +
 				(this.state.notifications.size() - 1 === index || notification.HasBeenRemoved ? 0 : 10);
