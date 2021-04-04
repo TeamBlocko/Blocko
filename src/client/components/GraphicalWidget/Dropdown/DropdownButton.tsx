@@ -1,10 +1,10 @@
 import { SingleMotor, Spring } from "@rbxts/flipper";
 import Roact, { Component, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
 import ItemList from "./ItemList";
+import { appContext } from "client/appContext";
 
-interface DropdownStateTypes<T> extends GWStateTypes<T> {
-	Expanded: boolean;
-}
+interface DropdownStateTypes<T> extends GWStateTypes<T> {}
+
 /*
 interface DropdownButton<T> extends ItemListPropTypes<T> {
 	DisplayText: string;
@@ -41,7 +41,6 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 	): DropdownStateTypes<T> => {
 		if (nextProps.Default !== currState.Value) {
 			return {
-				Expanded: currState.Expanded,
 				Value: nextProps.Default,
 			};
 		} else {
@@ -57,8 +56,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 		this.motor.onStep(this.setBinding);
 
 		this.setState({
-			Value: props.Default,
-			Expanded: false,
+			Value: props.Default
 		});
 	}
 
@@ -72,59 +70,65 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 
 	render() {
 		return (
-			<textbutton
-				AnchorPoint={new Vector2(1, 0)}
-				BackgroundColor3={Color3.fromRGB(60, 60, 60)}
-				Position={this.props.Position ?? new UDim2(0.98, 0, 0, this.props.Name.size() < 10 ? 3 : 25)}
-				Size={UDim2.fromOffset(135, 18)}
-				Font={Enum.Font.GothamBold}
-				AutoButtonColor={false}
-				Text={`  ${this.props.Default.Name}`}
-				TextColor3={Color3.fromRGB(217, 217, 217)}
-				TextSize={12}
-				TextXAlignment={Enum.TextXAlignment.Left}
-				ZIndex={this.props.ZIndex}
-				Event={{
-					Activated: () => {
-						this.motor.setGoal(new Spring(!this.state.Expanded ? 0 : 1));
-						this.setState((oldState) => {
-							return {
-								...oldState,
-								Expanded: !oldState.Expanded,
-							};
-						});
-					},
-				}}
-			>
-				<imagelabel
-					AnchorPoint={new Vector2(0.5, 0.5)}
-					BackgroundTransparency={1}
-					Position={UDim2.fromScale(0.925, 0.5)}
-					Size={UDim2.fromOffset(18, 18)}
-					ZIndex={2}
-					Rotation={this.binding.map((value) => value * 90)}
-					ImageColor3={this.binding.map((value) =>
-						Color3.fromRGB(163, 162, 165).Lerp(Color3.fromRGB(66, 126, 193), value),
-					)}
-					Image="rbxassetid://3926305904"
-					ImageRectOffset={new Vector2(924, 884)}
-					ImageRectSize={new Vector2(36, 36)}
-					ScaleType={Enum.ScaleType.Fit}
-				/>
-				<ItemList
-					Binding={this.binding}
-					Items={this.props.Items}
-					OnSelected={(e) => {
-						const newValue = this.props.GetValue(e.Name as V);
-						this.props.OnChange(newValue);
-						this.setState((oldState) => ({
-							...oldState,
-							Value: newValue,
-						}));
-					}}
-				/>
-				<uicorner CornerRadius={new UDim(0, 5)} />
-			</textbutton>
+			<appContext.Consumer render={
+				(value) => {
+					const isSelected = value.OpenDropdown === this.props.Name
+					this.motor.setGoal(new Spring(!isSelected ? 0 : 1));
+					return (
+						<textbutton
+							AnchorPoint={new Vector2(1, 0)}
+							BackgroundColor3={Color3.fromRGB(60, 60, 60)}
+							Position={this.props.Position ?? new UDim2(0.98, 0, 0, this.props.Name.size() < 10 ? 3 : 25)}
+							Size={UDim2.fromOffset(135, 18)}
+							Font={Enum.Font.GothamBold}
+							AutoButtonColor={false}
+							Text={`  ${this.props.Default.Name}`}
+							TextColor3={Color3.fromRGB(217, 217, 217)}
+							TextSize={12}
+							TextXAlignment={Enum.TextXAlignment.Left}
+							ZIndex={this.props.ZIndex}
+							Event={{
+								Activated: () => {
+									if (isSelected) {
+										value.changeDropdown(Roact.None)
+									} else {
+										value.changeDropdown(this.props.Name)
+									}
+								},
+							}}
+						>
+							<imagelabel
+								AnchorPoint={new Vector2(0.5, 0.5)}
+								BackgroundTransparency={1}
+								Position={UDim2.fromScale(0.925, 0.5)}
+								Size={UDim2.fromOffset(18, 18)}
+								ZIndex={2}
+								Rotation={this.binding.map((value) => value * 90)}
+								ImageColor3={this.binding.map((value) =>
+									Color3.fromRGB(163, 162, 165).Lerp(Color3.fromRGB(66, 126, 193), value),
+								)}
+								Image="rbxassetid://3926305904"
+								ImageRectOffset={new Vector2(924, 884)}
+								ImageRectSize={new Vector2(36, 36)}
+								ScaleType={Enum.ScaleType.Fit}
+							/>
+							<ItemList
+								Binding={this.binding}
+								Items={this.props.Items}
+								OnSelected={(e) => {
+									const newValue = this.props.GetValue(e.Name as V);
+									this.props.OnChange(newValue);
+									value.changeDropdown(Roact.None)
+									this.setState({
+										Value: newValue,
+									});
+								}}
+							/>
+							<uicorner CornerRadius={new UDim(0, 5)} />
+						</textbutton>
+					)
+				}
+			} />
 		);
 	}
 }
