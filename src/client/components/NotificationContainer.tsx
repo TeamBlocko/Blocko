@@ -78,7 +78,7 @@ export class NotificationContainer extends Component<
 
 		const notifications = this.state.notifications.map((notification, index) => {
 			const textSize = TextService.GetTextSize(
-				notification.Message ?? "",
+				notification.Message ? notification.Message.gsub("<.->", "")[0] : "",
 				18,
 				Enum.Font.GothamSemibold,
 				new Vector2(),
@@ -89,8 +89,6 @@ export class NotificationContainer extends Component<
 
 			const length = 50 + math.floor(computedFrameSize / maxWidth);
 
-			let element: Roact.Element;
-
 			if (notification.Time !== undefined && !this.timeContainer.get(notification.Id)) {
 				this.timeContainer.set(notification.Id, true);
 				delay(notification.Time, () => {
@@ -99,8 +97,8 @@ export class NotificationContainer extends Component<
 				});
 			}
 
-			if (!notification.isApplyPrompt)
-				element = (
+			const element = !notification.isApplyPrompt ?
+				(
 					<Notification
 						{...notification}
 						Position={new UDim2(0.5, 0, 0, currentPosition)}
@@ -108,9 +106,9 @@ export class NotificationContainer extends Component<
 						MaxWidth={camera.ViewportSize.X * 0.8}
 						toggleRemoval={(id) => this.toggleRemoval(id)}
 					/>
-				);
-			else
-				element = (
+				)
+			:
+				(
 					<ApplyPrompt
 						{...notification}
 						Position={new UDim2(0.5, 0, 0, currentPosition)}
