@@ -37,7 +37,7 @@ function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 							Text="Permissions"
 							Color={Color3.fromRGB(235, 235, 236)}
 							Icon="rbxassetid://5627731849"
-							OnClick={(e) => props.OnClick(e)}	
+							OnClick={(e) => props.OnClick(e)}
 						/>
 					</>
 				) : undefined}

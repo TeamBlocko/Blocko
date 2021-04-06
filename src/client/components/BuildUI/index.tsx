@@ -25,24 +25,31 @@ interface BuildUIProps extends PlacementSettings {
 const Shapes = ReplicatedStorage.BlockTypes;
 
 const ignoreMaterials: Enum.Material[] = [
-    Enum.Material.Air, Enum.Material.Water,
-    Enum.Material.Rock, Enum.Material.Asphalt,
-    Enum.Material.Snow, Enum.Material.Glacier,
-    Enum.Material.Sandstone, Enum.Material.Mud,
-    Enum.Material.Basalt, Enum.Material.Ground,
-    Enum.Material.CrackedLava, Enum.Material.Salt,
-    Enum.Material.LeafyGrass, Enum.Material.Limestone,
-    Enum.Material.Pavement,
-]
+	Enum.Material.Air,
+	Enum.Material.Water,
+	Enum.Material.Rock,
+	Enum.Material.Asphalt,
+	Enum.Material.Snow,
+	Enum.Material.Glacier,
+	Enum.Material.Sandstone,
+	Enum.Material.Mud,
+	Enum.Material.Basalt,
+	Enum.Material.Ground,
+	Enum.Material.CrackedLava,
+	Enum.Material.Salt,
+	Enum.Material.LeafyGrass,
+	Enum.Material.Limestone,
+	Enum.Material.Pavement,
+];
 
-const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMaterials.includes(material))
+const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMaterials.includes(material));
 
 class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 	changeDropdown(newDropdown?: string) {
-		this.setState(oldState => ({
+		this.setState((oldState) => ({
 			...oldState,
-			OpenDropdown: newDropdown
-		}))
+			OpenDropdown: newDropdown,
+		}));
 	}
 
 	constructor(props: BuildUIProps) {
@@ -53,9 +60,10 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 
 	render() {
 		return (
-			<appContext.Provider value={{
+			<appContext.Provider
+				value={{
 					OpenDropdown: this.state.OpenDropdown,
-					changeDropdown: (newDropdown) => this.changeDropdown(newDropdown)
+					changeDropdown: (newDropdown) => this.changeDropdown(newDropdown),
 				}}
 			>
 				<DragDropProvider>
@@ -97,8 +105,12 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 								Default={this.props.RawProperties.Material}
 								ZIndex={11}
 								Items={materials}
-								OnChange={(newValue: Enum.Material) => this.props.OnDropdownUpdate("Material", newValue)}
-								GetValue={(value: keyof Omit<typeof Enum.Material, "GetEnumItems">) => Enum.Material[value]}
+								OnChange={(newValue: Enum.Material) =>
+									this.props.OnDropdownUpdate("Material", newValue)
+								}
+								GetValue={(value: keyof Omit<typeof Enum.Material, "GetEnumItems">) =>
+									Enum.Material[value]
+								}
 								LayoutOrder={3}
 							/>
 							<ColorDisplay
@@ -136,7 +148,11 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 							<AddFunction LayoutOrder={8} />
 							<frame BackgroundTransparency={1} Size={UDim2.fromScale(1, 0)} LayoutOrder={9}>
 								{this.props.Functionalities.map((functionality, index) => (
-									<FunctionalityTemplate Functionality={functionality} LayoutOrder={index} ZIndex={this.props.Functionalities.size() - index} />
+									<FunctionalityTemplate
+										Functionality={functionality}
+										LayoutOrder={index}
+										ZIndex={this.props.Functionalities.size() - index}
+									/>
 								))}
 								<uilistlayout
 									HorizontalAlignment={Enum.HorizontalAlignment.Center}
@@ -186,9 +202,7 @@ export default connect(
 					]),
 				);
 			} else if (propertyName === "Shape" && typeIs(value, "Instance") && value.IsA("BasePart")) {
-				dispatch(
-					UpdateBasePart(value),
-				);
+				dispatch(UpdateBasePart(value));
 			}
 		},
 		OnCheckBoxUpdate(propertyName: "CastShadow", value: boolean) {

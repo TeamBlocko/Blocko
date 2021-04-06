@@ -37,7 +37,7 @@ export const DEFAULT_WORLD_INFO: WorldInfo = {
 	ActivePlayers: Players.GetPlayers().size(),
 	PlaceVisits: 0,
 	NumberOfBlocks: ReplicatedStorage.Template.GetChildren().size(),
-}
+};
 
 export const DEFAULT_WORLD: World = {
 	Info: DEFAULT_WORLD_INFO,

@@ -106,9 +106,7 @@ export default connect(
 					]),
 				);
 			} else if (propertyName === "Shape" && typeIs(value, "Instance") && value.IsA("BasePart")) {
-				dispatch(
-					UpdateBasePart(value),
-				);
+				dispatch(UpdateBasePart(value));
 			}
 		},
 		OnCheckBoxUpdate(propertyName: "CastShadow", value: boolean) {

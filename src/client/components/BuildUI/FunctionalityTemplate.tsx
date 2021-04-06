@@ -14,7 +14,11 @@ interface FunctionTemplatePropTypes extends PlacementSettings {
 	LayoutOrder?: number;
 	ZIndex?: number;
 	UpdateFunctionality(guid: string, value: Functionalities.FunctionalitiesValues): void;
-	UpdateFunctionalityProperty(guid: string, property: Functionalities.FunctionalitiesPropertiesNames, value: number): void;
+	UpdateFunctionalityProperty(
+		guid: string,
+		property: Functionalities.FunctionalitiesPropertiesNames,
+		value: number,
+	): void;
 	RemoveFunctionality(guid: string): void;
 }
 
@@ -52,7 +56,11 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 									Default={property.Current}
 									BackgroundTransparency={1}
 									OnChange={(value) => {
-										props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
+										props.UpdateFunctionalityProperty(
+											props.Functionality.GUID,
+											property.Name,
+											value,
+										);
 									}}
 								/>
 							);
@@ -78,18 +86,17 @@ export default connect(
 		UpdateFunctionality(guid: string, value: Functionalities.FunctionalitiesValues) {
 			const newFunctionality = Functionalities.createFunctionality(value, { GUID: guid });
 
-			dispatch(
-				updateFunctionality(
-					guid,
-					newFunctionality as Functionalities.FunctionalitiesInstances,
-				),
-			);
+			dispatch(updateFunctionality(guid, newFunctionality as Functionalities.FunctionalitiesInstances));
 		},
-		UpdateFunctionalityProperty(guid: string, property: Functionalities.FunctionalitiesPropertiesNames, value: number) {
+		UpdateFunctionalityProperty(
+			guid: string,
+			property: Functionalities.FunctionalitiesPropertiesNames,
+			value: number,
+		) {
 			dispatch(updateFunctionalityProperty(guid, property, value));
 		},
 		RemoveFunctionality(guid: string) {
-			dispatch(removeFunctionality(guid))
-		}
+			dispatch(removeFunctionality(guid));
+		},
 	}),
 )(FunctionTemplate);

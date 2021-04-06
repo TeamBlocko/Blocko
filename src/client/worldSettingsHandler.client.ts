@@ -4,7 +4,9 @@ import { AnyAction } from "@rbxts/rodux";
 import * as handlers from "./worldSettingsHandlers";
 import { WorldSettingsActionTypes } from "shared/worldSettingsReducer";
 
-const updateWorldSettingsRemote = new Client.Event<[action: WorldSettingsActionTypes & AnyAction]>("UpdateWorldSettings");
+const updateWorldSettingsRemote = new Client.Event<[action: WorldSettingsActionTypes & AnyAction]>(
+	"UpdateWorldSettings",
+);
 
 updateWorldSettingsRemote.Connect((action) => store.dispatch(action));
 

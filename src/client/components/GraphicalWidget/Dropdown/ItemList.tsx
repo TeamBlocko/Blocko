@@ -30,7 +30,6 @@ export interface ItemListPropTypes<T> {
 }
 
 class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
-	
 	itemsListRef: Roact.Ref<ScrollingFrame>;
 	connection: RBXScriptConnection | undefined;
 
@@ -39,7 +38,7 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 
 		this.itemsListRef = createRef();
 
-		props.Items.sort((a, b) => a.Name < b.Name)
+		props.Items.sort((a, b) => a.Name < b.Name);
 	}
 
 	render() {
@@ -79,18 +78,20 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 	}
 
 	didMount() {
-		const scrollingFrame = this.itemsListRef.getValue()
+		const scrollingFrame = this.itemsListRef.getValue();
 		if (!scrollingFrame) return;
 
 		if (this.connection) this.connection.Disconnect();
 		this.connection = UserInputService.InputBegan.Connect((inputObject, gameProcessed) => {
-			if (gameProcessed) return
+			if (gameProcessed) return;
 			if (inputObject.UserInputType === Enum.UserInputType.Keyboard && inputObject.KeyCode.Name.size() === 0) {
-				const objectIndex = this.props.Items.findIndex((item) => item.Name.sub(1, 1) === inputObject.KeyCode.Name)
+				const objectIndex = this.props.Items.findIndex(
+					(item) => item.Name.sub(1, 1) === inputObject.KeyCode.Name,
+				);
 				if (objectIndex === -1) return;
-				scrollingFrame.CanvasPosition = new Vector2(0, 18 * (objectIndex))
+				scrollingFrame.CanvasPosition = new Vector2(0, 18 * objectIndex);
 			}
-		})
+		});
 	}
 }
 

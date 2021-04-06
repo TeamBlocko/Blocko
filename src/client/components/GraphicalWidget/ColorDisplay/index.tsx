@@ -11,7 +11,7 @@ import { getPosOnAxis } from "shared/utility";
 
 const currentCamera = Workspace.CurrentCamera;
 
-interface Action<A = any> {
+interface Action<A> {
 	type: A;
 }
 
@@ -42,7 +42,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 					this.setColorPickerPos();
 					break;
 			}
-		}) as unknown) as (action: Action) => void;
+		}) as unknown) as (action: Action<string>) => void;
 	}
 
 	setColorPickerPos() {
@@ -113,7 +113,11 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 							this.selfRef = n.Parent as Frame;
 						}}
 					/>
-					<TitleText Text={this.props.Name} Position={UDim2.fromScale(0, 0.5)} AnchorPoint={new Vector2(0, 0.5)} />
+					<TitleText
+						Text={this.props.Name}
+						Position={UDim2.fromScale(0, 0.5)}
+						AnchorPoint={new Vector2(0, 0.5)}
+					/>
 					<PickButton
 						Value={this.props.Default}
 						HandleClick={(inputButton: TextButton) => this.HandleClick(inputButton)}

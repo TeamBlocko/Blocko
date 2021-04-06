@@ -12,8 +12,8 @@ const playerGui = client.FindFirstChildOfClass("PlayerGui") as PlayerGui;
 const placeBlock = new Client.Function<[Vector3, Vector3, PlacementSettings]>("PlaceBlock");
 const deleteBlock = new Client.Function<[BasePart]>("DeleteBlock");
 
-const PLACE_SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Bounce)
-const DELETE_SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Quint)
+const PLACE_SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Bounce);
+const DELETE_SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Quint);
 
 class BuildHandler {
 	public ghostPart: BasePart;
@@ -31,7 +31,7 @@ class BuildHandler {
 	}
 
 	updateGhostPart() {
-		const placementSettings = store.getState().PlacementSettings
+		const placementSettings = store.getState().PlacementSettings;
 		if (this.ghostPart !== undefined && this.ghostPart.GetAttribute("PartType") !== placementSettings.Shape.Name) {
 			this.ghostPart.Destroy();
 			this.ghostPart = placementSettings.Shape.Clone();
@@ -50,7 +50,7 @@ class BuildHandler {
 		const placePosition = this.gridBase.mouseGridPosition();
 		if (placePosition) this.ghostPart.Position = placePosition;
 
-		this.ghostPart.SetAttribute("PartType", placementSettings.Shape.Name)
+		this.ghostPart.SetAttribute("PartType", placementSettings.Shape.Name);
 		this.ghostPart.CanCollide = false;
 		this.ghostPart.Name = "GhostPart";
 	}
@@ -65,10 +65,8 @@ class BuildHandler {
 
 	previousBlockType() {
 		store.dispatch(
-			UpdateBasePart(previousInTable(
-					this.shapes.GetChildren() as BasePart[],
-					store.getState().PlacementSettings.Shape,
-				),
+			UpdateBasePart(
+				previousInTable(this.shapes.GetChildren() as BasePart[], store.getState().PlacementSettings.Shape),
 			),
 		);
 	}
@@ -91,32 +89,37 @@ class BuildHandler {
 				block.Position = placePosition;
 				block.Orientation = orientation;
 
-				const hitboxPart = new Instance("Part")
-				hitboxPart.Size = placementSettings.RawProperties.Size
-				hitboxPart.Transparency = 1
-				hitboxPart.Position = placePosition
-				hitboxPart.CanCollide = false
-				hitboxPart.Anchored = true
-				hitboxPart.Parent = Workspace.Blocks
+				const hitboxPart = new Instance("Part");
+				hitboxPart.Size = placementSettings.RawProperties.Size;
+				hitboxPart.Transparency = 1;
+				hitboxPart.Position = placePosition;
+				hitboxPart.CanCollide = false;
+				hitboxPart.Anchored = true;
+				hitboxPart.Parent = Workspace.Blocks;
 
 				for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {
 					let propertyValue = value;
-					if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(propertyValue, "number"))
+					if (
+						(propertyName === "Transparency" || propertyName === "Reflectance") &&
+						typeIs(propertyValue, "number")
+					)
 						propertyValue /= 10;
 					block[propertyName] = propertyValue as never;
 				}
 
-				block.Size = new Vector3(0, 0, 0)
+				block.Size = new Vector3(0, 0, 0);
 				block.Parent = Workspace.Blocks;
 
-				const tween = TweenService.Create(block, PLACE_SIZE_TWEEN, { Size: placementSettings.RawProperties.Size })
-				tween.Play()
+				const tween = TweenService.Create(block, PLACE_SIZE_TWEEN, {
+					Size: placementSettings.RawProperties.Size,
+				});
+				tween.Play();
 
-				tween.Completed.Wait()
+				tween.Completed.Wait();
 
 				placeBlock.CallServer(placePosition, orientation, placementSettings);
 
-				hitboxPart.Destroy()
+				hitboxPart.Destroy();
 				block.Destroy();
 			}
 		}
@@ -125,11 +128,11 @@ class BuildHandler {
 	deleteBlock() {
 		const target = this.gridBase.mouseTarget();
 		if (target !== undefined) {
-			target.Parent = Workspace
+			target.Parent = Workspace;
 
-			const tween = TweenService.Create(target, DELETE_SIZE_TWEEN, { Size: new Vector3(0, 0, 0) })
-			tween.Play()
-			tween.Completed.Wait()
+			const tween = TweenService.Create(target, DELETE_SIZE_TWEEN, { Size: new Vector3(0, 0, 0) });
+			tween.Play();
+			tween.Completed.Wait();
 
 			target.Destroy();
 

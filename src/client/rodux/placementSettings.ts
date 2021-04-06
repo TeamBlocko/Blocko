@@ -20,7 +20,7 @@ export type PlacementSettingsActions =
 	| ActionRecievedUpdateFunctionality
 	| ActionRecievedUpdateFunctionalityProperty
 	| UpdateBasePart
-	| UpdateBuildMode
+	| UpdateBuildMode;
 
 //UPDATE PROPERTY
 type ValueOfRawProperties = ValueOf<RawProperties>;
@@ -79,96 +79,100 @@ export function updateFunctionalityProperty(
 }
 
 export interface ActionRecievedAddFunctionality extends Action<ActionTypes.ADD_FUNCTIONALITY> {
-	functionality: Functionalities.FunctionalitiesInstances
+	functionality: Functionalities.FunctionalitiesInstances;
 }
 
-export function addFunctionality(functionality: Functionalities.FunctionalitiesInstances): ActionRecievedAddFunctionality & AnyAction {
+export function addFunctionality(
+	functionality: Functionalities.FunctionalitiesInstances,
+): ActionRecievedAddFunctionality & AnyAction {
 	return {
 		type: ActionTypes.ADD_FUNCTIONALITY,
-		functionality
-	}
+		functionality,
+	};
 }
 
 export interface ActionRecievedRemoveFunctionality extends Action<ActionTypes.REMOVE_FUNCTIONALITY> {
-	guid: string
+	guid: string;
 }
 
 export function removeFunctionality(guid: string): ActionRecievedRemoveFunctionality & AnyAction {
 	return {
 		type: ActionTypes.REMOVE_FUNCTIONALITY,
-		guid
-	}
+		guid,
+	};
 }
 
 //----
 
 interface UpdateBasePart extends Action<ActionTypes.UPDATE_BASE_PART> {
-	value: BasePart
+	value: BasePart;
 }
 
 export function UpdateBasePart(value: BasePart): UpdateBasePart & AnyAction {
 	return {
 		type: ActionTypes.UPDATE_BASE_PART,
-		value
-	}
+		value,
+	};
 }
 
 interface UpdateBuildMode extends Action<ActionTypes.UPDATE_BUILD_MODE> {
-	value: BuildMode
+	value: BuildMode;
 }
 
 export function UpdateBuildMode(value: BuildMode): UpdateBuildMode & AnyAction {
 	return {
 		type: ActionTypes.UPDATE_BUILD_MODE,
-		value
-	}
+		value,
+	};
 }
 
-type FunctionalitiesActions = ActionRecievedUpdateFunctionality | ActionRecievedUpdateFunctionalityProperty | ActionRecievedAddFunctionality | ActionRecievedRemoveFunctionality
+type FunctionalitiesActions =
+	| ActionRecievedUpdateFunctionality
+	| ActionRecievedUpdateFunctionalityProperty
+	| ActionRecievedAddFunctionality
+	| ActionRecievedRemoveFunctionality;
 
 export const placementSettingsReducer = combineReducers<PlacementSettings>({
 	Shape: createReducer<BasePart, UpdateBasePart>(intialPlacementSettings.Shape, {
-		[ActionTypes.UPDATE_BASE_PART]: (_, action) => action.value
+		[ActionTypes.UPDATE_BASE_PART]: (_, action) => action.value,
 	}),
 	BuildMode: createReducer<BuildMode, UpdateBuildMode>(intialPlacementSettings.BuildMode, {
-		[ActionTypes.UPDATE_BUILD_MODE]: (_, action) => action.value
+		[ActionTypes.UPDATE_BUILD_MODE]: (_, action) => action.value,
 	}),
 	Functionalities: createReducer<Functionalities.FunctionalitiesInstances[], FunctionalitiesActions>([], {
 		[ActionTypes.UPDATE_FUNCTIONALITY]: (state, action) =>
-			state.map((functionality) => functionality.GUID === action.guid ? action.value : functionality),
+			state.map((functionality) => (functionality.GUID === action.guid ? action.value : functionality)),
 		[ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY]: (state, action) =>
 			state.map((functionality) => {
 				if (functionality.GUID === action.guid)
-					assign(
-						(functionality.Properties as Functionalities.IntersectionProperties)[action.property], {
-							Current: action.value
-						}
-					)
-				return functionality
+					assign((functionality.Properties as Functionalities.IntersectionProperties)[action.property], {
+						Current: action.value,
+					});
+				return functionality;
 			}),
 		[ActionTypes.ADD_FUNCTIONALITY]: (state, action) => {
-			const newState = shallowCopy(state)
+			const newState = shallowCopy(state);
 
-			newState.push(action.functionality)
+			newState.push(action.functionality);
 
-			return newState
+			return newState;
 		},
 		[ActionTypes.REMOVE_FUNCTIONALITY]: (state, action) => {
-			const newState = shallowCopy(state)
+			const newState = shallowCopy(state);
 
-			const functionalityIndex = newState.findIndex(functionality => functionality.GUID === action.guid)
-			newState.unorderedRemove(functionalityIndex)
+			const functionalityIndex = newState.findIndex((functionality) => functionality.GUID === action.guid);
+			newState.unorderedRemove(functionalityIndex);
 
-			return newState
-		}
+			return newState;
+		},
 	}),
 	RawProperties: createReducer<RawProperties, ActionRecievedUpdateProperty>(intialPlacementSettings.RawProperties, {
 		[ActionTypes.UPDATE_PROPERTY]: (state, action) => {
-			const newState = shallowCopy(state)
+			const newState = shallowCopy(state);
 
 			for (const data of action.data) newState[data.propertyName] = data.value as never;
 
 			return newState;
-		}
-	})
-})
+		},
+	}),
+});

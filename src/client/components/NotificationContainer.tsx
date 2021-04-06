@@ -78,7 +78,7 @@ export class NotificationContainer extends Component<
 
 		const notifications = this.state.notifications.map((notification, index) => {
 			const textSize = TextService.GetTextSize(
-				notification.Message ? notification.Message.gsub("<.->", "")[0] : "",
+				notification.Message !== undefined ? notification.Message.gsub("<.->", "")[0] : "",
 				18,
 				Enum.Font.GothamSemibold,
 				new Vector2(),
@@ -97,26 +97,23 @@ export class NotificationContainer extends Component<
 				});
 			}
 
-			const element = !notification.isApplyPrompt ?
-				(
-					<Notification
-						{...notification}
-						Position={new UDim2(0.5, 0, 0, currentPosition)}
-						FrameSize={computedFrameSize}
-						MaxWidth={camera.ViewportSize.X * 0.8}
-						toggleRemoval={(id) => this.toggleRemoval(id)}
-					/>
-				)
-			:
-				(
-					<ApplyPrompt
-						{...notification}
-						Position={new UDim2(0.5, 0, 0, currentPosition)}
-						FrameSize={computedFrameSize}
-						MaxWidth={camera.ViewportSize.X * 0.8}
-						toggleRemoval={(id) => this.toggleRemoval(id)}
-					/>
-				);
+			const element = !notification.isApplyPrompt ? (
+				<Notification
+					{...notification}
+					Position={new UDim2(0.5, 0, 0, currentPosition)}
+					FrameSize={computedFrameSize}
+					MaxWidth={camera.ViewportSize.X * 0.8}
+					toggleRemoval={(id) => this.toggleRemoval(id)}
+				/>
+			) : (
+				<ApplyPrompt
+					{...notification}
+					Position={new UDim2(0.5, 0, 0, currentPosition)}
+					FrameSize={computedFrameSize}
+					MaxWidth={camera.ViewportSize.X * 0.8}
+					toggleRemoval={(id) => this.toggleRemoval(id)}
+				/>
+			);
 
 			currentPosition +=
 				(!notification.HasBeenRemoved ? length : 0) +

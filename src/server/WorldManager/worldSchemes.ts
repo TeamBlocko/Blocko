@@ -2,10 +2,10 @@ import { ser } from "@rbxts/ser";
 
 export const permissionInfoScheme = {
 	UserId: ser.number,
-	Type: ser.string as ser.SerializerStructure<PermissionTypes>
-}
+	Type: ser.string as ser.SerializerStructure<PermissionTypes>,
+};
 
-const PermissionInfo = ser.interface("PermissionInfo", permissionInfoScheme)
+const PermissionInfo = ser.interface("PermissionInfo", permissionInfoScheme);
 
 export const worldInfoScheme = {
 	WorldId: ser.number,
@@ -17,7 +17,7 @@ export const worldInfoScheme = {
 	ActivePlayers: ser.number,
 	PlaceVisits: ser.number,
 	NumberOfBlocks: ser.number,
-}
+};
 
 export const worldSettingsScheme = {
 	Name: ser.string,
@@ -41,4 +41,4 @@ export const worldSettingsScheme = {
 	DefaultJumpPower: ser.number,
 	MinCameraZoom: ser.number,
 	MaxCameraZoom: ser.number,
-}
+};

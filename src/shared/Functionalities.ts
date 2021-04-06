@@ -53,7 +53,7 @@ export type FunctionalitiesValues = ValueOf<Functionalities>;
 export type FunctionalitiesProperties = FunctionalitiesValues["Properties"];
 export type IntersectionProperties = UnionToIntersection<FunctionalitiesProperties>;
 
-export type FunctionalitiesPropertiesNames = keyof IntersectionProperties
+export type FunctionalitiesPropertiesNames = keyof IntersectionProperties;
 export type FunctionalitiesPropertiesValues = ValueOf<IntersectionProperties>;
 
 export type FunctionalitiesInstances = {
@@ -63,14 +63,14 @@ export type FunctionalitiesInstances = {
 						[P in keyof UnionToIntersection<Functionalities[K][S]>]: UnionToIntersection<
 							Functionalities[K][S]
 						>[P] & {
-							// @ts-ignore
+							// @ts-expect-error I don't know why TS errors here
 							Current: UnionToIntersection<Functionalities[K][S]>[P]["Default"] extends number
 								? number
 								: never;
 						};
 				  }
-				// @ts-ignore
-				: Functionalities[K][S];
+				: // @ts-expect-error I don't know why TS errors here
+				  Functionalities[K][S];
 		};
 }[keyof Functionalities];
 

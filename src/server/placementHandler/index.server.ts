@@ -4,23 +4,12 @@ import { updateWorldInfo } from "shared/worldSettingsReducer";
 import WorldManager from "../WorldManager";
 import { addPart } from "./FunctionalitiesHandler";
 import { FunctionalitiesInstances } from "shared/Functionalities";
-
-interface FunctionalityInstance {
-	Name: string;
-	Multiple: boolean;
-	Properties: { [Key: string]: any };
-	GUID: string;
-}
-
-declare interface PlacementSettings {
-	Shape: BasePart;
-	BuildMode: BuildMode;
-	RawProperties: RawProperties;
-	Functionalities: FunctionalityInstance[];
-}
+import { PlacementSettings } from "shared/Types";
 
 const shapes = ReplicatedStorage.BlockTypes;
-const placeBlock = new Server.Function<[placePosition: Vector3, orientation: Vector3, settings: PlacementSettings]>("PlaceBlock");
+const placeBlock = new Server.Function<[placePosition: Vector3, orientation: Vector3, settings: PlacementSettings]>(
+	"PlaceBlock",
+);
 const deleteBlock = new Server.Function<[target: BasePart]>("DeleteBlock");
 
 function updateNumOfBlocks() {
@@ -46,7 +35,7 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 		addPart(block, settings.Functionalities as FunctionalitiesInstances[]);
 		block.Parent = Workspace.Blocks;
 		updateNumOfBlocks();
-		return block
+		return block;
 	}
 });
 

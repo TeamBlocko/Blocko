@@ -121,10 +121,7 @@ class WorldMenu extends Component {
 						RefValue={this.worldSettingsFrameRef}
 						OnClick={(e) => this.onNavFrameButtonClick(e)}
 					/>
-					<Permissions
-						RefValue={this.permissionsFrameRef}
-						OnClick={(e) => this.onNavFrameButtonClick(e)}
-					/>
+					<Permissions RefValue={this.permissionsFrameRef} OnClick={(e) => this.onNavFrameButtonClick(e)} />
 				</scrollingframe>
 				<imagelabel
 					AnchorPoint={new Vector2(0, 0.5)}

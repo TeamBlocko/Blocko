@@ -56,9 +56,7 @@ export default connect(
 	(dispatch) => ({
 		addFunctionality(this: AddFunctionProps) {
 			const newFunctionality = createFunctionality(getAvliableFunctionalities()[0]);
-			dispatch(
-				addFunctionality(newFunctionality)
-			);
+			dispatch(addFunctionality(newFunctionality));
 		},
 	}),
 )(AddFunction);

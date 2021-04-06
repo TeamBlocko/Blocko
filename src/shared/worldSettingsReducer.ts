@@ -4,10 +4,13 @@ import { assign, copy as shallowCopy } from "@rbxts/object-utils";
 export enum WorldSettingsActions {
 	UPDATE_SETTINGS = "UPDATE_WORLD_SETTINGS",
 	UPDATE_WORLD_INFO = "UPDATE_WORLD_INFO",
-	UPDATE_PERMISSION = "UPDATE_PERMISSION"
+	UPDATE_PERMISSION = "UPDATE_PERMISSION",
 }
 
-export type WorldSettingsActionTypes = ActionRecievedUpdateWorldSettings | ActionRecievedUpdateWorldInfo | ActionRecievedUpdatePermission;
+export type WorldSettingsActionTypes =
+	| ActionRecievedUpdateWorldSettings
+	| ActionRecievedUpdateWorldInfo
+	| ActionRecievedUpdatePermission;
 
 interface Replicate<T> extends Rodux.Action<T> {
 	readonly replicateBroadcast?: boolean;
@@ -36,18 +39,21 @@ export function updateWorldSettings(data: UpdateWorldSettingDataType[]): ActionR
 
 //-- PERMISSIONS
 
-interface ActionRecievedUpdatePermission extends Replicate<WorldSettingsActions.UPDATE_PERMISSION>  {
-	userId: number,
-	permissionLevel: PermissionTypes
+interface ActionRecievedUpdatePermission extends Replicate<WorldSettingsActions.UPDATE_PERMISSION> {
+	userId: number;
+	permissionLevel: PermissionTypes;
 }
 
-export function updateWorldPermission(userId: number, permissionLevel: PermissionTypes): ActionRecievedUpdatePermission & AnyAction {
+export function updateWorldPermission(
+	userId: number,
+	permissionLevel: PermissionTypes,
+): ActionRecievedUpdatePermission & AnyAction {
 	return {
 		type: WorldSettingsActions.UPDATE_PERMISSION,
 		userId,
 		permissionLevel,
 		replicateBroadcast: true,
-	}
+	};
 }
 
 // WORLD INFO
@@ -69,35 +75,37 @@ export function updateWorldInfo(data: UpdateWorldInfoDataType[]): ActionRecieved
 	};
 }
 
-type InfoActions = ActionRecievedUpdateWorldInfo | ActionRecievedUpdatePermission
+type InfoActions = ActionRecievedUpdateWorldInfo | ActionRecievedUpdatePermission;
 
 export const worldSettingsReducerInitlizer = (intialWorldSettings: World) =>
 	combineReducers<World>({
 		Info: createReducer<WorldInfo, InfoActions>(intialWorldSettings.Info, {
 			[WorldSettingsActions.UPDATE_WORLD_INFO]: (state, action) => {
-				const newState = shallowCopy(state)
+				const newState = shallowCopy(state);
 
-				for (const data of action.data) newState[data.propertyName] = data.value as never
+				for (const data of action.data) newState[data.propertyName] = data.value as never;
 
-				return newState
+				return newState;
 			},
 			[WorldSettingsActions.UPDATE_PERMISSION]: (state, action) => {
-				const newState = shallowCopy(state)
+				const newState = shallowCopy(state);
 
 				newState.Permissions = newState.Permissions.map((permission) =>
-					permission.UserId === action.userId ? assign(permission, { Type: action.permissionLevel }) : permission
-				)
+					permission.UserId === action.userId
+						? assign(permission, { Type: action.permissionLevel })
+						: permission,
+				);
 
-				return newState
-			}
+				return newState;
+			},
 		}),
 		Settings: createReducer<WorldSettings, ActionRecievedUpdateWorldSettings>(intialWorldSettings.Settings, {
 			[WorldSettingsActions.UPDATE_SETTINGS]: (state, action) => {
-				const newState = shallowCopy(state)
+				const newState = shallowCopy(state);
 
-				for (const data of action.data) newState[data.propertyName] = data.value as never
+				for (const data of action.data) newState[data.propertyName] = data.value as never;
 
-				return newState
-			}
+				return newState;
+			},
 		}),
-	})
+	});

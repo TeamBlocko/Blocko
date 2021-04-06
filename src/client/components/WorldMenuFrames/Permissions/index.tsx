@@ -22,20 +22,17 @@ function Permissions(props: WorldMenuFrames) {
 				ScrollBarThickness={3}
 				VerticalScrollBarInset={Enum.ScrollBarInset.ScrollBar}
 			>
-				{
-					Players.GetPlayers().map((player, index) => (
-						<PlayerFrame UserId={player.UserId} LayoutOrder={index} />
-					))
-				}
+				{Players.GetPlayers().map((player, index) => (
+					<PlayerFrame UserId={player.UserId} LayoutOrder={index} />
+				))}
 				<uilistlayout
 					HorizontalAlignment={Enum.HorizontalAlignment.Center}
 					SortOrder={Enum.SortOrder.LayoutOrder}
 					Padding={new UDim(0, 5)}
 				/>
-
 			</scrollingframe>
 		</Container>
-	)
+	);
 }
 
-export default connect((state: IState) => state.World.Info)(Permissions)
+export default connect((state: IState) => state.World.Info)(Permissions);

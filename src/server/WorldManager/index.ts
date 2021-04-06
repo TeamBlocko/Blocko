@@ -2,7 +2,7 @@ import { Workspace, DataStoreService, ReplicatedStorage, Players } from "@rbxts/
 import { Store } from "@rbxts/rodux";
 import { ser } from "@rbxts/ser";
 import { Server } from "@rbxts/net";
-import LazLoader, { DataSyncFile } from "server/LazLoader"
+import LazLoader, { DataSyncFile } from "server/LazLoader";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { storeInitializer } from "server/store";
 import BlockSerializer from "server/blocksSerializer";
@@ -12,15 +12,15 @@ import { worldInfoScheme, worldSettingsScheme } from "./worldSchemes";
 import { DEFAULT_WORLD } from "./defaultWorld";
 import { copy } from "@rbxts/object-utils";
 
-const dataSync = LazLoader.require("DataSync")
+const dataSync = LazLoader.require("DataSync");
 
-const MAX_WORLD_SIZE = 2_000_000
+const MAX_WORLD_SIZE = 2_000_000;
 
 const SIZE_COLORS = {
 	STAGE_ONE: Color3.fromRGB(43, 255, 43),
 	STAGE_TWO: Color3.fromRGB(239, 255, 62),
 	STAGE_THREE: Color3.fromRGB(255, 44, 44),
-} as const
+} as const;
 
 export enum BlockIds {
 	CornerInnerQuadrant = "0",
@@ -54,30 +54,33 @@ const worldInfoSerializer = ser.interface("World", {
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
 const DATASTORE_VERSION = "Betav-12";
 
-const worldStore = dataSync.GetStore("Worlds", worldInfoSerializer.serialize(DEFAULT_WORLD))
+const worldStore = dataSync.GetStore("Worlds", worldInfoSerializer.serialize(DEFAULT_WORLD));
 const blocksStore = dataSync.GetStore("WorldBlocks", {
-	Blocks: DEFAULT_TEMPLATE
-})
+	Blocks: DEFAULT_TEMPLATE,
+});
 
-const activeODS = game.CreatorId !== 0 ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
+const activeODS =
+	game.CreatorId !== 0 ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
 
 class WorldManager {
-	public worldInfo:  DataSyncFile<ser.Serialized<World>>;
+	public worldInfo: DataSyncFile<ser.Serialized<World>>;
 	public worldBlocks: DataSyncFile<{ Blocks: string }>;
 	public store: Store<World, WorldSettingsActionTypes & Rodux.AnyAction>;
 
 	public isClosing = false;
 
 	constructor(placeId: number) {
-		this.worldInfo = worldStore.GetFile(`World${placeId}`)
-		this.worldBlocks = blocksStore.GetFile(`WorldBlocks${placeId}`)
-		const data = this.worldInfo.GetData()
-		this.store = storeInitializer(worldInfoSerializer.deserialize({ Info: data.Info, Settings: data.Settings }))
-		this.Load()
+		this.worldInfo = worldStore.GetFile(`World${placeId}`);
+		this.worldBlocks = blocksStore.GetFile(`WorldBlocks${placeId}`);
+		const data = this.worldInfo.GetData();
+		this.store = storeInitializer(worldInfoSerializer.deserialize({ Info: data.Info, Settings: data.Settings }));
+		this.Load();
 	}
 
 	Load() {
-		const result = opcall(() => blockSerializer.deserializeBlocks(this.worldBlocks.GetData("Blocks"), Workspace.Blocks));
+		const result = opcall(() =>
+			blockSerializer.deserializeBlocks(this.worldBlocks.GetData("Blocks"), Workspace.Blocks),
+		);
 		if (!result.success) {
 			Workspace.Blocks.ClearAllChildren();
 			blockSerializer.deserializeBlocks(DEFAULT_TEMPLATE, Workspace.Blocks);
@@ -96,29 +99,37 @@ class WorldManager {
 			});
 			const state = this.store.getState();
 			activeODS.SetAsync(`${state.Info.WorldId}`, state.Info.ActivePlayers);
-			
+
 			const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 			this.worldInfo.UpdateData(worldInfoSerializer.serialize(state));
-			this.worldBlocks.UpdateData("Blocks", serialized)
-			this.worldInfo.SaveData()
-			this.worldBlocks.SaveData()
+			this.worldBlocks.UpdateData("Blocks", serialized);
+			this.worldInfo.SaveData();
+			this.worldBlocks.SaveData();
 
-			const worldSize = serialized.size()
-			const percentageClose = worldSize * 100 / MAX_WORLD_SIZE
-			
-			const stagePercentage = percentageClose < 50 ? worldSize * 100 / (MAX_WORLD_SIZE / 2) : (worldSize - MAX_WORLD_SIZE / 2) * 100 / (MAX_WORLD_SIZE / 2)
+			const worldSize = serialized.size();
+			const percentageClose = (worldSize * 100) / MAX_WORLD_SIZE;
 
-			const textColor = percentageClose < 50 ?
-				SIZE_COLORS.STAGE_ONE.Lerp(SIZE_COLORS.STAGE_TWO, stagePercentage / 100)
-				: SIZE_COLORS.STAGE_TWO.Lerp(SIZE_COLORS.STAGE_THREE, stagePercentage / 100)
+			const stagePercentage =
+				percentageClose < 50
+					? (worldSize * 100) / (MAX_WORLD_SIZE / 2)
+					: ((worldSize - MAX_WORLD_SIZE / 2) * 100) / (MAX_WORLD_SIZE / 2);
 
-			const stringTextColor = (["R", "G", "B"] as const).map((colorValue) => math.floor(textColor[colorValue] * 255)).join(", ")
+			const textColor =
+				percentageClose < 50
+					? SIZE_COLORS.STAGE_ONE.Lerp(SIZE_COLORS.STAGE_TWO, stagePercentage / 100)
+					: SIZE_COLORS.STAGE_TWO.Lerp(SIZE_COLORS.STAGE_THREE, stagePercentage / 100);
+
+			const stringTextColor = (["R", "G", "B"] as const)
+				.map((colorValue) => math.floor(textColor[colorValue] * 255))
+				.join(", ");
 
 			notificationHandler.SendToAllPlayers({
 				Type: "Add",
 				Data: {
 					Id: "SaveStatus",
-					Message: `Done Saving. Current world size is at <font color="rgb(${stringTextColor})">${abbreviateBytes(serialized.size())}</font>`,
+					Message: `Done Saving. Current world size is at <font color="rgb(${stringTextColor})">${abbreviateBytes(
+						serialized.size(),
+					)}</font>`,
 					Time: 5,
 				},
 			});
@@ -136,9 +147,9 @@ class WorldManager {
 	ShutDown() {
 		this.isClosing = true;
 		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait();
-		const newInfo = copy(this.worldInfo.GetData())
-		newInfo.Info.Server = undefined
-		this.worldInfo.UpdateData(newInfo)
+		const newInfo = copy(this.worldInfo.GetData());
+		newInfo.Info.Server = undefined;
+		this.worldInfo.UpdateData(newInfo);
 		activeODS.RemoveAsync(newInfo.Info.WorldId);
 	}
 }

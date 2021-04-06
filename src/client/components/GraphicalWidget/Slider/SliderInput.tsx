@@ -1,7 +1,9 @@
 import Roact, { RoactBinding } from "@rbxts/roact";
 import NumberInput from "client/components/misc/NumberInput";
 
-function SliderInput(props: SliderDisplayPropTypes & { OnTextChange: (e: TextBox) => void, Binding: RoactBinding<number> }) {
+function SliderInput(
+	props: SliderDisplayPropTypes & { OnTextChange: (e: TextBox) => void; Binding: RoactBinding<number> },
+) {
 	return (
 		<NumberInput
 			AnchorPoint={new Vector2(0.5, 0.5)}

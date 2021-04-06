@@ -2,7 +2,7 @@ import Roact from "@rbxts/roact";
 import { Client } from "@rbxts/net";
 import { entries } from "@rbxts/object-utils";
 import { shallowEqual } from "shared/utility";
-import { ActionRecievedUpdateWorldSettings, updateWorldSettings, } from "shared/worldSettingsReducer";
+import { ActionRecievedUpdateWorldSettings, updateWorldSettings } from "shared/worldSettingsReducer";
 import { retriveWorldSettings } from "client/replicationManager";
 import store from "client/store";
 import notificationStore from "client/notificationStore";
@@ -99,17 +99,16 @@ function SettingsFrame(props: WorldMenuFrames) {
 					HorizontalAlignment={Enum.HorizontalAlignment.Center}
 					Padding={new UDim(0, 30)}
 					Ref={(e) => {
-							if (!e) return;
-							e.AncestryChanged.Connect(() => {
-								const parent = e.Parent as ScrollingFrame;
-								const contentSize = e.AbsoluteContentSize;
-								parent.CanvasSize = UDim2.fromOffset(
-									0,
-									contentSize.Y + 30 * (parent.GetChildren().size() - 1),
-								);
-							})
-						}
-					}
+						if (!e) return;
+						e.AncestryChanged.Connect(() => {
+							const parent = e.Parent as ScrollingFrame;
+							const contentSize = e.AbsoluteContentSize;
+							parent.CanvasSize = UDim2.fromOffset(
+								0,
+								contentSize.Y + 30 * (parent.GetChildren().size() - 1),
+							);
+						});
+					}}
 				/>
 			</scrollingframe>
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />

@@ -26,8 +26,8 @@ class Slider extends Roact.Component<SliderPropTypes & PropTypes, GWStateTypes<n
 		this.minRef = Roact.createRef();
 
 		this.motor = new SingleMotor(1);
-		[this.binding, this.setBinding] = Roact.createBinding(this.motor.getValue())
-		this.motor.onStep(this.setBinding)
+		[this.binding, this.setBinding] = Roact.createBinding(this.motor.getValue());
+		this.motor.onStep(this.setBinding);
 	}
 
 	HandleInput(_: TextButton, input: InputObject) {
@@ -83,21 +83,21 @@ class Slider extends Roact.Component<SliderPropTypes & PropTypes, GWStateTypes<n
 	}
 
 	setUpConnections() {
-		const frame = this.frameRef?.getValue()
-		if (frame === undefined) return
+		const frame = this.frameRef?.getValue();
+		if (frame === undefined) return;
 
-		this.mouseEnterConnection?.Disconnect()
-		this.mouseLeaveConnection?.Disconnect()
-		this.mouseEnterConnection = frame.MouseEnter.Connect(() => this.motor.setGoal(new Spring(0)))
-		this.mouseLeaveConnection = frame.MouseLeave.Connect(() => this.motor.setGoal(new Spring(1)))
+		this.mouseEnterConnection?.Disconnect();
+		this.mouseLeaveConnection?.Disconnect();
+		this.mouseEnterConnection = frame.MouseEnter.Connect(() => this.motor.setGoal(new Spring(0)));
+		this.mouseLeaveConnection = frame.MouseLeave.Connect(() => this.motor.setGoal(new Spring(1)));
 	}
 
 	didMount() {
-		this.setUpConnections()
+		this.setUpConnections();
 	}
 
 	didUpdate() {
-		this.setUpConnections()
+		this.setUpConnections();
 	}
 }
 

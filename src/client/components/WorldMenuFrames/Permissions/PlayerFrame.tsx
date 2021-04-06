@@ -1,4 +1,4 @@
-import { Players } from "@rbxts/services"
+import { Players } from "@rbxts/services";
 import Roact from "@rbxts/roact";
 import { getUserPermissions } from "shared/permissionsUtility";
 import { IState } from "shared/Types";
@@ -6,7 +6,7 @@ import { connect } from "@rbxts/roact-rodux";
 
 interface PlayerFramePropTypes {
 	UserId: number;
-	LayoutOrder: number
+	LayoutOrder: number;
 }
 
 function PermissionType(props: { Name: PermissionTypes }) {
@@ -22,19 +22,18 @@ function PermissionType(props: { Name: PermissionTypes }) {
 		>
 			<uicorner />
 		</textlabel>
-	)
+	);
 }
 
 class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
-
 	avatarImage: Roact.Ref<ImageLabel>;
 	name: Roact.Ref<TextLabel>;
 
 	constructor(props: PlayerFramePropTypes & World) {
 		super(props);
 
-		this.avatarImage = Roact.createRef()
-		this.name = Roact.createRef()
+		this.avatarImage = Roact.createRef();
+		this.name = Roact.createRef();
 	}
 
 	render() {
@@ -46,7 +45,7 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
 				LayoutOrder={this.props.LayoutOrder}
 				Size={new UDim2(0.95, 0, 0, 55)}
 			>
-				<uicorner/>
+				<uicorner />
 				<imagelabel
 					AnchorPoint={new Vector2(0, 0.5)}
 					BackgroundColor3={Color3.fromRGB(97, 97, 97)}
@@ -76,7 +75,7 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
 					Position={UDim2.fromScale(0.23, 0.86)}
 					Size={UDim2.fromScale(0.725, 0.35)}
 				>
-					<PermissionType Name={getUserPermissions(this.props.Info, this.props.UserId).Type}/>	
+					<PermissionType Name={getUserPermissions(this.props.Info, this.props.UserId).Type} />
 					<uilistlayout
 						FillDirection={Enum.FillDirection.Horizontal}
 						VerticalAlignment={Enum.VerticalAlignment.Center}
@@ -84,19 +83,23 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
 					/>
 				</frame>
 			</frame>
-		)
+		);
 	}
 
 	didMount() {
-		const [thumbnail] = Players.GetUserThumbnailAsync(this.props.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48)
-		const [success, name] = pcall(() => Players.GetNameFromUserIdAsync(this.props.UserId))
+		const [thumbnail] = Players.GetUserThumbnailAsync(
+			this.props.UserId,
+			Enum.ThumbnailType.HeadShot,
+			Enum.ThumbnailSize.Size48x48,
+		);
+		const [success, name] = pcall(() => Players.GetNameFromUserIdAsync(this.props.UserId));
 
-		const imageLabel = this.avatarImage.getValue()!
-		const nameLabel = this.name.getValue()!
+		const imageLabel = this.avatarImage.getValue()!;
+		const nameLabel = this.name.getValue()!;
 
-		imageLabel.Image = thumbnail
-		nameLabel.Text = success ? name : "N/A"
+		imageLabel.Image = thumbnail;
+		nameLabel.Text = success ? name : "N/A";
 	}
 }
 
-export default connect((state: IState) => state.World)(PlayerFrame)
+export default connect((state: IState) => state.World)(PlayerFrame);

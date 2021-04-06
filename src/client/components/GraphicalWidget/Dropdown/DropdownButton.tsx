@@ -56,7 +56,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 		this.motor.onStep(this.setBinding);
 
 		this.setState({
-			Value: props.Default
+			Value: props.Default,
 		});
 	}
 
@@ -70,15 +70,17 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 
 	render() {
 		return (
-			<appContext.Consumer render={
-				(value) => {
-					const isSelected = value.OpenDropdown === this.props.Name
+			<appContext.Consumer
+				render={(value) => {
+					const isSelected = value.OpenDropdown === this.props.Name;
 					this.motor.setGoal(new Spring(!isSelected ? 0 : 1));
 					return (
 						<textbutton
 							AnchorPoint={new Vector2(1, 0)}
 							BackgroundColor3={Color3.fromRGB(60, 60, 60)}
-							Position={this.props.Position ?? new UDim2(0.98, 0, 0, this.props.Name.size() < 10 ? 3 : 25)}
+							Position={
+								this.props.Position ?? new UDim2(0.98, 0, 0, this.props.Name.size() < 10 ? 3 : 25)
+							}
 							Size={UDim2.fromOffset(135, 18)}
 							Font={Enum.Font.GothamBold}
 							AutoButtonColor={false}
@@ -90,9 +92,9 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 							Event={{
 								Activated: () => {
 									if (isSelected) {
-										value.changeDropdown(Roact.None)
+										value.changeDropdown(Roact.None);
 									} else {
-										value.changeDropdown(this.props.Name)
+										value.changeDropdown(this.props.Name);
 									}
 								},
 							}}
@@ -118,7 +120,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 								OnSelected={(e) => {
 									const newValue = this.props.GetValue(e.Name as V);
 									this.props.OnChange(newValue);
-									value.changeDropdown(Roact.None)
+									value.changeDropdown(Roact.None);
 									this.setState({
 										Value: newValue,
 									});
@@ -126,9 +128,9 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 							/>
 							<uicorner CornerRadius={new UDim(0, 5)} />
 						</textbutton>
-					)
-				}
-			} />
+					);
+				}}
+			/>
 		);
 	}
 }

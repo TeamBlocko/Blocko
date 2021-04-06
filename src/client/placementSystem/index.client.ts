@@ -16,7 +16,7 @@ const ALT_PROPERTIES: (keyof RawProperties)[] = ["Material", "CastShadow", "Tran
 
 const ALT_SHIFT_PROPERTIES: (keyof RawProperties)[] = [...ALT_PROPERTIES, "Size"];
 
-const outlineTweenInfo = new TweenInfo(2.5)
+const outlineTweenInfo = new TweenInfo(2.5);
 
 const placeOutline = new Instance("SelectionBox");
 placeOutline.Color3 = Color3.fromRGB(60, 164, 255);
@@ -39,24 +39,22 @@ function tweenOutlines(selection: SelectionBox, colors: Color3[]) {
 	coroutine.wrap(() => {
 		while (true) {
 			for (const color of colors) {
-				const tween = TweenService.Create(selection, outlineTweenInfo, { Color3: color })
-				tween.Play()
-				tween.Completed.Wait()
+				const tween = TweenService.Create(selection, outlineTweenInfo, { Color3: color });
+				tween.Play();
+				tween.Completed.Wait();
 			}
 		}
-	})()
+	})();
 }
 
 function updateMode(newMode: BuildMode) {
-	store.dispatch(
-		UpdateBuildMode(newMode),
-	);
+	store.dispatch(UpdateBuildMode(newMode));
 }
 
-tweenOutlines(placeOutline, [Color3.fromRGB(60, 164, 255), Color3.fromRGB(161, 211, 255)])
-tweenOutlines(deleteOutline, [Color3.fromRGB(255, 80, 80), Color3.fromRGB(255, 145, 145)])
+tweenOutlines(placeOutline, [Color3.fromRGB(60, 164, 255), Color3.fromRGB(161, 211, 255)]);
+tweenOutlines(deleteOutline, [Color3.fromRGB(255, 80, 80), Color3.fromRGB(255, 145, 145)]);
 
-let tween : TweenBase | undefined;
+let tween: TweenBase | undefined;
 let previousPosition: Vector3 | undefined;
 
 RunService.RenderStepped.Connect(() => {
@@ -78,23 +76,23 @@ RunService.RenderStepped.Connect(() => {
 							tween.Play();
 							tween.Completed.Connect(() => {
 								tween!.Destroy();
-								tween = undefined;	
-							})
-							previousPosition = pos
+								tween = undefined;
+							});
+							previousPosition = pos;
 						} else {
-							buildHandle.ghostPart.Position = pos
-							previousPosition = pos
+							buildHandle.ghostPart.Position = pos;
+							previousPosition = pos;
 						}
 					}
 				}
 			} else {
-				previousPosition = undefined
+				previousPosition = undefined;
 				buildHandle.ghostPart.Parent = undefined;
 				placeOutline.Adornee = undefined;
 			}
 			break;
 		case "Delete":
-			previousPosition = undefined
+			previousPosition = undefined;
 			placeOutline.Adornee = undefined;
 			buildHandle.ghostPart.Parent = undefined;
 
@@ -144,9 +142,7 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 					value: target[propertyName],
 				}));
 				store.dispatch(updateProperty(properties));
-				store.dispatch(
-					UpdateBasePart(shapes[target.Name as keyof typeof Shapes]),
-				);
+				store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
 			} else {
 				const target = gridBase.mouseTarget();
 				if (target === undefined) return;
