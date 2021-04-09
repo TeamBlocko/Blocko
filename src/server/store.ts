@@ -1,6 +1,6 @@
 import { Middleware, Store, AnyAction } from "@rbxts/rodux";
 import { replicate } from "./replicate";
-import { networkMiddlewareInitlizer } from "./networkMiddleware";
+import { networkMiddlewareInitlizer } from "./roduxMiddlewares/networkMiddleware";
 import { WorldSettingsActionTypes, worldSettingsReducerInitlizer } from "shared/worldSettingsReducer";
 
 export const storeInitializer = (intialWorldSettings: World) =>

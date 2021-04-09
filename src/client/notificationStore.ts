@@ -1,7 +1,7 @@
 import { HttpService } from "@rbxts/services";
 
 interface iStore {
-	addNotification(notification: iNotification): string;
+	addNotification(notification: iNotification): string | undefined;
 	removeNotification(id: string): void;
 	register(param: iRegisterParams): void;
 }
@@ -21,8 +21,8 @@ class Store implements iStore {
 	public removeNotification!: (id: string) => void;
 	public removeAllNotifications!: () => void;
 
-	private add!: (notification: iNotification) => string;
-	private defaultNotificationWidth!: number;
+	private add: ((notification: iNotification) => string) | undefined;
+	private defaultNotificationWidth = 100;
 	private counter: number;
 
 	private incrementCounter = () => (this.counter += 1);
@@ -32,7 +32,7 @@ class Store implements iStore {
 
 		this.incrementCounter();
 
-		return this.add(notification as iNotification);
+		return this.add?.(notification as iNotification);
 	}
 
 	public getCounter = () => this.counter;

@@ -2,6 +2,13 @@ import Roact, { Component, createBinding, createRef, RoactBinding, RoactBindingF
 import { Spring, GroupMotor } from "@rbxts/flipper";
 import { map } from "shared/utility";
 
+export interface NotificationPropTypes extends iNotification {
+	Position: UDim2;
+	FrameSize: number;
+	MaxWidth: number;
+  toggleRemoval: (id: string) => void
+}
+
 const SPRING_SETTINGS = {
 	frequency: 1, // 4
 	dampingRatio: 1, // 1
@@ -30,18 +37,16 @@ export class Notification extends Component<NotificationPropTypes> {
 		this.motor.onStep(this.setBinding);
 	}
 
-	removeNotification() {
-		this.motor.setGoal({ Transparency: new Spring(1, SPRING_SETTINGS) });
-		this.motor.onComplete(() => this.props.toggleRemoval(this.props.Id));
-	}
-
 	didMount() {
 		this.motor.setGoal({ Transparency: new Spring(0, SPRING_SETTINGS) });
 	}
 
 	didUpdate() {
-		if (this.props.HasBeenRemoved) this.removeNotification();
-		this.motor.setGoal({ Position: new Spring(1, SPRING_SETTINGS) });
+		this.motor.setGoal({
+			Position: new Spring(1, SPRING_SETTINGS),
+			Transparency: this.props.HasBeenRemoved ? new Spring(1, SPRING_SETTINGS) : undefined
+		});
+		if (this.props.HasBeenRemoved) this.props.toggleRemoval(this.props.Id);
 	}
 
 	render() {

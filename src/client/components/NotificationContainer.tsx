@@ -39,6 +39,15 @@ export class NotificationContainer extends Component<
 	}
 
 	add(notification: iNotification) {
+		if (notification.Time) {
+			this.timeContainer.set(notification.Id, true);
+			delay(notification.Time, () => {
+				if (this.timeContainer.get(notification.Id)) {
+					this.timeContainer.delete(notification.Id);
+					this.remove(notification.Id);	
+				}
+			});
+		}
 		this.setState(({ notifications }) => ({
 			notifications: [notification, ...notifications],
 		}));
@@ -47,6 +56,7 @@ export class NotificationContainer extends Component<
 	}
 
 	remove(id: string) {
+		this.timeContainer.delete(id)
 		this.setState(({ notifications }) => ({
 			notifications: notifications.map((notification) => {
 				if (notification.Id === id) {
@@ -59,12 +69,13 @@ export class NotificationContainer extends Component<
 	}
 
 	removeAllNotifications() {
-		this.setState({
-			notifications: this.state.notifications.map((notification) => ({
+		this.timeContainer.clear()
+		this.setState(({notifications}) => ({
+			notifications: notifications.map((notification) => ({
 				...notification,
 				HasBeenRemoved: true,
 			})),
-		});
+		}));
 	}
 
 	toggleRemoval(id: string) {
@@ -88,14 +99,6 @@ export class NotificationContainer extends Component<
 			const computedFrameSize = math.min(maxWidth, textSize.X + 80);
 
 			const length = 50 + math.floor(computedFrameSize / maxWidth);
-
-			if (notification.Time !== undefined && !this.timeContainer.get(notification.Id)) {
-				this.timeContainer.set(notification.Id, true);
-				delay(notification.Time, () => {
-					this.timeContainer.delete(notification.Id);
-					this.remove(notification.Id);
-				});
-			}
 
 			const element = !notification.isApplyPrompt ? (
 				<Notification

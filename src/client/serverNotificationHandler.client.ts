@@ -5,7 +5,7 @@ import notificationStore from "./notificationStore";
 
 function handleNotification(notification: RemoteNotification) {
 	if (notification.Type === "Add") notificationStore.addNotification(notification.Data);
-	else if (notification.Type === "Remove") notificationStore.removeNotification(notification.Data);
+	else if (notification.Type === "Remove") notificationStore.removeNotification(notification.Id);
 }
 
 const remoteNotification = $terrify<RemoteNotification>();

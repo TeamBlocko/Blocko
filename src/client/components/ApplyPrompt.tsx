@@ -1,11 +1,7 @@
 import Roact from "@rbxts/roact";
-import { Notification } from "./Notification";
+import { Notification, NotificationPropTypes } from "./Notification";
 import { map } from "shared/utility";
 
-const SPRING_SETTINGS = {
-	frequency: 1, // 4
-	dampingRatio: 1, // 1
-};
 
 export class ApplyPrompt extends Notification {
 	constructor(props: NotificationPropTypes) {

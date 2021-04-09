@@ -206,11 +206,5 @@ declare interface iNotification {
 	Time?: number;
 }
 
-declare type RemoteNotification = { Type: "Add", Data: iNotification } | { Type: "Remove", Data: string }
+declare type RemoteNotification = { Type: "Add", Data: iNotification } | { Type: "Remove", Id: string }
 
-declare interface NotificationPropTypes extends iNotification {
-	Position: UDim2;
-	FrameSize: number;
-	MaxWidth: number;
-  toggleRemoval: (id: string) => void
-}

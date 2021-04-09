@@ -44,7 +44,7 @@ export enum BlockIds {
 
 const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTypes);
 
-const notificationHandler = new Server.Event<[], [RemoteNotification]>("NotificationManager");
+const notificationHandler = new Server.Event<[], [RemoteNotification | RemoteNotification[]]>("NotificationManager");
 
 const worldInfoSerializer = ser.interface("World", {
 	Info: ser.interface("WorldInfo", worldInfoScheme),
@@ -74,6 +74,12 @@ class WorldManager {
 		this.worldBlocks = blocksStore.GetFile(`WorldBlocks${placeId}`);
 		const data = this.worldInfo.GetData();
 		this.store = storeInitializer(worldInfoSerializer.deserialize({ Info: data.Info, Settings: data.Settings }));
+		
+		this.store.changed.connect((newState) => {
+			this.worldInfo.UpdateData(worldInfoSerializer.serialize(newState));
+			this.worldInfo.SaveData();
+		})
+
 		this.Load();
 	}
 
@@ -123,24 +129,36 @@ class WorldManager {
 				.map((colorValue) => math.floor(textColor[colorValue] * 255))
 				.join(", ");
 
-			notificationHandler.SendToAllPlayers({
-				Type: "Add",
-				Data: {
-					Id: "SaveStatus",
-					Message: `Done Saving. Current world size is at <font color="rgb(${stringTextColor})">${abbreviateBytes(
-						serialized.size(),
-					)}</font>`,
-					Time: 5,
+			notificationHandler.SendToAllPlayers([
+				{
+					Type: "Remove",
+					Id: "SaveStatus"
 				},
-			});
+				{
+					Type: "Add",
+					Data: {
+						Id: "SaveStatusFinished",
+						Message: `Done Saving. Current world size is at <font color="rgb(${stringTextColor})">${abbreviateBytes(
+							serialized.size(),
+						)}</font>`,
+						Time: 5,
+					},
+				}
+			]);
 		} catch (err) {
-			notificationHandler.SendToAllPlayers({
-				Type: "Add",
-				Data: {
-					Id: "SaveStatus",
-					Message: `Failed to save with error: ${err}`,
+			notificationHandler.SendToAllPlayers([
+				{
+					Type: "Remove",
+					Id: "SaveStatus"
 				},
-			});
+				{
+					Type: "Add",
+					Data: {
+						Id: "SaveStatusError",
+						Message: `Failed to save with error: ${err}`,
+					},
+				}
+			]);
 		}
 	}
 
