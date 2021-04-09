@@ -6,7 +6,7 @@ export interface NotificationPropTypes extends iNotification {
 	Position: UDim2;
 	FrameSize: number;
 	MaxWidth: number;
-  toggleRemoval: (id: string) => void
+	toggleRemoval: (id: string) => void;
 }
 
 const SPRING_SETTINGS = {
@@ -44,7 +44,7 @@ export class Notification extends Component<NotificationPropTypes> {
 	didUpdate() {
 		this.motor.setGoal({
 			Position: new Spring(1, SPRING_SETTINGS),
-			Transparency: this.props.HasBeenRemoved ? new Spring(1, SPRING_SETTINGS) : undefined
+			Transparency: this.props.HasBeenRemoved ? new Spring(1, SPRING_SETTINGS) : undefined,
 		});
 		if (this.props.HasBeenRemoved) this.props.toggleRemoval(this.props.Id);
 	}

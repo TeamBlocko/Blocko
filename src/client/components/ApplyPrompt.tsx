@@ -2,7 +2,6 @@ import Roact from "@rbxts/roact";
 import { Notification, NotificationPropTypes } from "./Notification";
 import { map } from "shared/utility";
 
-
 export class ApplyPrompt extends Notification {
 	constructor(props: NotificationPropTypes) {
 		super(props);

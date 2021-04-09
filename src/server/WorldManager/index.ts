@@ -74,11 +74,11 @@ class WorldManager {
 		this.worldBlocks = blocksStore.GetFile(`WorldBlocks${placeId}`);
 		const data = this.worldInfo.GetData();
 		this.store = storeInitializer(worldInfoSerializer.deserialize({ Info: data.Info, Settings: data.Settings }));
-		
+
 		this.store.changed.connect((newState) => {
 			this.worldInfo.UpdateData(worldInfoSerializer.serialize(newState));
 			this.worldInfo.SaveData();
-		})
+		});
 
 		this.Load();
 	}
@@ -132,7 +132,7 @@ class WorldManager {
 			notificationHandler.SendToAllPlayers([
 				{
 					Type: "Remove",
-					Id: "SaveStatus"
+					Id: "SaveStatus",
 				},
 				{
 					Type: "Add",
@@ -143,13 +143,13 @@ class WorldManager {
 						)}</font>`,
 						Time: 5,
 					},
-				}
+				},
 			]);
 		} catch (err) {
 			notificationHandler.SendToAllPlayers([
 				{
 					Type: "Remove",
-					Id: "SaveStatus"
+					Id: "SaveStatus",
 				},
 				{
 					Type: "Add",
@@ -157,7 +157,7 @@ class WorldManager {
 						Id: "SaveStatusError",
 						Message: `Failed to save with error: ${err}`,
 					},
-				}
+				},
 			]);
 		}
 	}

@@ -44,7 +44,7 @@ export class NotificationContainer extends Component<
 			delay(notification.Time, () => {
 				if (this.timeContainer.get(notification.Id)) {
 					this.timeContainer.delete(notification.Id);
-					this.remove(notification.Id);	
+					this.remove(notification.Id);
 				}
 			});
 		}
@@ -56,7 +56,7 @@ export class NotificationContainer extends Component<
 	}
 
 	remove(id: string) {
-		this.timeContainer.delete(id)
+		this.timeContainer.delete(id);
 		this.setState(({ notifications }) => ({
 			notifications: notifications.map((notification) => {
 				if (notification.Id === id) {
@@ -69,8 +69,8 @@ export class NotificationContainer extends Component<
 	}
 
 	removeAllNotifications() {
-		this.timeContainer.clear()
-		this.setState(({notifications}) => ({
+		this.timeContainer.clear();
+		this.setState(({ notifications }) => ({
 			notifications: notifications.map((notification) => ({
 				...notification,
 				HasBeenRemoved: true,
