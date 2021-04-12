@@ -384,15 +384,16 @@ function DataSync:UpdateData(value: string, data: any?): typeof(DataSync:GetFile
 	end
 
 	if typeof(value) == "table" then
+		value[Methods._Private .. "CanSave"] = file[Methods._Private .. "CanSave"]
+		value[Methods._Private .. "HasChanged"] = file[Methods._Private .. "HasChanged"]
+		value[Methods._Private .. "IsReady"] = file[Methods._Private .. "IsReady"]
 		file = value
 	else
 		file[value] = data
 	end
 
 	if string.sub(tostring(value), 1, #Methods._Private) ~= Methods._Private then
-		if not file["__HasChanged"] then
-			file["__HasChanged"] = true
-		end
+		file[Methods._Private .. "HasChanged"] = true
 	end
 
 	local tosend = file[value] ~= nil and file[value] or file

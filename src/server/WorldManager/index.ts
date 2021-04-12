@@ -75,7 +75,7 @@ class WorldManager {
 		const data = this.worldInfo.GetData();
 		this.store = storeInitializer(worldInfoSerializer.deserialize({ Info: data.Info, Settings: data.Settings }));
 
-		this.store.changed.connect((newState) => {
+		this.store.changed.connect(async (newState) => {
 			this.worldInfo.UpdateData(worldInfoSerializer.serialize(newState));
 			this.worldInfo.SaveData();
 		});
@@ -168,6 +168,7 @@ class WorldManager {
 		const newInfo = copy(this.worldInfo.GetData());
 		newInfo.Info.Server = undefined;
 		this.worldInfo.UpdateData(newInfo);
+		this.worldInfo.SaveData();
 		activeODS.RemoveAsync(newInfo.Info.WorldId);
 	}
 }
