@@ -65,7 +65,7 @@ jobs:
           body: |
             This release contains version ${{ steps.package-version.outputs.current-version}} of World Template.
       - name: Build Project Unpacked
-        run: npm run project:build
+        run: npm run world-template:build
 
       - name: Upload .rbxl (unpacked)
         uses: actions/upload-release-asset@v1
@@ -78,7 +78,7 @@ jobs:
           asset_content_type: application/octet-stream
 
       - name: Build Project (packed)
-        run: npm run project:build:packed
+        run: npm run world-template:build:packed
 
       - name: Upload .rbxl packed
         uses: actions/upload-release-asset@v1
