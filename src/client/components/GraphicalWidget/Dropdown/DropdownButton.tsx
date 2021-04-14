@@ -2,6 +2,7 @@ import { SingleMotor, Spring } from "@rbxts/flipper";
 import Roact, { Component, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
 import ItemList from "./ItemList";
 import { appContext } from "client/appContext";
+import { HttpService } from "@rbxts/services";
 
 interface DropdownStateTypes<T> extends GWStateTypes<T> {}
 
@@ -25,6 +26,7 @@ export interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
 
 	ZIndex?: number;
 	Position?: UDim2;
+	OverrideValueText?: string;
 }
 
 class DropdownButton<T extends Item, V extends string> extends Component<
@@ -47,6 +49,8 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 			return currState;
 		}
 	};
+
+	id = HttpService.GenerateGUID()
 
 	constructor(props: DropdownPropTypes<T, V>) {
 		super(props);
@@ -72,7 +76,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 		return (
 			<appContext.Consumer
 				render={(value) => {
-					const isSelected = value.OpenDropdown === this.props.Name;
+					const isSelected = value.OpenDropdown === this.id;
 					this.motor.setGoal(new Spring(!isSelected ? 0 : 1));
 					return (
 						<textbutton
@@ -84,7 +88,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 							Size={UDim2.fromOffset(135, 18)}
 							Font={Enum.Font.GothamBold}
 							AutoButtonColor={false}
-							Text={`  ${this.props.Default.Name}`}
+							Text={`  ${this.props.OverrideValueText ?? this.props.Default.Name}`}
 							TextColor3={Color3.fromRGB(217, 217, 217)}
 							TextSize={12}
 							TextXAlignment={Enum.TextXAlignment.Left}
@@ -94,7 +98,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 									if (isSelected) {
 										value.changeDropdown(Roact.None);
 									} else {
-										value.changeDropdown(this.props.Name);
+										value.changeDropdown(this.id);
 									}
 								},
 							}}

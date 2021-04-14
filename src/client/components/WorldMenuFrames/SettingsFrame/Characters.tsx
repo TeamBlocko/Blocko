@@ -24,7 +24,6 @@ interface CharactersPropTypes extends WorldSettings {
 function Characters(props: CharactersPropTypes) {
 	return (
 		<Container>
-			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Characters" Image="rbxassetid://3926305904" />
 			<CheckBox
 				Name="Reset Allowed"
@@ -78,6 +77,7 @@ function Characters(props: CharactersPropTypes) {
 				Default={props.MaxCameraZoom}
 				OnChange={(newValue) => props.OnSliderInputUpdate("MaxCameraZoom", newValue)}
 			/>
+			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
 		</Container>
 	);

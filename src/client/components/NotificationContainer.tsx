@@ -138,7 +138,7 @@ export class NotificationContainer extends Component<
 				Ref={this.frameRef}
 				AnchorPoint={new Vector2(0.5, 0)}
 				BackgroundTransparency={1}
-				Position={UDim2.fromScale(0.5, 0)}
+				Position={new UDim2(0.5, 0, 0, 36)}
 				Size={UDim2.fromScale(0.8, 0.4)}
 				ClipsDescendants={true}
 				ScrollBarImageTransparency={0.85}

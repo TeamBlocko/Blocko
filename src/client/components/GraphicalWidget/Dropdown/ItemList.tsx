@@ -42,13 +42,14 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 	}
 
 	render() {
+		const canvasSize = 18 * this.props.Items.size()
 		return (
 			<frame
 				AnchorPoint={new Vector2(1, 0)}
 				BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 				BorderSizePixel={0}
 				Position={new UDim2(1, 0, 1, 5)}
-				Size={this.props.Binding.map((value) => UDim2.fromOffset(135, 150 * value))}
+				Size={this.props.Binding.map((value) => UDim2.fromOffset(135, math.min(canvasSize , 150) * value))}
 				ZIndex={10}
 			>
 				<uicorner CornerRadius={new UDim(0, 5)} />
@@ -60,9 +61,9 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 					BorderSizePixel={0}
 					Position={UDim2.fromScale(0.5, 0.5)}
 					Size={UDim2.fromScale(0.96, 1)}
-					AutomaticCanvasSize={Enum.AutomaticSize.Y}
+					AutomaticCanvasSize={Enum.AutomaticSize.None}
 					ScrollingDirection={Enum.ScrollingDirection.Y}
-					CanvasSize={UDim2.fromOffset(125, 18 * this.props.Items.size())}
+					CanvasSize={UDim2.fromOffset(125, canvasSize > 150 ? canvasSize : 0)}
 					ScrollBarImageColor3={Color3.fromRGB(31, 31, 31)}
 					ScrollBarImageTransparency={this.props.Binding.map((value) => 1 - value)}
 					ScrollBarThickness={5}

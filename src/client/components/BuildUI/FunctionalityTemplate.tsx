@@ -33,7 +33,7 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 			LayoutOrder={props.LayoutOrder}
 		>
 			<uicorner CornerRadius={new UDim(0, 7)} />
-			<TopFrame Text="Functionality" OnClose={() => props.RemoveFunctionality(props.Functionality.GUID)} />
+			<TopFrame Text={props.Functionality.Name} OnClose={() => props.RemoveFunctionality(props.Functionality.GUID)} />
 			<Dropdown
 				Name="Functionality"
 				Items={getAvliableFunctionalities()}
@@ -41,6 +41,7 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 					values(Functionalities.functionalities).find((functionality) => functionality.Name === value) ??
 					props.Functionality
 				}
+				OverrideValueText="Select Functionality"
 				ZIndex={11}
 				Default={props.Functionality as Functionalities.FunctionalitiesValues}
 				OnChange={(value) => props.UpdateFunctionality(props.Functionality.GUID, value)}
@@ -74,6 +75,9 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 
 					const parent = e.Parent as Frame;
 					parent.Size = new UDim2(0.975, 0, 0, e.AbsoluteContentSize.Y);
+					e.GetPropertyChangedSignal("AbsoluteContentSize").Connect(() => {
+						parent.Size = new UDim2(0.975, 0, 0, e.AbsoluteContentSize.Y)
+					})
 				}}
 			/>
 		</frame>
