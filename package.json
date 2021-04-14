@@ -26,6 +26,7 @@
 		"remodel": "remodel run add-models.lua",
 		"remodel:packed": "remodel run add-models.lua packed",
 		"compile": "rbxtsc",
+		"compile:wrold-template": "rbxtsc -r world-template.project.json",
 		"precompile": "npm run project:version",
 		"world-template:build": "npm run compile && npm run rojo:world-template:build && npm run remodel",
 		"world-template:serve": "npm run compile && npm run rojo:world-template",

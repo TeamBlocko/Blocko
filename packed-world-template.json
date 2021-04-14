@@ -9,7 +9,7 @@
 				"ServerScriptService": {
 					"$className": "Folder",
 					"TS": {
-						"$path": "out/server"
+						"$path": "out/template/server"
 					}
 				},
 				"ReplicatedStorage": {
@@ -21,7 +21,7 @@
 						}
 					},
 					"TS": {
-						"$path": "out/shared"
+						"$path": "out/template/shared"
 					}
 				},
 				"StarterPlayer": {
@@ -29,7 +29,7 @@
 					"StarterPlayerScripts": {
 						"$className": "Folder",
 						"TS": {
-							"$path": "out/client"
+							"$path": "out/template/client"
 						}
 					}
 				}
