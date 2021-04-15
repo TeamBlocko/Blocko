@@ -22,7 +22,7 @@
 		"rojo:world-template": "rojo serve world-template.project.json",
 		"rojo:world-template:packed": "rojo serve packed-world-template.json",
 		"rojo:world-template:build": "rojo build -o dist/WorldTemplate.rbxl world-template.project.json",
-		"rojo:world-template:build:packed": "rojo build -o dist/WorldTemplate.Packed.rbxl packed-world-template.project.json",
+		"rojo:world-template:build:packed": "rojo build -o dist/WorldTemplate.Packed.rbxl world-template.project.json",
 		"remodel": "remodel run add-models.lua",
 		"remodel:packed": "remodel run add-models.lua packed",
 		"compile": "rbxtsc",

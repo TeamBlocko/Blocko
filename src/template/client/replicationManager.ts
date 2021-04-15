@@ -1,5 +1,11 @@
 import { Client } from "@rbxts/net";
+import { Players } from "@rbxts/services";
 
-const retriveWorldSettingsRemote = new Client.Function<[], World>("Replication");
+const result = Client.GetFunctionAsync<[], World>("Replication").await();
 
-export const retriveWorldSettings = () => retriveWorldSettingsRemote.CallServer();
+if (result[0] === false) {
+	Players.LocalPlayer.Kick("Failed to setup Replication events")
+	throw "Failed to setup Replication events";
+}
+
+export const retriveWorldSettings = () => result[1].CallServer();
