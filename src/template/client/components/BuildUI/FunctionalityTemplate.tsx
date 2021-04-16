@@ -7,7 +7,9 @@ import * as Functionalities from "template/shared/Functionalities";
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
 import { updateFunctionality, updateFunctionalityProperty, removeFunctionality } from "template/client/rodux/placementSettings";
 import { IState, PlacementSettings } from "template/shared/Types";
-import TopFrame from "../misc/TopFrame";
+import CloseButton from "../misc/CloseButton";
+import TitleText from "../misc/TitleText";
+import Gap from "../misc/Gap";
 
 interface FunctionTemplatePropTypes extends PlacementSettings {
 	Functionality: Functionalities.FunctionalitiesInstances;
@@ -33,19 +35,37 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 			LayoutOrder={props.LayoutOrder}
 		>
 			<uicorner CornerRadius={new UDim(0, 7)} />
-			<TopFrame Text={props.Functionality.Name} OnClose={() => props.RemoveFunctionality(props.Functionality.GUID)} />
-			<Dropdown
-				Name="Functionality"
-				Items={getAvliableFunctionalities()}
-				GetValue={(value) =>
-					values(Functionalities.functionalities).find((functionality) => functionality.Name === value) ??
-					props.Functionality
-				}
-				OverrideValueText="Select Functionality"
+			<frame
+				AnchorPoint={new Vector2(0.5, 0)}
+				BackgroundTransparency={1}
+				BorderColor3={new Color3()}
+				BorderSizePixel={0}
 				ZIndex={11}
-				Default={props.Functionality as Functionalities.FunctionalitiesValues}
-				OnChange={(value) => props.UpdateFunctionality(props.Functionality.GUID, value)}
-			/>
+				Position={UDim2.fromScale(0.5, 0.025)}
+				Size={new UDim2(1, 0, 0, 25)}
+			>
+				<Dropdown
+					Name="Functionality"
+					Items={getAvliableFunctionalities()}
+					GetValue={(value) =>
+						values(Functionalities.functionalities).find((functionality) => functionality.Name === value) ??
+						props.Functionality
+					}
+					OverrideValueText="Select Functionality"
+					ZIndex={11}
+					ResizeButtonToText={true}
+					Default={props.Functionality as Functionalities.FunctionalitiesValues}
+					OnChange={(value) => props.UpdateFunctionality(props.Functionality.GUID, value)}
+				/>
+				<Gap Width={40} />
+				<CloseButton OnClose={() => props.RemoveFunctionality(props.Functionality.GUID)} />
+				<uilistlayout
+					FillDirection={Enum.FillDirection.Horizontal}
+					HorizontalAlignment={Enum.HorizontalAlignment.Center}
+					VerticalAlignment={Enum.VerticalAlignment.Center}
+				/>
+			</frame>
+			<TitleText Text={props.Functionality.Name} TextXAlignment={Enum.TextXAlignment.Center} Size={UDim2.fromOffset(180, 14)} />
 			{(values(props.Functionality.Properties) as Functionalities.FunctionalitiesPropertiesInstance[]).map(
 				(property) => {
 					switch (property.Type) {

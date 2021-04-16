@@ -1,5 +1,6 @@
 import { UserInputService } from "@rbxts/services";
 import Roact, { RoactBinding, createRef } from "@rbxts/roact";
+import Gap from "../../misc/Gap";
 
 function ItemElement<T extends Item>(props: { Value: T; Handler: NonNullable<RoactEvents<TextButton>["Activated"]> }) {
 	return (
@@ -27,6 +28,7 @@ export interface ItemListPropTypes<T> {
 	Items: T[];
 	OnSelected: NonNullable<RoactEvents<TextButton>["Activated"]>;
 	Binding: RoactBinding<number>;
+	SizeX?: number;
 }
 
 class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
@@ -49,7 +51,7 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 				BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 				BorderSizePixel={0}
 				Position={new UDim2(1, 0, 1, 5)}
-				Size={this.props.Binding.map((value) => UDim2.fromOffset(135, math.min(canvasSize , 150) * value))}
+				Size={this.props.Binding.map((value) => UDim2.fromOffset(this.props.SizeX ?? 135, math.min(canvasSize , 150) * value))}
 				ZIndex={10}
 			>
 				<uicorner CornerRadius={new UDim(0, 5)} />
@@ -70,6 +72,7 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 					VerticalScrollBarInset={Enum.ScrollBarInset.ScrollBar}
 				>
 					<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
+					<Gap Length={2}  />
 					{this.props.Items.map((Item) => (
 						<ItemElement Value={Item} Handler={this.props.OnSelected} />
 					))}

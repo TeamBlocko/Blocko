@@ -1,8 +1,8 @@
+import { HttpService, TextService } from "@rbxts/services";
 import { SingleMotor, Spring } from "@rbxts/flipper";
 import Roact, { Component, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
 import ItemList from "./ItemList";
 import { appContext } from "template/client/appContext";
-import { HttpService } from "@rbxts/services";
 
 interface DropdownStateTypes<T> extends GWStateTypes<T> {}
 
@@ -27,6 +27,7 @@ export interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
 	ZIndex?: number;
 	Position?: UDim2;
 	OverrideValueText?: string;
+	ResizeButtonToText?: boolean;
 }
 
 class DropdownButton<T extends Item, V extends string> extends Component<
@@ -76,6 +77,8 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 		return (
 			<appContext.Consumer
 				render={(value) => {
+					const buttonText = this.props.OverrideValueText ?? this.props.Default.Name
+					const size = TextService.GetTextSize(buttonText, 12, Enum.Font.GothamBold, new Vector2(0, 0)).X + 20
 					const isSelected = value.OpenDropdown === this.id;
 					this.motor.setGoal(new Spring(!isSelected ? 0 : 1));
 					return (
@@ -85,10 +88,10 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 							Position={
 								this.props.Position ?? new UDim2(0.98, 0, 0, this.props.Name.size() < 10 ? 3 : 25)
 							}
-							Size={UDim2.fromOffset(135, 18)}
+							Size={UDim2.fromOffset(this.props.OverrideValueText ? size : 135, 18)}
 							Font={Enum.Font.GothamBold}
 							AutoButtonColor={false}
-							Text={`  ${this.props.OverrideValueText ?? this.props.Default.Name}`}
+							Text={`  ${buttonText}`}
 							TextColor3={Color3.fromRGB(217, 217, 217)}
 							TextSize={12}
 							TextXAlignment={Enum.TextXAlignment.Left}
@@ -121,6 +124,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 							<ItemList
 								Binding={this.binding}
 								Items={this.props.Items}
+								SizeX={this.props.OverrideValueText ? size : 135}
 								OnSelected={(e) => {
 									const newValue = this.props.GetValue(e.Name as V);
 									this.props.OnChange(newValue);

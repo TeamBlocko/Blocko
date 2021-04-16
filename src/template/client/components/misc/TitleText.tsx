@@ -5,6 +5,7 @@ interface TitleTextPropTypes extends RbxJsxProps {
 	Size?: UDim2;
 	AnchorPoint?: Vector2;
 	Position?: UDim2;
+	TextXAlignment?: Enum.TextXAlignment;
 }
 
 function TitleText(props: TitleTextPropTypes): Roact.Element {
@@ -18,7 +19,7 @@ function TitleText(props: TitleTextPropTypes): Roact.Element {
 			Text={`  ${props.Text}`}
 			TextColor3={Color3.fromRGB(184, 184, 184)}
 			TextSize={14}
-			TextXAlignment={Enum.TextXAlignment.Left}
+			TextXAlignment={props.TextXAlignment ?? Enum.TextXAlignment.Left}
 		>
 			{props[Roact.Children]}
 		</textlabel>
