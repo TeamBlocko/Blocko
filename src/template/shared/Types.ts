@@ -1,6 +1,7 @@
 import { FunctionalitiesInstances } from "template/shared/Functionalities";
 
 export interface IState {
+	ActivatedColorPicker?: string;
 	PlacementSettings: PlacementSettings;
 	World: World;
 }

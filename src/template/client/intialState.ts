@@ -19,6 +19,7 @@ export const intialPlacementSettings: PlacementSettings = {
 };
 
 export const intialState: IState = {
+	ActivatedColorPicker: undefined,
 	PlacementSettings: intialPlacementSettings,
 	World: retriveWorldSettings(),
 };

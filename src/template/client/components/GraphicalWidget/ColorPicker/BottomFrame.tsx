@@ -5,6 +5,8 @@ import PickColorButton from "./PickColorButton";
 interface BottomFramePropTypes {
 	RefValue: Roact.Ref<TextButton>;
 	Manager: ColorPickerManager;
+	UpdateColor: (color: Color3) => void;
+	Id: string;
 }
 
 function BottomFrame(props: BottomFramePropTypes) {
@@ -23,7 +25,7 @@ function BottomFrame(props: BottomFramePropTypes) {
 				VerticalAlignment={Enum.VerticalAlignment.Center}
 				Padding={new UDim(0, 8)}
 			/>
-			<PickColorButton />
+			<PickColorButton UpdateColor={props.UpdateColor} Id={props.Id} />
 			<ValueFrame RefValue={props.RefValue} Manager={props.Manager} />
 		</frame>
 	);

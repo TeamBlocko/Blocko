@@ -31,6 +31,7 @@ const gridBase = new GridBase({
 	MaxPlaceDistance: 1e3,
 	RotationTweenInfo: new TweenInfo(0.25, Enum.EasingStyle.Quint),
 });
+
 const buildHandle = new BuildHandle(gridBase, shapes);
 
 const tweenInfo = new TweenInfo(0.1, Enum.EasingStyle.Quint);
@@ -59,11 +60,12 @@ let previousPosition: Vector3 | undefined;
 
 RunService.RenderStepped.Connect(() => {
 	const target = gridBase.mouseTarget();
-	switch (store.getState().PlacementSettings.BuildMode) {
+	const state = store.getState()
+	switch (state.PlacementSettings.BuildMode) {
 		case "Place":
 			if (target !== undefined) {
-				buildHandle.ghostPart.Parent = Workspace;
-				placeOutline.Adornee = buildHandle.ghostPart;
+				buildHandle.ghostPart.Parent = !state.ActivatedColorPicker ? Workspace : undefined;
+				placeOutline.Adornee = !state.ActivatedColorPicker ? buildHandle.ghostPart : undefined;
 				buildHandle.ghostPart.Orientation = gridBase.getSmoothOrientation();
 
 				if (tween === undefined) {
@@ -96,16 +98,21 @@ RunService.RenderStepped.Connect(() => {
 			placeOutline.Adornee = undefined;
 			buildHandle.ghostPart.Parent = undefined;
 
-			deleteOutline.Adornee = target;
+			deleteOutline.Adornee = !state.ActivatedColorPicker ? target : undefined;
 			break;
 		case "Spectate":
+			previousPosition = undefined;
+			placeOutline.Adornee = undefined;
+			buildHandle.ghostPart.Parent = undefined;
+
 			deleteOutline.Adornee = undefined;
 	}
 });
 
 UserInputService.InputBegan.Connect((input, gameProcessed) => {
 	const mode = store.getState().PlacementSettings.BuildMode;
-	if (store.getState().World.Info.Owner !== client.UserId) return;
+	const state = store.getState();
+	if (state.World.Info.Owner !== client.UserId) return;
 	if (gameProcessed) return;
 	switch (input.KeyCode) {
 		case Enum.KeyCode.Q:
@@ -155,8 +162,11 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 			break;
 	}
 	if (input.UserInputType === Enum.UserInputType.MouseButton1) {
+		print("CALLED")
+		if (state.ActivatedColorPicker) return;
 		switch (mode) {
 			case "Place":
+				print("PLACING")
 				buildHandle.placeBlock();
 				break;
 			case "Delete":

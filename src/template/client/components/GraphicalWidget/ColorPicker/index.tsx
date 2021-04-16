@@ -1,3 +1,4 @@
+import { HttpService } from "@rbxts/services";
 import Roact, { Component, createRef } from "@rbxts/roact";
 import { DragFrame } from "@rbxts/roact-dnd";
 import BottomFrame from "./BottomFrame";
@@ -10,7 +11,7 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 	private hsFrameRef: Roact.Ref<ImageButton>;
 	private valueFrame: Roact.Ref<TextButton>;
 
-	private selfUpdate = false;
+	id = HttpService.GenerateGUID()
 
 	public getDerivedStateFromProps = (
 		nextProps: ColorPickerPropTypes,
@@ -35,7 +36,6 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 		this.manager = new ColorPickerManager(
 			this.state,
 			(data: ColorPickerStateTypes) => {
-				this.selfUpdate = true;
 				this.props.onChange(data.Value);
 				this.setState(data);
 			},
@@ -59,10 +59,6 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 		);
 	}
 
-	didUpdate() {
-		this.selfUpdate = false;
-	}
-
 	render() {
 		return (
 			<DragFrame
@@ -82,7 +78,7 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 					OnClose={(inputButton: ImageButton) => this.props.OnClose(inputButton)}
 				/>
 				<HueSaturationFrame RefValue={this.hsFrameRef} Manager={this.manager} />
-				<BottomFrame RefValue={this.valueFrame} Manager={this.manager} />
+				<BottomFrame RefValue={this.valueFrame} Manager={this.manager} UpdateColor={this.props.onChange} Id={this.id} />
 			</DragFrame>
 		);
 	}
