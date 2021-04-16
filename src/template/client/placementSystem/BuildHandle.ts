@@ -13,7 +13,7 @@ const placeBlock = new Client.Function<[Vector3, Vector3, PlacementSettings]>("P
 const deleteBlock = new Client.Function<[BasePart]>("DeleteBlock");
 
 const PLACE_SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Bounce);
-const DELETE_SIZE_TWEEN = new TweenInfo(0.5, Enum.EasingStyle.Quint);
+const DELETE_SIZE_TWEEN = new TweenInfo(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.In);
 
 class BuildHandler {
 	public ghostPart: BasePart;
