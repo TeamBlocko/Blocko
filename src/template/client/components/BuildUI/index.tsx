@@ -45,6 +45,9 @@ const ignoreMaterials: Enum.Material[] = [
 const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMaterials.includes(material));
 
 class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
+	
+	uilistRef: Roact.Ref<UIListLayout>
+
 	changeDropdown(newDropdown?: string) {
 		this.setState((oldState) => ({
 			...oldState,
@@ -54,6 +57,8 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 
 	constructor(props: BuildUIProps) {
 		super(props);
+
+		this.uilistRef = Roact.createRef()
 
 		this.setState({});
 	}
@@ -169,12 +174,24 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 								HorizontalAlignment={Enum.HorizontalAlignment.Center}
 								Padding={new UDim(0, 3)}
 								SortOrder={Enum.SortOrder.LayoutOrder}
+								Ref={this.uilistRef}
 							/>
 						</scrollingframe>
 					</DragFrame>
 				</DragDropProvider>
 			</appContext.Provider>
 		);
+	}
+
+	didMount() {
+		const uilist = this.uilistRef.getValue()
+		if (!uilist) return
+
+		const parent = uilist.Parent as ScrollingFrame
+		parent.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10))
+		uilist.GetPropertyChangedSignal("AbsoluteContentSize").Connect(() => {
+			parent.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10))
+		})
 	}
 }
 
