@@ -45,8 +45,7 @@ const ignoreMaterials: Enum.Material[] = [
 const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMaterials.includes(material));
 
 class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
-	
-	uilistRef: Roact.Ref<UIListLayout>
+	uilistRef: Roact.Ref<UIListLayout>;
 
 	changeDropdown(newDropdown?: string) {
 		this.setState((oldState) => ({
@@ -58,7 +57,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 	constructor(props: BuildUIProps) {
 		super(props);
 
-		this.uilistRef = Roact.createRef()
+		this.uilistRef = Roact.createRef();
 
 		this.setState({});
 	}
@@ -184,14 +183,14 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 	}
 
 	didMount() {
-		const uilist = this.uilistRef.getValue()
-		if (!uilist) return
+		const uilist = this.uilistRef.getValue();
+		if (!uilist) return;
 
-		const parent = uilist.Parent as ScrollingFrame
-		parent.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10))
+		const parent = uilist.Parent as ScrollingFrame;
+		parent.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10));
 		uilist.GetPropertyChangedSignal("AbsoluteContentSize").Connect(() => {
-			parent.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10))
-		})
+			parent.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10));
+		});
 	}
 }
 

@@ -1,7 +1,11 @@
 import { Players } from "@rbxts/services";
 import { Server } from "@rbxts/net";
 import SyncedPoller from "@rbxts/synced-poller";
-import { updateWorldInfo, UpdateWorldSettingDataType, WorldSettingsActionTypes } from "template/shared/worldSettingsReducer";
+import {
+	updateWorldInfo,
+	UpdateWorldSettingDataType,
+	WorldSettingsActionTypes,
+} from "template/shared/worldSettingsReducer";
 import * as handlers from "./worldSettingsHandlers";
 
 declare interface UpdateWorldSettings {

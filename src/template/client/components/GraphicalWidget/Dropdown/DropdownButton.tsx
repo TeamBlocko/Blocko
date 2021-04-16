@@ -51,7 +51,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 		}
 	};
 
-	id = HttpService.GenerateGUID()
+	id = HttpService.GenerateGUID();
 
 	constructor(props: DropdownPropTypes<T, V>) {
 		super(props);
@@ -77,8 +77,9 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 		return (
 			<appContext.Consumer
 				render={(value) => {
-					const buttonText = this.props.OverrideValueText ?? this.props.Default.Name
-					const size = TextService.GetTextSize(buttonText, 12, Enum.Font.GothamBold, new Vector2(0, 0)).X + 20
+					const buttonText = this.props.OverrideValueText ?? this.props.Default.Name;
+					const size =
+						TextService.GetTextSize(buttonText, 12, Enum.Font.GothamBold, new Vector2(0, 0)).X + 20;
 					const isSelected = value.OpenDropdown === this.id;
 					this.motor.setGoal(new Spring(!isSelected ? 0 : 1));
 					return (

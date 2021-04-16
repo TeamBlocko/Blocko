@@ -11,7 +11,7 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 	private hsFrameRef: Roact.Ref<ImageButton>;
 	private valueFrame: Roact.Ref<TextButton>;
 
-	id = HttpService.GenerateGUID()
+	id = HttpService.GenerateGUID();
 
 	public getDerivedStateFromProps = (
 		nextProps: ColorPickerPropTypes,
@@ -78,7 +78,12 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 					OnClose={(inputButton: ImageButton) => this.props.OnClose(inputButton)}
 				/>
 				<HueSaturationFrame RefValue={this.hsFrameRef} Manager={this.manager} />
-				<BottomFrame RefValue={this.valueFrame} Manager={this.manager} UpdateColor={this.props.onChange} Id={this.id} />
+				<BottomFrame
+					RefValue={this.valueFrame}
+					Manager={this.manager}
+					UpdateColor={this.props.onChange}
+					Id={this.id}
+				/>
 			</DragFrame>
 		);
 	}

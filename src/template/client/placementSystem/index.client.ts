@@ -60,7 +60,7 @@ let previousPosition: Vector3 | undefined;
 
 RunService.RenderStepped.Connect(() => {
 	const target = gridBase.mouseTarget();
-	const state = store.getState()
+	const state = store.getState();
 	switch (state.PlacementSettings.BuildMode) {
 		case "Place":
 			if (target !== undefined) {
@@ -162,11 +162,9 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 			break;
 	}
 	if (input.UserInputType === Enum.UserInputType.MouseButton1) {
-		print("CALLED")
 		if (state.ActivatedColorPicker) return;
 		switch (mode) {
 			case "Place":
-				print("PLACING")
 				buildHandle.placeBlock();
 				break;
 			case "Delete":

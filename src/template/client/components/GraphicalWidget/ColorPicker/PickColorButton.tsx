@@ -18,7 +18,6 @@ interface PickColorButtonRoduxTypes {
 }
 
 class PickColorButton extends Roact.Component<PickColorButtonPropTypes & PickColorButtonRoduxTypes> {
-
 	motor: SingleMotor;
 	binding: Roact.RoactBinding<number>;
 	setBinding: Roact.RoactBindingFunc<number>;
@@ -39,16 +38,16 @@ class PickColorButton extends Roact.Component<PickColorButtonPropTypes & PickCol
 				BackgroundTransparency={1}
 				Position={UDim2.fromScale(0.1, 0.9)}
 				Size={UDim2.fromOffset(20, 20)}
-				ImageColor3={this.binding.map(value => new Color3(1, 1, 1).Lerp(Color3.fromRGB(89, 161, 255), value))}
+				ImageColor3={this.binding.map((value) => new Color3(1, 1, 1).Lerp(Color3.fromRGB(89, 161, 255), value))}
 				Image="rbxassetid://3926305904"
 				ImageRectOffset={new Vector2(804, 924)}
 				ImageRectSize={new Vector2(36, 36)}
 				Event={{
 					Activated: () => {
-						const newValue = !this.props.Activated ? this.props.Id : undefined
-						this.props.UpdateColorPickerActivated(newValue)
-						this.motor.setGoal(new Spring(newValue === this.props.Id ? 1 : 0))
-					}
+						const newValue = !this.props.Activated ? this.props.Id : undefined;
+						this.props.UpdateColorPickerActivated(newValue);
+						this.motor.setGoal(new Spring(newValue === this.props.Id ? 1 : 0));
+					},
 				}}
 			/>
 		);
@@ -57,10 +56,10 @@ class PickColorButton extends Roact.Component<PickColorButtonPropTypes & PickCol
 	raycastMouse() {
 		if (camera === undefined) return;
 		const raycastParams = new RaycastParams();
-		raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-		const ghostPart = Workspace.FindFirstChild("GhostPart")
+		raycastParams.FilterType = Enum.RaycastFilterType.Blacklist;
+		const ghostPart = Workspace.FindFirstChild("GhostPart");
 		if (ghostPart) {
-			raycastParams.FilterDescendantsInstances = [ ghostPart ]
+			raycastParams.FilterDescendantsInstances = [ghostPart];
 		}
 
 		const mousePos = UserInputService.GetMouseLocation();
@@ -73,13 +72,13 @@ class PickColorButton extends Roact.Component<PickColorButtonPropTypes & PickCol
 			if (gameProcessted) return;
 			if (!this.props.Activated) return;
 			if (inputObject.UserInputType === Enum.UserInputType.MouseButton1) {
-				const target = this.raycastMouse()
+				const target = this.raycastMouse();
 				if (!target) return;
-				this.props.UpdateColorPickerActivated()
-				this.motor.setGoal(new Spring(0))
-				this.props.UpdateColor(target.Instance.Color)
+				this.props.UpdateColorPickerActivated();
+				this.motor.setGoal(new Spring(0));
+				this.props.UpdateColor(target.Instance.Color);
 			}
-		})
+		});
 	}
 }
 
@@ -87,9 +86,7 @@ export default connect(
 	(state: IState, props: PickColorButtonPropTypes) => ({ Activated: state.ActivatedColorPicker === props.Id }),
 	(dispatch) => ({
 		UpdateColorPickerActivated(activated?: string | undefined) {
-			dispatch(
-				updateColorPickerActivated(activated)
-			)
-		}
-	})
+			dispatch(updateColorPickerActivated(activated));
+		},
+	}),
 )(PickColorButton);

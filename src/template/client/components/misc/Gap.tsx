@@ -8,7 +8,11 @@ interface GapPropTypes {
 
 function Gap(props: GapPropTypes) {
 	return (
-		<frame BackgroundTransparency={1} Size={UDim2.fromOffset(props.Width, props.Length)} LayoutOrder={props.LayoutOrder} />
+		<frame
+			BackgroundTransparency={1}
+			Size={UDim2.fromOffset(props.Width, props.Length)}
+			LayoutOrder={props.LayoutOrder}
+		/>
 	);
 }
 

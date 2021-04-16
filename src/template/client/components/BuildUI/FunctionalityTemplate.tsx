@@ -5,7 +5,11 @@ import Slider from "../GraphicalWidget/Slider";
 import Dropdown from "../GraphicalWidget/Dropdown/DropdownButton";
 import * as Functionalities from "template/shared/Functionalities";
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
-import { updateFunctionality, updateFunctionalityProperty, removeFunctionality } from "template/client/rodux/placementSettings";
+import {
+	updateFunctionality,
+	updateFunctionalityProperty,
+	removeFunctionality,
+} from "template/client/rodux/placementSettings";
 import { IState, PlacementSettings } from "template/shared/Types";
 import CloseButton from "../misc/CloseButton";
 import TitleText from "../misc/TitleText";
@@ -65,7 +69,11 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 					VerticalAlignment={Enum.VerticalAlignment.Center}
 				/>
 			</frame>
-			<TitleText Text={props.Functionality.Name} TextXAlignment={Enum.TextXAlignment.Center} Size={UDim2.fromOffset(180, 14)} />
+			<TitleText
+				Text={props.Functionality.Name}
+				TextXAlignment={Enum.TextXAlignment.Center}
+				Size={UDim2.fromOffset(180, 14)}
+			/>
 			{(values(props.Functionality.Properties) as Functionalities.FunctionalitiesPropertiesInstance[]).map(
 				(property) => {
 					switch (property.Type) {
@@ -96,8 +104,8 @@ function FunctionTemplate(props: FunctionTemplatePropTypes) {
 					const parent = e.Parent as Frame;
 					parent.Size = new UDim2(0.975, 0, 0, e.AbsoluteContentSize.Y);
 					e.GetPropertyChangedSignal("AbsoluteContentSize").Connect(() => {
-						parent.Size = new UDim2(0.975, 0, 0, e.AbsoluteContentSize.Y)
-					})
+						parent.Size = new UDim2(0.975, 0, 0, e.AbsoluteContentSize.Y);
+					});
 				}}
 			/>
 		</frame>

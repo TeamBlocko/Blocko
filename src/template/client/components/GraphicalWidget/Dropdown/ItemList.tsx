@@ -44,14 +44,16 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 	}
 
 	render() {
-		const canvasSize = 18 * this.props.Items.size()
+		const canvasSize = 18 * this.props.Items.size();
 		return (
 			<frame
 				AnchorPoint={new Vector2(1, 0)}
 				BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 				BorderSizePixel={0}
 				Position={new UDim2(1, 0, 1, 5)}
-				Size={this.props.Binding.map((value) => UDim2.fromOffset(this.props.SizeX ?? 135, math.min(canvasSize , 150) * value))}
+				Size={this.props.Binding.map((value) =>
+					UDim2.fromOffset(this.props.SizeX ?? 135, math.min(canvasSize, 150) * value),
+				)}
 				ZIndex={10}
 			>
 				<uicorner CornerRadius={new UDim(0, 5)} />
@@ -72,7 +74,7 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 					VerticalScrollBarInset={Enum.ScrollBarInset.ScrollBar}
 				>
 					<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
-					<Gap Length={2}  />
+					<Gap Length={2} />
 					{this.props.Items.map((Item) => (
 						<ItemElement Value={Item} Handler={this.props.OnSelected} />
 					))}

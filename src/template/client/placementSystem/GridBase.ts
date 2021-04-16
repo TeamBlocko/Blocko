@@ -1,4 +1,4 @@
-import { Workspace, UserInputService, TweenService, Players } from "@rbxts/services";
+import { Workspace, UserInputService, TweenService } from "@rbxts/services";
 import store from "template/client/store";
 
 const camera = Workspace.CurrentCamera;
