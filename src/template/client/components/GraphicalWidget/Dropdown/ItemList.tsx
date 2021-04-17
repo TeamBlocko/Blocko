@@ -9,7 +9,7 @@ function ItemElement<T extends Item>(props: { Value: T; Handler: NonNullable<Roa
 			AnchorPoint={new Vector2(0.5, 0.5)}
 			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 			BackgroundTransparency={0.5}
-			Size={UDim2.fromOffset(125, 18)}
+			Size={new UDim2(0.999, 0, 0, 18)}
 			Font={Enum.Font.GothamBold}
 			Text={`  ${props.Value.Name}`}
 			TextColor3={Color3.fromRGB(217, 217, 217)}
