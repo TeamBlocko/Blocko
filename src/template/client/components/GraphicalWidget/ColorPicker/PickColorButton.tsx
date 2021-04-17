@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 import { SingleMotor, Spring } from "@rbxts/flipper";
-import { UserInputService, Workspace } from "@rbxts/services";
+import { ContextActionService, UserInputService, Workspace } from "@rbxts/services";
 import { IState } from "template/shared/Types";
 import { connect } from "@rbxts/roact-rodux";
 import { updateColorPickerActivated } from "template/client/rodux/updateColorPicker";
@@ -68,17 +68,18 @@ class PickColorButton extends Roact.Component<PickColorButtonPropTypes & PickCol
 	}
 
 	didMount() {
-		UserInputService.InputBegan.Connect((inputObject, gameProcessted) => {
-			if (gameProcessted) return;
+
+		ContextActionService.BindActionAtPriority("ColorPicker", (_, inputState) => {
 			if (!this.props.Activated) return;
-			if (inputObject.UserInputType === Enum.UserInputType.MouseButton1) {
+			if (inputState === Enum.UserInputState.Begin) {
 				const target = this.raycastMouse();
 				if (!target) return;
 				this.props.UpdateColorPickerActivated();
 				this.motor.setGoal(new Spring(0));
 				this.props.UpdateColor(target.Instance.Color);
 			}
-		});
+			return Enum.ContextActionResult.Pass
+		}, false, 1, Enum.UserInputType.MouseButton1)
 	}
 }
 

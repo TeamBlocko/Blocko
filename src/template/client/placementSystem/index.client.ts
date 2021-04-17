@@ -1,4 +1,12 @@
-import { Workspace, ReplicatedStorage, UserInputService, RunService, TweenService, Players } from "@rbxts/services";
+import {
+	Workspace,
+	ReplicatedStorage,
+	UserInputService,
+	RunService,
+	TweenService,
+	Players,
+	ContextActionService
+} from "@rbxts/services";
 import store from "template/client/store";
 import GridBase from "./GridBase";
 import BuildHandle from "./BuildHandle";
@@ -109,12 +117,12 @@ RunService.RenderStepped.Connect(() => {
 	}
 });
 
-UserInputService.InputBegan.Connect((input, gameProcessed) => {
+ContextActionService.BindActionAtPriority("PlacementSystemHandler", (_, inputState, inputObject) => {
+	if (inputState !== Enum.UserInputState.Begin) return;
 	const mode = store.getState().PlacementSettings.BuildMode;
 	const state = store.getState();
 	if (state.World.Info.Owner !== client.UserId) return;
-	if (gameProcessed) return;
-	switch (input.KeyCode) {
+	switch (inputObject.KeyCode) {
 		case Enum.KeyCode.Q:
 			switch (mode) {
 				case "Spectate":
@@ -161,8 +169,8 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 			}
 			break;
 	}
-	if (input.UserInputType === Enum.UserInputType.MouseButton1) {
-		if (state.ActivatedColorPicker) return;
+	if (inputObject.UserInputType === Enum.UserInputType.MouseButton1) {
+		if (state.ActivatedColorPicker) return Enum.ContextActionResult.Pass;
 		switch (mode) {
 			case "Place":
 				buildHandle.placeBlock();
@@ -170,7 +178,8 @@ UserInputService.InputBegan.Connect((input, gameProcessed) => {
 			case "Delete":
 				buildHandle.deleteBlock();
 		}
+		return Enum.ContextActionResult.Pass;
 	}
-});
+}, false, 2, ...Enum.UserInputType.GetEnumItems());
 
 store.changed.connect(() => buildHandle.updateGhostPart());
