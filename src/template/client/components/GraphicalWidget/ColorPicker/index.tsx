@@ -84,6 +84,16 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 					UpdateColor={this.props.onChange}
 					Id={this.id}
 				/>
+				<imagelabel
+					AnchorPoint={new Vector2(0.5, 0.5)}
+					BackgroundTransparency={1}
+					Position={UDim2.fromScale(0.5, 0.5)}
+					Size={new UDim2(1, 50, 1, 50)}
+					ZIndex={0}
+					Image={"rbxassetid://6513986549"}
+					ImageColor3={new Color3()}
+					ImageTransparency={0.5}
+				/>
 			</DragFrame>
 		);
 	}

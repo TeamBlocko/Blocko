@@ -46,6 +46,7 @@ const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMater
 
 class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 	uilistRef: Roact.Ref<UIListLayout>;
+	functionalitiesUIlistRef: Roact.Ref<UIListLayout>
 
 	changeDropdown(newDropdown?: string) {
 		this.setState((oldState) => ({
@@ -58,6 +59,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 		super(props);
 
 		this.uilistRef = Roact.createRef();
+		this.functionalitiesUIlistRef = Roact.createRef();
 
 		this.setState({});
 	}
@@ -162,11 +164,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									HorizontalAlignment={Enum.HorizontalAlignment.Center}
 									SortOrder={Enum.SortOrder.LayoutOrder}
 									Padding={new UDim(0, 3)}
-									Ref={(e) => {
-										if (!e) return;
-										const parent = e.Parent as Frame;
-										parent.Size = new UDim2(1, 0, 0, e.AbsoluteContentSize.Y);
-									}}
+									Ref={this.functionalitiesUIlistRef}
 								/>
 							</frame>
 							<uilistlayout
@@ -176,6 +174,16 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 								Ref={this.uilistRef}
 							/>
 						</scrollingframe>
+						<imagelabel
+							AnchorPoint={new Vector2(0.5, 0.5)}
+							BackgroundTransparency={1}
+							Position={UDim2.fromScale(0.5, 0.5)}
+							Size={new UDim2(1, 50, 1, 50)}
+							ZIndex={0}
+							Image={"rbxassetid://6513986549"}
+							ImageColor3={new Color3()}
+							ImageTransparency={0.5}
+						/>
 					</DragFrame>
 				</DragDropProvider>
 			</appContext.Provider>
@@ -186,11 +194,19 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 		const uilist = this.uilistRef.getValue();
 		if (!uilist) return;
 
-		const parent = uilist.Parent as ScrollingFrame;
-		parent.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10));
+		const mainFrame = uilist.Parent as ScrollingFrame;
+		mainFrame.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10));
 		uilist.GetPropertyChangedSignal("AbsoluteContentSize").Connect(() => {
-			parent.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10));
+			mainFrame.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10));
 		});
+	}
+
+	didUpdate() {
+		const functionalitiesUIlist = this.functionalitiesUIlistRef.getValue();
+		if (!functionalitiesUIlist) return;
+
+		const functionalityContainer = functionalitiesUIlist.Parent as Frame
+		functionalityContainer.Size = new UDim2(1, 0, 0, functionalitiesUIlist.AbsoluteContentSize.Y);
 	}
 }
 
