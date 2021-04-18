@@ -46,7 +46,7 @@ const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMater
 
 class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 	uilistRef: Roact.Ref<UIListLayout>;
-	functionalitiesUIlistRef: Roact.Ref<UIListLayout>
+	functionalitiesUIlistRef: Roact.Ref<UIListLayout>;
 
 	changeDropdown(newDropdown?: string) {
 		this.setState((oldState) => ({
@@ -205,7 +205,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 		const functionalitiesUIlist = this.functionalitiesUIlistRef.getValue();
 		if (!functionalitiesUIlist) return;
 
-		const functionalityContainer = functionalitiesUIlist.Parent as Frame
+		const functionalityContainer = functionalitiesUIlist.Parent as Frame;
 		functionalityContainer.Size = new UDim2(1, 0, 0, functionalitiesUIlist.AbsoluteContentSize.Y);
 	}
 }

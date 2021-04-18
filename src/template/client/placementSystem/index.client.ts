@@ -5,7 +5,7 @@ import {
 	RunService,
 	TweenService,
 	Players,
-	ContextActionService
+	ContextActionService,
 } from "@rbxts/services";
 import store from "template/client/store";
 import GridBase from "./GridBase";
@@ -117,69 +117,75 @@ RunService.RenderStepped.Connect(() => {
 	}
 });
 
-ContextActionService.BindActionAtPriority("PlacementSystemHandler", (_, inputState, inputObject) => {
-	if (inputState !== Enum.UserInputState.Begin) return;
-	const mode = store.getState().PlacementSettings.BuildMode;
-	const state = store.getState();
-	if (state.World.Info.Owner !== client.UserId) return;
-	switch (inputObject.KeyCode) {
-		case Enum.KeyCode.Q:
+ContextActionService.BindActionAtPriority(
+	"PlacementSystemHandler",
+	(_, inputState, inputObject) => {
+		if (inputState !== Enum.UserInputState.Begin) return;
+		const mode = store.getState().PlacementSettings.BuildMode;
+		const state = store.getState();
+		if (state.World.Info.Owner !== client.UserId) return;
+		switch (inputObject.KeyCode) {
+			case Enum.KeyCode.Q:
+				switch (mode) {
+					case "Spectate":
+						updateMode("Place");
+						buildHandle.updateGhostPart();
+						break;
+					case "Place":
+						updateMode("Delete");
+						break;
+					case "Delete":
+						updateMode("Spectate");
+						break;
+				}
+			case Enum.KeyCode.R:
+				gridBase.rotate();
+				break;
+			case Enum.KeyCode.T:
+				gridBase.tilt();
+				break;
+			case Enum.KeyCode.F:
+				buildHandle.previousBlockType();
+				break;
+			case Enum.KeyCode.G:
+				buildHandle.nextBlockType();
+				break;
+			case Enum.KeyCode.LeftAlt:
+				if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
+					const target = gridBase.mouseTarget();
+					if (target === undefined) return;
+					const properties = ALT_SHIFT_PROPERTIES.map((propertyName) => ({
+						propertyName,
+						value: target[propertyName],
+					}));
+					store.dispatch(updateProperty(properties));
+					store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
+				} else {
+					const target = gridBase.mouseTarget();
+					if (target === undefined) return;
+					const properties = ALT_PROPERTIES.map((propertyName) => ({
+						propertyName,
+						value: target[propertyName],
+					}));
+					store.dispatch(updateProperty(properties));
+				}
+				break;
+		}
+		if (inputObject.UserInputType === Enum.UserInputType.MouseButton1) {
+			if (state.ActivatedColorPicker) return Enum.ContextActionResult.Pass;
 			switch (mode) {
-				case "Spectate":
-					updateMode("Place");
-					buildHandle.updateGhostPart();
-					break;
 				case "Place":
-					updateMode("Delete");
+					buildHandle.placeBlock();
 					break;
 				case "Delete":
-					updateMode("Spectate");
-					break;
+					buildHandle.deleteBlock();
 			}
-		case Enum.KeyCode.R:
-			gridBase.rotate();
-			break;
-		case Enum.KeyCode.T:
-			gridBase.tilt();
-			break;
-		case Enum.KeyCode.F:
-			buildHandle.previousBlockType();
-			break;
-		case Enum.KeyCode.G:
-			buildHandle.nextBlockType();
-			break;
-		case Enum.KeyCode.LeftAlt:
-			if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
-				const target = gridBase.mouseTarget();
-				if (target === undefined) return;
-				const properties = ALT_SHIFT_PROPERTIES.map((propertyName) => ({
-					propertyName,
-					value: target[propertyName],
-				}));
-				store.dispatch(updateProperty(properties));
-				store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
-			} else {
-				const target = gridBase.mouseTarget();
-				if (target === undefined) return;
-				const properties = ALT_PROPERTIES.map((propertyName) => ({
-					propertyName,
-					value: target[propertyName],
-				}));
-				store.dispatch(updateProperty(properties));
-			}
-			break;
-	}
-	if (inputObject.UserInputType === Enum.UserInputType.MouseButton1) {
-		if (state.ActivatedColorPicker) return Enum.ContextActionResult.Pass;
-		switch (mode) {
-			case "Place":
-				buildHandle.placeBlock();
-				break;
-			case "Delete":
-				buildHandle.deleteBlock();
+			return Enum.ContextActionResult.Pass;
 		}
-		return Enum.ContextActionResult.Pass;
-	}
-}, false, 2, ...Enum.UserInputType.GetEnumItems());
+	},
+	false,
+	2,
+	...Enum.UserInputType.GetEnumItems(),
+);
 
 store.changed.connect(() => buildHandle.updateGhostPart());

@@ -29,44 +29,37 @@ interface FunctionTemplatePropTypes extends PlacementSettings {
 }
 
 function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
-	return (
-		(values(props.Functionality.Properties) as Functionalities.FunctionalitiesPropertiesInstance[]).map(
-				(property) => {
-					switch (property.Type) {
-						case "number":
-							return (
-								<Slider
-									{...property}
-									SizeYOffset={55}
-									Default={property.Current}
-									BackgroundTransparency={1}
-									OnChange={(value) => {
-										props.UpdateFunctionalityProperty(
-											props.Functionality.GUID,
-											property.Name,
-											value,
-										);
-									}}
-								/>
-							);
-					}
-				},
-			)
-	)
-};
+	return (values(props.Functionality.Properties) as Functionalities.FunctionalitiesPropertiesInstance[]).map(
+		(property) => {
+			switch (property.Type) {
+				case "number":
+					return (
+						<Slider
+							{...property}
+							SizeYOffset={55}
+							Default={property.Current}
+							BackgroundTransparency={1}
+							OnChange={(value) => {
+								props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
+							}}
+						/>
+					);
+			}
+		},
+	);
+}
 
 class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
-
-	uilistRef: Roact.Ref<UIListLayout>
+	uilistRef: Roact.Ref<UIListLayout>;
 
 	constructor(props: FunctionTemplatePropTypes) {
-		super(props)
+		super(props);
 
-		this.uilistRef = Roact.createRef()
+		this.uilistRef = Roact.createRef();
 	}
 
 	render() {
-		const settings = renderFunctionalitySettings(this.props)
+		const settings = renderFunctionalitySettings(this.props);
 		return (
 			<frame
 				Key={this.props.Functionality.GUID}
@@ -90,8 +83,9 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 						Name="Functionality"
 						Items={getAvliableFunctionalities()}
 						GetValue={(value) =>
-							values(Functionalities.functionalities).find((functionality) => functionality.Name === value) ??
-							this.props.Functionality
+							values(Functionalities.functionalities).find(
+								(functionality) => functionality.Name === value,
+							) ?? this.props.Functionality
 						}
 						ZIndex={11}
 						Default={this.props.Functionality as Functionalities.FunctionalitiesValues}
@@ -105,19 +99,15 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 						VerticalAlignment={Enum.VerticalAlignment.Center}
 					/>
 				</frame>
-				{ settings.size() > 0 ?
+				{settings.size() > 0 ? (
 					<TitleText
 						Text={"Functionality Settings"}
 						TextXAlignment={Enum.TextXAlignment.Center}
 						Size={UDim2.fromOffset(180, 14)}
 					/>
-					: undefined
-				}
+				) : undefined}
 				{settings}
-				<uilistlayout
-					HorizontalAlignment={Enum.HorizontalAlignment.Center}
-					Ref={this.uilistRef}
-				/>
+				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Ref={this.uilistRef} />
 			</frame>
 		);
 	}
