@@ -71,10 +71,10 @@ class PickColorButton extends Roact.Component<PickColorButtonPropTypes & PickCol
 		ContextActionService.BindActionAtPriority(
 			"ColorPicker",
 			(_, inputState) => {
-				if (!this.props.Activated) return;
+				if (!this.props.Activated) return Enum.ContextActionResult.Pass;
 				if (inputState === Enum.UserInputState.Begin) {
 					const target = this.raycastMouse();
-					if (!target) return;
+					if (!target) return Enum.ContextActionResult.Pass;
 					this.props.UpdateColorPickerActivated();
 					this.motor.setGoal(new Spring(0));
 					this.props.UpdateColor(target.Instance.Color);

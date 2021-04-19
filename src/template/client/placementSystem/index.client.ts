@@ -120,10 +120,10 @@ RunService.RenderStepped.Connect(() => {
 ContextActionService.BindActionAtPriority(
 	"PlacementSystemHandler",
 	(_, inputState, inputObject) => {
-		if (inputState !== Enum.UserInputState.Begin) return;
+		if (inputState !== Enum.UserInputState.Begin) return Enum.ContextActionResult.Pass;
 		const mode = store.getState().PlacementSettings.BuildMode;
 		const state = store.getState();
-		if (state.World.Info.Owner !== client.UserId) return;
+		if (state.World.Info.Owner !== client.UserId) return Enum.ContextActionResult.Pass;
 		switch (inputObject.KeyCode) {
 			case Enum.KeyCode.Q:
 				switch (mode) {
@@ -153,7 +153,7 @@ ContextActionService.BindActionAtPriority(
 			case Enum.KeyCode.LeftAlt:
 				if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
 					const target = gridBase.mouseTarget();
-					if (target === undefined) return;
+					if (target === undefined) break;
 					const properties = ALT_SHIFT_PROPERTIES.map((propertyName) => ({
 						propertyName,
 						value: target[propertyName],
@@ -162,7 +162,7 @@ ContextActionService.BindActionAtPriority(
 					store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
 				} else {
 					const target = gridBase.mouseTarget();
-					if (target === undefined) return;
+					if (target === undefined) break;
 					const properties = ALT_PROPERTIES.map((propertyName) => ({
 						propertyName,
 						value: target[propertyName],
@@ -179,9 +179,9 @@ ContextActionService.BindActionAtPriority(
 					break;
 				case "Delete":
 					buildHandle.deleteBlock();
-			}
-			return Enum.ContextActionResult.Pass;
+			};
 		}
+		return Enum.ContextActionResult.Pass;
 	},
 	false,
 	2,
