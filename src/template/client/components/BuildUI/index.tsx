@@ -45,8 +45,11 @@ const ignoreMaterials: Enum.Material[] = [
 const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMaterials.includes(material));
 
 class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
-	uilistRef: Roact.Ref<UIListLayout>;
-	functionalitiesUIlistRef: Roact.Ref<UIListLayout>;
+	canvasSizeBinding: Roact.RoactBinding<number>;
+	setCanvasSizeBinding: Roact.RoactBindingFunc<number>;
+
+	functionalitySizeBinding: Roact.RoactBinding<number>;
+	setFunctionalitySizeBinding: Roact.RoactBindingFunc<number>;
 
 	changeDropdown(newDropdown?: string) {
 		this.setState((oldState) => ({
@@ -58,8 +61,8 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 	constructor(props: BuildUIProps) {
 		super(props);
 
-		this.uilistRef = Roact.createRef();
-		this.functionalitiesUIlistRef = Roact.createRef();
+		[this.canvasSizeBinding, this.setCanvasSizeBinding] = Roact.createBinding(0);
+		[this.functionalitySizeBinding, this.setFunctionalitySizeBinding] = Roact.createBinding(0);
 
 		this.setState({});
 	}
@@ -91,6 +94,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 							BorderSizePixel={0}
 							Position={UDim2.fromScale(0.5, 1)}
 							Size={UDim2.fromScale(0.96, 1)}
+							CanvasSize={this.canvasSizeBinding.map(value => UDim2.fromOffset(0, value))}
 							ScrollBarImageTransparency={0.9}
 							ScrollBarThickness={4}
 							VerticalScrollBarInset={Enum.ScrollBarInset.Always}
@@ -152,7 +156,11 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 								LayoutOrder={7}
 							/>
 							<AddFunction LayoutOrder={8} />
-							<frame BackgroundTransparency={1} Size={UDim2.fromScale(1, 0)} LayoutOrder={9}>
+							<frame
+								BackgroundTransparency={1}
+								Size={this.functionalitySizeBinding.map(value => new UDim2(1, 0, 0, value))}
+								LayoutOrder={9}
+							>
 								{this.props.Functionalities.map((functionality, index) => (
 									<FunctionalityTemplate
 										Functionality={functionality}
@@ -164,14 +172,14 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									HorizontalAlignment={Enum.HorizontalAlignment.Center}
 									SortOrder={Enum.SortOrder.LayoutOrder}
 									Padding={new UDim(0, 3)}
-									Ref={this.functionalitiesUIlistRef}
+									Change={{ AbsoluteContentSize: (e) => this.setFunctionalitySizeBinding(e.AbsoluteContentSize.Y) }}
 								/>
 							</frame>
 							<uilistlayout
 								HorizontalAlignment={Enum.HorizontalAlignment.Center}
 								Padding={new UDim(0, 3)}
 								SortOrder={Enum.SortOrder.LayoutOrder}
-								Ref={this.uilistRef}
+								Change={{ AbsoluteContentSize: (e) => this.setCanvasSizeBinding(e.AbsoluteContentSize.Y) }}
 							/>
 						</scrollingframe>
 						<imagelabel
@@ -188,25 +196,6 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 				</DragDropProvider>
 			</appContext.Provider>
 		);
-	}
-
-	didMount() {
-		const uilist = this.uilistRef.getValue();
-		if (!uilist) return;
-
-		const mainFrame = uilist.Parent as ScrollingFrame;
-		mainFrame.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10));
-		uilist.GetPropertyChangedSignal("AbsoluteContentSize").Connect(() => {
-			mainFrame.CanvasSize = new UDim2(0, 0, 0, math.max(300, uilist.AbsoluteContentSize.Y + 10));
-		});
-	}
-
-	didUpdate() {
-		const functionalitiesUIlist = this.functionalitiesUIlistRef.getValue();
-		if (!functionalitiesUIlist) return;
-
-		const functionalityContainer = functionalitiesUIlist.Parent as Frame;
-		functionalityContainer.Size = new UDim2(1, 0, 0, functionalitiesUIlist.AbsoluteContentSize.Y);
 	}
 }
 

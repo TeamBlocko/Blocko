@@ -50,12 +50,14 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 }
 
 class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
-	uilistRef: Roact.Ref<UIListLayout>;
+	
+	frameSizeBinding: Roact.RoactBinding<number>;
+	setFrameSizeBinding: Roact.RoactBindingFunc<number>;
 
 	constructor(props: FunctionTemplatePropTypes) {
 		super(props);
 
-		this.uilistRef = Roact.createRef();
+		[this.frameSizeBinding, this.setFrameSizeBinding] = Roact.createBinding(0)
 	}
 
 	render() {
@@ -65,7 +67,7 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 				Key={this.props.Functionality.GUID}
 				BackgroundColor3={new Color3(1, 1, 1)}
 				BackgroundTransparency={0.95}
-				Size={new UDim2(0.975, 0, 0, 35)}
+				Size={this.frameSizeBinding.map(value => new UDim2(0.975, 0, 0, value + 10))}
 				ZIndex={this.props.ZIndex}
 				LayoutOrder={this.props.LayoutOrder}
 			>
@@ -107,20 +109,12 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 					/>
 				) : undefined}
 				{settings}
-				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Ref={this.uilistRef} />
+				<uilistlayout
+					HorizontalAlignment={Enum.HorizontalAlignment.Center}
+					Change={{ AbsoluteContentSize: (e) => this.setFrameSizeBinding(e.AbsoluteContentSize.Y) }}
+				/>
 			</frame>
 		);
-	}
-
-	didMount() {
-		const uilist = this.uilistRef.getValue();
-		if (!uilist) return;
-
-		const parent = uilist.Parent as Frame;
-		parent.Size = new UDim2(0.975, 0, 0, uilist.AbsoluteContentSize.Y);
-		uilist.GetPropertyChangedSignal("AbsoluteContentSize").Connect(() => {
-			parent.Size = new UDim2(0.975, 0, 0, uilist.AbsoluteContentSize.Y);
-		});
 	}
 }
 
