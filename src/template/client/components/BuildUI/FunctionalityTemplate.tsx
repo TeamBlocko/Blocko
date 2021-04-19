@@ -50,14 +50,13 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 }
 
 class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
-	
 	frameSizeBinding: Roact.RoactBinding<number>;
 	setFrameSizeBinding: Roact.RoactBindingFunc<number>;
 
 	constructor(props: FunctionTemplatePropTypes) {
 		super(props);
 
-		[this.frameSizeBinding, this.setFrameSizeBinding] = Roact.createBinding(0)
+		[this.frameSizeBinding, this.setFrameSizeBinding] = Roact.createBinding(0);
 	}
 
 	render() {
@@ -67,7 +66,7 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 				Key={this.props.Functionality.GUID}
 				BackgroundColor3={new Color3(1, 1, 1)}
 				BackgroundTransparency={0.95}
-				Size={this.frameSizeBinding.map(value => new UDim2(0.975, 0, 0, value + 10))}
+				Size={this.frameSizeBinding.map((value) => new UDim2(0.975, 0, 0, value + 10))}
 				ZIndex={this.props.ZIndex}
 				LayoutOrder={this.props.LayoutOrder}
 			>

@@ -179,7 +179,7 @@ ContextActionService.BindActionAtPriority(
 					break;
 				case "Delete":
 					buildHandle.deleteBlock();
-			};
+			}
 		}
 		return Enum.ContextActionResult.Pass;
 	},

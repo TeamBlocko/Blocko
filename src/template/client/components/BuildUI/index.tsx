@@ -94,7 +94,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 							BorderSizePixel={0}
 							Position={UDim2.fromScale(0.5, 1)}
 							Size={UDim2.fromScale(0.96, 1)}
-							CanvasSize={this.canvasSizeBinding.map(value => UDim2.fromOffset(0, value))}
+							CanvasSize={this.canvasSizeBinding.map((value) => UDim2.fromOffset(0, value))}
 							ScrollBarImageTransparency={0.9}
 							ScrollBarThickness={4}
 							VerticalScrollBarInset={Enum.ScrollBarInset.Always}
@@ -158,7 +158,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 							<AddFunction LayoutOrder={8} />
 							<frame
 								BackgroundTransparency={1}
-								Size={this.functionalitySizeBinding.map(value => new UDim2(1, 0, 0, value))}
+								Size={this.functionalitySizeBinding.map((value) => new UDim2(1, 0, 0, value))}
 								LayoutOrder={9}
 							>
 								{this.props.Functionalities.map((functionality, index) => (
@@ -172,14 +172,19 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									HorizontalAlignment={Enum.HorizontalAlignment.Center}
 									SortOrder={Enum.SortOrder.LayoutOrder}
 									Padding={new UDim(0, 3)}
-									Change={{ AbsoluteContentSize: (e) => this.setFunctionalitySizeBinding(e.AbsoluteContentSize.Y) }}
+									Change={{
+										AbsoluteContentSize: (e) =>
+											this.setFunctionalitySizeBinding(e.AbsoluteContentSize.Y),
+									}}
 								/>
 							</frame>
 							<uilistlayout
 								HorizontalAlignment={Enum.HorizontalAlignment.Center}
 								Padding={new UDim(0, 3)}
 								SortOrder={Enum.SortOrder.LayoutOrder}
-								Change={{ AbsoluteContentSize: (e) => this.setCanvasSizeBinding(e.AbsoluteContentSize.Y) }}
+								Change={{
+									AbsoluteContentSize: (e) => this.setCanvasSizeBinding(e.AbsoluteContentSize.Y),
+								}}
 							/>
 						</scrollingframe>
 						<imagelabel
