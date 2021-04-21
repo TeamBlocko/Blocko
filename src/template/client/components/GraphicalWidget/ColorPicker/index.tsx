@@ -73,17 +73,24 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 				}}
 			>
 				<uicorner CornerRadius={new UDim(0, 10)} />
-				<TopFrame
-					Text={this.props.Name}
-					OnClose={(inputButton: ImageButton) => this.props.OnClose(inputButton)}
-				/>
-				<HueSaturationFrame RefValue={this.hsFrameRef} Manager={this.manager} />
-				<BottomFrame
-					RefValue={this.valueFrame}
-					Manager={this.manager}
-					UpdateColor={this.props.onChange}
-					Id={this.id}
-				/>
+				<frame
+					BackgroundColor3={Color3.fromRGB(35, 35, 35)}
+					BorderSizePixel={0}
+					Size={UDim2.fromScale(1, 1)}
+				>
+					<uicorner CornerRadius={new UDim(0, 10)} />
+					<TopFrame
+						Text={this.props.Name}
+						OnClose={(inputButton: ImageButton) => this.props.OnClose(inputButton)}
+					/>
+					<HueSaturationFrame RefValue={this.hsFrameRef} Manager={this.manager} />
+					<BottomFrame
+						RefValue={this.valueFrame}
+						Manager={this.manager}
+						UpdateColor={this.props.onChange}
+						Id={this.id}
+					/>
+				</frame>
 				<imagelabel
 					AnchorPoint={new Vector2(0.5, 0.5)}
 					BackgroundTransparency={1}
