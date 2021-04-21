@@ -103,7 +103,6 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 				{settings.size() > 0 ? (
 					<TitleText
 						Text={"Functionality Settings"}
-						TextXAlignment={Enum.TextXAlignment.Center}
 						Size={UDim2.fromOffset(180, 14)}
 					/>
 				) : undefined}
