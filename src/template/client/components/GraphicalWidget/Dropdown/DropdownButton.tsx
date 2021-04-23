@@ -87,7 +87,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 							AnchorPoint={new Vector2(1, 0)}
 							BackgroundColor3={Color3.fromRGB(60, 60, 60)}
 							Position={
-								this.props.Position ?? new UDim2(0.98, 0, 0, this.props.Name.size() < 10 ? 3 : 25)
+								this.props.Position ?? new UDim2(0.98, 0, 0, this.props.Name.size() < 9 ? 3 : 25)
 							}
 							Size={UDim2.fromOffset(this.props.OverrideValueText ? size : 135, 18)}
 							Font={Enum.Font.GothamBold}
