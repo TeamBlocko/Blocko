@@ -62,13 +62,13 @@ export function updateFunctionality(
 export interface ActionRecievedUpdateFunctionalityProperty extends Action<ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY> {
 	guid: string;
 	property: Functionalities.FunctionalitiesPropertiesNames;
-	value: number;
+	value: Functionalities.FunctionalitiesPropertiesValueTypes;
 }
 
 export function updateFunctionalityProperty(
 	guid: string,
 	property: Functionalities.FunctionalitiesPropertiesNames,
-	value: number,
+	value: Functionalities.FunctionalitiesPropertiesValueTypes,
 ): ActionRecievedUpdateFunctionalityProperty & AnyAction {
 	return {
 		type: ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY,

@@ -37,6 +37,13 @@ export const functionalities = {
 				Min: 1,
 				Max: 10,
 			},
+			Direction: {
+				Name: "Direction",
+				Id: "2",
+				Type: "choice",
+				Default: Enum.NormalId.Front,
+				Items: Enum.NormalId.GetEnumItems(),
+			}
 		},
 		Multiple: false,
 	},
@@ -55,6 +62,7 @@ export type IntersectionProperties = UnionToIntersection<FunctionalitiesProperti
 
 export type FunctionalitiesPropertiesNames = keyof IntersectionProperties;
 export type FunctionalitiesPropertiesValues = ValueOf<IntersectionProperties>;
+export type FunctionalitiesPropertiesValueTypes = number | Enum.NormalId
 
 export type FunctionalitiesInstances = {
 	[K in keyof Functionalities]: Functionalities[K] & { GUID: string } & {

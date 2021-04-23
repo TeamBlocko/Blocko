@@ -18,12 +18,14 @@ function addDamager(part: BasePart, properties: Functionalities.Functionalities[
 }
 
 function addTripper(part: BasePart, properties: Functionalities.Functionalities["Tripper"]["Properties"]) {
+	/*
 	part.Touched.Connect((object) => {
 		const humanoid = object.Parent!.FindFirstChildOfClass("Humanoid");
 		if (humanoid) {
 			humanoid.Sit = true;
 		}
 	});
+	*/
 	CollectionService.AddTag(part, "Functionality");
 }
 
@@ -45,25 +47,39 @@ export function addFunctionality(part: BasePart, functionality: Functionalities.
 	}
 }
 
+
+function createValueInstance(value: Functionalities.FunctionalitiesPropertiesInstance, parent: Folder) {
+	switch (value.Type) {
+		case "number":
+			const valueInstance = new Instance("NumberValue")
+			valueInstance.Value = value.Current
+			valueInstance.Name = value.Name
+			valueInstance.Parent = parent
+			break;
+		case "choice":
+			if (value.Name === "Direction") {
+				const valueInstance = new Instance("Vector3Value")
+				valueInstance.Value = Vector3.FromNormalId(value.Current)
+				valueInstance.Name = value.Name
+				valueInstance.Parent = parent
+				break
+			}
+	}
+}
+
 export function addPart(part: BasePart, functionalities: Functionalities.FunctionalitiesInstances[]) {
 	if (functionalities.size() === 0) return;
 
 	const functionalityFolder = part.FindFirstChild("Functionalities") ?? new Instance("Folder", part);
 	functionalityFolder.Name = "Functionalities";
 	for (const functionality of functionalities) {
-		const container = part.FindFirstChild(functionality.Name) ?? new Instance("Folder", functionalityFolder);
+		const container= part.FindFirstChild(functionality.Name) as Folder ?? new Instance("Folder", functionalityFolder);
 		container.Name = functionality.Name;
 
 		for (const property of (values(
 			functionality.Properties,
-		) as unknown) as Functionalities.FunctionalitiesPropertiesInstance[]) {
-			const [propertyInstanceType] = property.Type.gsub("^.", (s) => s.upper());
-			const propertyValue: ValueBase = new Instance(
-				`${propertyInstanceType}Value` as ValueObjectClassNames,
-				container,
-			);
-			propertyValue.Value = property.Current;
-			propertyValue.Name = property.Name;
+		)) as Functionalities.FunctionalitiesPropertiesInstance[]) {
+			createValueInstance(property, container);
 		}
 
 		addFunctionality(part, functionality);
@@ -79,6 +95,7 @@ export interface Damager {
 
 export interface Conveyor {
 	Speed: NumberValue;
+	Direction: Vector3Value;
 }
 
 type Functionality = Folder &
@@ -87,30 +104,31 @@ type Functionality = Folder &
 RunService.Heartbeat.Connect(() => {
 	for (const part of CollectionService.GetTagged("Functionality") as (BasePart & { Functionalities: Folder })[]) {
 		for (const functionality of part.Functionalities.GetChildren() as Functionality[]) {
-			if (functionality.Name === "Conveyor") {
-				part.Velocity = part.CFrame.LookVector.mul(functionality.Speed.Value);
-			} else {
-				debounce.get(functionality) ?? debounce.set(functionality, new Map());
+			debounce.get(functionality) ?? debounce.set(functionality, new Map());
 
-				for (const touchingPart of GetTouchingParts(part)) {
-					const player = Players.GetPlayerFromCharacter(touchingPart.Parent);
-					const humanoid = player?.Character?.FindFirstChildOfClass("Humanoid");
+			for (const touchingPart of GetTouchingParts(part)) {
+				const player = Players.GetPlayerFromCharacter(touchingPart.Parent);
+				const character = player?.Character 
+				const humanoid = character?.FindFirstChildOfClass("Humanoid");
 
-					if (!player || !humanoid) continue;
+				if (!player || !humanoid || !character) continue;
 
-					if (functionality.Name === "Damager") {
-						const time = debounce.get(functionality)!.get(player);
+				if (functionality.Name === "Damager") {
+					const time = debounce.get(functionality)!.get(player);
 
-						if (time === undefined || os.time() - time > functionality.Cooldown.Value) {
-							if (humanoid !== undefined) {
-								humanoid.TakeDamage(functionality.Damage.Value);
+					if (time === undefined || os.time() - time > functionality.Cooldown.Value) {
+						if (humanoid !== undefined) {
+							humanoid.TakeDamage(functionality.Damage.Value);
 
-								debounce.get(functionality)!.set(player, os.time());
-							}
+							debounce.get(functionality)!.set(player, os.time());
 						}
-					} else if (functionality.Name === "Tripper") {
-						humanoid.Sit = true;
 					}
+				} else if (functionality.Name === "Tripper") {
+					humanoid.Sit = true;
+				} else if (functionality.Name === "Conveyor") {
+					const humanoidRootPart = character.FindFirstChild("HumanoidRootPart") as BasePart
+					if (!humanoidRootPart) continue;
+					humanoidRootPart.AssemblyLinearVelocity = functionality.Direction.Value.mul(functionality.Speed.Value)
 				}
 			}
 		}

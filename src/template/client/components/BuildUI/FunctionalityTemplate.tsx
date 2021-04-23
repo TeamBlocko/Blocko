@@ -2,7 +2,8 @@ import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import { values } from "@rbxts/object-utils";
 import Slider from "../GraphicalWidget/Slider";
-import Dropdown from "../GraphicalWidget/Dropdown/DropdownButton";
+import DropdownButton from "../GraphicalWidget/Dropdown/DropdownButton";
+import Dropdown from "../GraphicalWidget/Dropdown";
 import * as Functionalities from "template/shared/Functionalities";
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
 import {
@@ -23,7 +24,7 @@ interface FunctionTemplatePropTypes extends PlacementSettings {
 	UpdateFunctionalityProperty(
 		guid: string,
 		property: Functionalities.FunctionalitiesPropertiesNames,
-		value: number,
+		value: Functionalities.FunctionalitiesPropertiesValueTypes,
 	): void;
 	RemoveFunctionality(guid: string): void;
 }
@@ -44,6 +45,18 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 							}}
 						/>
 					);
+				case "choice":
+					return (
+						<Dropdown
+							{...property}
+							Default={property.Current}
+							BackgroundTransparency={1}
+							GetValue={(value) => property.Items.find((item) => item.Name === value)!}
+							OnChange={(value) => {
+								props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
+							}}
+						/>
+					)
 			}
 		},
 	);
@@ -80,7 +93,7 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 					Position={UDim2.fromScale(0.5, 0.025)}
 					Size={new UDim2(1, 0, 0, 35)}
 				>
-					<Dropdown
+					<DropdownButton
 						Name="Functionality"
 						Items={getAvliableFunctionalities()}
 						GetValue={(value) =>
@@ -127,7 +140,7 @@ export default connect(
 		UpdateFunctionalityProperty(
 			guid: string,
 			property: Functionalities.FunctionalitiesPropertiesNames,
-			value: number,
+			value: Functionalities.FunctionalitiesPropertiesValueTypes,
 		) {
 			dispatch(updateFunctionalityProperty(guid, property, value));
 		},
