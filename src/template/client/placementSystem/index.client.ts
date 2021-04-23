@@ -36,7 +36,7 @@ deleteOutline.Parent = Workspace;
 
 const gridBase = new GridBase({
 	Blocks: Workspace.Blocks,
-	MaxPlaceDistance: 1e3,
+	MaxPlaceDistance: 1e5,
 	RotationTweenInfo: new TweenInfo(0.25, Enum.EasingStyle.Quint),
 });
 
