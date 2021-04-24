@@ -1,5 +1,5 @@
 import { Workspace } from "@rbxts/services";
-import { DragDropProvider, DragDropContext } from "@rbxts/roact-dnd";
+import { DragDropProvider } from "@rbxts/roact-dnd";
 import Roact, { Component, Portal, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
 import GWFrame from "template/client/components/misc/GWFrame";
 import TitleText from "template/client/components/misc/TitleText";
@@ -17,32 +17,27 @@ interface Action<A> {
 
 type Binding = Frame | undefined;
 
-class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: number }, ColorDisplayStateTypes<Color3>> {
+
+interface ColorDisplayPropTypes extends GWPropTypes<Color3> {
+	SizeYOffset?: number;
+	Bindable?: BindableEvent;
+}
+
+class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTypes> {
 	private root: ScreenGui | undefined;
 	private colorPickerBinding: RoactBinding<Binding>;
 	private updateColorPickerBinding: RoactBindingFunc<Binding>;
 	private selfRef: Binding;
 	private textChangedAllowed = true;
-	private context: DragDropContext;
 
-	constructor(props: GWPropTypes<Color3> & { SizeYOffset?: number }) {
+	constructor(props: ColorDisplayPropTypes) {
 		super(props);
 		[this.colorPickerBinding, this.updateColorPickerBinding] = createBinding<Binding>(undefined);
 		this.setState({
 			Selected: false,
 		});
-		this.context = new DragDropContext();
-		this.context.dispatch = (((_: typeof DragDropContext, action: Action<string>) => {
-			print("DISPATCHED", action.type);
-			switch (action.type) {
-				case "DRAG/BEGIN":
-					this.setColorPickerPos();
-					break;
-				case "DRAG/DRAGGING":
-					this.setColorPickerPos();
-					break;
-			}
-		}) as unknown) as (action: Action<string>) => void;
+
+		this.props.Bindable?.Event.Connect(() => this.setColorPickerPos())
 	}
 
 	setColorPickerPos() {
@@ -72,7 +67,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 		this.textChangedAllowed = true;
 	}
 
-	shouldUpdate(nextProps: GWPropTypes<Color3>, nextState: ColorDisplayStateTypes<Color3>) {
+	shouldUpdate(nextProps: ColorDisplayPropTypes, nextState: ColorDisplayStateTypes) {
 		return tostring(nextProps.Default) !== tostring(this.props.Default) || nextState !== this.state;
 	}
 
@@ -104,7 +99,7 @@ class ColorDisplay extends Component<GWPropTypes<Color3> & { SizeYOffset?: numbe
 
 	render() {
 		return (
-			<DragDropProvider context={this.context}>
+			<DragDropProvider>
 				<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30} LayoutOrder={this.props.LayoutOrder}>
 					<uicorner
 						CornerRadius={new UDim(0, 7)}
