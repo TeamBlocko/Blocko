@@ -1,7 +1,6 @@
 import Roact from "@rbxts/roact";
 import { Client } from "@rbxts/net";
-import { entries } from "@rbxts/object-utils";
-import { shallowEqual } from "template/shared/utility";
+import { entries, deepEquals } from "@rbxts/object-utils";
 import { ActionRecievedUpdateWorldSettings, updateWorldSettings } from "template/shared/worldSettingsReducer";
 import { retriveWorldSettings } from "template/client/replicationManager";
 import store from "template/client/store";
@@ -49,7 +48,7 @@ function SettingsFrame(props: WorldMenuFrames) {
 						return;
 					}
 
-					if (shallowEqual(worldSettings, currentWorldSettings)) props.OnClick(e);
+					if (deepEquals(worldSettings, currentWorldSettings)) props.OnClick(e);
 					else
 						notificationStore.addNotification({
 							Id: "ApplyPrompt",

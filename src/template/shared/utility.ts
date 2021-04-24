@@ -52,26 +52,6 @@ export function nextInTable<T>(t: T[], element: T): T {
 	return t[(t.indexOf(element) + 1) % t.size()];
 }
 
-export function shallowEqual(t1: object, t2: object) {
-	for (const [key, value] of pairs(t1)) {
-		if (key in t2) {
-			if (typeOf(value) === "number" && typeOf(t2[key]) === "number") {
-				if ("%.2f".format(value) !== "%.2f".format(t2[key])) {
-					return false;
-				}
-			} else {
-				if (value !== t2[key]) {
-					return false;
-				}
-			}
-		} else {
-			return false;
-		}
-	}
-
-	return true;
-}
-
 export function hexToColor3(hex: string) {
 	const [r, g, b] = hex.match("([%a%d][%a%d])([%a%d][%a%d])([%a%d][%a%d])");
 	return new Color3(
