@@ -2,8 +2,6 @@
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"plugins": [
-			{"transform": "rbxts-transformer-t"},
-			{"transform": "rbxts-transform-env"},
 			{
 				"name": "roblox-ts-extensions"
 			}

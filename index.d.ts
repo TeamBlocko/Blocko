@@ -54,6 +54,12 @@ declare interface Workspace {
 	Blocks: Folder;
 }
 
+declare interface ReplicatedStorage {
+	TS: {
+		version: StringValue;
+	} & Folder;
+}
+
 declare interface Item {
 	Name: string;
 }
@@ -69,7 +75,7 @@ declare interface SliderPropTypes extends Range, GWPropTypes<number> {
 	BackgroundTransparency?: number;
 }
 
-declare interface ColorDisplayStateTypes<T> extends GWStateTypes<T> {
+declare interface ColorDisplayStateTypes extends GWStateTypes<Color3> {
 	Selected: boolean;
 }
 

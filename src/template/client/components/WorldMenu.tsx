@@ -1,11 +1,12 @@
-import { UserInputService } from "@rbxts/services";
-import { $env } from "rbxts-transform-env";
+import { UserInputService, ReplicatedStorage } from "@rbxts/services";
 import Roact, { Component, createRef, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
 import { SingleMotor, Spring } from "@rbxts/flipper";
 import NavigationFrame from "./WorldMenuFrames/NavigationFrame";
 import WorldInfoFrame from "./WorldMenuFrames/WorldInfoFrame";
 import SettingsFrame from "./WorldMenuFrames/SettingsFrame";
 import Permissions from "./WorldMenuFrames/Permissions";
+
+const [ VERSION ] = ReplicatedStorage.TS.version.Value.match("%S+")
 
 class WorldMenu extends Component {
 	private uiPagelayoutRef: Roact.Ref<UIPageLayout>;
@@ -81,7 +82,7 @@ class WorldMenu extends Component {
 					Position={UDim2.fromScale(0, 1)}
 					Size={new UDim2(1, 0, 0, 10)}
 					Font={Enum.Font.SourceSans}
-					Text={$env("VERSION")}
+					Text={tostring(VERSION)}
 					TextColor3={new Color3(1, 1, 1)}
 					TextSize={14}
 					TextXAlignment={Enum.TextXAlignment.Right}
