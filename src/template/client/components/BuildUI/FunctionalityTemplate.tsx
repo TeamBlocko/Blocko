@@ -5,6 +5,7 @@ import Slider from "../GraphicalWidget/Slider";
 import DropdownButton from "../GraphicalWidget/Dropdown/DropdownButton";
 import Dropdown from "../GraphicalWidget/Dropdown";
 import * as Functionalities from "template/shared/Functionalities";
+import { FunctionalitiesPropertiesInstance } from "template/shared/Functionalities";
 import { getAvliableFunctionalities } from "./FunctionalityUtility";
 import {
 	updateFunctionality,
@@ -30,7 +31,7 @@ interface FunctionTemplatePropTypes extends PlacementSettings {
 }
 
 function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
-	return (values(props.Functionality.Properties) as Functionalities.FunctionalitiesPropertiesInstance[]).map(
+	return (values(props.Functionality.Properties) as FunctionalitiesPropertiesInstance[]).map(
 		(property) => {
 			switch (property.Type) {
 				case "number":
@@ -55,6 +56,8 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 							OnChange={(value) => {
 								props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
 							}}
+							Position={new UDim2(0.7, 0, 0, 25)}
+							ResizeForDropdown={true}
 						/>
 					)
 			}
@@ -79,7 +82,7 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 				Key={this.props.Functionality.GUID}
 				BackgroundColor3={new Color3(1, 1, 1)}
 				BackgroundTransparency={0.95}
-				Size={this.frameSizeBinding.map((value) => new UDim2(0.975, 0, 0, value + 10))}
+				Size={this.frameSizeBinding.map((value) => new UDim2(0.975, 0, 0, value))}
 				ZIndex={this.props.ZIndex}
 				LayoutOrder={this.props.LayoutOrder}
 			>

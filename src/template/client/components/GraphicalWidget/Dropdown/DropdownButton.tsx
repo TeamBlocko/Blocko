@@ -28,6 +28,7 @@ export interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
 	Position?: UDim2;
 	OverrideValueText?: string;
 	ResizeButtonToText?: boolean;
+	OnExtend?: (isExpanded: boolean) => void;
 }
 
 class DropdownButton<T extends Item, V extends string> extends Component<
@@ -101,8 +102,10 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 								Activated: () => {
 									if (isSelected) {
 										value.changeDropdown(Roact.None);
+										this.props.OnExtend?.(false);
 									} else {
 										value.changeDropdown(this.id);
+										this.props.OnExtend?.(true);
 									}
 								},
 							}}
@@ -130,6 +133,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 									const newValue = this.props.GetValue(e.Name as V);
 									this.props.OnChange(newValue);
 									value.changeDropdown(Roact.None);
+									this.props.OnExtend?.(false);
 									this.setState({
 										Value: newValue,
 									});
