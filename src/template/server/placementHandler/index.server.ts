@@ -3,7 +3,7 @@ import { Server } from "@rbxts/net";
 import { updateWorldInfo } from "template/shared/worldSettingsReducer";
 import WorldManager from "../WorldManager";
 import { addPart } from "./FunctionalitiesHandler";
-import { FunctionalitiesInstances } from "template/shared/Functionalities";
+import { FunctionalitiesInstancesValues } from "template/shared/Functionalities";
 import { PlacementSettings } from "template/shared/Types";
 
 const shapes = ReplicatedStorage.BlockTypes;
@@ -32,7 +32,7 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 			block[propertyName] = propertyValue as never;
 		}
 
-		addPart(block, settings.Functionalities as FunctionalitiesInstances[]);
+		addPart(block, settings.Functionalities as FunctionalitiesInstancesValues[]);
 		block.Parent = Workspace.Blocks;
 		updateNumOfBlocks();
 		return block;

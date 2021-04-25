@@ -2,10 +2,6 @@ import { RunService, CollectionService, Players } from "@rbxts/services";
 import { values } from "@rbxts/object-utils";
 import * as Functionalities from "template/shared/Functionalities";
 
-type ValueObjectClassNames = {
-	[K in keyof Instances]: K extends `{infer U}Value` ? K : never;
-}[keyof Instances];
-
 function GetTouchingParts(part: BasePart) {
 	const connection = part.Touched.Connect(() => {});
 	const parts = part.GetTouchingParts();
@@ -13,11 +9,11 @@ function GetTouchingParts(part: BasePart) {
 	return parts;
 }
 
-function addDamager(part: BasePart, properties: Functionalities.Functionalities["Damager"]["Properties"]) {
+function addDamager(part: BasePart, _properties: Functionalities.FunctionalitiesInstances["Damager"]["Properties"]) {
 	CollectionService.AddTag(part, "Functionality");
 }
 
-function addTripper(part: BasePart, properties: Functionalities.Functionalities["Tripper"]["Properties"]) {
+function addTripper(part: BasePart, _properties: Functionalities.FunctionalitiesInstances["Tripper"]["Properties"]) {
 	/*
 	part.Touched.Connect((object) => {
 		const humanoid = object.Parent!.FindFirstChildOfClass("Humanoid");
@@ -29,11 +25,11 @@ function addTripper(part: BasePart, properties: Functionalities.Functionalities[
 	CollectionService.AddTag(part, "Functionality");
 }
 
-function addConveyor(part: BasePart, properties: Functionalities.Functionalities["Conveyor"]["Properties"]) {
+function addConveyor(part: BasePart, properties: Functionalities.FunctionalitiesInstances["Conveyor"]["Properties"]) {
 	CollectionService.AddTag(part, "Functionality");
 }
 
-export function addFunctionality(part: BasePart, functionality: Functionalities.FunctionalitiesInstances) {
+export function addFunctionality(part: BasePart, functionality: Functionalities.FunctionalitiesInstancesValues) {
 	switch (functionality.Name) {
 		case "Damager":
 			addDamager(part, functionality.Properties);
@@ -67,7 +63,7 @@ function createValueInstance(value: Functionalities.FunctionalitiesPropertiesIns
 	}
 }
 
-export function addPart(part: BasePart, functionalities: Functionalities.FunctionalitiesInstances[]) {
+export function addPart(part: BasePart, functionalities: Functionalities.FunctionalitiesInstancesValues[]) {
 	if (functionalities.size() === 0) return;
 
 	const functionalityFolder = part.FindFirstChild("Functionalities") ?? new Instance("Folder", part);
@@ -128,7 +124,7 @@ RunService.Heartbeat.Connect(() => {
 				} else if (functionality.Name === "Conveyor") {
 					const humanoidRootPart = character.FindFirstChild("HumanoidRootPart") as BasePart
 					if (!humanoidRootPart) continue;
-					humanoidRootPart.AssemblyLinearVelocity = functionality.Direction.Value.mul(functionality.Speed.Value)
+					part.AssemblyLinearVelocity = functionality.Direction.Value.mul(functionality.Speed.Value)
 				}
 			}
 		}

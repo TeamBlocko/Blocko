@@ -44,12 +44,12 @@ export function updateProperty(data: UpdatePropertyDataType[]): ActionRecievedUp
 //UPDATE FUNCTIONALITY
 export interface ActionRecievedUpdateFunctionality extends Action<ActionTypes.UPDATE_FUNCTIONALITY> {
 	guid: string;
-	value: Functionalities.FunctionalitiesInstances;
+	value: Functionalities.FunctionalitiesInstancesValues;
 }
 
 export function updateFunctionality(
 	guid: string,
-	value: Functionalities.FunctionalitiesInstances,
+	value: Functionalities.FunctionalitiesInstancesValues,
 ): ActionRecievedUpdateFunctionality & AnyAction {
 	return {
 		type: ActionTypes.UPDATE_FUNCTIONALITY,
@@ -79,11 +79,11 @@ export function updateFunctionalityProperty(
 }
 
 export interface ActionRecievedAddFunctionality extends Action<ActionTypes.ADD_FUNCTIONALITY> {
-	functionality: Functionalities.FunctionalitiesInstances;
+	functionality: Functionalities.FunctionalitiesInstancesValues;
 }
 
 export function addFunctionality(
-	functionality: Functionalities.FunctionalitiesInstances,
+	functionality: Functionalities.FunctionalitiesInstancesValues,
 ): ActionRecievedAddFunctionality & AnyAction {
 	return {
 		type: ActionTypes.ADD_FUNCTIONALITY,
@@ -139,7 +139,7 @@ export const placementSettingsReducer = combineReducers<PlacementSettings>({
 	BuildMode: createReducer<BuildMode, UpdateBuildMode>(intialPlacementSettings.BuildMode, {
 		[ActionTypes.UPDATE_BUILD_MODE]: (_, action) => action.value,
 	}),
-	Functionalities: createReducer<Functionalities.FunctionalitiesInstances[], FunctionalitiesActions>([], {
+	Functionalities: createReducer<Functionalities.FunctionalitiesInstancesValues[], FunctionalitiesActions>([], {
 		[ActionTypes.UPDATE_FUNCTIONALITY]: (state, action) =>
 			state.map((functionality) => (functionality.GUID === action.guid ? action.value : functionality)),
 		[ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY]: (state, action) =>

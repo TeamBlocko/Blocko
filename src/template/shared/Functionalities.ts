@@ -35,7 +35,7 @@ export const functionalities = {
 				Type: "number",
 				Default: 1,
 				Min: 1,
-				Max: 10,
+				Max: 100,
 			},
 			Direction: {
 				Name: "Direction",
@@ -74,13 +74,18 @@ export type FunctionalitiesInstances = {
 							// @ts-expect-error I don't know why TS errors here
 							Current: UnionToIntersection<Functionalities[K][S]>[P]["Default"] extends number
 								? number
+								// @ts-expect-error I don't know why TS errors here
+								: UnionToIntersection<Functionalities[K][S]>[P]["Default"] extends Enum.NormalId
+								? Enum.NormalId
 								: never;
 						};
 				  }
 				: // @ts-expect-error I don't know why TS errors here
 				  Functionalities[K][S];
 		};
-}[keyof Functionalities];
+};
+
+export type FunctionalitiesInstancesValues = FunctionalitiesInstances[keyof Functionalities]
 
 export type FunctionalitiesPropertiesInstance = {
 	[K in keyof IntersectionProperties]: IntersectionProperties[K] & {
@@ -91,7 +96,7 @@ export type FunctionalitiesPropertiesInstance = {
 export function createFunctionality(
 	functionality: FunctionalitiesValues,
 	options: { GUID?: string } = {},
-): FunctionalitiesInstances {
+): FunctionalitiesInstancesValues {
 	const functionalityCopy = deepCopy(functionality);
 
 	const newFunctionality = assign(functionalityCopy, {
@@ -104,5 +109,5 @@ export function createFunctionality(
 		});
 	}
 
-	return newFunctionality as FunctionalitiesInstances;
+	return newFunctionality as FunctionalitiesInstancesValues;
 }

@@ -1,4 +1,4 @@
-import { FunctionalitiesInstances } from "template/shared/Functionalities";
+import { FunctionalitiesInstancesValues } from "template/shared/Functionalities";
 
 export interface IState {
 	ActivatedColorPicker?: string;
@@ -10,5 +10,5 @@ export interface PlacementSettings {
 	Shape: BasePart;
 	BuildMode: BuildMode;
 	RawProperties: RawProperties;
-	Functionalities: FunctionalitiesInstances[];
+	Functionalities: FunctionalitiesInstancesValues[];
 }

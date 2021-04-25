@@ -18,7 +18,7 @@ import TitleText from "../misc/TitleText";
 import Gap from "../misc/Gap";
 
 interface FunctionTemplatePropTypes extends PlacementSettings {
-	Functionality: Functionalities.FunctionalitiesInstances;
+	Functionality: Functionalities.FunctionalitiesInstancesValues;
 	LayoutOrder?: number;
 	ZIndex?: number;
 	UpdateFunctionality(guid: string, value: Functionalities.FunctionalitiesValues): void;
@@ -138,7 +138,7 @@ export default connect(
 		UpdateFunctionality(guid: string, value: Functionalities.FunctionalitiesValues) {
 			const newFunctionality = Functionalities.createFunctionality(value, { GUID: guid });
 
-			dispatch(updateFunctionality(guid, newFunctionality as Functionalities.FunctionalitiesInstances));
+			dispatch(updateFunctionality(guid, newFunctionality as Functionalities.FunctionalitiesInstancesValues));
 		},
 		UpdateFunctionalityProperty(
 			guid: string,
