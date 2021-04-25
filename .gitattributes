@@ -1,2 +1,2 @@
-*.ts linguist-language=TypeScript
+*.ts *.lua linguist-language=TypeScript
 * text eol=lf
