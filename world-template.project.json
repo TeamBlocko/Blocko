@@ -49,6 +49,7 @@
 		}
 	},
 	"globIgnorePaths": [
-		"**/package.json"
+		"**/package.json",
+		"**/.keep"
 	]
 }
