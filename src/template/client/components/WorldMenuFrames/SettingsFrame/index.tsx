@@ -7,7 +7,7 @@ import store from "template/client/store";
 import notificationStore from "template/client/notificationStore";
 import Container from "../WorldMenuFramesContainer";
 import NavBar from "../NavBar";
-import Gap from "template/client/components/misc/Gap";
+import Gap from "common/client/components/misc/Gap";
 import Search from "./Search";
 import WorldInfo from "./WorldInfo";
 import Lighting from "./Lighting";

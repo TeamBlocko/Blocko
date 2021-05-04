@@ -5,7 +5,10 @@
 		"ServerScriptService": {
 			"$className": "ServerScriptService",
 			"TS": {
-				"$path": "out/hub/server"
+				"$path": "out/hub/server",
+				"Shared": {
+					"$path": "out/common/server"
+				}
 			}
 		},
 		"ReplicatedStorage": {
@@ -17,7 +20,10 @@
 				}
 			},
 			"TS": {
-				"$path": "out/hub/shared"
+				"$path": "out/hub/shared",
+				"Shared": {
+					"$path": "out/common/shared"
+				}
 			}
 		},
 		"StarterPlayer": {
@@ -25,7 +31,10 @@
 			"StarterPlayerScripts": {
 				"$className": "StarterPlayerScripts",
 				"TS": {
-					"$path": "out/hub/client"
+					"$path": "out/hub/client",
+					"Shared": {
+						"$path": "out/common/client"
+					}
 				}
 			}
 		},

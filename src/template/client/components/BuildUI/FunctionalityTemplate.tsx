@@ -15,7 +15,7 @@ import {
 import { IState, PlacementSettings } from "template/shared/Types";
 import CloseButton from "../misc/CloseButton";
 import TitleText from "../misc/TitleText";
-import Gap from "../misc/Gap";
+import Gap from "common/client/components/misc/Gap";
 
 interface FunctionTemplatePropTypes extends PlacementSettings {
 	Functionality: Functionalities.FunctionalitiesInstancesValues;

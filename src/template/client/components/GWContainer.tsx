@@ -3,7 +3,7 @@ import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import { UpdateBasePart, updateProperty } from "template/client/rodux/placementSettings";
 import ElementSeperator from "./misc/ElementSperator";
-import Gap from "./misc/Gap";
+import Gap from "common/client/components/misc/Gap";
 import Dropdown from "./GraphicalWidget/Dropdown";
 import Slider from "./GraphicalWidget/Slider";
 import CheckBox from "./GraphicalWidget/CheckBox";

@@ -1,6 +1,6 @@
 import { UserInputService } from "@rbxts/services";
 import Roact, { RoactBinding, createRef } from "@rbxts/roact";
-import Gap from "../../misc/Gap";
+import Gap from "common/client/components/misc/Gap";
 
 function ItemElement<T extends Item>(props: { Value: T; Handler: NonNullable<RoactEvents<TextButton>["Activated"]> }) {
 	return (
