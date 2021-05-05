@@ -1,8 +1,8 @@
 import Roact from "@rbxts/roact"
-import NavBar from "hub/client/components/NavBar";
+import Search from "hub/client/components/Search";
 
 export = (target: GuiBase2d ) => {
-	const handle = Roact.mount(<NavBar />, target);
+	const handle = Roact.mount(<Search />, target);
 
 	return () => {
 		Roact.unmount(handle);

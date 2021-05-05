@@ -2,7 +2,7 @@ import Roact from "@rbxts/roact";
 import { NotificationContainer } from "template/client/components/NotificationContainer";
 import notificationStore from "template/client/notificationStore";
 
-export = (target: GuiBase2d | PlayerGui) => {
+export = (target: GuiBase2d) => {
 	const handle = Roact.mount(<NotificationContainer defaultNotificationWidth={0} />, target);
 
 	delay(5, () => {

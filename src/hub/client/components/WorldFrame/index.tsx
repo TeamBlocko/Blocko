@@ -24,6 +24,7 @@ function WorldFrame(props: World) {
 				Image={"rbxassetid://6406939496"}
 				ImageColor3={new Color3()}
 				ImageTransparency={0.2}
+				ZIndex={0}
 			>
 				<uicorner CornerRadius={new UDim(0.08, 0)} />
 			</imagelabel>

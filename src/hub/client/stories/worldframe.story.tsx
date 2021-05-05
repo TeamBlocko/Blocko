@@ -38,7 +38,7 @@ const DEFAULT_WORLD_INFO: WorldInfo = {
 };
 
 
-export = (target: GuiBase2d | PlayerGui) => {
+export = (target: GuiBase2d) => {
 	const handle = Roact.mount(<WorldFrame
 		Info={DEFAULT_WORLD_INFO}
 		Settings={DEFAULT_WORLD_SETTINGS}
