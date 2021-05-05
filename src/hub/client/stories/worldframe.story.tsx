@@ -1,4 +1,4 @@
-import Roact from "@rbxts/roact"
+import Roact from "@rbxts/roact";
 import WorldFrame from "hub/client/components/WorldFrame";
 
 const DEFAULT_WORLD_SETTINGS: WorldSettings = {
@@ -37,12 +37,8 @@ const DEFAULT_WORLD_INFO: WorldInfo = {
 	NumberOfBlocks: 10,
 };
 
-
 export = (target: GuiBase2d) => {
-	const handle = Roact.mount(<WorldFrame
-		Info={DEFAULT_WORLD_INFO}
-		Settings={DEFAULT_WORLD_SETTINGS}
-	/>, target);
+	const handle = Roact.mount(<WorldFrame Info={DEFAULT_WORLD_INFO} Settings={DEFAULT_WORLD_SETTINGS} />, target);
 
 	return () => {
 		Roact.unmount(handle);

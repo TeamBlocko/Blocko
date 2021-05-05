@@ -73,11 +73,7 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 				}}
 			>
 				<uicorner CornerRadius={new UDim(0, 10)} />
-				<frame
-					BackgroundColor3={Color3.fromRGB(35, 35, 35)}
-					BorderSizePixel={0}
-					Size={UDim2.fromScale(1, 1)}
-				>
+				<frame BackgroundColor3={Color3.fromRGB(35, 35, 35)} BorderSizePixel={0} Size={UDim2.fromScale(1, 1)}>
 					<uicorner CornerRadius={new UDim(0, 10)} />
 					<TopFrame
 						Text={this.props.Name}

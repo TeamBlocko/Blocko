@@ -2,10 +2,7 @@ import Roact from "@rbxts/roact";
 
 function FeaturedTag() {
 	return (
-		<frame
-			BackgroundColor3={Color3.fromRGB(255, 223, 124)}
-			Size={UDim2.fromScale(2.55, 0.2)}
-		>
+		<frame BackgroundColor3={Color3.fromRGB(255, 223, 124)} Size={UDim2.fromScale(2.55, 0.2)}>
 			<uicorner CornerRadius={new UDim(0.2, 0)} />
 			<textlabel
 				AnchorPoint={new Vector2(0.5, 0.5)}
@@ -20,7 +17,7 @@ function FeaturedTag() {
 				TextWrapped={true}
 			/>
 		</frame>
-	)
+	);
 }
 
 export default FeaturedTag;

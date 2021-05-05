@@ -9,7 +9,6 @@ interface StyledDropdownPropTypes<T, V> extends DropdownPropTypes<T, V> {
 }
 
 class Dropdown<T extends Item, V extends string> extends Roact.Component<StyledDropdownPropTypes<T, V>> {
-	
 	defaultSize: number;
 	binding: Roact.RoactBinding<number>;
 	setBinding: Roact.RoactBindingFunc<number>;
@@ -31,11 +30,14 @@ class Dropdown<T extends Item, V extends string> extends Roact.Component<StyledD
 			>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<TitleText Text={this.props.Name} />
-				<DropdownButton {...this.props} OnExtend={isExtended => {
-					if (this.props.ResizeForDropdown) {
-						this.setBinding(isExtended ? this.props.Items.size() * 27 : this.defaultSize)
-					}
-				}} />
+				<DropdownButton
+					{...this.props}
+					OnExtend={(isExtended) => {
+						if (this.props.ResizeForDropdown) {
+							this.setBinding(isExtended ? this.props.Items.size() * 27 : this.defaultSize);
+						}
+					}}
+				/>
 			</GWFrame>
 		);
 	}

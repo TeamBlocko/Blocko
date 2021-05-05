@@ -31,38 +31,36 @@ interface FunctionTemplatePropTypes extends PlacementSettings {
 }
 
 function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
-	return (values(props.Functionality.Properties) as FunctionalitiesPropertiesInstance[]).map(
-		(property) => {
-			switch (property.Type) {
-				case "number":
-					return (
-						<Slider
-							{...property}
-							SizeYOffset={55}
-							Default={property.Current}
-							BackgroundTransparency={1}
-							OnChange={(value) => {
-								props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
-							}}
-						/>
-					);
-				case "choice":
-					return (
-						<Dropdown
-							{...property}
-							Default={property.Current}
-							BackgroundTransparency={1}
-							GetValue={(value) => property.Items.find((item) => item.Name === value)!}
-							OnChange={(value) => {
-								props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
-							}}
-							Position={new UDim2(0.7, 0, 0, 25)}
-							ResizeForDropdown={true}
-						/>
-					)
-			}
-		},
-	);
+	return (values(props.Functionality.Properties) as FunctionalitiesPropertiesInstance[]).map((property) => {
+		switch (property.Type) {
+			case "number":
+				return (
+					<Slider
+						{...property}
+						SizeYOffset={55}
+						Default={property.Current}
+						BackgroundTransparency={1}
+						OnChange={(value) => {
+							props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
+						}}
+					/>
+				);
+			case "choice":
+				return (
+					<Dropdown
+						{...property}
+						Default={property.Current}
+						BackgroundTransparency={1}
+						GetValue={(value) => property.Items.find((item) => item.Name === value)!}
+						OnChange={(value) => {
+							props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
+						}}
+						Position={new UDim2(0.7, 0, 0, 25)}
+						ResizeForDropdown={true}
+					/>
+				);
+		}
+	});
 }
 
 class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
@@ -117,10 +115,7 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 					/>
 				</frame>
 				{settings.size() > 0 ? (
-					<TitleText
-						Text={"Functionality Settings"}
-						Size={UDim2.fromOffset(180, 14)}
-					/>
+					<TitleText Text={"Functionality Settings"} Size={UDim2.fromOffset(180, 14)} />
 				) : undefined}
 				{settings}
 				<uilistlayout

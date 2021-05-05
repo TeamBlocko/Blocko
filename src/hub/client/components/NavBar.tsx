@@ -41,7 +41,7 @@ function NavBar() {
 				Padding={new UDim(0.025, 0)}
 			/>
 		</frame>
-	)
+	);
 }
 
 export default NavBar;

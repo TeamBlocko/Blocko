@@ -1,6 +1,5 @@
 import Roact from "@rbxts/roact";
 
-
 function Search() {
 	return (
 		<frame
@@ -16,7 +15,7 @@ function Search() {
 				BackgroundTransparency={1}
 				Position={UDim2.fromScale(0.035, 0.5)}
 				Size={UDim2.fromScale(0.047, 0.429)}
-				Image ={"rbxassetid://3926305904"}
+				Image={"rbxassetid://3926305904"}
 				ImageColor3={Color3.fromRGB(185, 185, 185)}
 				ImageRectOffset={new Vector2(964, 324)}
 				ImageRectSize={new Vector2(36, 36)}
@@ -45,9 +44,8 @@ function Search() {
 			>
 				<uicorner CornerRadius={new UDim(1, 0)} />
 			</frame>
-			
 		</frame>
-	)
+	);
 }
 
 export default Search;

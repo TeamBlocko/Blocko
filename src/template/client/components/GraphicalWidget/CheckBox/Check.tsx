@@ -7,7 +7,6 @@ interface Check {
 }
 
 class CheckBoxElement extends Roact.Component<Check> {
-
 	motor: Flipper.SingleMotor;
 	binding: Roact.RoactBinding<number>;
 	setBinding: Roact.RoactBindingFunc<number>;
@@ -29,8 +28,8 @@ class CheckBoxElement extends Roact.Component<Check> {
 				Size={UDim2.fromOffset(20, 20)}
 				Event={{
 					Activated: () => {
-						this.motor.setGoal(new Flipper.Spring(!this.props.Value ? 0 : 1))
-						this.props.HandleInput()
+						this.motor.setGoal(new Flipper.Spring(!this.props.Value ? 0 : 1));
+						this.props.HandleInput();
 					},
 				}}
 				Position={UDim2.fromScale(0.5, 0.5)}

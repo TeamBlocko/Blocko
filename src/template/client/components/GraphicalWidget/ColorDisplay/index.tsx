@@ -17,7 +17,6 @@ interface Action<A> {
 
 type Binding = Frame | undefined;
 
-
 interface ColorDisplayPropTypes extends GWPropTypes<Color3> {
 	SizeYOffset?: number;
 	Bindable?: BindableEvent;
@@ -37,7 +36,7 @@ class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTyp
 			Selected: false,
 		});
 
-		this.props.Bindable?.Event.Connect(() => this.setColorPickerPos())
+		this.props.Bindable?.Event.Connect(() => this.setColorPickerPos());
 	}
 
 	setColorPickerPos() {

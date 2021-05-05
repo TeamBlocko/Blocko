@@ -43,22 +43,21 @@ export function addFunctionality(part: BasePart, functionality: Functionalities.
 	}
 }
 
-
 function createValueInstance(value: Functionalities.FunctionalitiesPropertiesInstance, parent: Folder) {
 	switch (value.Type) {
 		case "number":
-			const valueInstance = new Instance("NumberValue")
-			valueInstance.Value = value.Current
-			valueInstance.Name = value.Name
-			valueInstance.Parent = parent
+			const valueInstance = new Instance("NumberValue");
+			valueInstance.Value = value.Current;
+			valueInstance.Name = value.Name;
+			valueInstance.Parent = parent;
 			break;
 		case "choice":
 			if (value.Name === "Direction") {
-				const valueInstance = new Instance("Vector3Value")
-				valueInstance.Value = Vector3.FromNormalId(value.Current)
-				valueInstance.Name = value.Name
-				valueInstance.Parent = parent
-				break
+				const valueInstance = new Instance("Vector3Value");
+				valueInstance.Value = Vector3.FromNormalId(value.Current);
+				valueInstance.Name = value.Name;
+				valueInstance.Parent = parent;
+				break;
 			}
 	}
 }
@@ -69,12 +68,13 @@ export function addPart(part: BasePart, functionalities: Functionalities.Functio
 	const functionalityFolder = part.FindFirstChild("Functionalities") ?? new Instance("Folder", part);
 	functionalityFolder.Name = "Functionalities";
 	for (const functionality of functionalities) {
-		const container= part.FindFirstChild(functionality.Name) as Folder ?? new Instance("Folder", functionalityFolder);
+		const container =
+			(part.FindFirstChild(functionality.Name) as Folder) ?? new Instance("Folder", functionalityFolder);
 		container.Name = functionality.Name;
 
-		for (const property of (values(
+		for (const property of values(
 			functionality.Properties,
-		)) as Functionalities.FunctionalitiesPropertiesInstance[]) {
+		) as Functionalities.FunctionalitiesPropertiesInstance[]) {
 			createValueInstance(property, container);
 		}
 
@@ -104,7 +104,7 @@ RunService.Heartbeat.Connect(() => {
 
 			for (const touchingPart of GetTouchingParts(part)) {
 				const player = Players.GetPlayerFromCharacter(touchingPart.Parent);
-				const character = player?.Character 
+				const character = player?.Character;
 				const humanoid = character?.FindFirstChildOfClass("Humanoid");
 
 				if (!player || !humanoid || !character) continue;
@@ -122,9 +122,9 @@ RunService.Heartbeat.Connect(() => {
 				} else if (functionality.Name === "Tripper") {
 					humanoid.Sit = true;
 				} else if (functionality.Name === "Conveyor") {
-					const humanoidRootPart = character.FindFirstChild("HumanoidRootPart") as BasePart
+					const humanoidRootPart = character.FindFirstChild("HumanoidRootPart") as BasePart;
 					if (!humanoidRootPart) continue;
-					part.AssemblyLinearVelocity = functionality.Direction.Value.mul(functionality.Speed.Value)
+					part.AssemblyLinearVelocity = functionality.Direction.Value.mul(functionality.Speed.Value);
 				}
 			}
 		}

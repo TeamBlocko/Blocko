@@ -22,7 +22,7 @@ function LikeButton() {
 				ScaleType={Enum.ScaleType.Fit}
 			/>
 		</imagebutton>
-	)
+	);
 }
 
 export default LikeButton;

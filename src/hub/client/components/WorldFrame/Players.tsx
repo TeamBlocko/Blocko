@@ -1,8 +1,8 @@
 import Roact from "@rbxts/roact";
 
 interface PlayersCountPropTypes {
-	Current: number,
-	Max: number
+	Current: number;
+	Max: number;
 }
 
 function PlayersCount(props: PlayersCountPropTypes) {
@@ -30,7 +30,7 @@ function PlayersCount(props: PlayersCountPropTypes) {
 				TextXAlignment={Enum.TextXAlignment.Left}
 			/>
 		</imagelabel>
-	)
+	);
 }
 
 export default PlayersCount;

@@ -6,7 +6,7 @@ import WorldInfoFrame from "./WorldMenuFrames/WorldInfoFrame";
 import SettingsFrame from "./WorldMenuFrames/SettingsFrame";
 import Permissions from "./WorldMenuFrames/Permissions";
 
-const [ VERSION ] = ReplicatedStorage.TS.version.Value.match("%S+")
+const [VERSION] = ReplicatedStorage.TS.version.Value.match("%S+");
 
 class WorldMenu extends Component {
 	private uiPagelayoutRef: Roact.Ref<UIPageLayout>;

@@ -66,7 +66,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 		[this.canvasSizeBinding, this.setCanvasSizeBinding] = Roact.createBinding(0);
 		[this.functionalitySizeBinding, this.setFunctionalitySizeBinding] = Roact.createBinding(0);
 
-		this.bindable = new Instance("BindableEvent")
+		this.bindable = new Instance("BindableEvent");
 
 		this.setState({});
 	}
@@ -162,7 +162,9 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 								<CheckBox
 									Name="Cast Shadow"
 									Default={this.props.RawProperties.CastShadow}
-									OnChange={(newValue: boolean) => this.props.OnCheckBoxUpdate("CastShadow", newValue)}
+									OnChange={(newValue: boolean) =>
+										this.props.OnCheckBoxUpdate("CastShadow", newValue)
+									}
 									SizeYOffset={25}
 									LayoutOrder={7}
 								/>

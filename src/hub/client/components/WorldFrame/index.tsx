@@ -13,7 +13,7 @@ function WorldFrame(props: World) {
 			ImageTransparency={1}
 			ScaleType={Enum.ScaleType.Crop}
 		>
-			<uiscale/>
+			<uiscale />
 			<uiaspectratioconstraint AspectRatio={1.5527461767197} />
 			<WorldInfo {...props} />
 			<imagelabel
@@ -40,9 +40,8 @@ function WorldFrame(props: World) {
 				ImageTransparency={0.1}
 			/>
 			<uicorner CornerRadius={new UDim(0.08, 0)} />
-
 		</imagebutton>
-	)
+	);
 }
 
 export default WorldFrame;
