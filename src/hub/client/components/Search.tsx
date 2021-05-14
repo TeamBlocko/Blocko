@@ -1,4 +1,11 @@
 import Roact from "@rbxts/roact";
+import Dropdown from "./Dropdown";
+
+const filters = [
+					{ Name: "Active" },
+					{ Name: "Featured" },
+					{ Name: "My Worlds" }
+				]
 
 function Search() {
 	return (
@@ -8,8 +15,10 @@ function Search() {
 			Position={UDim2.fromScale(0.5, 0.32)}
 			Selectable={true}
 			Size={UDim2.fromScale(0.425, 0.075)}
+			ZIndex={2}
 		>
 			<uicorner CornerRadius={new UDim(0.2, 0)} />
+			<uiaspectratioconstraint AspectRatio={9.301} />
 			<imagebutton
 				AnchorPoint={new Vector2(0, 0.5)}
 				BackgroundTransparency={1}
@@ -44,6 +53,13 @@ function Search() {
 			>
 				<uicorner CornerRadius={new UDim(1, 0)} />
 			</frame>
+			<Dropdown
+				Items={filters}
+				Default={{ Name: "Active"}}
+				OnChange={(newValue) => print(newValue)}
+				GetValue={(value) => filters.find((filter) => filter.Name === value)!}
+				Name={"Filter"}
+			/>
 		</frame>
 	);
 }
