@@ -1,6 +1,6 @@
 {
 	"name": "blocko",
-	"version": "1.10.12",
+	"version": "1.10.13",
 	"description": "",
 	"main": "index.js",
 	"dependencies": {
@@ -25,7 +25,6 @@
 		"rojo:world-template:build:packed": "rojo build -o dist/WorldTemplate.Packed.rbxl world-template.project.json",
 		"rojo:hub:build": "rojo build -o dist/hub.rbxl hub.project.json",
 		"rojo:hub": "rojo serve hub.project.json",
-
 		"remodel": "remodel run add-models.lua",
 		"remodel:packed": "remodel run add-models.lua packed",
 		"compile": "rbxtsc --verbose",
