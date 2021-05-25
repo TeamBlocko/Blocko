@@ -41,9 +41,10 @@
 		"hub:serve": "npm run compile:hub && npm run rojo:hub",
 		"build": "npm run world-template:build && npm run world-template:build:packed && npm run hub:build",
 		"eslint:fix": "eslint src --fix",
-		"upload:hub": "remodel run uploadPlace.lua hub",
-		"upload:world-template": "remodel run uploadPlace.lua worldtemplate",
-		"upload": "npm run upload:hub && npm run upload:world-template",
+		"upload:hub": "remodel run uploadFile.lua hub",
+		"upload:world-template": "remodel run uploadFile.lua worldtemplate",
+		"upload:resource": "remodel run uploadFile.lua resource",
+		"upload": "npm run upload:hub && npm run upload:world-template && npm run upload:resource",
 		"project:version": "echo $(git describe --tags --first-parent --long --always) | tee src/template/shared/version.txt"
 	},
 	"devDependencies": {
