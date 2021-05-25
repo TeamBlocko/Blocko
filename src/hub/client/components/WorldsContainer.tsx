@@ -3,13 +3,13 @@ import { Client } from "@rbxts/net";
 import { FilterItem, searchContext } from "hub/client/searchContext";
 import WorldFrame from "./WorldFrame";
 
-const fetchWorlds = Client.GetAsyncFunction<[], [Filter], FetchWorldsResult>("FetchWorlds")
-const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldInfo")
-const createWorld = Client.GetAsyncFunction("CreateWorld")
+const fetchWorlds = Client.GetAsyncFunction<[], [Filter], FetchWorldsResult>("FetchWorlds");
+const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldInfo");
+const createWorld = Client.GetAsyncFunction("CreateWorld");
 
-fetchWorlds.SetCallTimeout(100)
-fetchWorldInfo.SetCallTimeout(100)
-createWorld.SetCallTimeout(100)
+fetchWorlds.SetCallTimeout(100);
+fetchWorldInfo.SetCallTimeout(100);
+createWorld.SetCallTimeout(100);
 
 function CreateWorld() {
 	return (
@@ -22,7 +22,7 @@ function CreateWorld() {
 			AutoButtonColor={false}
 			ScaleType={Enum.ScaleType.Crop}
 			Event={{
-				Activated: () => createWorld.CallServerAsync()
+				Activated: () => createWorld.CallServerAsync(),
 			}}
 		>
 			<uiscale />
@@ -45,15 +45,9 @@ function CreateWorld() {
 
 function Error(props: { Error: string }) {
 	return (
-		<frame
-			BackgroundTransparency={1}
-			Size={new UDim2(1, 0, 0, 175)}
-		>
+		<frame BackgroundTransparency={1} Size={new UDim2(1, 0, 0, 175)}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
-			<uilistlayout
-				HorizontalAlignment={Enum.HorizontalAlignment.Center}
-				Padding={new UDim(0, 10)}
-			/>
+			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 10)} />
 			<textlabel
 				AutomaticSize={Enum.AutomaticSize.XY}
 				BackgroundTransparency={1}
@@ -64,7 +58,7 @@ function Error(props: { Error: string }) {
 				TextColor3={new Color3(1, 1, 1)}
 				TextSize={20}
 				TextTransparency={0.1}
-				TextYAlignment={Enum.TextYAlignment.Top}	
+				TextYAlignment={Enum.TextYAlignment.Top}
 			/>
 			<frame
 				AnchorPoint={new Vector2(0.5, 0.5)}
@@ -77,16 +71,16 @@ function Error(props: { Error: string }) {
 }
 
 interface WorldsState {
-	Error?: string,
-	Worlds?: World[],
+	Error?: string;
+	Worlds?: World[];
 	Loaded: boolean;
 }
 
-function renderWorlds(worlds : World[]): Roact.Element[] {
+function renderWorlds(worlds: World[]): Roact.Element[] {
 	return worlds.map((world) => {
-		print(world) 
-		return <WorldFrame Info={world.Info} Settings={world.Settings} />
-	})
+		print(world);
+		return <WorldFrame Info={world.Info} Settings={world.Settings} />;
+	});
 }
 
 interface WorldsContainerPropTypes {
@@ -98,51 +92,51 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 		super(props);
 
 		this.setState({
-			Worlds: []
-		})
+			Worlds: [],
+		});
 	}
 
 	async fetchWorlds(filter: Filter) {
 		if (!this.state.Loaded) {
-		const result = await fetchWorlds.CallServerAsync(filter)
-		print(`WHAT FILTER?? ${filter}`)
-		if (result.success) {
-			let worldsInfo = result.data.map((worldId) => fetchWorldInfo.CallServerAsync(worldId))
-			print("WORLDS INFO", worldsInfo)
-			if (worldsInfo.size() === 0) {
-				this.setState({
-					Error: `<b><font size='20'>UH OH!</font></b> \n Looks like there are no ${filter} worlds to check out right now.`,
-					Worlds: Roact.None,
-					Loaded: true
-				})
+			const result = await fetchWorlds.CallServerAsync(filter);
+			print(`WHAT FILTER?? ${filter}`);
+			if (result.success) {
+				const worldsInfo = result.data.map((worldId) => fetchWorldInfo.CallServerAsync(worldId));
+				print("WORLDS INFO", worldsInfo);
+				if (worldsInfo.size() === 0) {
+					this.setState({
+						Error: `<b><font size='20'>UH OH!</font></b> \n Looks like there are no ${filter} worlds to check out right now.`,
+						Worlds: Roact.None,
+						Loaded: true,
+					});
+				} else {
+					this.setState({
+						Worlds: await Promise.all<typeof worldsInfo>(worldsInfo),
+						Error: Roact.None,
+						Loaded: true,
+					});
+				}
 			} else {
 				this.setState({
-					Worlds: await Promise.all<typeof worldsInfo>(worldsInfo),
-					Error: Roact.None,
+					Error: result.error,
+					Worlds: Roact.None,
 					Loaded: true,
-				})
+				});
 			}
-		} else {
-			this.setState({
-				Error: result.error,
-				Worlds: Roact.None,
-				Loaded: true,
-			})
-		}
 		}
 	}
 
 	shouldUpdate(nextProps: WorldsContainerPropTypes, nextState: WorldsState) {
 		if (nextProps.Filter.Name !== this.props.Filter.Name) {
-			this.state.Error = undefined
-			this.state.Worlds = []
-			this.state.Loaded = false
+			this.state.Error = undefined;
+			this.state.Worlds = [];
+			this.state.Loaded = false;
 		}
-		return !this.state.Loaded || !nextState.Loaded
+		return !this.state.Loaded || !nextState.Loaded;
 	}
 
 	render() {
-		const createWorld = this.props.Filter.Name !== "Owned" ? undefined : <CreateWorld />
+		const createWorld = this.props.Filter.Name !== "Owned" ? undefined : <CreateWorld />;
 		const errorText = this.state.Error ? <Error Error={this.state.Error} /> : undefined;
 		return (
 			<scrollingframe
@@ -167,17 +161,14 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 	}
 
 	async didMount() {
-		this.fetchWorlds(this.props.Filter.Name)
+		this.fetchWorlds(this.props.Filter.Name);
 	}
 
 	async didUpdate() {
-		this.fetchWorlds(this.props.Filter.Name)
+		this.fetchWorlds(this.props.Filter.Name);
 	}
-
-
 }
 
-
-export default function() {
-	return <searchContext.Consumer render={(value) => <WorldsContainer Filter={value.filter}/>}/>
-};
+export default function () {
+	return <searchContext.Consumer render={(value) => <WorldsContainer Filter={value.filter} />} />;
+}

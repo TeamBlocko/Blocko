@@ -1,14 +1,10 @@
 import { createContext } from "@rbxts/roact";
 
 export interface FilterItem {
-	Name: Filter
+	Name: Filter;
 }
 
-export const filters: FilterItem[] = [
-	{ Name: "Active" },
-	{ Name: "Featured" },
-	{ Name: "Owned" }
-]
+export const filters: FilterItem[] = [{ Name: "Active" }, { Name: "Featured" }, { Name: "Owned" }];
 
 export interface SearchContext {
 	filter: FilterItem;

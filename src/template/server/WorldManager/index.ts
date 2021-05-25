@@ -55,7 +55,9 @@ const worldInfoSerializer = ser.interface("World", {
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
 const DATASTORE_VERSION = $env("DATASTORE_VERSION");
 
-const worldStore = dataSync.GetStore<WorldDataSync>(`Worlds${DATASTORE_VERSION}`, { data: worldInfoSerializer.serialize(DEFAULT_WORLD) });
+const worldStore = dataSync.GetStore<WorldDataSync>(`Worlds${DATASTORE_VERSION}`, {
+	data: worldInfoSerializer.serialize(DEFAULT_WORLD),
+});
 const blocksStore = dataSync.GetStore(`WorldBlocks${DATASTORE_VERSION}`, {
 	Blocks: DEFAULT_TEMPLATE,
 });
@@ -71,14 +73,18 @@ class WorldManager {
 	public isClosing = false;
 
 	constructor(placeId: number) {
-		print(placeId)
+		print(placeId);
 		this.worldInfo = worldStore.GetFile(`World${placeId}`);
 		this.worldBlocks = blocksStore.GetFile(`WorldBlocks${placeId}`);
 		const worldFile = this.worldInfo.GetData();
-		this.store = storeInitializer(worldInfoSerializer.deserialize({ Info: worldFile.data.Info, Settings: worldFile.data.Settings }));
+		this.store = storeInitializer(
+			worldInfoSerializer.deserialize({ Info: worldFile.data.Info, Settings: worldFile.data.Settings }),
+		);
 
 		this.store.changed.connect(async (newState) => {
-			this.worldInfo.UpdateData(assign(this.worldInfo.GetData(), { data: worldInfoSerializer.serialize(newState) }));
+			this.worldInfo.UpdateData(
+				assign(this.worldInfo.GetData(), { data: worldInfoSerializer.serialize(newState) }),
+			);
 			this.worldInfo.SaveData();
 		});
 
@@ -109,7 +115,7 @@ class WorldManager {
 			activeODS.SetAsync(`${state.Info.WorldId}`, state.Info.ActivePlayers);
 
 			const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
-			this.worldInfo.UpdateData(assign(this.worldInfo.GetData(), { data: worldInfoSerializer.serialize(state)}));
+			this.worldInfo.UpdateData(assign(this.worldInfo.GetData(), { data: worldInfoSerializer.serialize(state) }));
 			this.worldBlocks.UpdateData("Blocks", serialized);
 			this.worldInfo.SaveData();
 			this.worldBlocks.SaveData();
@@ -169,7 +175,7 @@ class WorldManager {
 		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait();
 		const newInfo = copy(this.worldInfo.GetData());
 		newInfo.data.Info.Server = undefined;
-		newInfo.data.Info.ActivePlayers = '0';
+		newInfo.data.Info.ActivePlayers = "0";
 		this.worldInfo.UpdateData(newInfo);
 		this.worldInfo.SaveData();
 		activeODS.RemoveAsync(newInfo.data.Info.WorldId);

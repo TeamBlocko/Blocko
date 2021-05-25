@@ -3,7 +3,6 @@ import WorldsContainer from "./WorldsContainer";
 import WorldsMenuTopBar from "./WorldsMenuTopBar";
 
 function WorldsMenu() {
-
 	return (
 		<imagelabel
 			AnchorPoint={new Vector2(1, 0.5)}
@@ -18,6 +17,6 @@ function WorldsMenu() {
 			<WorldsMenuTopBar Text={"WORLDS"} />
 		</imagelabel>
 	);
-};
+}
 
 export default WorldsMenu;

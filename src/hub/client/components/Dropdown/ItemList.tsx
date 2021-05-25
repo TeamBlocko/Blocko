@@ -66,9 +66,7 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 				BackgroundColor3={new Color3(1, 1, 1)}
 				BorderSizePixel={0}
 				Position={UDim2.fromScale(0.45, 2)}
-				Size={this.props.Binding.map((value) =>
-					new UDim2(1.65, 0, 10 * value, 0),
-				)}
+				Size={this.props.Binding.map((value) => new UDim2(1.65, 0, 10 * value, 0))}
 				ZIndex={10}
 			>
 				<uicorner CornerRadius={new UDim(0, 5)} />

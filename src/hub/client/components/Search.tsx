@@ -4,8 +4,8 @@ import { searchContext, filters } from "hub/client/searchContext";
 
 function Search() {
 	return (
-		<searchContext.Consumer render={
-			(value) => {
+		<searchContext.Consumer
+			render={(value) => {
 				return (
 					<frame
 						AnchorPoint={new Vector2(0.5, 0.5)}
@@ -43,7 +43,7 @@ function Search() {
 							TextWrapped={true}
 							TextXAlignment={Enum.TextXAlignment.Left}
 							Change={{
-								Text: (e) => value.setSearchText(e.Text)
+								Text: (e) => value.setSearchText(e.Text),
 							}}
 						/>
 						<frame
@@ -63,8 +63,8 @@ function Search() {
 						/>
 					</frame>
 				);
-			}
-		}/>
+			}}
+		/>
 	);
 }
 

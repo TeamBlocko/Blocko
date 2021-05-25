@@ -1,10 +1,10 @@
 import { Server } from "@rbxts/net";
 import { $env } from "rbxts-transform-env";
 
-const fetchWorlds = new Server.AsyncFunction<[Filter]>("FetchWorlds").SetCallTimeout(100)
-const fetchWorldInfo = new Server.AsyncFunction<[number]>("FetchWorldInfo").SetCallTimeout(100)
-const createWorldRemote = new Server.AsyncFunction("CreateWorld").SetCallTimeout(100)
-const teleportPlayer = new Server.AsyncFunction<[number]>("TeleportPlayer").SetCallTimeout(100)
+const fetchWorlds = new Server.AsyncFunction<[Filter]>("FetchWorlds").SetCallTimeout(100);
+const fetchWorldInfo = new Server.AsyncFunction<[number]>("FetchWorldInfo").SetCallTimeout(100);
+const createWorldRemote = new Server.AsyncFunction("CreateWorld").SetCallTimeout(100);
+const teleportPlayer = new Server.AsyncFunction<[number]>("TeleportPlayer").SetCallTimeout(100);
 
 import { DataStoreService, TeleportService, Players } from "@rbxts/services";
 import MockODS from "common/server/MockODS";
@@ -23,87 +23,94 @@ const worldInfoSerializer = ser.interface("World", {
 
 const DATASTORE_VERSION = $env("DATASTORE_VERSION");
 
-const worldStore = dataSync.GetStore<WorldDataSync>(`Worlds${DATASTORE_VERSION}`, { data: worldInfoSerializer.serialize(DEFAULT_WORLD) });
-const ownedWorlds = dataSync.GetStore<PlayerDataSync>(`ownedWorlds${DATASTORE_VERSION}`, { data: { ownedWorlds: [] } })
+const worldStore = dataSync.GetStore<WorldDataSync>(`Worlds${DATASTORE_VERSION}`, {
+	data: worldInfoSerializer.serialize(DEFAULT_WORLD),
+});
+const ownedWorlds = dataSync.GetStore<PlayerDataSync>(`ownedWorlds${DATASTORE_VERSION}`, { data: { ownedWorlds: [] } });
 const activeODS =
 	game.CreatorId !== 0 ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
 
-
-const joiningWorld = new Map<number, boolean>()
-const teleportFailDetectors = new Map<number, RBXScriptConnection>()
+const joiningWorld = new Map<number, boolean>();
+const teleportFailDetectors = new Map<number, RBXScriptConnection>();
 
 teleportPlayer.SetCallback((player, worldId) => {
 	if (!joiningWorld.get(player.UserId)) {
-		joiningWorld.set(player.UserId, true)
-		const worldInfo = worldInfoSerializer.deserialize(worldStore.GetFile(`World${worldId}`).GetData().data).Info
+		joiningWorld.set(player.UserId, true);
+		const worldInfo = worldInfoSerializer.deserialize(worldStore.GetFile(`World${worldId}`).GetData().data).Info;
 		if (worldInfo.Server) {
-			TeleportService.TeleportToPlaceInstance(worldId, worldInfo.Server, player)
-		} else {		
-			TeleportService.TeleportAsync(worldId, [player])
+			TeleportService.TeleportToPlaceInstance(worldId, worldInfo.Server, player);
+		} else {
+			TeleportService.TeleportAsync(worldId, [player]);
 		}
 		teleportFailDetectors.get(player.UserId)?.Disconnect();
-		teleportFailDetectors.delete(player.UserId)
-		teleportFailDetectors.set(player.UserId, TeleportService.TeleportInitFailed.Connect((failedPlayer, result) => {
-			if (player === failedPlayer) {
-				if (
-					result === Enum.TeleportResult.GameNotFound
-					|| result === Enum.TeleportResult.Unauthorized
-					|| result === Enum.TeleportResult.GameEnded
-				) {
-					TeleportService.TeleportAsync(worldId, [player])
+		teleportFailDetectors.delete(player.UserId);
+		teleportFailDetectors.set(
+			player.UserId,
+			TeleportService.TeleportInitFailed.Connect((failedPlayer, result) => {
+				if (player === failedPlayer) {
+					if (
+						result === Enum.TeleportResult.GameNotFound ||
+						result === Enum.TeleportResult.Unauthorized ||
+						result === Enum.TeleportResult.GameEnded
+					) {
+						TeleportService.TeleportAsync(worldId, [player]);
+					}
+					teleportFailDetectors.get(player.UserId)?.Disconnect();
+					teleportFailDetectors.delete(player.UserId);
 				}
-				teleportFailDetectors.get(player.UserId)?.Disconnect();
-				teleportFailDetectors.delete(player.UserId);
-			}
-		}))
+			}),
+		);
 	}
-})
+});
 
 Players.PlayerRemoving.Connect((player) => {
-	joiningWorld.delete(player.UserId)
+	joiningWorld.delete(player.UserId);
 	teleportFailDetectors.get(player.UserId)?.Disconnect();
 	teleportFailDetectors.delete(player.UserId);
-})
-
+});
 
 createWorldRemote.SetCallback((player) => {
 	if (!joiningWorld.get(player.UserId)) {
-		const worldId = createWorld(player, worldStore, ownedWorlds)
+		const worldId = createWorld(player, worldStore, ownedWorlds);
 		joiningWorld.set(player.UserId, true);
-		TeleportService.TeleportAsync(worldId, [player])
+		TeleportService.TeleportAsync(worldId, [player]);
 	}
-})
+});
 
 function getKeys(pages: Array<{ key: string; value: unknown }>): number[] {
 	return pages.map((world) => tonumber(world.key)!);
 }
 
 function fetchActive(): FetchWorldsResult {
-	const result = opcall(() => activeODS.GetSortedAsync(false, 24, 1))
+	const result = opcall(() => activeODS.GetSortedAsync(false, 24, 1));
 	if (result.success) {
-		return { success: true, data: getKeys(result.value.GetCurrentPage()) }
+		return { success: true, data: getKeys(result.value.GetCurrentPage()) };
 	} else {
-		return { success: false, error: result.error}
+		return { success: false, error: result.error };
 	}
 }
 
 function fetchOwned(player: Player): FetchWorldsResult {
 	const playerFile = ownedWorlds.GetFile(`${player.UserId}`);
-	return { success: true, data: playerFile.GetData().data.ownedWorlds }
+	return { success: true, data: playerFile.GetData().data.ownedWorlds };
 }
 
-fetchWorlds.SetCallback((player, filter): FetchWorldsResult => {
-	print(filter)
-	switch (filter){
-		case "Active":
-			return fetchActive();
-		case "Owned":
-			return fetchOwned(player);
-		default:
-			return fetchActive();
-	}
-})
+fetchWorlds.SetCallback(
+	(player, filter): FetchWorldsResult => {
+		print(filter);
+		switch (filter) {
+			case "Active":
+				return fetchActive();
+			case "Owned":
+				return fetchOwned(player);
+			default:
+				return fetchActive();
+		}
+	},
+);
 
-fetchWorldInfo.SetCallback((_player, worldId): World => {
-	return worldInfoSerializer.deserialize(worldStore.GetFile(`World${worldId}`).GetData().data)
-})
+fetchWorldInfo.SetCallback(
+	(_player, worldId): World => {
+		return worldInfoSerializer.deserialize(worldStore.GetFile(`World${worldId}`).GetData().data);
+	},
+);

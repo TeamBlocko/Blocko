@@ -79,8 +79,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 
 	render() {
 		const buttonText = this.props.OverrideValueText ?? this.props.Default.Name;
-		const size =
-			TextService.GetTextSize(buttonText, 12, Enum.Font.GothamBold, new Vector2(0, 0)).X + 20;
+		const size = TextService.GetTextSize(buttonText, 12, Enum.Font.GothamBold, new Vector2(0, 0)).X + 20;
 		return (
 			<textbutton
 				AnchorPoint={new Vector2(0, 0.5)}
@@ -96,7 +95,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 				ZIndex={this.props.ZIndex}
 				Event={{
 					Activated: () => {
-						this.setState((prevState) => ({ Expanded: !prevState.Expanded, Value: prevState.Value }))
+						this.setState((prevState) => ({ Expanded: !prevState.Expanded, Value: prevState.Value }));
 					},
 				}}
 			>
@@ -134,7 +133,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 	}
 
 	didUpdate() {
-		this.motor.setGoal(new Spring(this.state.Expanded ? 1 : 0))
+		this.motor.setGoal(new Spring(this.state.Expanded ? 1 : 0));
 	}
 }
 
