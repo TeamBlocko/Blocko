@@ -103,6 +103,7 @@ local Manager = require("Manager")
 local Network = require("Network")
 local Methods = require(script:WaitForChild("Methods"))
 local Subscribe = require(script:WaitForChild("Subscribe"))
+local reconcileTable = require(script:WaitForChild("Reconcile"))
 local Players = game:GetService("Players")
 
 --[=[
@@ -248,7 +249,7 @@ function DataSync:GetFile(index: string | number | nil): typeof(DataSync:GetFile
 			data._loaded = true
 		end
 
-		DataSync._Cache[data._key][index] = load
+		DataSync._Cache[data._key][index] = reconcileTable(load, DataSync._Defaults[data._key])
 		DataSync._Sessions[index].loading = false
 	end
 

@@ -214,3 +214,30 @@ declare interface iNotification {
 
 declare type RemoteNotification = { Type: "Add", Data: iNotification } | { Type: "Remove", Id: string }
 
+declare type Filter = "Active" | "Featured" | "Owned"
+
+declare type FetchWorldsResult = {
+	success: true,
+	data: number[],
+} | {
+	success: false,
+	error: string,
+}
+
+declare type FetchWorldInfoResult = {
+	success: true,
+	data: World,
+} | {
+	success: false,
+	error: string,
+}
+
+declare interface WorldDataSync {
+	data: ser.ser.Serialized<World>
+}
+
+declare interface PlayerDataSync {
+	data: {
+		ownedWorlds: number[]
+	}
+}

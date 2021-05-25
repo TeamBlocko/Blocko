@@ -10,7 +10,7 @@ declare namespace Loader {
 	class DataSyncFile<T> {
 		Loaded(): boolean;
 		Ready(): boolean;
-		GetData<K extends string>(value?: K | number): K extends keyof T ? T[K] : T;
+		GetData<K extends string>(value?: K | number): K extends keyof T ? T[K] : T & { __IsReady: boolean };
 
 		UpdateData<K extends keyof T>(key: K, value: T[K]): this;
 		UpdateData(value: T): this;

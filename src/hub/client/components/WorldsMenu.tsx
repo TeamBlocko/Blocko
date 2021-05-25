@@ -1,4 +1,5 @@
 import Roact from "@rbxts/roact";
+import WorldsContainer from "./WorldsContainer";
 import WorldsMenuTopBar from "./WorldsMenuTopBar";
 
 function WorldsMenu() {
@@ -13,6 +14,7 @@ function WorldsMenu() {
 			Image={"rbxassetid://6397653967"}
 			ScaleType={Enum.ScaleType.Tile}
 		>
+			<WorldsContainer />
 			<WorldsMenuTopBar Text={"WORLDS"} />
 		</imagelabel>
 	);

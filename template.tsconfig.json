@@ -1,11 +1,13 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"tsBuildInfoFile": "out/template/tsconfig.tsbuildinfo",
+		"tsBuildInfoFile": "out/template/template.tsbuildinfo",
+		"incremental": true,
 		"plugins": [
 			{
 				"name": "roblox-ts-extensions"
-			}
+			},
+			{"transform": "rbxts-transform-env"}
 		]
 	},
 	"exclude": [

@@ -1,7 +1,7 @@
+local addModels = require("addModels")
 local args = { ... }
 local isPacked = args[1] == "packed"
 
-local modelsPath = "./assets/models/"
 local worldPath = not isPacked and "./dist/WorldTemplate.rbxl" or "./dist/WorldTemplate.Packed.rbxl"
 
 local game = remodel.readPlaceFile(worldPath)
@@ -39,21 +39,11 @@ if isPacked then
 	replicatedStorage.TS.Parent = resources.ReplicatedStorage
 	playerScripts.TS.Parent = resources.StarterPlayer.StarterPlayerScripts
 
-	local loaderResourcesScript = require 'addLoadScript'
+	local loaderResourcesScript = require("addLoadScript")
 	loaderResourcesScript.Parent = serverScriptService
 end
 
-for _, modelName in ipairs(remodel.readDir(modelsPath)) do
-	local models = remodel.readModelFile(modelsPath .. modelName)
-	print("--| " .. modelName)
-	for _, model in ipairs(models) do
-		print((" "):rep(6) .. model.Name)
-		local serviceName = modelName:gsub("(.)%..+", "%1")
-		model.Parent = isPacked
-			and serverStorage:FindFirstChild("Resources"):FindFirstChild(serviceName)
-			or game:GetService(serviceName)
-	end
-end
+addModels(game, isPacked)
 
 if serverScriptService:FindFirstChild("TS") then
 	remodel.setRawProperty(serverScriptService.TS.BetterChat.MainModule.Server.serverRunner, "Disabled", "Bool", true)	

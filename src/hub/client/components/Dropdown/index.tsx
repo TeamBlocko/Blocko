@@ -2,7 +2,6 @@ import { HttpService, TextService } from "@rbxts/services";
 import { SingleMotor, Spring } from "@rbxts/flipper";
 import Roact, { Component, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
 import ItemList from "./ItemList";
-import { appContext } from "template/client/appContext";
 
 interface DropdownStateTypes<T> extends GWStateTypes<T> {
 	Expanded: boolean;

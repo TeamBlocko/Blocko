@@ -1,6 +1,10 @@
 import Roact from "@rbxts/roact";
+import { Client } from "@rbxts/net";
 import WorldCover from "./WorldCover";
 import WorldInfo from "./WorldInfo";
+
+const teleportPlayer = new Client.AsyncFunction<[], [number]>("TeleportPlayer")
+teleportPlayer.SetCallTimeout(100)
 
 function WorldFrame(props: World) {
 	return (
@@ -12,6 +16,9 @@ function WorldFrame(props: World) {
 			Image={"rbxassetid://5403617336"}
 			ImageTransparency={1}
 			ScaleType={Enum.ScaleType.Crop}
+			Event={{
+				Activated: () => teleportPlayer.CallServerAsync(props.Info.WorldId)
+			}}
 		>
 			<uiscale />
 			<uiaspectratioconstraint AspectRatio={1.5527461767197} />
