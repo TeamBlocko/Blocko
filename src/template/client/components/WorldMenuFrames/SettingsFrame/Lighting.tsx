@@ -56,7 +56,6 @@ function Lighting(props: LightingPropTypes) {
 					OnChange: (newValue) => props.OnCheckBoxUpdate("CycleEnabled", newValue),
 				}}
 			/>
-			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
 		</Container>
 	);
 }

@@ -78,7 +78,6 @@ function Characters(props: CharactersPropTypes) {
 				OnChange={(newValue) => props.OnSliderInputUpdate("MaxCameraZoom", newValue)}
 			/>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
-			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
 		</Container>
 	);
 }

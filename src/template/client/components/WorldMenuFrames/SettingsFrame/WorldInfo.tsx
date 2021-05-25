@@ -31,7 +31,6 @@ function WorldInfo(props: WorldInfoPropTypes) {
 				HandleInput={(input) => (input.size() > 188 ? input.sub(0, 188) : input)}
 			/>
 			<ImageInput />
-			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0, 5)} />
 		</Container>
 	);
 }
