@@ -16,5 +16,5 @@ elseif asset_name == "resource" then
 	local resources = serverStorage:FindFirstChild("Resources")
 	remodel.writeExistingModelAsset(resources, 5338127735)
 else
-	print("Invalid place name, hub, resource or worldtemplate")
+	print("Invalid asset. Expected hub, resource or worldtemplate")
 end
