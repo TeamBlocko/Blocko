@@ -10,7 +10,7 @@ import {
 import store from "template/client/store";
 import GridBase from "./GridBase";
 import BuildHandle from "./BuildHandle";
-import { updateProperty, UpdateBuildMode, UpdateBasePart } from "template/client/rodux/placementSettings";
+import { updateProperty, UpdateBuildMode, UpdateBasePart, UpdatePropertyDataType } from "template/client/rodux/placementSettings";
 
 const client = Players.LocalPlayer;
 const playerGui = client.WaitForChild("PlayerGui");
@@ -117,6 +117,19 @@ RunService.RenderStepped.Connect(() => {
 	}
 });
 
+function map_properties(target: BasePart): (propertyName: keyof RawProperties) => UpdatePropertyDataType {
+	return (propertyName) => {
+		let value = target[propertyName];
+		if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(value, "number"))
+			value /= 10;
+		return {
+			propertyName,
+			value,
+		}
+	}
+}
+
+let debounce = 0;
 ContextActionService.BindActionAtPriority(
 	"PlacementSystemHandler",
 	(_, inputState, inputObject) => {
@@ -154,19 +167,13 @@ ContextActionService.BindActionAtPriority(
 				if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
 					const target = gridBase.mouseTarget();
 					if (target === undefined) break;
-					const properties = ALT_SHIFT_PROPERTIES.map((propertyName) => ({
-						propertyName,
-						value: target[propertyName],
-					}));
+					const properties = ALT_SHIFT_PROPERTIES.map(map_properties(target));
 					store.dispatch(updateProperty(properties));
 					store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
 				} else {
 					const target = gridBase.mouseTarget();
 					if (target === undefined) break;
-					const properties = ALT_PROPERTIES.map((propertyName) => ({
-						propertyName,
-						value: target[propertyName],
-					}));
+					const properties = ALT_PROPERTIES.map(map_properties(target));
 					store.dispatch(updateProperty(properties));
 				}
 				break;
@@ -175,7 +182,10 @@ ContextActionService.BindActionAtPriority(
 			if (state.ActivatedColorPicker) return Enum.ContextActionResult.Pass;
 			switch (mode) {
 				case "Place":
-					buildHandle.placeBlock();
+					if (os.clock() - debounce >= 0.1 ) {
+						debounce = os.clock();
+						buildHandle.placeBlock();
+					}
 					break;
 				case "Delete":
 					buildHandle.deleteBlock();
