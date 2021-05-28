@@ -90,11 +90,12 @@ export const worldSettingsReducerInitlizer = (intialWorldSettings: World) =>
 			[WorldSettingsActions.UPDATE_PERMISSION]: (state, action) => {
 				const newState = shallowCopy(state);
 
-				newState.Permissions = newState.Permissions.map((permission) =>
-					permission.UserId === action.userId
-						? assign(permission, { Type: action.permissionLevel })
-						: permission,
-				);
+				const userPermission = newState.Permissions.find(permission => permission.UserId === action.userId)
+				if (userPermission) {
+					userPermission.Type = action.permissionLevel
+				} else {
+					newState.Permissions.push({ UserId: action.userId, Type: action.permissionLevel })
+				}
 
 				return newState;
 			},
