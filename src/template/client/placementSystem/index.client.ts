@@ -11,6 +11,7 @@ import store from "template/client/store";
 import GridBase from "./GridBase";
 import BuildHandle from "./BuildHandle";
 import { updateProperty, UpdateBuildMode, UpdateBasePart, UpdatePropertyDataType } from "template/client/rodux/placementSettings";
+import { getUserRank } from "template/shared/permissionsUtility";
 
 const client = Players.LocalPlayer;
 const playerGui = client.WaitForChild("PlayerGui");
@@ -136,7 +137,7 @@ ContextActionService.BindActionAtPriority(
 		if (inputState !== Enum.UserInputState.Begin) return Enum.ContextActionResult.Pass;
 		const mode = store.getState().PlacementSettings.BuildMode;
 		const state = store.getState();
-		if (state.World.Info.Owner !== client.UserId) return Enum.ContextActionResult.Pass;
+		if (getUserRank(state.World.Info, client.UserId) < 2) return Enum.ContextActionResult.Pass;
 		switch (inputObject.KeyCode) {
 			case Enum.KeyCode.Q:
 				switch (mode) {

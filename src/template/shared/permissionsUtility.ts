@@ -13,7 +13,7 @@ export function getUserPermissions(worldInfo: WorldInfo, userId: number): Permis
 }
 
 export function getRank(role: PermissionTypes): number {
-	return PermissionRanks.size() - PermissionRanks.findIndex((permission) => permission === role);
+	return PermissionRanks.findIndex((permission) => permission === role);
 }
 
 export function getUserRank(worldInfo: WorldInfo, userId: number): number {
