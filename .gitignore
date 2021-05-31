@@ -4,3 +4,4 @@
 /dist
 *.tsbuildinfo
 *.sublime-workspace
+version.txt
