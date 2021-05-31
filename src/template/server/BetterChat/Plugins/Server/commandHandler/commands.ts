@@ -38,7 +38,7 @@ export const commands = {
 				(permission) => !!permission.lower().match(`^${permissionLevelValue.lower()}`)[0],
 			);
 			if (!permissionLevel) {
-				const validPermissionLevels = PermissionRanks.filter((_, index) => callerRank > index);
+				const validPermissionLevels = PermissionRanks.filter((_, index) => callerRank < index);
 				const lastPermission = validPermissionLevels.pop();
 				const permissions = `${validPermissionLevels.join(", ")}, and ${lastPermission}`;
 				return constructMessage(
@@ -52,10 +52,10 @@ export const commands = {
 				);
 			}
 
-			if (callerRank <= getRank(permissionLevel))
+			if (callerRank >= getRank(permissionLevel))
 				return errorMsg(`Your permission level is lower than the one you want to assign to ${player.Name}.`);
 
-			if (callerRank <= getUserRank(stateInfo, player.UserId))
+			if (callerRank >= getUserRank(stateInfo, player.UserId))
 				return errorMsg(`${player.Name} has a higher permission level.`);
 
 			WorldManager.store.dispatch(updateWorldPermission(player.UserId, permissionLevel));
