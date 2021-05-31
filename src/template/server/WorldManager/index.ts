@@ -162,7 +162,7 @@ class WorldManager {
 				{
 					Type: "Add",
 					Data: {
-						Id: "SaveStatusError",
+						Id: "SaveStatus",
 						Message: `Failed to save with error: ${err}`,
 					},
 				},
