@@ -87,18 +87,18 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
 	}
 
 	didMount() {
-		const [thumbnail] = Players.GetUserThumbnailAsync(
+		const [thumbnailSuccess, thumbnail] = pcall(() => Players.GetUserThumbnailAsync(
 			this.props.UserId,
 			Enum.ThumbnailType.HeadShot,
 			Enum.ThumbnailSize.Size48x48,
-		);
-		const [success, name] = pcall(() => Players.GetNameFromUserIdAsync(this.props.UserId));
+		));
+		const [nameSuccess, name] = pcall(() => Players.GetNameFromUserIdAsync(this.props.UserId));
 
 		const imageLabel = this.avatarImage.getValue()!;
 		const nameLabel = this.name.getValue()!;
 
-		imageLabel.Image = thumbnail;
-		nameLabel.Text = success ? name : "N/A";
+		imageLabel.Image = thumbnailSuccess ? thumbnail : "";
+		nameLabel.Text = nameSuccess ? name : "N/A";
 	}
 }
 
