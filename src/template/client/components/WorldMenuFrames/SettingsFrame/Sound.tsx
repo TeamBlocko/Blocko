@@ -10,7 +10,7 @@ import { IState } from "template/shared/Types";
 interface SoundPropTypes extends WorldSettings {
 	OnSliderUpdate(propertyName: "Volume" | "Pitch", value: number): void;
 	OnCheckBoxUpdate(propertyName: "IsPlaying", value: boolean): void;
-	OnInputBoxUpdate(propertyName: "SoundID", value: string): void;
+	OnInputBoxUpdate(propertyName: "SoundID", value: number): void;
 }
 
 function Sound(props: SoundPropTypes) {
@@ -23,8 +23,8 @@ function Sound(props: SoundPropTypes) {
 				Length={50}
 				Alignment={"Center"}
 				Default={tostring(props.SoundID)}
-				OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", newValue)}
-				HandleInput={(input) => (input.match("%d+")[0] as string) ?? "0"}
+				OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", tonumber(newValue) ?? 0)}
+				HandleInput={(input) => input.match("%d+")[0] as string}
 			>
 				<imagebutton
 					AnchorPoint={new Vector2(0, 0.5)}
@@ -82,7 +82,7 @@ export default connect(
 				]),
 			);
 		},
-		OnInputBoxUpdate(propertyName: "SoundID", value: string) {
+		OnInputBoxUpdate(propertyName: "SoundID", value: number) {
 			dispatch(
 				updateWorldSettings([
 					{
