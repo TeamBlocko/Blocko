@@ -33,14 +33,14 @@ function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 							Icon="rbxassetid://5627731849"
 							OnClick={(e) => props.OnClick(e)}
 						/>
-						<NavFrameButton
-							Text="Permissions"
-							Color={Color3.fromRGB(235, 235, 236)}
-							Icon="rbxassetid://5627731849"
-							OnClick={(e) => props.OnClick(e)}
-						/>
 					</>
 				) : undefined}
+				<NavFrameButton
+					Text="Permissions"
+					Color={Color3.fromRGB(235, 235, 236)}
+					Icon="rbxassetid://5627731849"
+					OnClick={(e) => props.OnClick(e)}
+				/>
 				<ElementSeperator />
 				<NavFrameButton
 					Text="Back To Hub"
