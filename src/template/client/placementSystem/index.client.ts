@@ -137,7 +137,7 @@ ContextActionService.BindActionAtPriority(
 		if (inputState !== Enum.UserInputState.Begin) return Enum.ContextActionResult.Pass;
 		const mode = store.getState().PlacementSettings.BuildMode;
 		const state = store.getState();
-		if (getUserRank(state.World.Info, client.UserId) < 2) return Enum.ContextActionResult.Pass;
+		if (getUserRank(state.World.Info, client.UserId) > 2) return Enum.ContextActionResult.Pass;
 		switch (inputObject.KeyCode) {
 			case Enum.KeyCode.Q:
 				switch (mode) {
