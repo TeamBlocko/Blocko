@@ -5,6 +5,7 @@ import WorldManager from "../WorldManager";
 import { addPart } from "./FunctionalitiesHandler";
 import { FunctionalitiesInstancesValues } from "template/shared/Functionalities";
 import { PlacementSettings } from "template/shared/Types";
+import { calculatePermissionsOfUser } from "template/shared/permissionsUtility";
 
 const shapes = ReplicatedStorage.BlockTypes;
 const placeBlock = new Server.Function<[placePosition: Vector3, orientation: Vector3, settings: PlacementSettings]>(
@@ -19,7 +20,7 @@ function updateNumOfBlocks() {
 }
 
 placeBlock.SetCallback((player, placePosition, orientation, settings) => {
-	if (settings.Shape.IsDescendantOf(shapes) && WorldManager.store.getState().Info.Owner === player.UserId) {
+	if (settings.Shape.IsDescendantOf(shapes) && calculatePermissionsOfUser(WorldManager.store.getState().Info, player.UserId).Build) {
 		const block = settings.Shape.Clone();
 		block.Anchored = true;
 		block.Position = placePosition;
@@ -40,7 +41,7 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 });
 
 deleteBlock.SetCallback((player, target) => {
-	if (WorldManager.store.getState().Info.Owner === player.UserId && target.IsDescendantOf(Workspace.Blocks)) {
+	if (calculatePermissionsOfUser(WorldManager.store.getState().Info, player.UserId).Build && target.IsDescendantOf(Workspace.Blocks)) {
 		target.Destroy();
 		updateNumOfBlocks();
 	}

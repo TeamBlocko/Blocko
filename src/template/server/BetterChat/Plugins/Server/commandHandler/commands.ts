@@ -1,5 +1,5 @@
 import { Players } from "@rbxts/services";
-import { PermissionRanks, getUserRank, getRank } from "template/shared/permissionsUtility";
+import { PermissionRanks, getUserRank, getRank, calculatePermissionsOfUser } from "template/shared/permissionsUtility";
 import WorldManager from "template/server/WorldManager";
 import { updateWorldPermission } from "template/shared/worldSettingsReducer";
 import { constructMessage, errorMsg } from "./messageUtility";
@@ -51,6 +51,9 @@ export const commands = {
 					permissionLevelValue,
 				);
 			}
+
+			if (!calculatePermissionsOfUser(stateInfo, caller.UserId).ManagePermissions)
+				return errorMsg(`You don't have permission to manage permissions`);
 
 			if (callerRank >= getRank(permissionLevel))
 				return errorMsg(`Your permission level is lower than the one you want to assign to ${player.Name}.`);

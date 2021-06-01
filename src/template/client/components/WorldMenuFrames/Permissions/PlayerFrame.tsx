@@ -1,6 +1,6 @@
-import { Players } from "@rbxts/services";
+import { Players, TextService } from "@rbxts/services";
 import Roact from "@rbxts/roact";
-import { getUserPermissions } from "template/shared/permissionsUtility";
+import { getUserPermissions, teamBlockoStaff } from "template/shared/permissionsUtility";
 import { IState } from "template/shared/Types";
 import { connect } from "@rbxts/roact-rodux";
 
@@ -9,14 +9,15 @@ interface PlayerFramePropTypes {
 	LayoutOrder: number;
 }
 
-function PermissionType(props: { Name: PermissionTypes }) {
+function PermissionType(props: { Name: PermissionTypes, Staff?: boolean }) {
+	const size = TextService.GetTextSize(props.Name, 12, Enum.Font.Gotham, new Vector2());
 	return (
 		<textlabel
 			BackgroundColor3={Color3.fromRGB(77, 77, 77)}
-			Size={UDim2.fromOffset(52, 18)}
+			Size={UDim2.fromOffset(math.max(size.X + 11, 52), 18)}
 			Font={Enum.Font.Gotham}
 			Text={props.Name}
-			TextColor3={Color3.fromRGB(245, 245, 245)}
+			TextColor3={props.Staff ? Color3.fromRGB(60, 164, 255) : Color3.fromRGB(245, 245, 245)}
 			TextSize={12}
 			TextWrapped={true}
 		>
@@ -25,7 +26,7 @@ function PermissionType(props: { Name: PermissionTypes }) {
 	);
 }
 
-class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
+class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff: PermissionsInfo | undefined }> {
 	avatarImage: Roact.Ref<ImageLabel>;
 	name: Roact.Ref<TextLabel>;
 
@@ -34,6 +35,8 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
 
 		this.avatarImage = Roact.createRef();
 		this.name = Roact.createRef();
+
+		this.setState({});
 	}
 
 	render() {
@@ -76,6 +79,9 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
 					Size={UDim2.fromScale(0.725, 0.35)}
 				>
 					<PermissionType Name={getUserPermissions(this.props.Info, this.props.UserId).Type} />
+					{
+						this.state.staff ? <PermissionType Name={this.state.staff.Type} Staff={true} /> : undefined
+					}
 					<uilistlayout
 						FillDirection={Enum.FillDirection.Horizontal}
 						VerticalAlignment={Enum.VerticalAlignment.Center}
@@ -99,6 +105,10 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World> {
 
 		imageLabel.Image = thumbnailSuccess ? thumbnail : "";
 		nameLabel.Text = nameSuccess ? name : "N/A";
+	
+		this.setState({
+			staff: teamBlockoStaff(this.props.UserId)
+		})
 	}
 }
 

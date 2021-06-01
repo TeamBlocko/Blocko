@@ -6,6 +6,7 @@ import NavFrameButton from "./NavFrameButton";
 import Thumbnail from "template/client/components/misc/Thumbnail";
 import Container from "../WorldMenuFramesContainer";
 import { IState } from "template/shared/Types";
+import { calculatePermissionsOfUser } from "template/shared/permissionsUtility";
 
 function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 	return (
@@ -25,7 +26,7 @@ function NavigationFrame(props: WorldMenuFrames & WorldInfo) {
 					Icon="rbxassetid://5627702525"
 					OnClick={(e) => props.OnClick(e)}
 				/>
-				{props.Owner === Players.LocalPlayer.UserId ? (
+				{calculatePermissionsOfUser(props, Players.LocalPlayer.UserId).Build ? (
 					<>
 						<NavFrameButton
 							Text="World Settings"

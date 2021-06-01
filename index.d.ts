@@ -179,7 +179,7 @@ interface WorldInfo {
 	NumberOfBlocks: number;
 }
 
-declare type PermissionTypes = "Builder" | "Admin" | "Visitor" | "Owner"
+declare type PermissionTypes = "TeamBlocko" | "Builder" | "Admin" | "Visitor" | "Owner"
 
 declare interface PermissionsInfo {
 	UserId: number;
@@ -240,4 +240,11 @@ declare interface PlayerDataSync {
 	data: {
 		ownedWorlds: number[]
 	}
+}
+
+declare interface Permissions {
+	Inherit?: PermissionTypes,
+	TransferOwnership?: boolean,
+	ManagePermissions?: boolean,
+	Build?: boolean,
 }
