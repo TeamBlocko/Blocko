@@ -117,6 +117,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 				<ItemList
 					Binding={this.binding}
 					Items={this.props.Items}
+					Expanded={this.state.Expanded}
 					SizeX={this.props.OverrideValueText ? size : 135}
 					OnSelected={(e) => {
 						const newValue = this.props.GetValue(e.Name as V);
