@@ -10,7 +10,12 @@ import {
 import store from "template/client/store";
 import GridBase from "./GridBase";
 import BuildHandle from "./BuildHandle";
-import { updateProperty, UpdateBuildMode, UpdateBasePart, UpdatePropertyDataType } from "template/client/rodux/placementSettings";
+import {
+	updateProperty,
+	UpdateBuildMode,
+	UpdateBasePart,
+	UpdatePropertyDataType,
+} from "template/client/rodux/placementSettings";
 import { calculatePermissionsOfUser } from "template/shared/permissionsUtility";
 
 const client = Players.LocalPlayer;
@@ -121,13 +126,12 @@ RunService.RenderStepped.Connect(() => {
 function map_properties(target: BasePart): (propertyName: keyof RawProperties) => UpdatePropertyDataType {
 	return (propertyName) => {
 		let value = target[propertyName];
-		if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(value, "number"))
-			value /= 10;
+		if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(value, "number")) value /= 10;
 		return {
 			propertyName,
 			value,
-		}
-	}
+		};
+	};
 }
 
 let debounce = 0;
@@ -183,7 +187,7 @@ ContextActionService.BindActionAtPriority(
 			if (state.ActivatedColorPicker) return Enum.ContextActionResult.Pass;
 			switch (mode) {
 				case "Place":
-					if (os.clock() - debounce >= 0.1 ) {
+					if (os.clock() - debounce >= 0.1) {
 						debounce = os.clock();
 						buildHandle.placeBlock();
 					}

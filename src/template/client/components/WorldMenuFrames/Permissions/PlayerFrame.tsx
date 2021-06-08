@@ -9,7 +9,7 @@ interface PlayerFramePropTypes {
 	LayoutOrder: number;
 }
 
-function PermissionType(props: { Name: PermissionTypes, Staff?: boolean }) {
+function PermissionType(props: { Name: PermissionTypes; Staff?: boolean }) {
 	const size = TextService.GetTextSize(props.Name, 12, Enum.Font.Gotham, new Vector2());
 	return (
 		<textlabel
@@ -79,9 +79,7 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 					Size={UDim2.fromScale(0.725, 0.35)}
 				>
 					<PermissionType Name={getUserPermissions(this.props.Info, this.props.UserId).Type} />
-					{
-						this.state.staff ? <PermissionType Name={this.state.staff.Type} Staff={true} /> : undefined
-					}
+					{this.state.staff ? <PermissionType Name={this.state.staff.Type} Staff={true} /> : undefined}
 					<uilistlayout
 						FillDirection={Enum.FillDirection.Horizontal}
 						VerticalAlignment={Enum.VerticalAlignment.Center}
@@ -93,11 +91,9 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 	}
 
 	didMount() {
-		const [thumbnailSuccess, thumbnail] = pcall(() => Players.GetUserThumbnailAsync(
-			this.props.UserId,
-			Enum.ThumbnailType.HeadShot,
-			Enum.ThumbnailSize.Size48x48,
-		));
+		const [thumbnailSuccess, thumbnail] = pcall(() =>
+			Players.GetUserThumbnailAsync(this.props.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48),
+		);
 		const [nameSuccess, name] = pcall(() => Players.GetNameFromUserIdAsync(this.props.UserId));
 
 		const imageLabel = this.avatarImage.getValue()!;
@@ -105,10 +101,10 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 
 		imageLabel.Image = thumbnailSuccess ? thumbnail : "";
 		nameLabel.Text = nameSuccess ? name : "N/A";
-	
+
 		this.setState({
-			staff: teamBlockoStaff(this.props.UserId)
-		})
+			staff: teamBlockoStaff(this.props.UserId),
+		});
 	}
 }
 

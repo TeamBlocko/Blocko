@@ -14,4 +14,4 @@ export default identity<Record<PermissionTypes, Permissions>>({
 		Build: true,
 	},
 	Visitor: {},
-})
+});

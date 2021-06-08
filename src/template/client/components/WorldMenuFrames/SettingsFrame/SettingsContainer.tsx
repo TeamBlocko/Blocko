@@ -1,14 +1,13 @@
 import Roact from "@rbxts/roact";
 
 class WorldMenuFramesContainer extends Roact.Component<PropTypes> {
-
 	binding: Roact.RoactBinding<number>;
 	setBinding: Roact.RoactBindingFunc<number>;
 
 	constructor(props: PropTypes) {
 		super(props);
 
-		[this.binding, this.setBinding] = Roact.createBinding(0)
+		[this.binding, this.setBinding] = Roact.createBinding(0);
 	}
 
 	render() {

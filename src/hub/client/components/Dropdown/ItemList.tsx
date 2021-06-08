@@ -65,7 +65,9 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 				BackgroundColor3={new Color3(1, 1, 1)}
 				BorderSizePixel={0}
 				BackgroundTransparency={1}
-				Position={this.props.Binding.map((value) => UDim2.fromScale(0.45, 2.6).Lerp(UDim2.fromScale(0.45, 2.1), value))}
+				Position={this.props.Binding.map((value) =>
+					UDim2.fromScale(0.45, 2.6).Lerp(UDim2.fromScale(0.45, 2.1), value),
+				)}
 				Size={new UDim2(1.65, 0, 6, 0)}
 				Visible={this.props.Expanded}
 				ZIndex={3}

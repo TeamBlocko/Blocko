@@ -7,7 +7,6 @@ interface CatagoryPropTypes {
 }
 
 class Catagory extends Roact.Component<CatagoryPropTypes> {
-
 	binding: Roact.RoactBinding<number>;
 	setBinding: Roact.RoactBindingFunc<number>;
 
@@ -18,7 +17,8 @@ class Catagory extends Roact.Component<CatagoryPropTypes> {
 	}
 
 	render() {
-		const textSize = TextService.GetTextSize(` ${this.props.Text}`, 14, Enum.Font.GothamSemibold, new Vector2()).X + 20;
+		const textSize =
+			TextService.GetTextSize(` ${this.props.Text}`, 14, Enum.Font.GothamSemibold, new Vector2()).X + 20;
 		return (
 			<frame
 				BackgroundTransparency={1}
