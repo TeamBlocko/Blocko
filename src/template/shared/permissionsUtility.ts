@@ -55,3 +55,7 @@ export function isUserBanned(worldInfo: WorldInfo, userId: number): boolean {
 export function isPermed(worldInfo: WorldInfo, userId: number, role: PermissionTypes): boolean {
 	return getRank(getUserPermissions(worldInfo, userId).Type) > getRank(role);
 }
+
+export function getPlayersWithPerm(worldInfo: WorldInfo, perm: PermissionNames, players: Player[]): Player[] {
+	return players.filter((player) => calculatePermissionsOfUser(worldInfo, player.UserId)[perm]);
+}

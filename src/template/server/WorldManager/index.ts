@@ -12,6 +12,7 @@ import MockODS from "common/server/MockODS";
 import { worldInfoScheme, worldSettingsScheme } from "common/server/WorldInfo/worldSchemes";
 import { DEFAULT_WORLD } from "common/server/WorldInfo/defaultWorld";
 import { copy, assign } from "@rbxts/object-utils";
+import { getPlayersWithPerm } from "template/shared/permissionsUtility";
 
 const dataSync = LazLoader.require("DataSync");
 
@@ -69,8 +70,11 @@ class WorldManager {
 	public worldInfo: DataSyncFile<WorldDataSync>;
 	public worldBlocks: DataSyncFile<{ Blocks: string }>;
 	public store: Store<World, WorldSettingsActionTypes & Rodux.AnyAction>;
-
+	public lastSave = 0;
+	public saveInterval = 10;
 	public isClosing = false;
+
+	private saveNotificationInterval = 20;
 
 	constructor(placeId: number) {
 		print(placeId);
@@ -102,16 +106,19 @@ class WorldManager {
 	}
 
 	Save() {
+		const state = this.store.getState();
 		try {
-			notificationHandler.SendToAllPlayers({
-				Type: "Add",
-				Data: {
-					Id: "SaveStatus",
-					Message: "Saving World",
-					Time: 5,
-				},
-			});
-			const state = this.store.getState();
+			const shouldSendSaveNotification = os.clock() - this.lastSave > this.saveNotificationInterval;
+			if (shouldSendSaveNotification) {
+				notificationHandler.SendToPlayers(getPlayersWithPerm(state.Info, "Build", Players.GetPlayers()), {
+					Type: "Add",
+					Data: {
+						Id: "SaveStatus",
+						Message: "Saving World",
+						Time: 5,
+					},
+				});
+			}
 			activeODS.SetAsync(`${state.Info.WorldId}`, state.Info.ActivePlayers);
 
 			const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
@@ -137,24 +144,27 @@ class WorldManager {
 				.map((colorValue) => math.floor(textColor[colorValue] * 255))
 				.join(", ");
 
-			notificationHandler.SendToAllPlayers([
-				{
-					Type: "Remove",
-					Id: "SaveStatus",
-				},
-				{
-					Type: "Add",
-					Data: {
-						Id: "SaveStatusFinished",
-						Message: `Done Saving. Current world size is at <font color="rgb(${stringTextColor})">${abbreviateBytes(
-							serialized.size(),
-						)}</font>`,
-						Time: 5,
+			if (shouldSendSaveNotification) {
+				notificationHandler.SendToPlayers(getPlayersWithPerm(state.Info, "Build", Players.GetPlayers()), [
+					{
+						Type: "Remove",
+						Id: "SaveStatus",
 					},
-				},
-			]);
+					{
+						Type: "Add",
+						Data: {
+							Id: "SaveStatusFinished",
+							Message: `Done Saving. Current world size is at <font color="rgb(${stringTextColor})">${abbreviateBytes(
+								serialized.size(),
+							)}</font>`,
+							Time: 5,
+						},
+					},
+				]);
+				this.lastSave = os.clock();
+			}
 		} catch (err) {
-			notificationHandler.SendToAllPlayers([
+			notificationHandler.SendToPlayers(getPlayersWithPerm(state.Info, "Build", Players.GetPlayers()), [
 				{
 					Type: "Remove",
 					Id: "SaveStatus",

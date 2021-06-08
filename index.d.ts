@@ -242,6 +242,8 @@ declare interface PlayerDataSync {
 	}
 }
 
+type PermissionNames = "TransferOwnership" | "Build" | "ManagePermissions";
+
 declare interface Permissions {
 	Inherit?: PermissionTypes,
 	TransferOwnership?: boolean,

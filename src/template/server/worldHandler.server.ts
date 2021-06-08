@@ -51,7 +51,7 @@ Players.PlayerAdded.Connect(updatePlayers);
 Players.PlayerRemoving.Connect(updatePlayers);
 
 new SyncedPoller(
-	10,
+	WorldManager.saveInterval,
 	() => WorldManager.Save(),
 	() => !WorldManager.isClosing,
 );
