@@ -76,7 +76,8 @@ class BuildHandler {
 		if (this.ghostPart === undefined) return;
 		if (target !== undefined) {
 			const mousePosition = UserInputService.GetMouseLocation();
-			if (!next(playerGui.GetGuiObjectsAtPosition(mousePosition.X, mousePosition.Y))[0]) {
+			const guis = playerGui.GetGuiObjectsAtPosition(mousePosition.X, mousePosition.Y);
+			if (guis.size() < 2 || guis.find((gui) => gui.Name === "NotificationContainer")) {
 				const placePosition = this.gridBase.mouseGridPosition();
 
 				if (placePosition === undefined) return;

@@ -136,6 +136,7 @@ export class NotificationContainer extends Component<
 		return (
 			<scrollingframe
 				Ref={this.frameRef}
+				Key={"NotificationContainer"}
 				AnchorPoint={new Vector2(0.5, 0)}
 				BackgroundTransparency={1}
 				Position={new UDim2(0.5, 0, 0, 36)}
