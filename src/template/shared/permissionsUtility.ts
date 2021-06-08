@@ -39,11 +39,11 @@ export function getUserPermissions(worldInfo: WorldInfo, userId: number, staff?:
 
 export function calculatePermissions(role: PermissionTypes): Omit<Permissions, "Inherit"> {
 	const rolePermission = RolePermissions[role];
-	return assign({}, rolePermission, rolePermission.Inherit ? calculatePermissions(rolePermission.Inherit) : {});
+	return assign({}, rolePermission, rolePermission.Inherit ? calculatePermissions(rolePermission.Inherit) : {})
 }
 
 export function calculatePermissionsOfUser(worldInfo: WorldInfo, userId: number) {
-	return calculatePermissions(getUserPermissions(worldInfo, userId).Type);
+	return calculatePermissions(getUserPermissions(worldInfo, userId, true).Type);
 }
 
 export function getRank(role: PermissionTypes): number {

@@ -36,6 +36,10 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 			block[propertyName] = propertyValue as never;
 		}
 
+		const actualSize = new Instance("Vector3Value", block);
+		actualSize.Value = settings.RawProperties.Size;
+		actualSize.Name = "ActualSize";
+
 		addPart(block, settings.Functionalities as FunctionalitiesInstancesValues[]);
 		block.Parent = Workspace.Blocks;
 		updateNumOfBlocks();

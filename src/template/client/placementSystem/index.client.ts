@@ -126,7 +126,7 @@ RunService.RenderStepped.Connect(() => {
 function map_properties(target: BasePart): (propertyName: keyof RawProperties) => UpdatePropertyDataType {
 	return (propertyName) => {
 		let value = target[propertyName];
-		if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(value, "number")) value /= 10;
+		if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(value, "number")) value *= 10;
 		return {
 			propertyName,
 			value,
@@ -138,64 +138,66 @@ let debounce = 0;
 ContextActionService.BindActionAtPriority(
 	"PlacementSystemHandler",
 	(_, inputState, inputObject) => {
-		if (inputState !== Enum.UserInputState.Begin) return Enum.ContextActionResult.Pass;
-		const mode = store.getState().PlacementSettings.BuildMode;
-		const state = store.getState();
-		if (!calculatePermissionsOfUser(state.World.Info, client.UserId).Build) return Enum.ContextActionResult.Pass;
-		switch (inputObject.KeyCode) {
-			case Enum.KeyCode.Q:
-				switch (mode) {
-					case "Spectate":
-						updateMode("Place");
-						buildHandle.updateGhostPart();
-						break;
-					case "Place":
-						updateMode("Delete");
-						break;
-					case "Delete":
-						updateMode("Spectate");
-						break;
-				}
-			case Enum.KeyCode.R:
-				gridBase.rotate();
-				break;
-			case Enum.KeyCode.T:
-				gridBase.tilt();
-				break;
-			case Enum.KeyCode.F:
-				buildHandle.previousBlockType();
-				break;
-			case Enum.KeyCode.G:
-				buildHandle.nextBlockType();
-				break;
-			case Enum.KeyCode.LeftAlt:
-				if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
-					const target = gridBase.mouseTarget();
-					if (target === undefined) break;
-					const properties = ALT_SHIFT_PROPERTIES.map(map_properties(target));
-					store.dispatch(updateProperty(properties));
-					store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
-				} else {
-					const target = gridBase.mouseTarget();
-					if (target === undefined) break;
-					const properties = ALT_PROPERTIES.map(map_properties(target));
-					store.dispatch(updateProperty(properties));
-				}
-				break;
-		}
-		if (inputObject.UserInputType === Enum.UserInputType.MouseButton1) {
-			if (state.ActivatedColorPicker) return Enum.ContextActionResult.Pass;
-			switch (mode) {
-				case "Place":
-					if (os.clock() - debounce >= 0.1) {
-						debounce = os.clock();
-						buildHandle.placeBlock();
+		coroutine.wrap((): void => {
+			if (inputState !== Enum.UserInputState.Begin) return;
+			const state = store.getState();
+			const mode = state.PlacementSettings.BuildMode;
+			if (!calculatePermissionsOfUser(state.World.Info, client.UserId).Build) return;
+			switch (inputObject.KeyCode) {
+				case Enum.KeyCode.Q:
+					switch (mode) {
+						case "Spectate":
+							updateMode("Place");
+							buildHandle.updateGhostPart();
+							break;
+						case "Place":
+							updateMode("Delete");
+							break;
+						case "Delete":
+							updateMode("Spectate");
+							break;
+					}
+				case Enum.KeyCode.R:
+					gridBase.rotate();
+					break;
+				case Enum.KeyCode.T:
+					gridBase.tilt();
+					break;
+				case Enum.KeyCode.F:
+					buildHandle.previousBlockType();
+					break;
+				case Enum.KeyCode.G:
+					buildHandle.nextBlockType();
+					break;
+				case Enum.KeyCode.LeftAlt:
+					if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
+						const target = gridBase.mouseTarget();
+						if (target === undefined) break;
+						const properties = ALT_SHIFT_PROPERTIES.map(map_properties(target));
+						store.dispatch(updateProperty(properties));
+						store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
+					} else {
+						const target = gridBase.mouseTarget();
+						if (target === undefined) break;
+						const properties = ALT_PROPERTIES.map(map_properties(target));
+						store.dispatch(updateProperty(properties));
 					}
 					break;
-				case "Delete":
-					buildHandle.deleteBlock();
 			}
-		}
+			if (inputObject.UserInputType === Enum.UserInputType.MouseButton1) {
+				if (state.ActivatedColorPicker) return;
+				switch (mode) {
+					case "Place":
+						if (os.clock() - debounce >= 0.15) {
+							debounce = os.clock();
+							buildHandle.placeBlock();
+						}
+						break;
+					case "Delete":
+						buildHandle.deleteBlock();
+				}
+			}
+		})();
 		return Enum.ContextActionResult.Pass;
 	},
 	false,

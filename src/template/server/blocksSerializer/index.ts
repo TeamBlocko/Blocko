@@ -45,7 +45,8 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 
 			serializedProperties.push(this.getIdByName(part.Name));
 			for (const [propertyName] of this.allowedProperties) {
-				const propertyValue = part[propertyName];
+
+				const propertyValue = propertyName !== "Size" ? part[propertyName] : (part.FindFirstChildOfClass("Vector3Value")?.Value ?? part[propertyName]);
 				serializedProperties.push(this.serialize(propertyValue));
 			}
 
@@ -87,6 +88,11 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 				const value = propertiesInfo.shift();
 				assert(value);
 				const propertyValue = this.deserialize(value, propertyType);
+				if (propertyName === "Size") {
+					const actualSize = new Instance("Vector3Value", block);
+					actualSize.Value = propertyValue as Vector3;
+					actualSize.Name = "ActualSize";
+				}
 				block[propertyName] = propertyValue as never;
 			}
 
