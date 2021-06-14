@@ -10,13 +10,19 @@ export const PermissionRanks: readonly PermissionTypes[] = [
 	"Visitor",
 ] as const;
 
+const cache = new Map<number, PermissionsInfo>();
+
 export function teamBlockoStaff(userId: number): PermissionsInfo | undefined {
+	const cached = cache.get(userId);
+	if (cached) return cached;
 	const result = opcall(() => GroupService.GetGroupsAsync(userId).find((group) => group.Id === 6467229));
 	if (result.success && (result.value?.Rank ?? 0) >= 252) {
-		return {
+		const info: PermissionsInfo = {
 			UserId: userId,
 			Type: "TeamBlocko",
-		};
+		}
+		cache.set(userId, info)
+		return info;
 	}
 }
 
