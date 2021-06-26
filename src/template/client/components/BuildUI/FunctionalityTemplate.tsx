@@ -96,7 +96,7 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 				>
 					<DropdownButton
 						Name="Functionality"
-						Items={getAvliableFunctionalities()}
+						Items={getAvliableFunctionalities().filter(func => func.Id === this.props.Functionality.Id)}
 						GetValue={(value) =>
 							values(Functionalities.functionalities).find(
 								(functionality) => functionality.Name === value,
