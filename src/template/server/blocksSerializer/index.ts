@@ -63,7 +63,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 							`${
 								(currentFunctionality.Properties as Functionality.IntersectionProperties)[instance.Name]
 									.Id
-							}:${instance.Value}`,
+							}:${this.serialize(instance.Value)}`,
 					);
 					serializedProperties.push(`${currentFunctionality.Id}|${propertiesInfo.join("|")}`);
 				}
@@ -113,7 +113,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 					).find((property) => property.Id === propertyInfo[0]);
 					if (!property) continue;
 					assign((functionality.Properties as Functionality.IntersectionProperties)[property.Name], {
-						Current: tonumber(propertiesInfo[1]),
+						Current: this.deserialize(propertyInfo[1], property.ValueType),
 					});
 				}
 

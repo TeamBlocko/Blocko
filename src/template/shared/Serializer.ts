@@ -32,6 +32,7 @@ class Serializer {
 	protected deserialize(value: string, valueType: "EnumItem"): EnumItem;
 	protected deserialize(value: string, valueType: "Color3"): Color3;
 	protected deserialize(value: string, valueType: "Vector3"): Vector3;
+	protected deserialize(value: string, valueType: "NormalId"): Enum.NormalId;
 	protected deserialize(value: string, valueType: unknown): unknown;
 
 	protected deserialize(value: string, valueType: unknown): unknown {
@@ -47,6 +48,8 @@ class Serializer {
 			return hexToColor3(value);
 		} else if (valueType === "Vector3") {
 			return new Vector3(...value.split(",").map((value) => tonumber(value) as number));
+		} else if (valueType === "NormalId") {
+			return Enum.NormalId.GetEnumItems().find((vector) => this.serialize(vector) === value) ?? Enum.NormalId.Front
 		} else {
 			warn(`No implmented deserializer for value of type ${valueType}`);
 			return value;

@@ -10,6 +10,7 @@ export const functionalities = {
 				Name: "Damage",
 				Id: "1",
 				Type: "number",
+				ValueType: "number",
 				Default: 50,
 				Min: 1,
 				Max: 100,
@@ -18,6 +19,7 @@ export const functionalities = {
 				Name: "Cooldown",
 				Id: "2",
 				Type: "number",
+				ValueType: "number",
 				Default: 1,
 				Min: 1,
 				Max: 10,
@@ -33,6 +35,7 @@ export const functionalities = {
 				Name: "Speed",
 				Id: "1",
 				Type: "number",
+				ValueType: "number",
 				Default: 1,
 				Min: 1,
 				Max: 100,
@@ -41,6 +44,7 @@ export const functionalities = {
 				Name: "Direction",
 				Id: "2",
 				Type: "choice",
+				ValueType: "NormalId",
 				Default: Enum.NormalId.Front,
 				Items: Enum.NormalId.GetEnumItems(),
 			},
@@ -89,7 +93,12 @@ export type FunctionalitiesInstancesValues = FunctionalitiesInstances[keyof Func
 
 export type FunctionalitiesPropertiesInstance = {
 	[K in keyof IntersectionProperties]: IntersectionProperties[K] & {
-		Current: IntersectionProperties[K]["Default"] extends number ? number : never;
+		Current: IntersectionProperties[K]["Default"] extends number
+			? number
+			: // @ts-expect-error I don't know why TS errors here
+			UnionToIntersection<Functionalities[K][S]>[P]["Default"] extends Enum.NormalId
+			? Enum.NormalId
+			: never;
 	};
 }[keyof IntersectionProperties];
 
