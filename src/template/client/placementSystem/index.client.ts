@@ -170,17 +170,19 @@ ContextActionService.BindActionAtPriority(
 					buildHandle.nextBlockType();
 					break;
 				case Enum.KeyCode.LeftAlt:
-					if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
-						const target = gridBase.mouseTarget();
-						if (target === undefined) break;
-						const properties = ALT_SHIFT_PROPERTIES.map(map_properties(target));
-						store.dispatch(updateProperty(properties));
-						store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
-					} else {
-						const target = gridBase.mouseTarget();
-						if (target === undefined) break;
-						const properties = ALT_PROPERTIES.map(map_properties(target));
-						store.dispatch(updateProperty(properties));
+					if (UserInputService.IsKeyDown(Enum.KeyCode.Z)) {
+						if (UserInputService.IsKeyDown(Enum.KeyCode.LeftControl)) {
+							const target = gridBase.mouseTarget();
+							if (target === undefined) break;
+							const properties = ALT_SHIFT_PROPERTIES.map(map_properties(target));
+							store.dispatch(updateProperty(properties));
+							store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
+						} else {
+							const target = gridBase.mouseTarget();
+							if (target === undefined) break;
+							const properties = ALT_PROPERTIES.map(map_properties(target));
+							store.dispatch(updateProperty(properties));
+						}
 					}
 					break;
 			}
