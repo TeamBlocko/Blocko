@@ -39,7 +39,7 @@ function addDamager(part: BasePart, functionality: Functionalities.Functionaliti
 
 function addTripper(part: BasePart) {
 	part.Touched.Connect((object) => {
-		const humanoid = object.Parent!.FindFirstChildOfClass("Humanoid");
+		const humanoid = object.Parent?.FindFirstChildOfClass("Humanoid");
 		if (humanoid) {
 			humanoid.Sit = true;
 		}
@@ -50,8 +50,8 @@ function addTripper(part: BasePart) {
 function addConveyor(part: BasePart, functionality: Functionalities.FunctionalitiesInstancesValues) {
 	if (functionality.Name === "Conveyor") {
 		part.Touched.Connect((otherPart) => {
-			const character = otherPart.Parent!;
-			const humanoidRootPart = character.FindFirstChild("HumanoidRootPart") as BasePart;
+			const character = otherPart.Parent;
+			const humanoidRootPart = character?.FindFirstChild("HumanoidRootPart") as BasePart;
 			if (!humanoidRootPart) return;
 			part.AssemblyLinearVelocity = Vector3.FromNormalId(functionality.Properties.Direction.Current).mul(functionality.Properties.Speed.Current);
 				
