@@ -48,7 +48,7 @@ export function previousInTable<T>(t: T[], element: T): T {
 	return t[(t.indexOf(element) - 1) % t.size()];
 }
 
-export function nextInTable<T>(t: T[], element: T): T {
+export function nextInTable<T>(t: readonly T[], element: T): T {
 	return t[(t.indexOf(element) + 1) % t.size()];
 }
 

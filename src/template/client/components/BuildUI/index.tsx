@@ -8,6 +8,7 @@ import Dropdown from "../GraphicalWidget/Dropdown";
 import Slider from "../GraphicalWidget/Slider";
 import CheckBox from "../GraphicalWidget/CheckBox";
 import ColorDisplay from "../GraphicalWidget/ColorDisplay";
+import Size from "../GraphicalWidget/Size";
 import AddFunction from "./AddFunction";
 import FunctionalityTemplate from "./FunctionalityTemplate";
 import { appContext, ContextType } from "template/client/appContext";
@@ -20,6 +21,7 @@ interface BuildUIProps extends PlacementSettings {
 	OnDropdownUpdate(propertyName: string, value: Instance | Enum.Material): void;
 	OnCheckBoxUpdate(propertyName: string, value: boolean): void;
 	OnColorPickerUpdate(propertyName: string, value: Color3): void;
+	OnSizeUpdate(propertyName: "Size", value: Vector3): void;
 }
 
 const Shapes = ReplicatedStorage.BlockTypes;
@@ -133,13 +135,19 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									}
 									LayoutOrder={3}
 								/>
+								<Size
+									Default={this.props.RawProperties.Size}
+									Name="Size"
+									OnChange={(newValue) => this.props.OnSizeUpdate("Size", newValue)}
+									LayoutOrder={4}
+								/>
 								<ColorDisplay
 									Name="Color"
 									Default={this.props.RawProperties.Color}
 									OnChange={(newValue: Color3) => this.props.OnColorPickerUpdate("Color", newValue)}
 									SizeYOffset={25}
 									Bindable={this.bindable}
-									LayoutOrder={4}
+									LayoutOrder={5}
 								/>
 								<Slider
 									Name="Transparency"
@@ -148,7 +156,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									Max={10}
 									OnChange={(newValue: number) => this.props.OnSliderUpdate("Transparency", newValue)}
 									SizeYOffset={55}
-									LayoutOrder={5}
+									LayoutOrder={6}
 								/>
 								<Slider
 									Name="Reflectance"
@@ -157,7 +165,7 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									Max={10}
 									OnChange={(newValue: number) => this.props.OnSliderUpdate("Reflectance", newValue)}
 									SizeYOffset={55}
-									LayoutOrder={6}
+									LayoutOrder={7}
 								/>
 								<CheckBox
 									Name="Cast Shadow"
@@ -166,13 +174,13 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 										this.props.OnCheckBoxUpdate("CastShadow", newValue)
 									}
 									SizeYOffset={25}
-									LayoutOrder={7}
+									LayoutOrder={8}
 								/>
-								<AddFunction LayoutOrder={8} />
+								<AddFunction LayoutOrder={9} />
 								<frame
 									BackgroundTransparency={1}
 									Size={this.functionalitySizeBinding.map((value) => new UDim2(1, 0, 0, value))}
-									LayoutOrder={9}
+									LayoutOrder={10}
 								>
 									{this.props.Functionalities.map((functionality, index) => (
 										<FunctionalityTemplate
@@ -265,5 +273,15 @@ export default connect(
 				]),
 			);
 		},
+		OnSizeUpdate(propertyName: "Size", value: Vector3) {
+			dispatch(
+				updateProperty([
+					{
+						propertyName,
+						value,
+					},
+				]),
+			);	
+		}
 	}),
 )(BuildUI);
