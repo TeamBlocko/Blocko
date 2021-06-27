@@ -20,6 +20,10 @@ class CheckBoxElement extends Roact.Component<Check> {
 		this.motor.onStep(this.setBinding);
 	}
 
+	didUpdate() {
+		this.motor.setGoal(new Flipper.Spring(this.props.Value ? 0 : 1))
+	}
+
 	render() {
 		return (
 			<imagebutton
