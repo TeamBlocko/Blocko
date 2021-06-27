@@ -17,10 +17,10 @@ import { updateProperty, UpdateBasePart } from "template/client/rodux/placementS
 import { IState, PlacementSettings } from "template/shared/Types";
 
 interface BuildUIProps extends PlacementSettings {
-	OnSliderUpdate(propertyName: string, value: number): void;
-	OnDropdownUpdate(propertyName: string, value: Instance | Enum.Material): void;
-	OnCheckBoxUpdate(propertyName: string, value: boolean): void;
-	OnColorPickerUpdate(propertyName: string, value: Color3): void;
+	OnSliderUpdate(propertyName: "Transparency" | "Reflectance", value: number): void;
+	OnDropdownUpdate(propertyName:  "Shape" | "Material", value: Instance | Enum.Material): void;
+	OnCheckBoxUpdate(propertyName: "CastShadow" | "CanCollide", value: boolean): void;
+	OnColorPickerUpdate(propertyName: "Color", value: Color3): void;
 	OnSizeUpdate(propertyName: "Size", value: Vector3): void;
 }
 
@@ -176,11 +176,20 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									SizeYOffset={25}
 									LayoutOrder={8}
 								/>
-								<AddFunction LayoutOrder={9} />
+								<CheckBox
+									Name="Can Collide"
+									Default={this.props.RawProperties.CanCollide}
+									OnChange={(newValue: boolean) =>
+										this.props.OnCheckBoxUpdate("CanCollide", newValue)
+									}
+									SizeYOffset={25}
+									LayoutOrder={9}
+								/>
+								<AddFunction LayoutOrder={10} />
 								<frame
 									BackgroundTransparency={1}
 									Size={this.functionalitySizeBinding.map((value) => new UDim2(1, 0, 0, value))}
-									LayoutOrder={10}
+									LayoutOrder={11}
 								>
 									{this.props.Functionalities.map((functionality, index) => (
 										<FunctionalityTemplate
@@ -253,7 +262,7 @@ export default connect(
 				dispatch(UpdateBasePart(value));
 			}
 		},
-		OnCheckBoxUpdate(propertyName: "CastShadow", value: boolean) {
+		OnCheckBoxUpdate(propertyName: "CastShadow" | "CanCollide", value: boolean) {
 			dispatch(
 				updateProperty([
 					{

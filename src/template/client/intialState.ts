@@ -10,6 +10,7 @@ export const intialPlacementSettings: PlacementSettings = {
 	RawProperties: {
 		Material: Enum.Material.Plastic,
 		CastShadow: true,
+		CanCollide: true,
 		Size: new Vector3(2, 2, 2),
 		Transparency: 0,
 		Reflectance: 0,

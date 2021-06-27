@@ -137,6 +137,7 @@ declare interface ValidateTextOptions {
 declare interface RawProperties {
 	Material: Enum.Material;
 	CastShadow: boolean;
+	CanCollide: boolean;
 	Size: Vector3;
 	Transparency: number;
 	Reflectance: number;

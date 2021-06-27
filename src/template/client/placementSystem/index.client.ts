@@ -26,7 +26,7 @@ const SPECTATE_COLOR = Color3.fromRGB(255, 255, 255),
 	BUILD_COLOR = Color3.fromRGB(65, 179, 255),
 	DELETE_COLOR = Color3.fromRGB(255, 110, 110);
 
-const ALT_PROPERTIES: (keyof RawProperties)[] = ["Material", "CastShadow", "Transparency", "Reflectance", "Color"];
+const ALT_PROPERTIES: (keyof RawProperties)[] = ["Material", "CastShadow", "Transparency", "Reflectance", "Color", "CanCollide"];
 
 const ALT_SHIFT_PROPERTIES: (keyof RawProperties)[] = [...ALT_PROPERTIES, "Size"];
 
