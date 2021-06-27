@@ -2,7 +2,17 @@ import { CollectionService, Players } from "@rbxts/services";
 import { values } from "@rbxts/object-utils";
 import * as Functionalities from "template/shared/Functionalities";
 
-const debounce = new Map<string, Map<Player, number>>();
+const debounce = new Map<string, Map<number, number>>();
+
+function setGet<T, V>(map: Map<T, V>, key: T, value: V): V {
+	const currentValue = map.get(key)
+	if (currentValue) {
+		return currentValue
+	} else {
+		map.set(key, value)
+		return value
+	}
+}
 
 function addDamager(part: BasePart, functionality: Functionalities.FunctionalitiesInstancesValues) {
 	if (functionality.Name === "Damager") {
@@ -12,13 +22,14 @@ function addDamager(part: BasePart, functionality: Functionalities.Functionaliti
 			const humanoid = character?.FindFirstChildOfClass("Humanoid");
 
 			if (!player || !humanoid || !character) return;
-			const time = debounce.get(functionality.GUID)!.get(player);
-
+			const functionalityDebounce = setGet(debounce, functionality.GUID, new Map())
+			const time = functionalityDebounce.get(player.UserId);
+			
 			if (time === undefined || os.time() - time > functionality.Properties.Cooldown.Current) {
 				if (humanoid !== undefined) {
 					humanoid.TakeDamage(functionality.Properties.Damage.Current);
 
-					debounce.get(functionality.GUID)!.set(player, os.time());
+					functionalityDebounce.set(player.UserId, os.time());
 				}
 			}
 		});
