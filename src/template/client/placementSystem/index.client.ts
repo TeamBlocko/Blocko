@@ -157,6 +157,7 @@ ContextActionService.BindActionAtPriority(
 							updateMode("Spectate");
 							break;
 					}
+					break
 				case Enum.KeyCode.R:
 					gridBase.rotate();
 					break;
