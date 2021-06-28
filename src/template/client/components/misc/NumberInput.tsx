@@ -1,42 +1,25 @@
 import Roact, { JsxObject, Children } from "@rbxts/roact";
-import { copy } from "@rbxts/object-utils";
 import { validateText } from "template/shared/utility";
 
 interface OnValidInput {
 	(e: TextBox, value: number): void;
 }
 
-interface NumberInputPropTypes extends JsxObject<TextBox> {
+interface NumberInputPropTypes {
 	OnValidInput: OnValidInput;
-	Options?: ValidateTextOptions;
-}
-
-interface ValidProps extends JsxObject<TextBox> {
-	OnValidInput?: OnValidInput;
-	Options?: ValidateTextOptions;
+	Options: ValidateTextOptions;
+	TextBoxProps: Omit<JsxObject<TextBox>, "Key">;
 }
 
 function NumberInput(props: NumberInputPropTypes) {
-	const textChange = props.Change?.Text;
-	const focusLost = props.Event?.FocusLost;
 
-	const validProps: ValidProps = copy(props);
-
-	const children = validProps[Children];
-	const onValidInput = validProps.OnValidInput as OnValidInput;
-	const options = validProps.Options;
-
-	validProps[Children] = undefined;
-	validProps.OnValidInput = undefined;
-	validProps.Options = undefined;
-
-	let prevText = props.Text;
+	let prevText = props.TextBoxProps.Text;
 	return (
 		<textbox
-			{...validProps}
+			{...props.TextBoxProps}
 			Event={{
 				FocusLost: (element, a, inputObject) => {
-					focusLost === undefined || focusLost(element, a, inputObject);
+					props.TextBoxProps.Event?.FocusLost?.(element, a, inputObject);
 					if (element.Text === "" && prevText !== undefined) {
 						element.Text = prevText as string;
 					}
@@ -44,17 +27,17 @@ function NumberInput(props: NumberInputPropTypes) {
 			}}
 			Change={{
 				Text: (element) => {
-					textChange === undefined || textChange(element);
-					const output = validateText(element.Text, options);
+					props.TextBoxProps.Change?.Text?.(element);
+					const output = validateText(element.Text, props.Options);
 					const text = tostring(output);
 					if (output === undefined || text === undefined) return;
-					onValidInput(element, output);
+					props.OnValidInput(element, output);
 					prevText = text;
 					element.Text = text;
 				},
 			}}
 		>
-			{children}
+			{props.TextBoxProps[Children]}
 		</textbox>
 	);
 }

@@ -21,10 +21,10 @@ const DEFAULT_OPTIONS = {
 	decimalPlace: 2,
 };
 
-export function validateText(text: string, options?: ValidateTextOptions) {
-	const optionsUsed = assign(DEFAULT_OPTIONS, options);
+export function validateText(text: string, options?: ValidateTextOptions): number {
+	const optionsUsed: ValidateTextOptions = assign(DEFAULT_OPTIONS, options);
 
-	if (text === "") return;
+	if (text === "") return optionsUsed.defaultValue;
 
 	let value = tonumber(text);
 	if (text.match("[%d%.]+")[0] !== text && value === undefined) {
@@ -38,10 +38,10 @@ export function validateText(text: string, options?: ValidateTextOptions) {
 			value = tonumber(text);
 		}
 	}
-	if (value === undefined) return;
+	if (value === undefined) return optionsUsed.defaultValue;
 	const [, decimal] = math.modf(value);
 	const pattern = decimal === 0 ? "%.0f" : `%.${optionsUsed.decimalPlace}f`;
-	return tonumber(pattern.format(text));
+	return tonumber(pattern.format(text)) ?? optionsUsed.defaultValue;
 }
 
 export function previousInTable<T>(t: T[], element: T): T {

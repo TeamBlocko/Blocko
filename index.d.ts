@@ -125,12 +125,13 @@ declare interface ColorPickerStateTypes extends GWStateTypes<Color3> {
 }
 
 declare interface SliderDisplayPropTypes {
-	Range?: Range;
+	Range: Range;
 	Value: number;
 }
 
 declare interface ValidateTextOptions {
 	Range?: Range;
+	defaultValue: number;
 	decimalPlace?: number;
 }
 

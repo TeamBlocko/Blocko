@@ -6,19 +6,22 @@ function SliderInput(
 ) {
 	return (
 		<NumberInput
-			AnchorPoint={new Vector2(0.5, 0.5)}
-			BackgroundColor3={Color3.fromRGB(60, 60, 60)}
-			BackgroundTransparency={props.Binding.map((value) => value)}
-			Position={UDim2.fromScale(0.5, -0.5)}
-			Size={UDim2.fromOffset(20, 12)}
-			Transparency={props.Binding.map((value) => value)}
-			Font={Enum.Font.Gotham}
-			Text={"%.2f".format(`${props.Value}`)}
-			TextColor3={Color3.fromRGB(89, 161, 255)}
-			TextWrapped={true}
+			TextBoxProps={{
+				AnchorPoint:new Vector2(0.5, 0.5),
+				BackgroundColor3:Color3.fromRGB(60, 60, 60),
+				BackgroundTransparency:props.Binding.map((value) => value),
+				Position:UDim2.fromScale(0.5, -0.5),
+				Size:UDim2.fromOffset(20, 12),
+				Transparency:props.Binding.map((value) => value),
+				Font:Enum.Font.Gotham,
+				Text:"%.2f".format(`${props.Value}`),
+				TextColor3:Color3.fromRGB(89, 161, 255),
+				TextWrapped:true,
+			}}
 			OnValidInput={(e) => props.OnTextChange(e)}
 			Options={{
 				Range: props.Range,
+				defaultValue: props.Range.Min,
 			}}
 		>
 			<uicorner CornerRadius={new UDim(0, 4)} />
