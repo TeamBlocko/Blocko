@@ -30,7 +30,7 @@ const FIXED: RotationDataType = {
 	"224": [
 		[["X", 90], ["Y", 90], new Vector3(2, 4, 2)],
 		["Y", 90, new Vector3(4, 2, 2)],
-		["X", 90, new Vector3(2, 4, 2)]	
+		["X", 90, new Vector3(2, 4, 2)],
 	],
 	"242": [
 		[["X", 90], ["Y", 90], new Vector3(4, 2, 2)],
@@ -41,7 +41,7 @@ const FIXED: RotationDataType = {
 	"442": [
 		[["X", 90], ["Y", 90], new Vector3(4, 2, 4)],
 		["Y", 90, new Vector3(2, 4, 4)],
-		["X", 90, new Vector3(4, 2, 4)]
+		["X", 90, new Vector3(4, 2, 4)],
 	],
 	"244": [
 		[["Y", 90], ["Z", 90], new Vector3(4, 2, 4)],
@@ -132,7 +132,7 @@ class GridBase {
 	}
 
 	getFixed(vector: Vector3, part?: Part): Vector3 {
-		const currentOrientation = this.getOrientation() // part ? part.Orientation : this.rawRotation;
+		const currentOrientation = this.getOrientation(); // part ? part.Orientation : this.rawRotation;
 
 		const id = [vector.X, vector.Y, vector.Z].join("");
 		if (FIXED[id] !== undefined) {

@@ -49,7 +49,10 @@ class Serializer {
 		} else if (valueType === "Vector3") {
 			return new Vector3(...value.split(",").map((value) => tonumber(value) as number));
 		} else if (valueType === "NormalId") {
-			return Enum.NormalId.GetEnumItems().find((vector) => this.serialize(Vector3.FromNormalId(vector)) === value) ?? Enum.NormalId.Front
+			return (
+				Enum.NormalId.GetEnumItems().find((vector) => this.serialize(Vector3.FromNormalId(vector)) === value) ??
+				Enum.NormalId.Front
+			);
 		} else {
 			warn(`No implmented deserializer for value of type ${valueType}`);
 			return value;

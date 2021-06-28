@@ -131,7 +131,6 @@ declare interface SliderDisplayPropTypes {
 
 declare interface ValidateTextOptions {
 	Range?: Range;
-	defaultValue: number;
 	decimalPlace?: number;
 }
 

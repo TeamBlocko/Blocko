@@ -18,7 +18,7 @@ import { IState, PlacementSettings } from "template/shared/Types";
 
 interface BuildUIProps extends PlacementSettings {
 	OnSliderUpdate(propertyName: "Transparency" | "Reflectance", value: number): void;
-	OnDropdownUpdate(propertyName:  "Shape" | "Material", value: Instance | Enum.Material): void;
+	OnDropdownUpdate(propertyName: "Shape" | "Material", value: Instance | Enum.Material): void;
 	OnCheckBoxUpdate(propertyName: "CastShadow" | "CanCollide", value: boolean): void;
 	OnColorPickerUpdate(propertyName: "Color", value: Color3): void;
 	OnSizeUpdate(propertyName: "Size", value: Vector3): void;
@@ -290,7 +290,7 @@ export default connect(
 						value,
 					},
 				]),
-			);	
-		}
+			);
+		},
 	}),
 )(BuildUI);

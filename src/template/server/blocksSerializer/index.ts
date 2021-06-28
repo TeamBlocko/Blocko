@@ -46,8 +46,10 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 
 			serializedProperties.push(this.getIdByName(part.Name));
 			for (const [propertyName] of this.allowedProperties) {
-
-				const propertyValue = propertyName !== "Size" ? part[propertyName] : (part.FindFirstChildOfClass("Vector3Value")?.Value ?? part[propertyName]);
+				const propertyValue =
+					propertyName !== "Size"
+						? part[propertyName]
+						: part.FindFirstChildOfClass("Vector3Value")?.Value ?? part[propertyName];
 				serializedProperties.push(this.serialize(propertyValue));
 			}
 

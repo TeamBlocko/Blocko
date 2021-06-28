@@ -8,11 +8,10 @@ interface OnValidInput {
 interface NumberInputPropTypes {
 	OnValidInput: OnValidInput;
 	Options: ValidateTextOptions;
-	TextBoxProps: Omit<JsxObject<TextBox>, "Key">;
+	TextBoxProps: Omit<Omit<JsxObject<TextBox>, "Key">, "Text"> & { Text: string };
 }
 
 function NumberInput(props: NumberInputPropTypes) {
-
 	let prevText = props.TextBoxProps.Text;
 	return (
 		<textbox
@@ -30,10 +29,11 @@ function NumberInput(props: NumberInputPropTypes) {
 					props.TextBoxProps.Change?.Text?.(element);
 					const output = validateText(element.Text, props.Options);
 					const text = tostring(output);
-					if (output === undefined || text === undefined) return;
+					if (text === prevText && element.Text === prevText) return;
+					element.Text = output ? text : prevText;
+					if (output === undefined) return;
 					props.OnValidInput(element, output);
 					prevText = text;
-					element.Text = text;
 				},
 			}}
 		>

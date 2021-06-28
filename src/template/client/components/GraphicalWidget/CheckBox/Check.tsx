@@ -21,7 +21,7 @@ class CheckBoxElement extends Roact.Component<Check> {
 	}
 
 	didUpdate() {
-		this.motor.setGoal(new Flipper.Spring(this.props.Value ? 0 : 1))
+		this.motor.setGoal(new Flipper.Spring(this.props.Value ? 0 : 1));
 	}
 
 	render() {

@@ -41,22 +41,22 @@ function NumberDisplay(props: NumberDisplayPropTypes) {
 	return (
 		<NumberInput
 			TextBoxProps={{
-				AnchorPoint:new Vector2(0.5, 0.5),
-				BackgroundTransparency:1,
-				LayoutOrder:props.LayoutOrder,
-				Size:new UDim2(0, xSize, 0.675, 0),
-				Font:Enum.Font.GothamBold,
-				Text:text,
-				ClearTextOnFocus:false,
-				TextColor3:Color3.fromRGB(227, 227, 227),
-				TextSize:12,
-				TextXAlignment:Enum.TextXAlignment.Right,
+				AnchorPoint: new Vector2(0.5, 0.5),
+				BackgroundTransparency: 1,
+				LayoutOrder: props.LayoutOrder,
+				Size: new UDim2(0, xSize, 0.675, 0),
+				Font: Enum.Font.GothamBold,
+				Text: text,
+				ClearTextOnFocus: false,
+				TextColor3: Color3.fromRGB(227, 227, 227),
+				TextSize: 12,
+				TextXAlignment: Enum.TextXAlignment.Right,
 			}}
 			OnValidInput={(e, value) => {
 				props.onTextChange(props.Type, value);
 				e.Size = new UDim2(0, getSize(tostring(value)).X, 0.675, 0);
 			}}
-			Options={{ Range: { Min: 0, Max: 255 }, decimalPlace: 0, defaultValue: 0 }}
+			Options={{ Range: { Min: 0, Max: 255 }, decimalPlace: 0 }}
 		/>
 	);
 }

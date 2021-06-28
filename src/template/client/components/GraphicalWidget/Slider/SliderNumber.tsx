@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 
-function SliderNumber(props: SliderDisplayPropTypes) {
+function SliderNumber(props: Omit<SliderDisplayPropTypes, "Range">) {
 	return (
 		<textlabel
 			AnchorPoint={new Vector2(0.5, 0.5)}

@@ -21,27 +21,23 @@ const DEFAULT_OPTIONS = {
 	decimalPlace: 2,
 };
 
-export function validateText(text: string, options?: ValidateTextOptions): number {
+export function validateText(text: string, options?: ValidateTextOptions): number | undefined {
 	const optionsUsed: ValidateTextOptions = assign(DEFAULT_OPTIONS, options);
 
-	if (text === "") return optionsUsed.defaultValue;
+	if (text === "") return;
 
 	let value = tonumber(text);
-	if (text.match("[%d%.]+")[0] !== text && value === undefined) {
-		const [result] = text.gsub("[%d%.]+", "");
-		[text] = text.gsub(`${result}`, "");
-		value = tonumber(text);
+	const [match] = text.match("[%d%.]+");
+	if (match && value === undefined) {
+		value = tonumber(match);
 	}
-	if (optionsUsed.Range) {
-		if (value !== undefined && (value > optionsUsed.Range.Min || value < optionsUsed.Range.Max)) {
-			text = tostring(math.clamp(value, optionsUsed.Range.Min, optionsUsed.Range.Max));
-			value = tonumber(text);
-		}
+	if (optionsUsed.Range && value) {
+		value = math.clamp(value, optionsUsed.Range.Min, optionsUsed.Range.Max);
 	}
-	if (value === undefined) return optionsUsed.defaultValue;
+	if (value === undefined) return;
 	const [, decimal] = math.modf(value);
 	const pattern = decimal === 0 ? "%.0f" : `%.${optionsUsed.decimalPlace}f`;
-	return tonumber(pattern.format(text)) ?? optionsUsed.defaultValue;
+	return tonumber(pattern.format(value));
 }
 
 export function previousInTable<T>(t: T[], element: T): T {

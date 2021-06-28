@@ -20,8 +20,8 @@ export function teamBlockoStaff(userId: number): PermissionsInfo | undefined {
 		const info: PermissionsInfo = {
 			UserId: userId,
 			Type: "TeamBlocko",
-		}
-		cache.set(userId, info)
+		};
+		cache.set(userId, info);
 		return info;
 	}
 }
@@ -45,7 +45,7 @@ export function getUserPermissions(worldInfo: WorldInfo, userId: number, staff?:
 
 export function calculatePermissions(role: PermissionTypes): Omit<Permissions, "Inherit"> {
 	const rolePermission = RolePermissions[role];
-	return assign({}, rolePermission, rolePermission.Inherit ? calculatePermissions(rolePermission.Inherit) : {})
+	return assign({}, rolePermission, rolePermission.Inherit ? calculatePermissions(rolePermission.Inherit) : {});
 }
 
 export function calculatePermissionsOfUser(worldInfo: WorldInfo, userId: number) {

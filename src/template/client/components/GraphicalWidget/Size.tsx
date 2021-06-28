@@ -9,7 +9,7 @@ interface SizePropTypes extends GWPropTypes<Vector3> {
 }
 
 interface SizeTogglePropTypes {
-	Value: number,
+	Value: number;
 	OnClick: () => void;
 }
 
@@ -25,12 +25,12 @@ function SizeToggle(props: SizeTogglePropTypes) {
 			TextColor3={Color3.fromRGB(217, 217, 217)}
 			TextSize={12}
 			Event={{
-				Activated: () => props.OnClick()
+				Activated: () => props.OnClick(),
 			}}
 		>
 			<uicorner CornerRadius={new UDim(0, 5)} />
 		</textbutton>
-	)
+	);
 }
 
 function Cross() {
@@ -46,41 +46,63 @@ function Cross() {
 			TextTransparency={0.5}
 			TextWrapped={true}
 		/>
-	)
+	);
 }
 
 class Size extends Roact.Component<SizePropTypes> {
-
 	constructor(props: SizePropTypes) {
-		super(props)
+		super(props);
 	}
 
 	render() {
 		return (
 			<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30} LayoutOrder={this.props.LayoutOrder}>
 				<uicorner CornerRadius={new UDim(0, 7)} />
-				<TitleText
-					Text={"Size"}
-					Position={UDim2.fromScale(0, 0.5)}
-					AnchorPoint={new Vector2(0, 0.5)}
-				/>
+				<TitleText Text={"Size"} Position={UDim2.fromScale(0, 0.5)} AnchorPoint={new Vector2(0, 0.5)} />
 				<frame
 					AnchorPoint={new Vector2(1, 0.5)}
 					BackgroundTransparency={1}
 					Position={UDim2.fromScale(0.975, 0.5)}
 					Size={UDim2.fromOffset(135, 18)}
 				>
-					<SizeToggle Value={this.props.Default.X} OnClick={() => this.props.OnChange(
-						new Vector3(nextInTable(values, this.props.Default.X), this.props.Default.Y, this.props.Default.Z))
-					}/>
+					<SizeToggle
+						Value={this.props.Default.X}
+						OnClick={() =>
+							this.props.OnChange(
+								new Vector3(
+									nextInTable(values, this.props.Default.X),
+									this.props.Default.Y,
+									this.props.Default.Z,
+								),
+							)
+						}
+					/>
 					<Cross />
-					<SizeToggle Value={this.props.Default.Y} OnClick={() => this.props.OnChange(
-						new Vector3(this.props.Default.X, nextInTable(values, this.props.Default.Y), this.props.Default.Z))
-					}/>
+					<SizeToggle
+						Value={this.props.Default.Y}
+						OnClick={() =>
+							this.props.OnChange(
+								new Vector3(
+									this.props.Default.X,
+									nextInTable(values, this.props.Default.Y),
+									this.props.Default.Z,
+								),
+							)
+						}
+					/>
 					<Cross />
-					<SizeToggle Value={this.props.Default.Z} OnClick={() => this.props.OnChange(
-						new Vector3(this.props.Default.X, this.props.Default.Y, nextInTable(values, this.props.Default.Z)))
-					}/>
+					<SizeToggle
+						Value={this.props.Default.Z}
+						OnClick={() =>
+							this.props.OnChange(
+								new Vector3(
+									this.props.Default.X,
+									this.props.Default.Y,
+									nextInTable(values, this.props.Default.Z),
+								),
+							)
+						}
+					/>
 					<uilistlayout
 						FillDirection={Enum.FillDirection.Horizontal}
 						HorizontalAlignment={Enum.HorizontalAlignment.Right}
@@ -89,7 +111,7 @@ class Size extends Roact.Component<SizePropTypes> {
 					/>
 				</frame>
 			</GWFrame>
-		)
+		);
 	}
 }
 

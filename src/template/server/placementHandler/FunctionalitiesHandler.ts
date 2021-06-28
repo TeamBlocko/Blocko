@@ -5,12 +5,12 @@ import * as Functionalities from "template/shared/Functionalities";
 const debounce = new Map<string, Map<number, number>>();
 
 function setGet<T, V>(map: Map<T, V>, key: T, value: V): V {
-	const currentValue = map.get(key)
+	const currentValue = map.get(key);
 	if (currentValue) {
-		return currentValue
+		return currentValue;
 	} else {
-		map.set(key, value)
-		return value
+		map.set(key, value);
+		return value;
 	}
 }
 
@@ -22,9 +22,9 @@ function addDamager(part: BasePart, functionality: Functionalities.Functionaliti
 			const humanoid = character?.FindFirstChildOfClass("Humanoid");
 
 			if (!player || !humanoid || !character) return;
-			const functionalityDebounce = setGet(debounce, functionality.GUID, new Map())
+			const functionalityDebounce = setGet(debounce, functionality.GUID, new Map());
 			const time = functionalityDebounce.get(player.UserId);
-			
+
 			if (time === undefined || os.time() - time > functionality.Properties.Cooldown.Current) {
 				if (humanoid !== undefined) {
 					humanoid.TakeDamage(functionality.Properties.Damage.Current);
@@ -53,8 +53,9 @@ function addConveyor(part: BasePart, functionality: Functionalities.Functionalit
 			const character = otherPart.Parent;
 			const humanoidRootPart = character?.FindFirstChild("HumanoidRootPart") as BasePart;
 			if (!humanoidRootPart) return;
-			part.AssemblyLinearVelocity = Vector3.FromNormalId(functionality.Properties.Direction.Current).mul(functionality.Properties.Speed.Current);
-				
+			part.AssemblyLinearVelocity = Vector3.FromNormalId(functionality.Properties.Direction.Current).mul(
+				functionality.Properties.Speed.Current,
+			);
 		});
 		CollectionService.AddTag(part, "Functionality");
 	}
