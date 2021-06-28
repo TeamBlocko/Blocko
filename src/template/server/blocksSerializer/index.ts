@@ -13,6 +13,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 		["Transparency", "number"],
 		["Reflectance", "number"],
 		["Color", "Color3"],
+		["CanCollide", "boolean"],
 	];
 
 	public readonly blockIds: T;
