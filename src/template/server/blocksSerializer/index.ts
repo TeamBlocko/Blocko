@@ -4,7 +4,8 @@ import * as Functionality from "template/shared/Functionalities";
 import { values, assign } from "@rbxts/object-utils";
 
 class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
-	public allowedProperties: [keyof RawProperties | "Position" | "Orientation", unknown][] = [
+	// Add New properties at the end
+	public allowedProperties: [keyof RawProperties | "Position" | "Orientation", string][] = [
 		["Material", "EnumItem"],
 		["Position", "Vector3"],
 		["Orientation", "Vector3"],
@@ -76,6 +77,22 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 		return serialized.join("!");
 	}
 
+	/**
+	 * In Use Chars: `,` `!` `;` `|` `:` `Numbers` `Letters`
+	 * 
+	 * Blocks are seperated by `!`
+	 * 
+	 * Block Properties are seperated by `;`
+	 * 
+	 * Block Properties are Properties Followed by Functionality
+	 * 
+	 * Properties start of with `Id`` of Block then followed by taking order of properties in `allowedProperties`
+	 * 
+	 * Functionality Info are seperated by `|`
+	 * 
+	 * Properties of Functionality are seperated by `:`
+	 * 
+	 */
 	deserializeBlocks(value: string, parent: Instance) {
 		const blockInfos = value.split("!");
 
@@ -90,6 +107,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 			for (const [propertyName, propertyType] of this.allowedProperties) {
 				const value = propertiesInfo.shift();
 				assert(value);
+
 				const propertyValue = this.deserialize(value, propertyType);
 				if (propertyName === "Size") {
 					const actualSize = new Instance("Vector3Value", block);
