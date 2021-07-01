@@ -26,6 +26,9 @@ const SPECTATE_COLOR = Color3.fromRGB(255, 255, 255),
 	BUILD_COLOR = Color3.fromRGB(65, 179, 255),
 	DELETE_COLOR = Color3.fromRGB(255, 110, 110);
 
+const PARTIAL_COPY: Readonly<KeyCombo> = [Enum.KeyCode.LeftAlt, Enum.KeyCode.Z] as const;
+const FULL_COPY: Readonly<KeyCombo> = [Enum.KeyCode.LeftAlt, Enum.KeyCode.Z, Enum.KeyCode.LeftControl] as const;
+
 const ALT_PROPERTIES: (keyof RawProperties)[] = [
 	"Material",
 	"CastShadow",
@@ -130,6 +133,17 @@ RunService.RenderStepped.Connect(() => {
 	}
 });
 
+type KeyCombo = Enum.KeyCode[];
+
+function isKeyCombo(combo: Readonly<KeyCombo>): boolean {
+	for (const key of combo) {
+		if (!UserInputService.IsKeyDown(key)) {
+			return false
+		}
+	}
+	return true
+}
+
 function map_properties(target: BasePart): (propertyName: keyof RawProperties) => UpdatePropertyDataType {
 	return (propertyName) => {
 		let value = target[propertyName];
@@ -177,23 +191,21 @@ ContextActionService.BindActionAtPriority(
 				case Enum.KeyCode.G:
 					buildHandle.nextBlockType();
 					break;
-				case Enum.KeyCode.LeftAlt:
-					if (UserInputService.IsKeyDown(Enum.KeyCode.Z)) {
-						if (UserInputService.IsKeyDown(Enum.KeyCode.LeftControl)) {
-							const target = gridBase.mouseTarget();
-							if (target === undefined) break;
-							const properties = ALT_SHIFT_PROPERTIES.map(map_properties(target));
-							store.dispatch(updateProperty(properties));
-							store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
-						} else {
-							const target = gridBase.mouseTarget();
-							if (target === undefined) break;
-							const properties = ALT_PROPERTIES.map(map_properties(target));
-							store.dispatch(updateProperty(properties));
-						}
-					}
-					break;
 			}
+
+			if (isKeyCombo(FULL_COPY)) {
+				const target = gridBase.mouseTarget();
+				if (target === undefined) return;
+				const properties = ALT_SHIFT_PROPERTIES.map(map_properties(target));
+				store.dispatch(updateProperty(properties));
+				store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
+			} else if (isKeyCombo(PARTIAL_COPY)) {
+				const target = gridBase.mouseTarget();
+				if (target === undefined) return;
+				const properties = ALT_PROPERTIES.map(map_properties(target));
+				store.dispatch(updateProperty(properties));
+			}
+
 			if (inputObject.UserInputType === Enum.UserInputType.MouseButton1) {
 				if (state.ActivatedColorPicker) return;
 				switch (mode) {
