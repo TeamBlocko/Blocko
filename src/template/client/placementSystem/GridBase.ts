@@ -3,58 +3,11 @@ import store from "template/client/store";
 
 const camera = Workspace.CurrentCamera;
 
+type Axis = "X" | "Y" | "Z";
+
 interface Target extends BasePart {
 	ActualSize: Vector3Value;
 }
-
-type Axis = "X" | "Y" | "Z";
-
-type Info = [Axis, number];
-
-interface RotationDataType {
-	[key: string]: ([...Info, Vector3] | [Info, Info, Vector3])[];
-}
-
-interface RaycastResult {
-	Instance: Target;
-	Position: Vector3;
-	Normal: Vector3;
-}
-
-const FIXED: RotationDataType = {
-	"422": [
-		[["Z", 90], ["Y", 90], new Vector3(2, 4, 2)],
-		["Z", 90, new Vector3(2, 4, 2)],
-		["Y", 90, new Vector3(2, 2, 4)],
-	],
-	"224": [
-		[["X", 90], ["Y", 90], new Vector3(2, 4, 2)],
-		["Y", 90, new Vector3(4, 2, 2)],
-		["X", 90, new Vector3(2, 4, 2)],
-	],
-	"242": [
-		[["X", 90], ["Y", 90], new Vector3(4, 2, 2)],
-		[["Z", 90], ["Y", 90], new Vector3(2, 2, 4)],
-		["Z", 90, new Vector3(4, 2, 2)],
-		["X", 90, new Vector3(2, 2, 4)],
-	],
-	"442": [
-		[["X", 90], ["Y", 90], new Vector3(4, 2, 4)],
-		["Y", 90, new Vector3(2, 4, 4)],
-		["X", 90, new Vector3(4, 2, 4)],
-	],
-	"244": [
-		[["Y", 90], ["Z", 90], new Vector3(4, 2, 4)],
-		["Y", 90, new Vector3(4, 4, 2)],
-		["Z", 90, new Vector3(4, 2, 4)],
-	],
-	"424": [
-		[["Y", 90], ["Z", 90], new Vector3(4, 4, 2)],
-		[["X", 90], ["Y", 90], new Vector3(4, 4, 2)],
-		["Z", 90, new Vector3(2, 4, 4)],
-		["X", 90, new Vector3(4, 4, 2)],
-	],
-};
 
 interface GridBaseOptions {
 	Blocks: Instance;
@@ -73,10 +26,8 @@ class GridBase {
 	public readonly rotationTweenInfo: TweenInfo;
 
 	private buildCache = new Map<Target, Map<string, CFrame[]>>();
-	private normals: Vector3[] = [];
 
 	private rotation = new CFrame();
-	private rawRotation = new Vector3();
 	private smoothCheatPart = new Instance("Part");
 
 	constructor(options: GridBaseOptions) {
@@ -84,9 +35,79 @@ class GridBase {
 		this.maxPlaceDistance = options.MaxPlaceDistance ?? DEFAULT_OPTIONS.MaxPlaceDistance;
 		this.rotationTweenInfo = options.RotationTweenInfo ?? DEFAULT_OPTIONS.RotationTweenInfo;
 
-		for (const normalId of Enum.NormalId.GetEnumItems()) {
-			this.normals.push(Vector3.FromNormalId(normalId));
+	}
+
+	numberToGrid(num: number, gridSize: number) {
+		return math.floor(num/gridSize+0.5)*gridSize
+	}
+
+	clampNum(num: number) {
+		return num%2 === 0 ? num + 1 : num
+	}
+
+	getSize(size: Vector3) {
+		const orientation = this.getOrientation();
+		if (size === new Vector3(2, 2, 4)) {
+			if (orientation.Y%180 === 90 && orientation.X%180 === 90) {
+				return new Vector3(2, 4, 2)
+			} else if (orientation.Y%180 === 90) {
+				return new Vector3(4, 2, 2)
+			}
+		} else if (size === new Vector3(4, 2, 2)) {
+			if (orientation.X%180 === 90 && orientation.Z%180 === 90) {
+				return new Vector3(2, 2, 4)
+			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
+				return new Vector3(4, 2, 2)
+			} else if (orientation.Z%180 === 90) {
+				return new Vector3(2, 4, 2)
+			} else if (orientation.Y%180 === 90) {
+				return new Vector3(2, 2, 4)
+			}
+		} else if (size === new Vector3(2, 4, 2)) {
+			if (orientation.X%180 === 90 && orientation.Y%180 === 90) {
+				return new Vector3(4, 2, 2)
+			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
+				return new Vector3(2, 2, 4)
+			} else if (orientation.Z%180 === 90) {
+				return new Vector3(4, 2, 2)
+			}
+		} else if (size === new Vector3(2, 4, 4)) {
+			if (orientation.X%180 === 90 && orientation.Z%180 === 90) {
+				return new Vector3(4, 4, 2)
+			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
+				return new Vector3(4, 2, 4)
+			} else if (orientation.Z%180 === 90) {
+				return new Vector3(4, 2, 4)
+			} else if (orientation.Y%180 === 90) {
+				return new Vector3(4, 4, 2)
+			}
+		} else if (size === new Vector3(4, 2, 4)) {
+			if (orientation.X%180 === 90 && orientation.Y%180 === 90) {
+				return new Vector3(2, 4, 4)
+			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
+				return new Vector3(4, 4, 2)
+			} else if (orientation.Z%180 === 90) {
+				return new Vector3(2, 4, 4)
+			}
+		} else if (size === new Vector3(4, 4, 2)) {
+			if (orientation.X%180 === 90 && orientation.Y%180 === 90) {
+				return new Vector3(4, 2, 4)
+			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
+				return new Vector3(2, 4, 4)
+			} else if (orientation.X%180 === 90) {
+				return new Vector3(2, 4, 4)
+			}
 		}
+		return size
+	}
+
+	positionToGrid(vector: Vector3): Vector3 {
+		const size = this.getSize(store.getState().PlacementSettings.RawProperties.Size);
+		
+		const x = size.X === 2 ? this.clampNum(this.numberToGrid(vector.X, 1)) : this.numberToGrid(vector.X, 4)
+		const y = size.Y === 2 ? this.clampNum(this.numberToGrid(vector.Y, 1)) : this.numberToGrid(vector.Y, 4)
+		const z = size.Z === 2 ? this.clampNum(this.numberToGrid(vector.Z, 1)) : this.numberToGrid(vector.Z, 4)
+		return new Vector3(x, y, z)
 	}
 
 	raycastMouse() {
@@ -105,180 +126,55 @@ class GridBase {
 		return raycastResult && raycastResult.Instance;
 	}
 
-	private valid(vector: Vector3) {
-		const validAxis: Axis[] = [];
-
-		if (vector.X !== 0) {
-			validAxis.push("X");
-		}
-		if (vector.Y !== 0) {
-			validAxis.push("Y");
-		}
-		if (vector.Z !== 0) {
-			validAxis.push("Z");
-		}
-
-		return validAxis;
+	mousePosition() {
+		const raycastResult = this.raycastMouse();
+		return raycastResult && raycastResult.Position;	
 	}
 
-	private negative(vector: Vector3) {
-		if (vector.X < 0) {
-			return true;
-		} else if (vector.Y < 0) {
-			return true;
-		} else if (vector.Z < 0) {
-			return true;
-		}
-	}
-
-	getFixed(vector: Vector3, part?: Part): Vector3 {
-		const currentOrientation = this.getOrientation(); // part ? part.Orientation : this.rawRotation;
-
-		const id = [vector.X, vector.Y, vector.Z].join("");
-		if (FIXED[id] !== undefined) {
-			for (const rotationInfo of FIXED[id]) {
-				if (typeIs(rotationInfo[1], "table") === true) {
-					let validToChange = true;
-					for (const additionalInfo of rotationInfo) {
-						if (typeIs(additionalInfo, "table") !== true) {
-							break;
-						}
-						const axis: Axis = (additionalInfo as Info)[0];
-						if (currentOrientation[axis] % 180 !== (additionalInfo as Info)[1]) {
-							validToChange = false;
-						}
-					}
-
-					if (validToChange === true) {
-						vector = rotationInfo[2];
-						break;
-					}
-				} else {
-					const axis: Axis = (rotationInfo as [...Info, Vector3])[0];
-					if (currentOrientation[axis] % 180 === rotationInfo[1]) {
-						vector = rotationInfo[2];
-						break;
-					}
-				}
+	mouseBlockSide() {
+		const ray = this.raycastMouse();
+		if (!ray) return;
+		const offset = ray.Position.sub(ray.Instance.Position)
+		let lNum = 0;
+		let largestAxis: Axis = "X";
+		for (const axis of ["X", "Y", "Z"] as const) {
+			let value = offset[axis];
+			if (math.abs(value) >= lNum) {
+				lNum = math.abs(value)
+				largestAxis = axis
 			}
 		}
-
-		return vector;
+		switch (largestAxis) {
+			case "X":
+				return new Vector3(offset.X, 0, 0).Unit
+			case "Y":
+				return new Vector3(0, offset.Y, 0).Unit
+			case "Z":
+				return new Vector3(0, 0, offset.Z).Unit
+		}
 	}
 
-	getSurface(normal: Vector3, isFloatError?: boolean) {
-		const sign = isFloatError ? 1 : -1;
-
-		let closest = new Vector3(1, 1, 1).mul(100);
-		for (const surfaceNormal of this.normals) {
-			if (closest !== undefined) {
-				if (surfaceNormal.sub(normal).Magnitude * sign > closest.sub(normal).Magnitude * sign) {
-					closest = surfaceNormal;
-				}
-			}
-		}
-
-		return closest;
-	}
-
-	updateGridCells(target: Target, normal: Vector3, isFloatError?: boolean) {
-		this.buildCache.set(target, new Map());
-		const cacheNormals = this.buildCache.get(target);
-		if (cacheNormals === undefined) return;
-
-		cacheNormals.set(tostring(normal), []);
-		const normalCells = cacheNormals.get(tostring(normal));
-		if (normalCells === undefined) return;
-
-		const actualSize = target.FindFirstChild("ActualSize") ? target.ActualSize.Value : target.Size;
-		if (actualSize === undefined) return;
-
-		const sign = isFloatError ? -1 : 1;
-		const opposite = this.negative(normal) ? new Vector3(1, 1, 1).add(normal) : new Vector3(1, 1, 1).sub(normal);
-		const targetSize = this.getFixed(actualSize);
-
-		const edge = target.Position.add(targetSize.div(2).mul(normal)).add(targetSize.div(2).mul(opposite));
-
-		const validFound = this.valid(opposite);
-		const size = this.getFixed(store.getState().PlacementSettings.RawProperties.Size);
-
-		const pos = edge.add(size.div(2).mul(normal).mul(sign)).sub(size.div(2).mul(opposite));
-
-		const firstAxis = validFound[0];
-		for (let column = 0; column <= math.abs(targetSize[firstAxis] - size[firstAxis]) / 2; column++) {
-			const secondAxis = validFound[1];
-			const firstAxisSize = Vector3.FromAxis(Enum.Axis[firstAxis]).mul(size).mul(column);
-
-			for (let row = 0; row <= math.abs(targetSize[secondAxis] - size[secondAxis]) / 2; row++) {
-				const secondAxisSize = Vector3.FromAxis(Enum.Axis[secondAxis]).mul(size).mul(row);
-				const position = pos.sub(firstAxisSize).sub(secondAxisSize);
-				const finalPosition = target.CFrame.Inverse().mul(new CFrame(position));
-
-				normalCells.push(target.CFrame.mul(finalPosition));
-			}
-		}
+	mouseGridPosition() {
+		const target = this.mouseTarget();
+		const pos = this.mousePosition();
+		if (!pos) return;
+		if (!target) return this.positionToGrid(pos)
+		const normal = this.mouseBlockSide();
+		if (!normal) return;
+		const result = this.positionToGrid(pos.add(normal));
+		return result
 	}
 
 	clearBuildCache() {
 		this.buildCache = new Map();
 	}
 
-	getClosest(target: Target, pos: Vector3, normal: Vector3) {
-		let closest = new CFrame(new Vector3(1, 1, 1).mul(100));
-		const normalCells = this.buildCache.get(target)?.get(tostring(normal));
-		if (normalCells === undefined) return;
-
-		for (const cell of normalCells) {
-			if (closest.Position.sub(pos).Magnitude > cell.Position.sub(pos).Magnitude) {
-				closest = cell;
-			}
-		}
-
-		return closest.Position;
-	}
-
-	isFloatError(value: number) {
-		if (value === 1 || value === 0) {
-			return true;
-		}
-
-		if (value * 1e4 < 1) {
-			return true;
-		}
-	}
-
-	isFromFloatError(vector: Vector3) {
-		if (this.isFloatError(math.abs(vector.X)) === true) {
-			return true;
-		} else if (this.isFloatError(math.abs(vector.Y)) === true) {
-			return true;
-		} else if (this.isFloatError(math.abs(vector.Z)) === true) {
-			return true;
-		}
-	}
-
-	getClosestCellFromRaycast(raycastResult: RaycastResult) {
-		if (this.normals.indexOf(raycastResult.Normal) !== -1) {
-			this.updateGridCells(raycastResult.Instance, raycastResult.Normal);
-			return this.getClosest(raycastResult.Instance, raycastResult.Position, raycastResult.Normal);
-		} else {
-			const isFromFloatError = this.isFromFloatError(raycastResult.Normal);
-			const normal = this.getSurface(raycastResult.Normal, isFromFloatError);
-			this.updateGridCells(raycastResult.Instance, normal, isFromFloatError);
-			return this.getClosest(raycastResult.Instance, raycastResult.Position, normal);
-		}
-	}
-
-	mouseGridPosition() {
-		const raycastResult = (this.raycastMouse() as unknown) as RaycastResult;
-
-		if (raycastResult !== undefined) {
-			return this.getClosestCellFromRaycast(raycastResult);
-		}
+	resetOrientation() {
+		this.rotation = new CFrame();
+		this.smoothCheatPart.CFrame = this.rotation;
 	}
 
 	rotate() {
-		this.rawRotation = new Vector3(0, (this.rawRotation.Y + 90) % 360, this.rawRotation.Z);
 		this.rotation = this.rotation.mul(CFrame.Angles(0, math.pi / 2, 0));
 		TweenService.Create(this.smoothCheatPart, this.rotationTweenInfo, {
 			CFrame: this.rotation,
@@ -286,7 +182,6 @@ class GridBase {
 	}
 
 	tilt() {
-		this.rawRotation = new Vector3(0, this.rawRotation.Y, (this.rawRotation.Z + 90) % 360);
 		this.rotation = this.rotation.mul(CFrame.Angles(0, 0, math.pi / 2));
 		TweenService.Create(this.smoothCheatPart, this.rotationTweenInfo, {
 			CFrame: this.rotation,
