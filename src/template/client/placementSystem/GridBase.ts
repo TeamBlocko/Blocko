@@ -48,16 +48,16 @@ class GridBase {
 	getSize(size: Vector3) {
 		const orientation = this.getOrientation();
 		if (size === new Vector3(2, 2, 4)) {
-			if (orientation.Y%180 === 90 && orientation.X%180 === 90) {
+			if (orientation.X%180 === 90) {
 				return new Vector3(2, 4, 2)
 			} else if (orientation.Y%180 === 90) {
 				return new Vector3(4, 2, 2)
 			}
 		} else if (size === new Vector3(4, 2, 2)) {
-			if (orientation.X%180 === 90 && orientation.Z%180 === 90) {
+			if (orientation.X%180 === 90 && orientation.Y%180 === 90) {
 				return new Vector3(2, 2, 4)
 			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
-				return new Vector3(4, 2, 2)
+				return new Vector3(2, 4, 2)
 			} else if (orientation.Z%180 === 90) {
 				return new Vector3(2, 4, 2)
 			} else if (orientation.Y%180 === 90) {
@@ -70,6 +70,8 @@ class GridBase {
 				return new Vector3(2, 2, 4)
 			} else if (orientation.Z%180 === 90) {
 				return new Vector3(4, 2, 2)
+			} else if (orientation.X%180 === 90) {
+				return new Vector3(2, 2, 4)
 			}
 		} else if (size === new Vector3(2, 4, 4)) {
 			if (orientation.X%180 === 90 && orientation.Z%180 === 90) {
@@ -88,22 +90,22 @@ class GridBase {
 				return new Vector3(4, 4, 2)
 			} else if (orientation.Z%180 === 90) {
 				return new Vector3(2, 4, 4)
+			} else if (orientation.X%180 === 90) {
+				return new Vector3(4, 4, 2)
 			}
 		} else if (size === new Vector3(4, 4, 2)) {
-			if (orientation.X%180 === 90 && orientation.Y%180 === 90) {
+			if (orientation.X%180) {
 				return new Vector3(4, 2, 4)
 			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
 				return new Vector3(2, 4, 4)
-			} else if (orientation.X%180 === 90) {
+			} else if (orientation.Y%180 === 90) {
 				return new Vector3(2, 4, 4)
 			}
 		}
 		return size
 	}
 
-	positionToGrid(vector: Vector3): Vector3 {
-		const size = this.getSize(store.getState().PlacementSettings.RawProperties.Size);
-		
+	positionToGrid(vector: Vector3, size: Vector3): Vector3 {
 		const x = size.X === 2 ? this.clampNum(this.numberToGrid(vector.X, 1)) : this.numberToGrid(vector.X, 4)
 		const y = size.Y === 2 ? this.clampNum(this.numberToGrid(vector.Y, 1)) : this.numberToGrid(vector.Y, 4)
 		const z = size.Z === 2 ? this.clampNum(this.numberToGrid(vector.Z, 1)) : this.numberToGrid(vector.Z, 4)
@@ -154,14 +156,31 @@ class GridBase {
 		}
 	}
 
+	isAllFloat(vector: Vector3) {
+		for (const axis of ["X", "Y", "Z"] as const) {
+			if (math.floor(vector[axis]) === vector[axis]) {
+				return false
+			}
+		}
+		return true
+	}
+
 	mouseGridPosition() {
 		const target = this.mouseTarget();
 		const pos = this.mousePosition();
 		if (!pos) return;
-		if (!target) return this.positionToGrid(pos)
+		const gridSize = this.getSize(store.getState().PlacementSettings.RawProperties.Size)
+		if (!target) return this.positionToGrid(pos, gridSize)
+		if (this.isAllFloat(pos)) return this.positionToGrid(target.Position, gridSize)
 		const normal = this.mouseBlockSide();
 		if (!normal) return;
-		const result = this.positionToGrid(pos.add(normal));
+		const offset = pos.sub(target.Position).mul(normal).Magnitude
+		const offsetX = gridSize.X/2-offset;
+		const offsetY = gridSize.Y/2-offset;
+		const offsetZ = gridSize.Z/2-offset;
+		const vectorOffset = new Vector3(offsetX, offsetY, offsetZ).mul(normal)
+		const blockPos = pos.add(vectorOffset).add(normal)
+		const result = this.positionToGrid(blockPos, gridSize);
 		return result
 	}
 
