@@ -171,7 +171,7 @@ class GridBase {
 		if (!pos) return;
 		const gridSize = this.getSize(store.getState().PlacementSettings.RawProperties.Size)
 		if (!target) return this.positionToGrid(pos, gridSize)
-		if (this.isAllFloat(pos)) return this.positionToGrid(target.Position, gridSize)
+		if (this.isAllFloat(pos)) return this.positionToGrid(pos, gridSize)
 		const normal = this.mouseBlockSide();
 		if (!normal) return;
 		const offset = pos.sub(target.Position).mul(normal).Magnitude
