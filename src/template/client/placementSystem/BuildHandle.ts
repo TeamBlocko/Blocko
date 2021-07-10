@@ -37,8 +37,6 @@ class BuildHandler {
 			this.ghostPart = placementSettings.Shape.Clone();
 		}
 
-		this.gridBase.clearBuildCache();
-
 		for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {
 			let propertyValue = value;
 			if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(propertyValue, "number"))

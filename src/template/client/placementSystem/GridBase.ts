@@ -25,8 +25,6 @@ class GridBase {
 	public readonly maxPlaceDistance: number;
 	public readonly rotationTweenInfo: TweenInfo;
 
-	private buildCache = new Map<Target, Map<string, CFrame[]>>();
-
 	private rotation = new CFrame();
 	private smoothCheatPart = new Instance("Part");
 
@@ -42,7 +40,12 @@ class GridBase {
 	}
 
 	clampNum(num: number) {
-		return num%2 === 0 ? num + 1 : num
+		if (num%2 === 0) {
+			if (num < 0)
+				return num - 1
+			return num + 1
+		}
+		return num
 	}
 
 	getSize(size: Vector3) {
@@ -182,10 +185,6 @@ class GridBase {
 		const blockPos = pos.add(vectorOffset).add(normal)
 		const result = this.positionToGrid(blockPos, gridSize);
 		return result
-	}
-
-	clearBuildCache() {
-		this.buildCache = new Map();
 	}
 
 	resetOrientation() {
