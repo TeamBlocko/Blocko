@@ -2,6 +2,7 @@ import Serializer from "template/shared/Serializer";
 import * as FunctionalityHandler from "template/server/placementHandler/FunctionalitiesHandler";
 import * as Functionality from "template/shared/Functionalities";
 import { values, assign } from "@rbxts/object-utils";
+import LZW from "./LZW";
 
 class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 	// Add New properties at the end
@@ -74,7 +75,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 			}
 			serialized.push(serializedProperties.join(";"));
 		}
-		return serialized.join("!");
+		return LZW.Compress(serialized.join("!"), false);
 	}
 
 	/**
@@ -94,7 +95,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 	 * 
 	 */
 	deserializeBlocks(value: string, parent: Instance) {
-		const blockInfos = value.split("!");
+		const blockInfos = LZW.Decompress(value, false).split("!");
 
 		for (const blockInfo of blockInfos) {
 			const propertiesInfo = blockInfo.split(";");
