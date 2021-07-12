@@ -4,4 +4,4 @@ interface LZW {
 }
 
 declare const LZW: LZW;
-export default LZW
+export = LZW
