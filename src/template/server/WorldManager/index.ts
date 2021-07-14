@@ -1,4 +1,4 @@
-import { Workspace, DataStoreService, ReplicatedStorage, Players } from "@rbxts/services";
+import { Workspace, DataStoreService, ReplicatedStorage, Players, AssetService } from "@rbxts/services";
 import { Store } from "@rbxts/rodux";
 import { $env } from "rbxts-transform-env";
 import { ser } from "@rbxts/ser";
@@ -16,7 +16,7 @@ import { getPlayersWithPerm } from "template/shared/permissionsUtility";
 
 const dataSync = LazLoader.require("DataSync");
 
-const MAX_WORLD_SIZE = 2_000_000;
+const MAX_WORLD_SIZE = 4_000_000;
 
 const SIZE_COLORS = {
 	STAGE_ONE: Color3.fromRGB(43, 255, 43),
@@ -92,7 +92,7 @@ class WorldManager {
 			this.worldInfo.SaveData();
 		});
 
-		this.Load();
+		//this.Load();
 	}
 
 	Load() {
@@ -108,6 +108,7 @@ class WorldManager {
 	Save() {
 		const state = this.store.getState();
 		try {
+			AssetService.SavePlaceAsync();
 			const shouldSendSaveNotification = os.clock() - this.lastSave > this.saveNotificationInterval;
 			if (shouldSendSaveNotification) {
 				notificationHandler.SendToPlayers(getPlayersWithPerm(state.Info, "Build", Players.GetPlayers()), {

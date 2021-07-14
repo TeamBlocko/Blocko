@@ -17,7 +17,7 @@
 		"@rbxts/services": "^1.1.4",
 		"@rbxts/synced-poller": "^1.0.2",
 		"@rbxts/t": "^2.1.4",
-		"rbxts-transform-env": "^0.4.0"
+		"rbxts-transform-env": "^0.4.2"
 	},
 	"scripts": {
 		"rojo:world-template": "rojo serve world-template.project.json",
