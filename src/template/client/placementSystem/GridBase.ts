@@ -182,7 +182,7 @@ class GridBase {
 		const offsetY = gridSize.Y/2-offset;
 		const offsetZ = gridSize.Z/2-offset;
 		const vectorOffset = new Vector3(offsetX, offsetY, offsetZ).mul(normal)
-		const blockPos = pos.add(vectorOffset).add(normal)
+		const blockPos = pos.add(vectorOffset).add(normal.div(2))
 		const result = this.positionToGrid(blockPos, gridSize);
 		return result
 	}
