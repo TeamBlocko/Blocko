@@ -32,87 +32,85 @@ class GridBase {
 		this.blocks = options.Blocks;
 		this.maxPlaceDistance = options.MaxPlaceDistance ?? DEFAULT_OPTIONS.MaxPlaceDistance;
 		this.rotationTweenInfo = options.RotationTweenInfo ?? DEFAULT_OPTIONS.RotationTweenInfo;
-
 	}
 
 	numberToGrid(num: number, gridSize: number) {
-		return math.floor(num/gridSize+0.5)*gridSize
+		return math.floor(num / gridSize + 0.5) * gridSize;
 	}
 
 	clampNum(num: number) {
-		if (num%2 === 0) {
-			if (num < 0)
-				return num - 1
-			return num + 1
+		if (num % 2 === 0) {
+			if (num < 0) return num - 1;
+			return num + 1;
 		}
-		return num
+		return num;
 	}
 
 	getSize(size: Vector3) {
 		const orientation = this.getOrientation();
 		if (size === new Vector3(2, 2, 4)) {
-			if (orientation.X%180 === 90) {
-				return new Vector3(2, 4, 2)
-			} else if (orientation.Y%180 === 90) {
-				return new Vector3(4, 2, 2)
+			if (orientation.X % 180 === 90) {
+				return new Vector3(2, 4, 2);
+			} else if (orientation.Y % 180 === 90) {
+				return new Vector3(4, 2, 2);
 			}
 		} else if (size === new Vector3(4, 2, 2)) {
-			if (orientation.X%180 === 90 && orientation.Y%180 === 90) {
-				return new Vector3(2, 2, 4)
-			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
-				return new Vector3(2, 4, 2)
-			} else if (orientation.Z%180 === 90) {
-				return new Vector3(2, 4, 2)
-			} else if (orientation.Y%180 === 90) {
-				return new Vector3(2, 2, 4)
+			if (orientation.X % 180 === 90 && orientation.Y % 180 === 90) {
+				return new Vector3(2, 2, 4);
+			} else if (orientation.Y % 180 === 90 && orientation.Z % 180 === 90) {
+				return new Vector3(2, 4, 2);
+			} else if (orientation.Z % 180 === 90) {
+				return new Vector3(2, 4, 2);
+			} else if (orientation.Y % 180 === 90) {
+				return new Vector3(2, 2, 4);
 			}
 		} else if (size === new Vector3(2, 4, 2)) {
-			if (orientation.X%180 === 90 && orientation.Y%180 === 90) {
-				return new Vector3(4, 2, 2)
-			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
-				return new Vector3(2, 2, 4)
-			} else if (orientation.Z%180 === 90) {
-				return new Vector3(4, 2, 2)
-			} else if (orientation.X%180 === 90) {
-				return new Vector3(2, 2, 4)
+			if (orientation.X % 180 === 90 && orientation.Y % 180 === 90) {
+				return new Vector3(4, 2, 2);
+			} else if (orientation.Y % 180 === 90 && orientation.Z % 180 === 90) {
+				return new Vector3(2, 2, 4);
+			} else if (orientation.Z % 180 === 90) {
+				return new Vector3(4, 2, 2);
+			} else if (orientation.X % 180 === 90) {
+				return new Vector3(2, 2, 4);
 			}
 		} else if (size === new Vector3(2, 4, 4)) {
-			if (orientation.X%180 === 90 && orientation.Z%180 === 90) {
-				return new Vector3(4, 4, 2)
-			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
-				return new Vector3(4, 2, 4)
-			} else if (orientation.Z%180 === 90) {
-				return new Vector3(4, 2, 4)
-			} else if (orientation.Y%180 === 90) {
-				return new Vector3(4, 4, 2)
+			if (orientation.X % 180 === 90 && orientation.Z % 180 === 90) {
+				return new Vector3(4, 4, 2);
+			} else if (orientation.Y % 180 === 90 && orientation.Z % 180 === 90) {
+				return new Vector3(4, 2, 4);
+			} else if (orientation.Z % 180 === 90) {
+				return new Vector3(4, 2, 4);
+			} else if (orientation.Y % 180 === 90) {
+				return new Vector3(4, 4, 2);
 			}
 		} else if (size === new Vector3(4, 2, 4)) {
-			if (orientation.X%180 === 90 && orientation.Y%180 === 90) {
-				return new Vector3(2, 4, 4)
-			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
-				return new Vector3(4, 4, 2)
-			} else if (orientation.Z%180 === 90) {
-				return new Vector3(2, 4, 4)
-			} else if (orientation.X%180 === 90) {
-				return new Vector3(4, 4, 2)
+			if (orientation.X % 180 === 90 && orientation.Y % 180 === 90) {
+				return new Vector3(2, 4, 4);
+			} else if (orientation.Y % 180 === 90 && orientation.Z % 180 === 90) {
+				return new Vector3(4, 4, 2);
+			} else if (orientation.Z % 180 === 90) {
+				return new Vector3(2, 4, 4);
+			} else if (orientation.X % 180 === 90) {
+				return new Vector3(4, 4, 2);
 			}
 		} else if (size === new Vector3(4, 4, 2)) {
-			if (orientation.X%180) {
-				return new Vector3(4, 2, 4)
-			} else if (orientation.Y%180 === 90 && orientation.Z%180 === 90) {
-				return new Vector3(2, 4, 4)
-			} else if (orientation.Y%180 === 90) {
-				return new Vector3(2, 4, 4)
+			if (orientation.X % 180) {
+				return new Vector3(4, 2, 4);
+			} else if (orientation.Y % 180 === 90 && orientation.Z % 180 === 90) {
+				return new Vector3(2, 4, 4);
+			} else if (orientation.Y % 180 === 90) {
+				return new Vector3(2, 4, 4);
 			}
 		}
-		return size
+		return size;
 	}
 
 	positionToGrid(vector: Vector3, size: Vector3): Vector3 {
-		const x = size.X === 2 ? this.clampNum(this.numberToGrid(vector.X, 1)) : this.numberToGrid(vector.X, 4)
-		const y = size.Y === 2 ? this.clampNum(this.numberToGrid(vector.Y, 1)) : this.numberToGrid(vector.Y, 4)
-		const z = size.Z === 2 ? this.clampNum(this.numberToGrid(vector.Z, 1)) : this.numberToGrid(vector.Z, 4)
-		return new Vector3(x, y, z)
+		const x = size.X === 2 ? this.clampNum(this.numberToGrid(vector.X, 1)) : this.numberToGrid(vector.X, 4);
+		const y = size.Y === 2 ? this.clampNum(this.numberToGrid(vector.Y, 1)) : this.numberToGrid(vector.Y, 4);
+		const z = size.Z === 2 ? this.clampNum(this.numberToGrid(vector.Z, 1)) : this.numberToGrid(vector.Z, 4);
+		return new Vector3(x, y, z);
 	}
 
 	raycastMouse() {
@@ -133,58 +131,58 @@ class GridBase {
 
 	mousePosition() {
 		const raycastResult = this.raycastMouse();
-		return raycastResult && raycastResult.Position;	
+		return raycastResult && raycastResult.Position;
 	}
 
 	mouseBlockSide() {
 		const ray = this.raycastMouse();
 		if (!ray) return;
-		const offset = ray.Position.sub(ray.Instance.Position)
+		const offset = ray.Position.sub(ray.Instance.Position);
 		let lNum = 0;
 		let largestAxis: Axis = "X";
 		for (const axis of ["X", "Y", "Z"] as const) {
-			let value = offset[axis];
+			const value = offset[axis];
 			if (math.abs(value) >= lNum) {
-				lNum = math.abs(value)
-				largestAxis = axis
+				lNum = math.abs(value);
+				largestAxis = axis;
 			}
 		}
 		switch (largestAxis) {
 			case "X":
-				return new Vector3(offset.X, 0, 0).Unit
+				return new Vector3(offset.X, 0, 0).Unit;
 			case "Y":
-				return new Vector3(0, offset.Y, 0).Unit
+				return new Vector3(0, offset.Y, 0).Unit;
 			case "Z":
-				return new Vector3(0, 0, offset.Z).Unit
+				return new Vector3(0, 0, offset.Z).Unit;
 		}
 	}
 
 	isAllFloat(vector: Vector3) {
 		for (const axis of ["X", "Y", "Z"] as const) {
 			if (math.floor(vector[axis]) === vector[axis]) {
-				return false
+				return false;
 			}
 		}
-		return true
+		return true;
 	}
 
 	mouseGridPosition() {
 		const target = this.mouseTarget();
 		const pos = this.mousePosition();
 		if (!pos) return;
-		const gridSize = this.getSize(store.getState().PlacementSettings.RawProperties.Size)
-		if (!target) return this.positionToGrid(pos, gridSize)
-		if (this.isAllFloat(pos)) return this.positionToGrid(pos, gridSize)
+		const gridSize = this.getSize(store.getState().PlacementSettings.RawProperties.Size);
+		if (!target) return this.positionToGrid(pos, gridSize);
+		if (this.isAllFloat(pos)) return this.positionToGrid(pos, gridSize);
 		const normal = this.mouseBlockSide();
 		if (!normal) return;
-		const offset = pos.sub(target.Position).mul(normal).Magnitude
-		const offsetX = gridSize.X/2-offset;
-		const offsetY = gridSize.Y/2-offset;
-		const offsetZ = gridSize.Z/2-offset;
-		const vectorOffset = new Vector3(offsetX, offsetY, offsetZ).mul(normal)
-		const blockPos = pos.add(vectorOffset).add(normal.div(2))
+		const offset = pos.sub(target.Position).mul(normal).Magnitude;
+		const offsetX = gridSize.X / 2 - offset;
+		const offsetY = gridSize.Y / 2 - offset;
+		const offsetZ = gridSize.Z / 2 - offset;
+		const vectorOffset = new Vector3(offsetX, offsetY, offsetZ).mul(normal);
+		const blockPos = pos.add(vectorOffset).add(normal.div(2));
 		const result = this.positionToGrid(blockPos, gridSize);
-		return result
+		return result;
 	}
 
 	resetOrientation() {

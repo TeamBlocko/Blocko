@@ -138,10 +138,10 @@ type KeyCombo = Enum.KeyCode[];
 function isKeyCombo(combo: Readonly<KeyCombo>): boolean {
 	for (const key of combo) {
 		if (!UserInputService.IsKeyDown(key)) {
-			return false
+			return false;
 		}
 	}
-	return true
+	return true;
 }
 
 function map_properties(target: BasePart): (propertyName: keyof RawProperties) => UpdatePropertyDataType {

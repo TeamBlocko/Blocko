@@ -80,19 +80,19 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 
 	/**
 	 * In Use Chars: `,` `!` `;` `|` `:` `Numbers` `Letters`
-	 * 
+	 *
 	 * Blocks are seperated by `!`
-	 * 
+	 *
 	 * Block Properties are seperated by `;`
-	 * 
+	 *
 	 * Block Properties are Properties Followed by Functionality
-	 * 
+	 *
 	 * Properties start of with `Id`` of Block then followed by taking order of properties in `allowedProperties`
-	 * 
+	 *
 	 * Functionality Info are seperated by `|`
-	 * 
+	 *
 	 * Properties of Functionality are seperated by `:`
-	 * 
+	 *
 	 */
 	deserializeBlocks(value: string, parent: Instance) {
 		const blockInfos = LZW.Decompress(value, false).split("!");
