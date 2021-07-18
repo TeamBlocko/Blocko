@@ -112,8 +112,13 @@ class BuildHandler {
 				const tween = TweenService.Create(block, PLACE_SIZE_TWEEN, {
 					Size: placementSettings.RawProperties.Size,
 				});
-				tween.Play();
 
+				const sound = new Instance("Sound");
+				sound.SoundId = "rbxassetid://5996140040";
+				sound.Parent = client;
+				
+				tween.Play();
+				sound.Play()
 				tween.Completed.Wait();
 
 				placeBlock.CallServer(placePosition, orientation, placementSettings);
