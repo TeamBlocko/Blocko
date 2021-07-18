@@ -175,13 +175,15 @@ class GridBase {
 		if (this.isAllFloat(pos)) return this.positionToGrid(pos, gridSize);
 		const normal = this.mouseBlockSide();
 		if (!normal) return;
+		/*
 		const offset = pos.sub(target.Position).mul(normal).Magnitude;
 		const offsetX = gridSize.X / 2 - offset;
 		const offsetY = gridSize.Y / 2 - offset;
 		const offsetZ = gridSize.Z / 2 - offset;
 		const vectorOffset = new Vector3(offsetX, offsetY, offsetZ).mul(normal);
 		const blockPos = pos.add(vectorOffset).add(normal.div(2));
-		const result = this.positionToGrid(blockPos, gridSize);
+		*/
+		const result = this.positionToGrid(pos.add(normal), gridSize);
 		return result;
 	}
 
