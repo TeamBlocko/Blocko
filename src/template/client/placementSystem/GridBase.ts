@@ -38,9 +38,9 @@ class GridBase {
 		return math.floor(num / gridSize + 0.5) * gridSize;
 	}
 
-	clampNum(num: number) {
+	clampNum(num: number, num2: number) {
 		if (num % 2 === 0) {
-			if (num < 0) return num - 1;
+			if (num - num2 > 0) return num - 1;
 			return num + 1;
 		}
 		return num;
@@ -107,9 +107,9 @@ class GridBase {
 	}
 
 	positionToGrid(vector: Vector3, size: Vector3): Vector3 {
-		const x = size.X === 2 ? this.clampNum(this.numberToGrid(vector.X, 1)) : this.numberToGrid(vector.X, 4);
-		const y = size.Y === 2 ? this.clampNum(this.numberToGrid(vector.Y, 1)) : this.numberToGrid(vector.Y, 4);
-		const z = size.Z === 2 ? this.clampNum(this.numberToGrid(vector.Z, 1)) : this.numberToGrid(vector.Z, 4);
+		const x = size.X === 2 ? this.clampNum(this.numberToGrid(vector.X, 1), vector.X) : this.numberToGrid(vector.X, 4);
+		const y = size.Y === 2 ? this.clampNum(this.numberToGrid(vector.Y, 1), vector.Y) : this.numberToGrid(vector.Y, 4);
+		const z = size.Z === 2 ? this.clampNum(this.numberToGrid(vector.Z, 1), vector.Z) : this.numberToGrid(vector.Z, 4);
 		return new Vector3(x, y, z);
 	}
 
@@ -181,7 +181,7 @@ class GridBase {
 		const offsetY = gridSize.Y / 2 - offset;
 		const offsetZ = gridSize.Z / 2 - offset;
 		const vectorOffset = new Vector3(offsetX, offsetY, offsetZ).mul(normal);
-		const blockPos = pos.add(vectorOffset).add(normal.div(2));
+		const blockPos = target.Position.add(vectorOffset).add(normal.div(2));
 		*/
 		const result = this.positionToGrid(pos.add(normal), gridSize);
 		return result;

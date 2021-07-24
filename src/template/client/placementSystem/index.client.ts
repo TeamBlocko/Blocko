@@ -92,25 +92,28 @@ RunService.RenderStepped.Connect(() => {
 				placeOutline.Adornee = !state.ActivatedColorPicker ? buildHandle.ghostPart : undefined;
 				buildHandle.ghostPart.Orientation = gridBase.getSmoothOrientation();
 
-				if (tween === undefined) {
-					const pos = gridBase.mouseGridPosition();
-					if (pos !== undefined) {
-						if (previousPosition !== undefined) {
-							tween = TweenService.Create(buildHandle.ghostPart, tweenInfo, {
-								Position: pos,
-							});
-							tween.Play();
-							tween.Completed.Connect(() => {
-								tween!.Destroy();
-								tween = undefined;
-							});
-							previousPosition = pos;
-						} else {
-							buildHandle.ghostPart.Position = pos;
-							previousPosition = pos;
-						}
+				if (tween) {
+					tween.Pause();
+					tween.Destroy();
+				}
+				const pos = gridBase.mouseGridPosition();
+				if (pos !== undefined) {
+					if (previousPosition !== undefined) {
+						tween = TweenService.Create(buildHandle.ghostPart, tweenInfo, {
+							Position: pos,
+						});
+						tween.Play();
+						tween.Completed.Connect(() => {
+							tween!.Destroy();
+							tween = undefined;
+						});
+						previousPosition = pos;
+					} else {
+						buildHandle.ghostPart.Position = pos;
+						previousPosition = pos;
 					}
 				}
+			
 			} else {
 				previousPosition = undefined;
 				buildHandle.ghostPart.Parent = undefined;
