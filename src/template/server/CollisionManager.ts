@@ -5,8 +5,10 @@ class CollisionManager {
 	public readonly previousCollisionGroups: Map<BasePart, number | undefined> = new Map();
 
 	constructor() {
-		PhysicsService.CreateCollisionGroup(this.playerCollisionGroupName);
-
+		const [success] = pcall(() => PhysicsService.GetCollisionGroupId(this.playerCollisionGroupName))
+		if (!success) {
+			PhysicsService.CreateCollisionGroup(this.playerCollisionGroupName);
+		}
 		Players.PlayerAdded.Connect((player) =>
 			player.CharacterAdded.Connect((character) => this.onCharacterAdded(character)),
 		);
