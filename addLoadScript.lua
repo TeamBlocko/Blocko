@@ -39,6 +39,11 @@ local function loadAssets(folder, path)
 	path = path or game
 	for _, child in ipairs(folder:GetChildren()) do
 		local _path = path:FindFirstChild(child.Name)
+		if _path and _path:IsA("Folder") then
+			_path:Destroy()
+			child.Parent = path
+			continue
+		end
 		if folder:IsA("Folder") and _path then
 			loadAssets(child, _path)
 		else

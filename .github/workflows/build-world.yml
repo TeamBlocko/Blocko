@@ -31,7 +31,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install -g roblox-ts@1.0.0
+      - run: npm install -g roblox-ts@1.1.1
       - run: npm ci
         env:
           CI: true

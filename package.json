@@ -45,6 +45,7 @@
 		"upload:world-template": "remodel run uploadFile.lua worldtemplate",
 		"upload:resource": "remodel run uploadFile.lua resource",
 		"upload": "npm run upload:hub && npm run upload:world-template && npm run upload:resource",
+		"build:upload": "npm run build && npm run upload",
 		"project:version": "echo $(git describe --tags --first-parent --long --always) | tee src/template/shared/version.txt"
 	},
 	"devDependencies": {
