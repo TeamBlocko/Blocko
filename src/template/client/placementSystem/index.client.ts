@@ -113,7 +113,6 @@ RunService.RenderStepped.Connect(() => {
 						previousPosition = pos;
 					}
 				}
-			
 			} else {
 				previousPosition = undefined;
 				buildHandle.ghostPart.Parent = undefined;

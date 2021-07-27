@@ -107,9 +107,12 @@ class GridBase {
 	}
 
 	positionToGrid(vector: Vector3, size: Vector3): Vector3 {
-		const x = size.X === 2 ? this.clampNum(this.numberToGrid(vector.X, 1), vector.X) : this.numberToGrid(vector.X, 4);
-		const y = size.Y === 2 ? this.clampNum(this.numberToGrid(vector.Y, 1), vector.Y) : this.numberToGrid(vector.Y, 4);
-		const z = size.Z === 2 ? this.clampNum(this.numberToGrid(vector.Z, 1), vector.Z) : this.numberToGrid(vector.Z, 4);
+		const x =
+			size.X === 2 ? this.clampNum(this.numberToGrid(vector.X, 1), vector.X) : this.numberToGrid(vector.X, 4);
+		const y =
+			size.Y === 2 ? this.clampNum(this.numberToGrid(vector.Y, 1), vector.Y) : this.numberToGrid(vector.Y, 4);
+		const z =
+			size.Z === 2 ? this.clampNum(this.numberToGrid(vector.Z, 1), vector.Z) : this.numberToGrid(vector.Z, 4);
 		return new Vector3(x, y, z);
 	}
 
@@ -137,24 +140,7 @@ class GridBase {
 	mouseBlockSide() {
 		const ray = this.raycastMouse();
 		if (!ray) return;
-		const offset = ray.Position.sub(ray.Instance.Position);
-		let lNum = 0;
-		let largestAxis: Axis = "X";
-		for (const axis of ["X", "Y", "Z"] as const) {
-			const value = offset[axis];
-			if (math.abs(value) >= lNum) {
-				lNum = math.abs(value);
-				largestAxis = axis;
-			}
-		}
-		switch (largestAxis) {
-			case "X":
-				return new Vector3(offset.X, 0, 0).Unit;
-			case "Y":
-				return new Vector3(0, offset.Y, 0).Unit;
-			case "Z":
-				return new Vector3(0, 0, offset.Z).Unit;
-		}
+		return ray.Normal;
 	}
 
 	isAllFloat(vector: Vector3) {
