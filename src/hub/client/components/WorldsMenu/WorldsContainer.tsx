@@ -1,7 +1,8 @@
 import Roact from "@rbxts/roact";
+import Flipper from "@rbxts/flipper";
 import { Client } from "@rbxts/net";
 import { FilterItem, searchContext } from "hub/client/searchContext";
-import WorldFrame from "./WorldFrame";
+import WorldFrame from "../WorldFrame";
 
 const fetchWorlds = Client.GetAsyncFunction<[], [Filter], FetchWorldsResult>("FetchWorlds");
 const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldInfo");
@@ -11,36 +12,55 @@ fetchWorlds.SetCallTimeout(100);
 fetchWorldInfo.SetCallTimeout(100);
 createWorld.SetCallTimeout(100);
 
-function CreateWorld() {
-	return (
-		<imagebutton
-			AnchorPoint={new Vector2(0.5, 0.5)}
-			BackgroundColor3={new Color3()}
-			BackgroundTransparency={0.5}
-			Position={UDim2.fromScale(0.5, 0.5)}
-			Size={UDim2.fromOffset(100, 100)}
-			AutoButtonColor={false}
-			ScaleType={Enum.ScaleType.Crop}
-			Event={{
-				Activated: () => createWorld.CallServerAsync(),
-			}}
-		>
-			<uiscale />
-			<uiaspectratioconstraint AspectRatio={1.5527461767197} />
-			<uicorner CornerRadius={new UDim(0.08, 0)} />
+class CreateWorld extends Roact.Component {
+	binding: Roact.RoactBinding<number>;
+	setBinding: Roact.RoactBindingFunc<number>;
+	motor: Flipper.SingleMotor;
+
+	constructor() {
+		super({});
+
+		[this.binding, this.setBinding] = Roact.createBinding(0);
+
+		this.motor = new Flipper.SingleMotor(this.binding.getValue());
+		this.motor.onStep(this.setBinding);
+	}
+
+	render() {
+		return (
 			<imagebutton
 				AnchorPoint={new Vector2(0.5, 0.5)}
-				BackgroundTransparency={1}
+				BackgroundColor3={this.binding.map((value) =>
+					Color3.fromRGB(30, 30, 30).Lerp(Color3.fromRGB(72, 178, 255), value),
+				)}
+				BackgroundTransparency={0.5}
 				Position={UDim2.fromScale(0.5, 0.5)}
-				Size={UDim2.fromScale(0.3, 0.3)}
-				Image={"rbxassetid://3926307971"}
-				ImageRectOffset={new Vector2(324, 364)}
-				ImageRectSize={new Vector2(36, 36)}
+				Size={UDim2.fromOffset(100, 100)}
+				AutoButtonColor={false}
+				ScaleType={Enum.ScaleType.Crop}
+				Event={{
+					Activated: () => createWorld.CallServerAsync(),
+					MouseEnter: () => this.motor.setGoal(new Flipper.Spring(1)),
+					MouseLeave: () => this.motor.setGoal(new Flipper.Spring(0)),
+				}}
 			>
-				<uiaspectratioconstraint />
+				<uiscale />
+				<uiaspectratioconstraint AspectRatio={1.5527461767197} />
+				<uicorner CornerRadius={new UDim(0.08, 0)} />
+				<imagebutton
+					AnchorPoint={new Vector2(0.5, 0.5)}
+					BackgroundTransparency={1}
+					Position={UDim2.fromScale(0.5, 0.5)}
+					Size={UDim2.fromScale(0.3, 0.3)}
+					Image={"rbxassetid://3926307971"}
+					ImageRectOffset={new Vector2(324, 364)}
+					ImageRectSize={new Vector2(36, 36)}
+				>
+					<uiaspectratioconstraint />
+				</imagebutton>
 			</imagebutton>
-		</imagebutton>
-	);
+		);
+	}
 }
 
 function Error(props: { Error: string }) {
