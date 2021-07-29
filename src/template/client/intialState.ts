@@ -11,10 +11,10 @@ export const intialPlacementSettings: PlacementSettings = {
 		Material: Enum.Material.Plastic,
 		CastShadow: true,
 		CanCollide: true,
-		Size: new Vector3(2, 2, 2),
+		Size: new Vector3(4, 4, 4),
 		Transparency: 0,
 		Reflectance: 0,
-		Color: Color3.fromRGB(60, 164, 255),
+		Color: Color3.fromRGB(255, 255, 255),
 	},
 	Functionalities: [],
 };
