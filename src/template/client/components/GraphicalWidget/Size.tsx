@@ -11,6 +11,7 @@ interface SizePropTypes extends GWPropTypes<Vector3> {
 interface SizeTogglePropTypes {
 	Value: number;
 	OnClick: () => void;
+	OnRightClick: () => void;
 }
 
 const values = [2, 4] as const;
@@ -26,6 +27,7 @@ function SizeToggle(props: SizeTogglePropTypes) {
 			TextSize={12}
 			Event={{
 				Activated: () => props.OnClick(),
+				MouseButton2Down: () => props.OnRightClick(),
 			}}
 		>
 			<uicorner CornerRadius={new UDim(0, 5)} />
@@ -76,6 +78,11 @@ class Size extends Roact.Component<SizePropTypes> {
 								),
 							)
 						}
+						OnRightClick={() =>
+							this.props.OnChange(
+								new Vector3(this.props.Default.X, this.props.Default.X, this.props.Default.X),
+							)
+						}
 					/>
 					<Cross />
 					<SizeToggle
@@ -89,6 +96,11 @@ class Size extends Roact.Component<SizePropTypes> {
 								),
 							)
 						}
+						OnRightClick={() =>
+							this.props.OnChange(
+								new Vector3(this.props.Default.Y, this.props.Default.Y, this.props.Default.Y),
+							)
+						}
 					/>
 					<Cross />
 					<SizeToggle
@@ -100,6 +112,11 @@ class Size extends Roact.Component<SizePropTypes> {
 									this.props.Default.Y,
 									nextInTable(values, this.props.Default.Z),
 								),
+							)
+						}
+						OnRightClick={() =>
+							this.props.OnChange(
+								new Vector3(this.props.Default.Z, this.props.Default.Z, this.props.Default.Z),
 							)
 						}
 					/>
