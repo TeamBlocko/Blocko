@@ -92,6 +92,7 @@ class BuildHandler {
 				hitboxPart.Size = placementSettings.RawProperties.Size;
 				hitboxPart.Transparency = 1;
 				hitboxPart.Position = placePosition;
+				hitboxPart.Orientation = orientation;
 				hitboxPart.CanCollide = false;
 				hitboxPart.Anchored = true;
 				hitboxPart.Parent = Workspace.Blocks;
