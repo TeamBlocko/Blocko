@@ -60,7 +60,7 @@ export const commands = {
 
 			if (callerRank >= getUserRank(stateInfo, player.UserId))
 				return errorMsg(`${player.Name} has a higher permission level.`);
-
+			print("SUCCESS UPDATED PERMISSION");
 			WorldManager.store.dispatch(updateWorldPermission(player.UserId, permissionLevel));
 		},
 	}),
