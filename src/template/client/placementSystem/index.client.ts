@@ -26,8 +26,8 @@ const SPECTATE_COLOR = Color3.fromRGB(255, 255, 255),
 	BUILD_COLOR = Color3.fromRGB(65, 179, 255),
 	DELETE_COLOR = Color3.fromRGB(255, 110, 110);
 
-const PARTIAL_COPY: Readonly<KeyCombo> = [Enum.KeyCode.LeftAlt, Enum.KeyCode.Z] as const;
-const FULL_COPY: Readonly<KeyCombo> = [Enum.KeyCode.LeftAlt, Enum.KeyCode.Z, Enum.KeyCode.LeftControl] as const;
+const PARTIAL_COPY: Readonly<KeyCombo> = [Enum.KeyCode.LeftAlt] as const;
+const FULL_COPY: Readonly<KeyCombo> = [Enum.KeyCode.LeftAlt, Enum.KeyCode.LeftControl] as const;
 
 const ALT_PROPERTIES: (keyof RawProperties)[] = [
 	"Material",
