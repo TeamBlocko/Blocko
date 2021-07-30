@@ -3,6 +3,7 @@ import Flipper from "@rbxts/flipper";
 import { Client } from "@rbxts/net";
 import { FilterItem, searchContext } from "hub/client/searchContext";
 import WorldFrame from "../WorldFrame";
+import { popupFrameContext } from "./popupFramesContext";
 
 const fetchWorlds = Client.GetAsyncFunction<[], [Filter], FetchWorldsResult>("FetchWorlds");
 const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldInfo");
@@ -28,37 +29,43 @@ class CreateWorld extends Roact.Component {
 
 	render() {
 		return (
-			<imagebutton
-				AnchorPoint={new Vector2(0.5, 0.5)}
-				BackgroundColor3={this.binding.map((value) =>
-					Color3.fromRGB(30, 30, 30).Lerp(Color3.fromRGB(72, 178, 255), value),
-				)}
-				BackgroundTransparency={0.5}
-				Position={UDim2.fromScale(0.5, 0.5)}
-				Size={UDim2.fromOffset(100, 100)}
-				AutoButtonColor={false}
-				ScaleType={Enum.ScaleType.Crop}
-				Event={{
-					Activated: () => createWorld.CallServerAsync(),
-					MouseEnter: () => this.motor.setGoal(new Flipper.Spring(1)),
-					MouseLeave: () => this.motor.setGoal(new Flipper.Spring(0)),
+			<popupFrameContext.Consumer
+				render={(value) => {
+					return (
+						<imagebutton
+							AnchorPoint={new Vector2(0.5, 0.5)}
+							BackgroundColor3={this.binding.map((value) =>
+								Color3.fromRGB(30, 30, 30).Lerp(Color3.fromRGB(72, 178, 255), value),
+							)}
+							BackgroundTransparency={0.5}
+							Position={UDim2.fromScale(0.5, 0.5)}
+							Size={UDim2.fromOffset(100, 100)}
+							AutoButtonColor={false}
+							ScaleType={Enum.ScaleType.Crop}
+							Event={{
+								Activated: () => value.changePopup({ name: "Create", id: 0 }),
+								MouseEnter: () => this.motor.setGoal(new Flipper.Spring(1)),
+								MouseLeave: () => this.motor.setGoal(new Flipper.Spring(0)),
+							}}
+						>
+							<uiscale />
+							<uiaspectratioconstraint AspectRatio={1.5527461767197} />
+							<uicorner CornerRadius={new UDim(0.08, 0)} />
+							<imagebutton
+								AnchorPoint={new Vector2(0.5, 0.5)}
+								BackgroundTransparency={1}
+								Position={UDim2.fromScale(0.5, 0.5)}
+								Size={UDim2.fromScale(0.3, 0.3)}
+								Image={"rbxassetid://3926307971"}
+								ImageRectOffset={new Vector2(324, 364)}
+								ImageRectSize={new Vector2(36, 36)}
+							>
+								<uiaspectratioconstraint />
+							</imagebutton>
+						</imagebutton>
+					);
 				}}
-			>
-				<uiscale />
-				<uiaspectratioconstraint AspectRatio={1.5527461767197} />
-				<uicorner CornerRadius={new UDim(0.08, 0)} />
-				<imagebutton
-					AnchorPoint={new Vector2(0.5, 0.5)}
-					BackgroundTransparency={1}
-					Position={UDim2.fromScale(0.5, 0.5)}
-					Size={UDim2.fromScale(0.3, 0.3)}
-					Image={"rbxassetid://3926307971"}
-					ImageRectOffset={new Vector2(324, 364)}
-					ImageRectSize={new Vector2(36, 36)}
-				>
-					<uiaspectratioconstraint />
-				</imagebutton>
-			</imagebutton>
+			/>
 		);
 	}
 }
@@ -148,9 +155,9 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 
 	shouldUpdate(nextProps: WorldsContainerPropTypes, nextState: WorldsState) {
 		if (nextProps.Filter.Name !== this.props.Filter.Name) {
-			this.state.Error = undefined;
-			this.state.Worlds = [];
-			this.state.Loaded = false;
+			(this.state as WorldsState).Error = undefined;
+			(this.state as WorldsState).Worlds = [];
+			(this.state as WorldsState).Loaded = false;
 		}
 		return !this.state.Loaded || !nextState.Loaded;
 	}
