@@ -13,8 +13,8 @@ fetchWorldInfo.SetCallTimeout(100);
 createWorld.SetCallTimeout(100);
 
 class CreateWorld extends Roact.Component {
-	binding: Roact.RoactBinding<number>;
-	setBinding: Roact.RoactBindingFunc<number>;
+	binding: Roact.Binding<number>;
+	setBinding: Roact.BindingFunction<number>;
 	motor: Flipper.SingleMotor;
 
 	constructor() {

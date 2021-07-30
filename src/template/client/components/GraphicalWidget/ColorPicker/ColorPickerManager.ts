@@ -1,3 +1,5 @@
+import type Roact from "@rbxts/roact";
+
 export const white = new Color3(1, 1, 1);
 export const black = new Color3();
 

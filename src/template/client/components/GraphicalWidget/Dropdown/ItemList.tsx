@@ -1,8 +1,11 @@
 import { UserInputService } from "@rbxts/services";
-import Roact, { RoactBinding, createRef } from "@rbxts/roact";
+import Roact, { createRef } from "@rbxts/roact";
 import Gap from "common/client/components/misc/Gap";
 
-function ItemElement<T extends Item>(props: { Value: T; Handler: NonNullable<RoactEvents<TextButton>["Activated"]> }) {
+function ItemElement<T extends Item>(props: {
+	Value: T;
+	Handler: NonNullable<Roact.JsxInstanceEvents<TextButton>["Activated"]>;
+}) {
 	return (
 		<textbutton
 			Key={props.Value.Name}
@@ -26,8 +29,8 @@ function ItemElement<T extends Item>(props: { Value: T; Handler: NonNullable<Roa
 
 export interface ItemListPropTypes<T> {
 	Items: T[];
-	OnSelected: NonNullable<RoactEvents<TextButton>["Activated"]>;
-	Binding: RoactBinding<number>;
+	OnSelected: NonNullable<Roact.JsxInstanceEvents<TextButton>["Activated"]>;
+	Binding: Roact.Binding<number>;
 	SizeX?: number;
 }
 

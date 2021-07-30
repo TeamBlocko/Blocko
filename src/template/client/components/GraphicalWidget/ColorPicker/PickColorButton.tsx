@@ -19,8 +19,8 @@ interface PickColorButtonRoduxTypes {
 
 class PickColorButton extends Roact.Component<PickColorButtonPropTypes & PickColorButtonRoduxTypes> {
 	motor: SingleMotor;
-	binding: Roact.RoactBinding<number>;
-	setBinding: Roact.RoactBindingFunc<number>;
+	binding: Roact.Binding<number>;
+	setBinding: Roact.BindingFunction<number>;
 
 	constructor(props: PickColorButtonPropTypes & PickColorButtonRoduxTypes) {
 		super(props);

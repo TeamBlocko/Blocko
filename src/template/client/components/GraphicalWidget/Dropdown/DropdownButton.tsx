@@ -1,6 +1,6 @@
 import { HttpService, TextService } from "@rbxts/services";
 import { SingleMotor, Spring } from "@rbxts/flipper";
-import Roact, { Component, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
+import Roact, { Component, createBinding } from "@rbxts/roact";
 import ItemList from "./ItemList";
 import { appContext } from "template/client/appContext";
 
@@ -36,8 +36,8 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 	DropdownStateTypes<T>
 > {
 	private motor: SingleMotor;
-	private binding: RoactBinding<number>;
-	private setBinding: RoactBindingFunc<number>;
+	private binding: Roact.Binding<number>;
+	private setBinding: Roact.BindingFunction<number>;
 
 	public getDerivedStateFromProps = (
 		nextProps: DropdownPropTypes<T, V>,
@@ -69,7 +69,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 	shouldUpdate(nextProps: DropdownPropTypes<T, V>, nextState: DropdownStateTypes<T>) {
 		const shouldUpdate = nextProps.Default.Name !== this.props.Default.Name || nextState !== this.state;
 		if (shouldUpdate) {
-			this.state.Value = nextProps.Default;
+			(this.state as DropdownStateTypes<T>).Value = nextProps.Default;
 		}
 		return shouldUpdate;
 	}

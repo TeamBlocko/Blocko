@@ -1,10 +1,14 @@
-declare type ValueOf<T> = T[keyof T];
+import type Roact from "@rbxts/roact"
 
-declare interface PropTypes {
-	[Roact.Children]?: RoactNode;
+declare global {
+
+ type ValueOf<T> = T[keyof T];
+
+ interface PropTypes {
+	[Roact.Children]?: Roact.Children;
 }
 
-declare interface GWPropTypes<T> {
+ interface GWPropTypes<T> {
 	/**
 	 * Default value that will be given to the element.
 	 **/
@@ -15,7 +19,7 @@ declare interface GWPropTypes<T> {
 	LayoutOrder?: number;
 }
 
-declare interface GWStateTypes<T> {
+ interface GWStateTypes<T> {
 	/**
 	 * Current selected value.
 	 **/
@@ -25,7 +29,7 @@ declare interface GWStateTypes<T> {
 /*
  * Shapes included in ReplicatedStorage.BlockTypes
  */
-declare enum Shapes {
+ enum Shapes {
 	CornerInnerQuadrant,
 	CornerQuadrant,
 	CornerSphere,
@@ -45,47 +49,47 @@ declare enum Shapes {
 	Wedge,
 }
 
-declare interface ReplicatedStorage {
+ interface ReplicatedStorage {
 	BlockTypes: Folder & { [P in keyof typeof Shapes]: BasePart };
 	Template: Folder;
 }
 
-declare interface Workspace {
+ interface Workspace {
 	Blocks: Folder;
 }
 
-declare interface ReplicatedStorage {
+ interface ReplicatedStorage {
 	TS: {
 		version: StringValue;
 	} & Folder;
 }
 
-declare interface Item {
+ interface Item {
 	Name: string;
 }
 
-declare interface Range {
+ interface Range {
 	Min: number;
 	Max: number;
 }
 
-declare interface SliderPropTypes extends Range, GWPropTypes<number> {
+ interface SliderPropTypes extends Range, GWPropTypes<number> {
   SizeYOffset?: number;
 	RefValue?: Roact.Ref<Frame>;
 	BackgroundTransparency?: number;
 }
 
-declare interface ColorDisplayStateTypes extends GWStateTypes<Color3> {
+ interface ColorDisplayStateTypes extends GWStateTypes<Color3> {
 	Selected: boolean;
 }
 
-declare class ColorPicker extends Roact.Component<ColorPickerPropTypes, GWStateTypes<Color3>> {
+ class ColorPicker extends Roact.Component<ColorPickerPropTypes, GWStateTypes<Color3>> {
 	public render(): Roact.Element | undefined;
 }
 
-declare type ColorPickerSetState = Roact.Component<GWStateTypes<Color3>>["setState"];
+ type ColorPickerSetState = Roact.Component<GWStateTypes<Color3>>["setState"];
 
-declare class ColorPickerManager {
+ class ColorPickerManager {
 	public state: GWStateTypes<Color3>;
 	public hue: number;
 	public saturation: number;
@@ -99,42 +103,42 @@ declare class ColorPickerManager {
 	HandleValueInput(input: InputObject): void;
 }
 
-declare type RGB = "R" | "G" | "B";
+ type RGB = "R" | "G" | "B";
 
-declare interface onTextChange {
+ interface onTextChange {
 	(type: RGB, value: number): void;
 }
 
-declare type GWType = "Slider" | "Dropdown" | "CheckBox" | "ColorDisplay";
+ type GWType = "Slider" | "Dropdown" | "CheckBox" | "ColorDisplay";
 
-declare interface GWInfo<T> {
+ interface GWInfo<T> {
 	Type: GWType;
 	Data: GWPropTypes<T>;
 }
 
-declare interface ColorPickerPropTypes {
+ interface ColorPickerPropTypes {
 	Value: Color3;
 	Name: string;
 	onChange: (color: Color3) => void;
 	OnClose: (inputButton: ImageButton) => void;
-	UpdateColorPickerBinding?: Roact.RoactBindingFunc<Frame | undefined>;
+	UpdateColorPickerBinding?: Roact.BindingFunction<Frame | undefined>;
 }
 
-declare interface ColorPickerStateTypes extends GWStateTypes<Color3> {
+ interface ColorPickerStateTypes extends GWStateTypes<Color3> {
 	ShouldUpdate?: boolean;
 }
 
-declare interface SliderDisplayPropTypes {
+ interface SliderDisplayPropTypes {
 	Range: Range;
 	Value: number;
 }
 
-declare interface ValidateTextOptions {
+ interface ValidateTextOptions {
 	Range?: Range;
 	decimalPlace?: number;
 }
 
-declare interface RawProperties {
+ interface RawProperties {
 	Material: Enum.Material;
 	CastShadow: boolean;
 	CanCollide: boolean;
@@ -144,7 +148,7 @@ declare interface RawProperties {
 	Color: Color3;
 }
 
-declare interface WorldSettings {
+ interface WorldSettings {
 	Name: string;
 	Description: string;
 	Thumbnail: string;
@@ -180,26 +184,26 @@ interface WorldInfo {
 	NumberOfBlocks: number;
 }
 
-declare type PermissionTypes = "TeamBlocko" | "Builder" | "Admin" | "Visitor" | "Owner"
+ type PermissionTypes = "TeamBlocko" | "Builder" | "Admin" | "Visitor" | "Owner"
 
-declare interface PermissionsInfo {
+ interface PermissionsInfo {
 	UserId: number;
 	Type: PermissionTypes
 }
 
-declare interface World {
+ interface World {
 	Info: WorldInfo,
 	Settings: WorldSettings
 }
 
-declare type BuildMode = "Spectate" | "Place" | "Delete"
+ type BuildMode = "Spectate" | "Place" | "Delete"
 
-declare interface WorldMenuFrames {
+ interface WorldMenuFrames {
 	RefValue: Roact.Ref<Frame>;
 	OnClick: (e: GuiButton) => void;
 }
 
-declare interface iNotification {
+ interface iNotification {
   Id: string;
   OnRemoval?: () => void;
   Title?: string;
@@ -213,11 +217,11 @@ declare interface iNotification {
 	Time?: number;
 }
 
-declare type RemoteNotification = { Type: "Add", Data: iNotification } | { Type: "Remove", Id: string }
+ type RemoteNotification = { Type: "Add", Data: iNotification } | { Type: "Remove", Id: string }
 
-declare type Filter = "Active" | "Featured" | "Owned"
+ type Filter = "Active" | "Featured" | "Owned"
 
-declare type FetchWorldsResult = {
+ type FetchWorldsResult = {
 	success: true,
 	data: number[],
 } | {
@@ -225,7 +229,7 @@ declare type FetchWorldsResult = {
 	error: string,
 }
 
-declare type FetchWorldInfoResult = {
+ type FetchWorldInfoResult = {
 	success: true,
 	data: World,
 } | {
@@ -233,11 +237,11 @@ declare type FetchWorldInfoResult = {
 	error: string,
 }
 
-declare interface WorldDataSync {
+ interface WorldDataSync {
 	data: ser.ser.Serialized<World>
 }
 
-declare interface PlayerDataSync {
+ interface PlayerDataSync {
 	data: {
 		ownedWorlds: number[]
 	}
@@ -245,9 +249,10 @@ declare interface PlayerDataSync {
 
 type PermissionNames = "TransferOwnership" | "Build" | "ManagePermissions";
 
-declare interface Permissions {
+ interface Permissions {
 	Inherit?: PermissionTypes,
 	TransferOwnership?: boolean,
 	ManagePermissions?: boolean,
 	Build?: boolean,
+}
 }
