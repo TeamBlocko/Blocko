@@ -1,7 +1,6 @@
 import Roact from "@rbxts/roact";
 
-interface CheckBoxElementPropTypes {
-	[Roact.Children]?: RoactNode;
+interface CheckBoxElementPropTypes extends Roact.PropsWithChildren {
 	Position?: UDim2;
 	HandleInput: () => void;
 }

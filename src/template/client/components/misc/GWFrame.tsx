@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 
-interface ContainerPropTypes extends PropTypes {
+interface ContainerPropTypes extends Roact.PropsWithChildren {
 	RefValue?: Roact.Ref<Frame>;
 	SizeOffsetY: number | Roact.RoactBinding<number>;
 	ZIndex?: number;

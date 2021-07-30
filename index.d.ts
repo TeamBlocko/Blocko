@@ -4,10 +4,6 @@ declare global {
 
  type ValueOf<T> = T[keyof T];
 
- interface PropTypes {
-	[Roact.Children]?: Roact.Children;
-}
-
  interface GWPropTypes<T> {
 	/**
 	 * Default value that will be given to the element.

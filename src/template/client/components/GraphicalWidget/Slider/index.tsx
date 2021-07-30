@@ -6,7 +6,7 @@ import GWFrame from "template/client/components/misc/GWFrame";
 import SliderBar from "./SliderBar";
 import { map, validateText } from "template/shared/utility";
 
-class Slider extends Roact.Component<SliderPropTypes & PropTypes, GWStateTypes<number>> {
+class Slider extends Roact.Component<SliderPropTypes & Roact.PropsWithChildren, GWStateTypes<number>> {
 	private frameRef: Roact.Ref<Frame>;
 	private maxRef: Roact.Ref<Frame>;
 	private minRef: Roact.Ref<Frame>;
@@ -19,7 +19,7 @@ class Slider extends Roact.Component<SliderPropTypes & PropTypes, GWStateTypes<n
 	binding: Roact.RoactBinding<number>;
 	setBinding: Roact.RoactBindingFunc<number>;
 
-	constructor(props: SliderPropTypes & PropTypes) {
+	constructor(props: SliderPropTypes & Roact.PropsWithChildren) {
 		super(props);
 		this.frameRef = props.RefValue ?? Roact.createRef();
 		this.maxRef = Roact.createRef();

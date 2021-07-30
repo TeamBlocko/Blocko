@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 
-interface TopFramePropTypes extends PropTypes {
+interface TopFramePropTypes extends Roact.PropsWithChildren {
 	Title: string;
 	Description: string;
 }

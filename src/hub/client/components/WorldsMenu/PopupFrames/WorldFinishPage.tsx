@@ -37,7 +37,7 @@ function WorldFinishPage(props: WorldFinishPagePropTypes) {
 				Button2Text={"Next"}
 			/>
 		</frame>
-	)
+	);
 }
 
 export default WorldFinishPage;

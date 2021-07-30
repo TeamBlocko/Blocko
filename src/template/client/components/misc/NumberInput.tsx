@@ -8,7 +8,7 @@ interface OnValidInput {
 interface NumberInputPropTypes {
 	OnValidInput: OnValidInput;
 	Options: ValidateTextOptions;
-	TextBoxProps: Omit<Omit<JsxObject<TextBox>, "Key">, "Text"> & { Text: string };
+	TextBoxProps: Omit<Roact.JsxInstance<TextBox>, "Text"> & { Text: string };
 }
 
 function NumberInput(props: NumberInputPropTypes) {

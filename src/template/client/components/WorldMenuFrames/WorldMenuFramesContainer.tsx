@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 
-function WorldMenuFramesContainer(props: PropTypes & { RefValue: Roact.Ref<Frame>; Size?: UDim2 }) {
+function WorldMenuFramesContainer(props: Roact.PropsWithChildren & { RefValue: Roact.Ref<Frame>; Size?: UDim2 }) {
 	return (
 		<frame
 			Ref={props.RefValue}

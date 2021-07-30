@@ -2,7 +2,7 @@ import Roact, { Component } from "@rbxts/roact";
 import GWFrame from "template/client/components/misc/GWFrame";
 import TitleText from "template/client/components/misc/TitleText";
 
-interface InputFramePropTypes extends PropTypes, GWPropTypes<string>, RbxJsxProps {
+interface InputFramePropTypes extends Roact.PropsWithChildren, GWPropTypes<string> {
 	Length: number;
 	HandleInput?: (input: string) => string;
 	Alignment?: Exclude<keyof typeof Enum.TextYAlignment, "GetEnumItems">;

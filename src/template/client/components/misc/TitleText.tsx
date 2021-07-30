@@ -1,6 +1,6 @@
-import Roact from "@rbxts/roact";
+import Roact, { PropsWithChildren } from "@rbxts/roact";
 
-interface TitleTextPropTypes extends RbxJsxProps {
+interface TitleTextPropTypes extends PropsWithChildren {
 	Text: string;
 	Size?: UDim2;
 	AnchorPoint?: Vector2;
