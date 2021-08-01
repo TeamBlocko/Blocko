@@ -6,71 +6,108 @@ interface WorldInfoPagePropTypes {
 	FrameRef: Roact.Ref<Frame>;
 	OnNext: () => void;
 	OnReturn: () => void;
+	OnUpdate: (info: Info) => void;
 }
 
-function MidFrame() {
-	return (
-		<frame
-			AnchorPoint={new Vector2(0.5, 0.5)}
-			BackgroundTransparency={1}
-			Position={UDim2.fromScale(0.5, 0.535)}
-			Size={UDim2.fromScale(0.85, 0.5)}
-		>
-			<textbox
+interface Info {
+	Name?: string,
+	Description?: string,
+}
+
+interface MidFramePropTypes {
+	OnUpdate: (info: Info) => void;
+}
+
+class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
+
+	render() {
+		return (
+			<frame
 				AnchorPoint={new Vector2(0.5, 0.5)}
 				BackgroundTransparency={1}
-				Position={UDim2.fromScale(0.5, 0.5)}
-				Size={UDim2.fromScale(1, 0.09)}
-				Font={Enum.Font.Gotham}
-				MaxVisibleGraphemes={40}
-				PlaceholderColor3={Color3.fromRGB(178, 178, 178)}
-				PlaceholderText="Name"
-				Text={""}
-				TextColor3={new Color3(1, 1, 1)}
-				TextScaled={true}
-				TextSize={14}
-				TextWrapped={true}
-				TextXAlignment={Enum.TextXAlignment.Left}
+				Position={UDim2.fromScale(0.5, 0.535)}
+				Size={UDim2.fromScale(0.85, 0.5)}
 			>
-				<frame
-					AnchorPoint={new Vector2(0, 1)}
-					BackgroundColor3={Color3.fromRGB(178, 178, 178)}
-					Position={new UDim2(0, 0, 1, 5)}
-					Size={new UDim2(1, 0, 0, 1)}
+				<textbox
+					AnchorPoint={new Vector2(0.5, 0.5)}
+					BackgroundTransparency={1}
+					Position={UDim2.fromScale(0.5, 0.5)}
+					Size={UDim2.fromScale(1, 0.09)}
+					Font={Enum.Font.Gotham}
+					PlaceholderColor3={Color3.fromRGB(178, 178, 178)}
+					PlaceholderText="Name"
+					Text={this.state.Name ?? ""}
+					TextColor3={new Color3(1, 1, 1)}
+					TextSize={14}
+					TextWrapped={true}
+					ClearTextOnFocus={false}
+					TextXAlignment={Enum.TextXAlignment.Left}
+					Change={{
+						Text:(e) => {
+							const text = e.Text.sub(0, 66)
+							print("Name", text, this.state.Name)
+							this.setState((oldState) => ({ Name: text, Description: oldState.Description }))
+						}
+					}}
 				>
-					<uicorner CornerRadius={new UDim(1, 0)} />
-					<frame BackgroundColor3={Color3.fromRGB(68, 161, 248)} Size={UDim2.fromScale(0, 1)} />
-				</frame>
-			</textbox>
-			<textbox
-				AnchorPoint={new Vector2(0.5, 0.5)}
-				BackgroundTransparency={1}
-				Position={UDim2.fromScale(0.5, 0.5)}
-				Size={UDim2.fromScale(1, 0.09)}
-				Font={Enum.Font.Gotham}
-				MaxVisibleGraphemes={40}
-				PlaceholderColor3={Color3.fromRGB(178, 178, 178)}
-				PlaceholderText="Description"
-				Text={""}
-				TextColor3={new Color3(1, 1, 1)}
-				TextScaled={true}
-				TextSize={14}
-				TextWrapped={true}
-				TextXAlignment={Enum.TextXAlignment.Left}
-			>
-				<frame
-					AnchorPoint={new Vector2(0, 1)}
-					BackgroundColor3={Color3.fromRGB(178, 178, 178)}
-					Position={new UDim2(0, 0, 1, 5)}
-					Size={new UDim2(1, 0, 0, 1)}
+					<frame
+						AnchorPoint={new Vector2(0, 1)}
+						BackgroundColor3={Color3.fromRGB(178, 178, 178)}
+						Position={new UDim2(0, 0, 1, 5)}
+						Size={new UDim2(1, 0, 0, 1)}
+					>
+						<uicorner CornerRadius={new UDim(1, 0)} />
+						<frame BackgroundColor3={Color3.fromRGB(68, 161, 248)} Size={UDim2.fromScale(0, 1)} />
+					</frame>
+				</textbox>
+				<textbox
+					AnchorPoint={new Vector2(0.5, 0.5)}
+					BackgroundTransparency={1}
+					Position={UDim2.fromScale(0.5, 0.5)}
+					Size={UDim2.fromScale(1, 0.09)}
+					AutomaticSize={Enum.AutomaticSize.Y}
+					Font={Enum.Font.Gotham}
+					PlaceholderColor3={Color3.fromRGB(178, 178, 178)}
+					PlaceholderText="Description"
+					Text={this.state.Description ?? ""}
+					TextColor3={new Color3(1, 1, 1)}
+					TextSize={14}
+					TextWrapped={true}
+					ClearTextOnFocus={false}
+					TextXAlignment={Enum.TextXAlignment.Left}
+					Change={{
+						Text:(e) => {
+							const text = e.Text.sub(0, 216)
+							print("Description", text, this.state.Description)
+							this.setState((oldState) => ({ Name: oldState.Name, Description: text }))
+						}
+					}}
 				>
-					<uicorner CornerRadius={new UDim(1, 0)} />
-					<frame BackgroundColor3={Color3.fromRGB(68, 161, 248)} Size={UDim2.fromScale(0, 1)} />
-				</frame>
-			</textbox>
-			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0.125)} />
-		</frame>
-	);
+					<frame
+						AnchorPoint={new Vector2(0, 1)}
+						BackgroundColor3={Color3.fromRGB(178, 178, 178)}
+						Position={new UDim2(0, 0, 1, 5)}
+						Size={new UDim2(1, 0, 0, 1)}
+					>
+						<uicorner CornerRadius={new UDim(1, 0)} />
+						<frame BackgroundColor3={Color3.fromRGB(68, 161, 248)} Size={UDim2.fromScale(0, 1)} />
+					</frame>
+				</textbox>
+				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0.125)} />
+			</frame>
+		);
+	}
+
+	shouldUpdate(_nextProps: MidFramePropTypes, nextState: Info) {
+		return nextState.Name !== this.state.Name || nextState.Description !== this.state.Description 
+	}
+
+	didUpdate() {
+		this.props.OnUpdate({
+			Name: this.state.Name === "" ? undefined : this.state.Name,
+			Description: this.state.Description === "" ? undefined : this.state.Description,
+		})
+	}
 }
 
 function WorldInfoPage(props: WorldInfoPagePropTypes) {
@@ -87,7 +124,7 @@ function WorldInfoPage(props: WorldInfoPagePropTypes) {
 				Title={"Edit Info"}
 				Description={"Set a name and a description for your world, you can always change it later!"}
 			/>
-			<MidFrame />
+			<MidFrame OnUpdate={(info) => props.OnUpdate(info)} />
 			<BottomFrame
 				Button1Click={() => props.OnReturn()}
 				Button1Text={"Return"}

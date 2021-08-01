@@ -32,9 +32,9 @@ function WorldFinishPage(props: WorldFinishPagePropTypes) {
 			/>
 			<BottomFrame
 				Button1Click={() => props.OnReturn()}
-				Button1Text={"Create"}
+				Button1Text={"Return"}
 				Button2Click={() => props.OnCreate()}
-				Button2Text={"Next"}
+				Button2Text={"Create"}
 			/>
 		</frame>
 	);

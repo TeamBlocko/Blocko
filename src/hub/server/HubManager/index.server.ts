@@ -3,7 +3,7 @@ import { $env } from "rbxts-transform-env";
 
 const fetchWorlds = new Server.AsyncFunction<[Filter]>("FetchWorlds").SetCallTimeout(100);
 const fetchWorldInfo = new Server.AsyncFunction<[number]>("FetchWorldInfo").SetCallTimeout(100);
-const createWorldRemote = new Server.AsyncFunction("CreateWorld").SetCallTimeout(100);
+const createWorldRemote = new Server.AsyncFunction<[CreationOptions]>("CreateWorld").SetCallTimeout(100);
 const teleportPlayer = new Server.AsyncFunction<[number]>("TeleportPlayer").SetCallTimeout(100);
 
 import { DataStoreService, TeleportService, Players } from "@rbxts/services";
@@ -69,9 +69,9 @@ Players.PlayerRemoving.Connect((player) => {
 	teleportFailDetectors.delete(player.UserId);
 });
 
-createWorldRemote.SetCallback((player) => {
+createWorldRemote.SetCallback((player, options) => {
 	if (!joiningWorld.get(player.UserId)) {
-		const worldId = createWorld(player, worldStore, ownedWorlds);
+		const worldId = createWorld(player, worldStore, ownedWorlds, options);
 		joiningWorld.set(player.UserId, true);
 		TeleportService.TeleportAsync(worldId, [player]);
 	}

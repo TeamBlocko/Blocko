@@ -7,11 +7,9 @@ import { popupFrameContext } from "./popupFramesContext";
 
 const fetchWorlds = Client.GetAsyncFunction<[], [Filter], FetchWorldsResult>("FetchWorlds");
 const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldInfo");
-const createWorld = Client.GetAsyncFunction("CreateWorld");
 
 fetchWorlds.SetCallTimeout(100);
 fetchWorldInfo.SetCallTimeout(100);
-createWorld.SetCallTimeout(100);
 
 class CreateWorld extends Roact.Component {
 	binding: Roact.Binding<number>;

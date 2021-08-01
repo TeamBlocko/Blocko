@@ -1,10 +1,15 @@
 import Roact from "@rbxts/roact";
+import { Client } from "@rbxts/net";
 import WorldFinishPage from "./WorldFinishPage";
 import WorldInfoPage from "./WorldInfoPage";
 import WorldLightingPage from "./WorldLightingPage";
 import WorldTemplatePage from "./WorldTemplatePage";
 
-class CreationFramePages extends Roact.Component {
+const createWorld = Client.GetAsyncFunction<[], [CreationOptions]>("CreateWorld");
+
+createWorld.SetCallTimeout(100);
+
+class CreationFramePages extends Roact.Component<{}, CreationOptions> {
 	worldtemplatePageRef: Roact.Ref<Frame>;
 	worldinfoPageRef: Roact.Ref<Frame>;
 	worldlightingPageRef: Roact.Ref<Frame>;
@@ -19,6 +24,11 @@ class CreationFramePages extends Roact.Component {
 		this.worldlightingPageRef = Roact.createRef();
 		this.worldfinishPageRef = Roact.createRef();
 		this.uipagelayoutRef = Roact.createRef();
+
+		this.setState({
+			Template: "MiniBaseplate",
+			Lighting: Enum.Technology.Future,
+		})
 	}
 
 	changePage(page: Roact.Ref<Frame>) {
@@ -42,6 +52,10 @@ class CreationFramePages extends Roact.Component {
 					OnNext={() => this.changePage(this.worldlightingPageRef)}
 					OnReturn={() => this.changePage(this.worldtemplatePageRef)}
 					FrameRef={this.worldinfoPageRef}
+					OnUpdate={(info) => this.setState((oldState) => ({
+						...oldState,
+						...info
+					}))}
 				/>
 				<WorldLightingPage
 					OnNext={() => this.changePage(this.worldfinishPageRef)}
@@ -49,7 +63,7 @@ class CreationFramePages extends Roact.Component {
 					FrameRef={this.worldlightingPageRef}
 				/>
 				<WorldFinishPage
-					OnCreate={() => print("Finished create")}
+					OnCreate={() => createWorld.CallServerAsync(this.state)}
 					OnReturn={() => this.changePage(this.worldlightingPageRef)}
 					FrameRef={this.worldfinishPageRef}
 				/>

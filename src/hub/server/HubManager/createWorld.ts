@@ -4,7 +4,7 @@ import { ser } from "@rbxts/ser";
 import { AssetService } from "@rbxts/services";
 import { DataSyncStore } from "common/server/LazLoader";
 
-export = (player: Player, worldsStore: DataSyncStore<WorldDataSync>, ownedWorlds: DataSyncStore<PlayerDataSync>) => {
+export = (player: Player, worldsStore: DataSyncStore<WorldDataSync>, ownedWorlds: DataSyncStore<PlayerDataSync>, options: CreationOptions) => {
 	const playerFile = ownedWorlds.GetFile(`${player.UserId}`);
 
 	const worlds = playerFile.GetData();
@@ -26,7 +26,8 @@ export = (player: Player, worldsStore: DataSyncStore<WorldDataSync>, ownedWorlds
 			Owner: `${player.UserId}`,
 		},
 		Settings: {
-			Name: "%s's World #%i".format(player.Name, worldsCount + 1),
+			Name: options.Name ?? "%s's World #%i".format(player.Name, worldsCount + 1),
+			Description: options.Description
 		},
 	};
 
