@@ -1,4 +1,5 @@
 import Roact from "@rbxts/roact";
+import Flipper from "@rbxts/flipper";
 import { Client } from "@rbxts/net";
 import WorldFinishPage from "./WorldFinishPage";
 import WorldInfoPage from "./WorldInfoPage";
@@ -9,15 +10,19 @@ const createWorld = Client.GetAsyncFunction<[], [CreationOptions]>("CreateWorld"
 
 createWorld.SetCallTimeout(100);
 
-class CreationFramePages extends Roact.Component<{}, CreationOptions> {
+interface CreationFramePagesPropTypes {
+	Progress: Flipper.SingleMotor 
+}
+
+class CreationFramePages extends Roact.Component<CreationFramePagesPropTypes, CreationOptions> {
 	worldtemplatePageRef: Roact.Ref<Frame>;
 	worldinfoPageRef: Roact.Ref<Frame>;
 	worldlightingPageRef: Roact.Ref<Frame>;
 	worldfinishPageRef: Roact.Ref<Frame>;
 	uipagelayoutRef: Roact.Ref<UIPageLayout>;
 
-	constructor() {
-		super({});
+	constructor(props: CreationFramePagesPropTypes) {
+		super(props);
 
 		this.worldtemplatePageRef = Roact.createRef();
 		this.worldinfoPageRef = Roact.createRef();
@@ -43,14 +48,23 @@ class CreationFramePages extends Roact.Component<{}, CreationOptions> {
 
 	render() {
 		return (
-			<frame BackgroundTransparency={1} ClipsDescendants={true} Size={UDim2.fromScale(1, 1)}>
+			<frame BackgroundTransparency={1} ClipsDescendants={true} Size={UDim2.fromScale(1, 1)} ZIndex={2}>
 				<WorldTemplatePage
 					FrameRef={this.worldtemplatePageRef}
-					OnNext={() => this.changePage(this.worldinfoPageRef)}
+					OnNext={() => {
+						this.changePage(this.worldinfoPageRef)
+						this.props.Progress.setGoal(new Flipper.Spring(1/3))
+					}}
 				/>
 				<WorldInfoPage
-					OnNext={() => this.changePage(this.worldlightingPageRef)}
-					OnReturn={() => this.changePage(this.worldtemplatePageRef)}
+					OnNext={() => {
+						this.changePage(this.worldlightingPageRef)
+						this.props.Progress.setGoal(new Flipper.Spring(1/3 * 2))
+					}}
+					OnReturn={() => {
+						this.changePage(this.worldtemplatePageRef)
+						this.props.Progress.setGoal(new Flipper.Spring(0))
+					}}
 					FrameRef={this.worldinfoPageRef}
 					OnUpdate={(info) => this.setState((oldState) => ({
 						...oldState,
@@ -58,13 +72,29 @@ class CreationFramePages extends Roact.Component<{}, CreationOptions> {
 					}))}
 				/>
 				<WorldLightingPage
-					OnNext={() => this.changePage(this.worldfinishPageRef)}
-					OnReturn={() => this.changePage(this.worldinfoPageRef)}
+					Selected={this.state.Lighting}
+					OnNext={() => {
+						this.changePage(this.worldfinishPageRef)
+						this.props.Progress.setGoal(new Flipper.Spring(1))
+					}}
+					OnReturn={() => {
+						this.changePage(this.worldinfoPageRef)
+						this.props.Progress.setGoal(new Flipper.Spring(1/3))
+					}}
+					OnUpdate={
+						(value) => this.setState((oldState) => ({
+							...oldState,
+							Lighting: value,
+						}))
+					}
 					FrameRef={this.worldlightingPageRef}
 				/>
 				<WorldFinishPage
 					OnCreate={() => createWorld.CallServerAsync(this.state)}
-					OnReturn={() => this.changePage(this.worldlightingPageRef)}
+					OnReturn={() => {
+						this.changePage(this.worldlightingPageRef)
+						this.props.Progress.setGoal(new Flipper.Spring(1/3 * 2))
+					}}
 					FrameRef={this.worldfinishPageRef}
 				/>
 				<uipagelayout

@@ -124,7 +124,7 @@ function WorldTemplatePage(props: WorldTemplatePagePropTypes) {
 						<TopFrame Title={"Create Worlds"} Description={"Choose a starter template for your wolrd."} />
 						<MidFrame />
 						<BottomFrame
-							Button1Click={() => value.changePopup(undefined)}
+							Button1Click={() => value.changePopup(Roact.None)}
 							Button1Text={"Cancel"}
 							Button2Click={() => props.OnNext()}
 							Button2Text={"Next"}

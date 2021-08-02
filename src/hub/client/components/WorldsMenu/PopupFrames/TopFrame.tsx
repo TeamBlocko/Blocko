@@ -3,6 +3,8 @@ import Roact from "@rbxts/roact";
 interface TopFramePropTypes extends Roact.PropsWithChildren {
 	Title: string;
 	Description: string;
+	TitleSize?: UDim2;
+	DescriptionSize?: UDim2;
 }
 
 function TopFrame(props: TopFramePropTypes) {
@@ -16,8 +18,7 @@ function TopFrame(props: TopFramePropTypes) {
 			<textlabel
 				AnchorPoint={new Vector2(0.5, 0)}
 				BackgroundTransparency={1}
-				Position={UDim2.fromScale(0.5, 0.17)}
-				Size={UDim2.fromScale(1, 0.35)}
+				Size={props.TitleSize ?? UDim2.fromScale(1, 0.35)}
 				Font={Enum.Font.GothamBold}
 				Text={props.Title}
 				TextColor3={new Color3(1, 1, 1)}
@@ -29,8 +30,7 @@ function TopFrame(props: TopFramePropTypes) {
 			<textlabel
 				AnchorPoint={new Vector2(0.5, 0)}
 				BackgroundTransparency={1}
-				Position={UDim2.fromScale(0.5, 0.3)}
-				Size={UDim2.fromScale(1, 0.5)}
+				Size={props.DescriptionSize ?? UDim2.fromScale(1, 0.5)}
 				Font={Enum.Font.Gotham}
 				Text={props.Description}
 				TextColor3={new Color3(1, 1, 1)}
@@ -40,7 +40,7 @@ function TopFrame(props: TopFramePropTypes) {
 				TextWrapped={true}
 				TextXAlignment={Enum.TextXAlignment.Left}
 			/>
-			<>{props[Roact.Children]}</>
+			{Roact.oneChild(props[Roact.Children])}
 			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0.075, 0)} />
 		</frame>
 	);

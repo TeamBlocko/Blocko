@@ -1,4 +1,5 @@
 import Roact from "@rbxts/roact";
+import Flipper from "@rbxts/flipper";
 import BottomFrame from "./BottomFrame";
 import TopFrame from "./TopFrame";
 
@@ -18,7 +19,28 @@ interface MidFramePropTypes {
 	OnUpdate: (info: Info) => void;
 }
 
+type Goal = {
+	name: number,
+	description: number,
+}
+
 class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
+
+
+	binding: Roact.Binding<Goal>;
+	setBinding: Roact.BindingFunction<Goal>;
+
+	motor: Flipper.GroupMotor<Goal>;
+
+	constructor(props: MidFramePropTypes) {
+		super(props);
+
+		[this.binding, this.setBinding] = Roact.createBinding({ name: 0, description: 0 });
+
+		this.motor = new Flipper.GroupMotor(this.binding.getValue())
+
+		this.motor.onStep(this.setBinding);
+	}
 
 	render() {
 		return (
@@ -42,6 +64,10 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 					TextWrapped={true}
 					ClearTextOnFocus={false}
 					TextXAlignment={Enum.TextXAlignment.Left}
+					Event={{
+						Focused: () => this.motor.setGoal({ name: new Flipper.Spring(1, { frequency: 1 }) }),
+						FocusLost: () => this.motor.setGoal({ name: new Flipper.Spring(0, { frequency: 1 }) })
+					}}
 					Change={{
 						Text:(e) => {
 							const text = e.Text.sub(0, 66)
@@ -57,7 +83,10 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 						Size={new UDim2(1, 0, 0, 1)}
 					>
 						<uicorner CornerRadius={new UDim(1, 0)} />
-						<frame BackgroundColor3={Color3.fromRGB(68, 161, 248)} Size={UDim2.fromScale(0, 1)} />
+						<frame
+							BackgroundColor3={Color3.fromRGB(68, 161, 248)}
+							Size={this.binding.map((value) => UDim2.fromScale(value.name, 1))}
+						/>
 					</frame>
 				</textbox>
 				<textbox
@@ -75,6 +104,10 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 					TextWrapped={true}
 					ClearTextOnFocus={false}
 					TextXAlignment={Enum.TextXAlignment.Left}
+					Event={{
+						Focused: () => this.motor.setGoal({ description: new Flipper.Spring(1, { frequency: 1 }) }),
+						FocusLost: () => this.motor.setGoal({ description: new Flipper.Spring(0, { frequency: 1 }) })
+					}}
 					Change={{
 						Text:(e) => {
 							const text = e.Text.sub(0, 216)
@@ -90,7 +123,10 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 						Size={new UDim2(1, 0, 0, 1)}
 					>
 						<uicorner CornerRadius={new UDim(1, 0)} />
-						<frame BackgroundColor3={Color3.fromRGB(68, 161, 248)} Size={UDim2.fromScale(0, 1)} />
+						<frame 
+							BackgroundColor3={Color3.fromRGB(68, 161, 248)}
+							Size={this.binding.map((value) => UDim2.fromScale(value.description, 1))}
+						/>
 					</frame>
 				</textbox>
 				<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0.125)} />
