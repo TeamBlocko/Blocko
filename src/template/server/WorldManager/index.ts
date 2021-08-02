@@ -1,6 +1,5 @@
 import { Workspace, DataStoreService, ReplicatedStorage, Players, AssetService } from "@rbxts/services";
 import { Store } from "@rbxts/rodux";
-import { $env } from "rbxts-transform-env";
 import { ser } from "@rbxts/ser";
 import { Server } from "@rbxts/net";
 import LazLoader, { DataSyncFile } from "common/server/LazLoader";
@@ -54,8 +53,7 @@ const worldInfoSerializer = ser.interface("World", {
 });
 
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
-const DATASTORE_VERSION = $env("DATASTORE_VERSION");
-
+const DATASTORE_VERSION = ReplicatedStorage.FindFirstChild("TS")?.FindFirstChild("Shared")?.FindFirstChildOfClass("StringValue")!.Value;
 const worldStore = dataSync.GetStore<WorldDataSync>(`Worlds${DATASTORE_VERSION}`, {
 	data: worldInfoSerializer.serialize(DEFAULT_WORLD),
 });

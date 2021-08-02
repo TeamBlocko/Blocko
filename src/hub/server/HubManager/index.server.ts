@@ -1,12 +1,11 @@
 import { Server } from "@rbxts/net";
-import { $env } from "rbxts-transform-env";
 
 const fetchWorlds = new Server.AsyncFunction<[Filter]>("FetchWorlds").SetCallTimeout(100);
 const fetchWorldInfo = new Server.AsyncFunction<[number]>("FetchWorldInfo").SetCallTimeout(100);
 const createWorldRemote = new Server.AsyncFunction<[CreationOptions]>("CreateWorld").SetCallTimeout(100);
 const teleportPlayer = new Server.AsyncFunction<[number]>("TeleportPlayer").SetCallTimeout(100);
 
-import { DataStoreService, TeleportService, Players } from "@rbxts/services";
+import { DataStoreService, TeleportService, Players, ReplicatedStorage } from "@rbxts/services";
 import MockODS from "common/server/MockODS";
 import LazLoader from "common/server/LazLoader";
 import { worldInfoScheme, worldSettingsScheme } from "common/server/WorldInfo/worldSchemes";
@@ -21,7 +20,7 @@ const worldInfoSerializer = ser.interface("World", {
 	Settings: ser.interface("WorldSettings", worldSettingsScheme),
 });
 
-const DATASTORE_VERSION = $env("DATASTORE_VERSION");
+const DATASTORE_VERSION = ReplicatedStorage.FindFirstChild("TS")?.FindFirstChild("Shared")?.FindFirstChildOfClass("StringValue")!.Value;
 
 const worldStore = dataSync.GetStore<WorldDataSync>(`Worlds${DATASTORE_VERSION}`, {
 	data: worldInfoSerializer.serialize(DEFAULT_WORLD),

@@ -6,8 +6,7 @@
 		"plugins": [
 			{
 				"name": "roblox-ts-extensions"
-			},
-			{"transform": "rbxts-transform-env"}
+			}
 		]
 	},
 	"exclude": [

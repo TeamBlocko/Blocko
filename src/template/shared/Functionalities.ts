@@ -72,31 +72,28 @@ export type FunctionalitiesInstances = {
 	[K in keyof Functionalities]: Functionalities[K] & { GUID: string } & {
 			[S in keyof UnionToIntersection<Functionalities[K]>]: S extends "Properties"
 				? {
-						[P in keyof UnionToIntersection<Functionalities[K][S]>]: UnionToIntersection<
-							Functionalities[K][S]
-						>[P] & {
-							// @ts-expect-error I don't know why TS errors here
-							Current: UnionToIntersection<Functionalities[K][S]>[P]["Default"] extends number
-								? number
-								: // @ts-expect-error I don't know why TS errors here
-								UnionToIntersection<Functionalities[K][S]>[P]["Default"] extends Enum.NormalId
-								? Enum.NormalId
-								: never;
+						[P in keyof IntersectionProperties]: IntersectionProperties[P] & {
+							Current: IntersectionProperties[P]["Default"] extends number
+							? number :
+							IntersectionProperties[P]["Default"] extends Enum.NormalId
+							? Enum.NormalId
+							: never;
 						};
-				  }
-				: // @ts-expect-error I don't know why TS errors here
-				  Functionalities[K][S];
+				  } :
+				  UnionToIntersection<Functionalities[K]>[S];
 		};
 };
+
+declare const t: FunctionalitiesInstances;
+t.Conveyor.Properties.Speed.Current
 
 export type FunctionalitiesInstancesValues = FunctionalitiesInstances[keyof Functionalities];
 
 export type FunctionalitiesPropertiesInstance = {
 	[K in keyof IntersectionProperties]: IntersectionProperties[K] & {
 		Current: IntersectionProperties[K]["Default"] extends number
-			? number
-			: // @ts-expect-error I don't know why TS errors here
-			UnionToIntersection<Functionalities[K][S]>[P]["Default"] extends Enum.NormalId
+			? number :
+			IntersectionProperties[K]["Default"] extends Enum.NormalId
 			? Enum.NormalId
 			: never;
 	};
