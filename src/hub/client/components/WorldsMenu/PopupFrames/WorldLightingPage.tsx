@@ -23,7 +23,6 @@ interface LightingButtonPropTypes {
 }
 
 class LightingButton extends Roact.Component<LightingButtonPropTypes> {
-
 	binding: Roact.Binding<number>;
 	setBinding: Roact.BindingFunction<number>;
 
@@ -31,7 +30,7 @@ class LightingButton extends Roact.Component<LightingButtonPropTypes> {
 
 	constructor(props: LightingButtonPropTypes) {
 		super(props);
-	
+
 		[this.binding, this.setBinding] = Roact.createBinding(props.Selected ? 1 : 0);
 		this.motor = new Flipper.SingleMotor(this.binding.getValue());
 		this.motor.onStep(this.setBinding);
@@ -46,7 +45,7 @@ class LightingButton extends Roact.Component<LightingButtonPropTypes> {
 				Image={this.props.Image}
 				ScaleType={Enum.ScaleType.Crop}
 				Event={{
-					Activated: () => this.props.OnClick()
+					Activated: () => this.props.OnClick(),
 				}}
 			>
 				<imagelabel
@@ -67,16 +66,16 @@ class LightingButton extends Roact.Component<LightingButtonPropTypes> {
 	}
 
 	didUpdate() {
-		this.motor.setGoal(new Flipper.Spring(this.props.Selected ? 1 : 0))
+		this.motor.setGoal(new Flipper.Spring(this.props.Selected ? 1 : 0));
 	}
 }
 
 const technologyIcons: { [K in Exclude<keyof typeof Enum.Technology, "GetEnumItems">]: string } = {
-	"Compatibility": "rbxassetid://6848857684",
-	"Future": "rbxassetid://6848857684",
-	"ShadowMap": "rbxassetid://6848861016",
-	"Voxel": "rbxassetid://6848859395",
-	"Legacy": "rbxassetid://0", 
+	Compatibility: "rbxassetid://6848857684",
+	Future: "rbxassetid://6848857684",
+	ShadowMap: "rbxassetid://6848861016",
+	Voxel: "rbxassetid://6848859395",
+	Legacy: "rbxassetid://0",
 };
 
 function MiddleFrame(props: MiddleFramePropTypes) {
@@ -92,18 +91,18 @@ function MiddleFrame(props: MiddleFramePropTypes) {
 				HorizontalAlignment={Enum.HorizontalAlignment.Center}
 				Padding={new UDim(0.015)}
 			/>
-			{
-				[
-					Enum.Technology.Compatibility,
-					Enum.Technology.Future,
-					Enum.Technology.ShadowMap,
-					Enum.Technology.Voxel,
-				].map((technology) => <LightingButton
+			{[
+				Enum.Technology.Compatibility,
+				Enum.Technology.Future,
+				Enum.Technology.ShadowMap,
+				Enum.Technology.Voxel,
+			].map((technology) => (
+				<LightingButton
 					Image={technologyIcons[technology.Name]}
 					OnClick={() => props.OnUpdate(technology)}
 					Selected={technology === props.Selected}
-				/>)
-			}
+				/>
+			))}
 		</frame>
 	);
 }

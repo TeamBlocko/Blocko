@@ -61,9 +61,11 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 					Name: keyof Functionality.Functionalities;
 				})[]) {
 					const currentFunctionality = Functionality.functionalities[functionality.Name];
-					const propertiesInfo = (functionality.GetChildren() as (ValueBase & {
-						Name: keyof Functionality.IntersectionProperties;
-					})[]).map(
+					const propertiesInfo = (
+						functionality.GetChildren() as (ValueBase & {
+							Name: keyof Functionality.IntersectionProperties;
+						})[]
+					).map(
 						(instance) =>
 							`${
 								(currentFunctionality.Properties as Functionality.IntersectionProperties)[instance.Name]

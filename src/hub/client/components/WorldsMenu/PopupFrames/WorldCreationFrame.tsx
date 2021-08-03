@@ -22,13 +22,15 @@ function BottomFrame(props: BottomFramePropTypes) {
 				Size={UDim2.fromScale(1, 0.25)}
 			/>
 			<uicorner CornerRadius={new UDim(0.2, 0)} />
-			<frame BackgroundColor3={Color3.fromRGB(83, 178, 255)} Size={props.Progress.map(value => UDim2.fromScale(value, 0.025))} />
+			<frame
+				BackgroundColor3={Color3.fromRGB(83, 178, 255)}
+				Size={props.Progress.map((value) => UDim2.fromScale(value, 0.025))}
+			/>
 		</frame>
 	);
 }
 
 class WorldCreationFrame extends Roact.Component {
-
 	binding: Roact.Binding<number>;
 	setBinding: Roact.BindingFunction<number>;
 
@@ -40,7 +42,7 @@ class WorldCreationFrame extends Roact.Component {
 		[this.binding, this.setBinding] = Roact.createBinding(0);
 
 		this.motor = new Flipper.SingleMotor(this.binding.getValue());
-		this.motor.onStep(this.setBinding)
+		this.motor.onStep(this.setBinding);
 	}
 
 	render() {

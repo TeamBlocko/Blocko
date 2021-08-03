@@ -29,7 +29,11 @@ function NumberInput(props: NumberInputPropTypes) {
 					props.TextBoxProps.Change?.Text?.(element);
 					const [originalText] = element.Text.gsub("%s", "");
 					if (originalText === "") return;
-					if (originalText.match("%d+%.")[0] !== undefined && originalText.match("%d+%.(%d+)")[0] === undefined) return;
+					if (
+						originalText.match("%d+%.")[0] !== undefined &&
+						originalText.match("%d+%.(%d+)")[0] === undefined
+					)
+						return;
 					const output = validateText(originalText, props.Options);
 					const text = tostring(output);
 					if (text === prevText && originalText === prevText) return;

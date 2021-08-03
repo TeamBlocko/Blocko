@@ -4,10 +4,15 @@ import { AssetService } from "@rbxts/services";
 import { DataSyncStore } from "common/server/LazLoader";
 
 type DeepPartial<T> = {
-	[P in keyof T]?: DeepPartial<T[P]>
-}
+	[P in keyof T]?: DeepPartial<T[P]>;
+};
 
-export = (player: Player, worldsStore: DataSyncStore<WorldDataSync>, ownedWorlds: DataSyncStore<PlayerDataSync>, options: CreationOptions) => {
+export = (
+	player: Player,
+	worldsStore: DataSyncStore<WorldDataSync>,
+	ownedWorlds: DataSyncStore<PlayerDataSync>,
+	options: CreationOptions,
+) => {
 	const playerFile = ownedWorlds.GetFile(`${player.UserId}`);
 
 	const worlds = playerFile.GetData();
@@ -30,7 +35,7 @@ export = (player: Player, worldsStore: DataSyncStore<WorldDataSync>, ownedWorlds
 		},
 		Settings: {
 			Name: options.Name ?? "%s's World #%i".format(player.Name, worldsCount + 1),
-			Description: options.Description
+			Description: options.Description,
 		},
 	};
 

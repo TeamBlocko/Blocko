@@ -74,13 +74,13 @@ export type FunctionalitiesInstances = {
 				? {
 						[P in keyof IntersectionProperties]: IntersectionProperties[P] & {
 							Current: IntersectionProperties[P]["Default"] extends number
-							? number :
-							IntersectionProperties[P]["Default"] extends Enum.NormalId
-							? Enum.NormalId
-							: never;
+								? number
+								: IntersectionProperties[P]["Default"] extends Enum.NormalId
+								? Enum.NormalId
+								: never;
 						};
-				  } :
-				  UnionToIntersection<Functionalities[K]>[S];
+				  }
+				: UnionToIntersection<Functionalities[K]>[S];
 		};
 };
 
@@ -89,8 +89,8 @@ export type FunctionalitiesInstancesValues = FunctionalitiesInstances[keyof Func
 export type FunctionalitiesPropertiesInstance = {
 	[K in keyof IntersectionProperties]: IntersectionProperties[K] & {
 		Current: IntersectionProperties[K]["Default"] extends number
-			? number :
-			IntersectionProperties[K]["Default"] extends Enum.NormalId
+			? number
+			: IntersectionProperties[K]["Default"] extends Enum.NormalId
 			? Enum.NormalId
 			: never;
 	};

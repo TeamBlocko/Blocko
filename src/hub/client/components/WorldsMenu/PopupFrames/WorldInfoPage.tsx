@@ -11,8 +11,8 @@ interface WorldInfoPagePropTypes {
 }
 
 interface Info {
-	Name?: string,
-	Description?: string,
+	Name?: string;
+	Description?: string;
 }
 
 interface MidFramePropTypes {
@@ -20,13 +20,11 @@ interface MidFramePropTypes {
 }
 
 type Goal = {
-	name: number,
-	description: number,
-}
+	name: number;
+	description: number;
+};
 
 class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
-
-
 	binding: Roact.Binding<Goal>;
 	setBinding: Roact.BindingFunction<Goal>;
 
@@ -37,7 +35,7 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 
 		[this.binding, this.setBinding] = Roact.createBinding({ name: 0, description: 0 });
 
-		this.motor = new Flipper.GroupMotor(this.binding.getValue())
+		this.motor = new Flipper.GroupMotor(this.binding.getValue());
 
 		this.motor.onStep(this.setBinding);
 	}
@@ -66,14 +64,14 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 					TextXAlignment={Enum.TextXAlignment.Left}
 					Event={{
 						Focused: () => this.motor.setGoal({ name: new Flipper.Spring(1, { frequency: 1 }) }),
-						FocusLost: () => this.motor.setGoal({ name: new Flipper.Spring(0, { frequency: 1 }) })
+						FocusLost: () => this.motor.setGoal({ name: new Flipper.Spring(0, { frequency: 1 }) }),
 					}}
 					Change={{
-						Text:(e) => {
-							const text = e.Text.sub(0, 66)
-							print("Name", text, this.state.Name)
-							this.setState((oldState) => ({ Name: text, Description: oldState.Description }))
-						}
+						Text: (e) => {
+							const text = e.Text.sub(0, 66);
+							print("Name", text, this.state.Name);
+							this.setState((oldState) => ({ Name: text, Description: oldState.Description }));
+						},
 					}}
 				>
 					<frame
@@ -106,14 +104,14 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 					TextXAlignment={Enum.TextXAlignment.Left}
 					Event={{
 						Focused: () => this.motor.setGoal({ description: new Flipper.Spring(1, { frequency: 1 }) }),
-						FocusLost: () => this.motor.setGoal({ description: new Flipper.Spring(0, { frequency: 1 }) })
+						FocusLost: () => this.motor.setGoal({ description: new Flipper.Spring(0, { frequency: 1 }) }),
 					}}
 					Change={{
-						Text:(e) => {
-							const text = e.Text.sub(0, 216)
-							print("Description", text, this.state.Description)
-							this.setState((oldState) => ({ Name: oldState.Name, Description: text }))
-						}
+						Text: (e) => {
+							const text = e.Text.sub(0, 216);
+							print("Description", text, this.state.Description);
+							this.setState((oldState) => ({ Name: oldState.Name, Description: text }));
+						},
 					}}
 				>
 					<frame
@@ -123,7 +121,7 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 						Size={new UDim2(1, 0, 0, 1)}
 					>
 						<uicorner CornerRadius={new UDim(1, 0)} />
-						<frame 
+						<frame
 							BackgroundColor3={Color3.fromRGB(68, 161, 248)}
 							Size={this.binding.map((value) => UDim2.fromScale(value.description, 1))}
 						/>
@@ -135,14 +133,14 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 	}
 
 	shouldUpdate(_nextProps: MidFramePropTypes, nextState: Info) {
-		return nextState.Name !== this.state.Name || nextState.Description !== this.state.Description 
+		return nextState.Name !== this.state.Name || nextState.Description !== this.state.Description;
 	}
 
 	didUpdate() {
 		this.props.OnUpdate({
 			Name: this.state.Name === "" ? undefined : this.state.Name,
 			Description: this.state.Description === "" ? undefined : this.state.Description,
-		})
+		});
 	}
 }
 

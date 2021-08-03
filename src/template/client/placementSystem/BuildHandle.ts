@@ -38,7 +38,7 @@ class BuildHandler {
 		}
 
 		for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {
-			let propertyValue = value;
+			const propertyValue = value;
 			this.ghostPart[propertyName] = propertyValue as never;
 		}
 
@@ -96,7 +96,7 @@ class BuildHandler {
 				hitboxPart.Parent = Workspace.Blocks;
 
 				for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {
-					let propertyValue = value;
+					const propertyValue = value;
 					block[propertyName] = propertyValue as never;
 				}
 

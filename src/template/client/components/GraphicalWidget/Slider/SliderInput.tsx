@@ -25,7 +25,7 @@ function SliderInput(props: SliderInputPropTypes) {
 			OnValidInput={(e) => props.OnTextChange(e)}
 			Options={{
 				Range: props.Range,
-				decimalPlace: props.DecimalPlace
+				decimalPlace: props.DecimalPlace,
 			}}
 		>
 			<uicorner CornerRadius={new UDim(0, 4)} />

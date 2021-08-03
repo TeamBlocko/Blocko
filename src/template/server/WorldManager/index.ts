@@ -53,7 +53,9 @@ const worldInfoSerializer = ser.interface("World", {
 });
 
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
-const DATASTORE_VERSION = ReplicatedStorage.FindFirstChild("TS")?.FindFirstChild("Shared")?.FindFirstChildOfClass("StringValue")!.Value;
+const DATASTORE_VERSION = ReplicatedStorage.FindFirstChild("TS")
+	?.FindFirstChild("Shared")
+	?.FindFirstChildOfClass("StringValue")!.Value;
 const worldStore = dataSync.GetStore<WorldDataSync>(`Worlds${DATASTORE_VERSION}`, {
 	data: worldInfoSerializer.serialize(DEFAULT_WORLD),
 });

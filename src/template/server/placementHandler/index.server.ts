@@ -30,7 +30,7 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 		block.Orientation = orientation;
 
 		for (const [propertyName, value] of pairs(settings.RawProperties)) {
-			let propertyValue = value;
+			const propertyValue = value;
 			block[propertyName] = propertyValue as never;
 		}
 

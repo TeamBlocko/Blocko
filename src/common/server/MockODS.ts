@@ -8,10 +8,10 @@ export default {
 		minValue?: number,
 		maxValue?: number,
 	): DataStorePages {
-		return ({
+		return {
 			GetCurrentPage() {
 				return [];
 			},
-		} as unknown) as DataStorePages;
+		} as unknown as DataStorePages;
 	},
 } as OrderedDataStore;

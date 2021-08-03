@@ -132,9 +132,10 @@ type FunctionalitiesActions =
 	| ActionRecievedAddFunctionality
 	| ActionRecievedRemoveFunctionality;
 
-export const placementSettingsReducer = combineReducers<PlacementSettings, 
-		UpdateBasePart | UpdateBuildMode | FunctionalitiesActions | ActionRecievedUpdateProperty
-	>({
+export const placementSettingsReducer = combineReducers<
+	PlacementSettings,
+	UpdateBasePart | UpdateBuildMode | FunctionalitiesActions | ActionRecievedUpdateProperty
+>({
 	Shape: createReducer<BasePart, UpdateBasePart>(intialPlacementSettings.Shape, {
 		[ActionTypes.UPDATE_BASE_PART]: (_, action) => action.value,
 	}),

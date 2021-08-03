@@ -20,7 +20,9 @@ const worldInfoSerializer = ser.interface("World", {
 	Settings: ser.interface("WorldSettings", worldSettingsScheme),
 });
 
-const DATASTORE_VERSION = ReplicatedStorage.FindFirstChild("TS")?.FindFirstChild("Shared")?.FindFirstChildOfClass("StringValue")!.Value;
+const DATASTORE_VERSION = ReplicatedStorage.FindFirstChild("TS")
+	?.FindFirstChild("Shared")
+	?.FindFirstChildOfClass("StringValue")!.Value;
 
 const worldStore = dataSync.GetStore<WorldDataSync>(`Worlds${DATASTORE_VERSION}`, {
 	data: worldInfoSerializer.serialize(DEFAULT_WORLD),
@@ -94,22 +96,18 @@ function fetchOwned(player: Player): FetchWorldsResult {
 	return { success: true, data: playerFile.GetData().data.ownedWorlds };
 }
 
-fetchWorlds.SetCallback(
-	(player, filter): FetchWorldsResult => {
-		print(filter);
-		switch (filter) {
-			case "Active":
-				return fetchActive();
-			case "Owned":
-				return fetchOwned(player);
-			default:
-				return fetchActive();
-		}
-	},
-);
+fetchWorlds.SetCallback((player, filter): FetchWorldsResult => {
+	print(filter);
+	switch (filter) {
+		case "Active":
+			return fetchActive();
+		case "Owned":
+			return fetchOwned(player);
+		default:
+			return fetchActive();
+	}
+});
 
-fetchWorldInfo.SetCallback(
-	(_player, worldId): World => {
-		return worldInfoSerializer.deserialize(worldStore.GetFile(`World${worldId}`).GetData().data);
-	},
-);
+fetchWorldInfo.SetCallback((_player, worldId): World => {
+	return worldInfoSerializer.deserialize(worldStore.GetFile(`World${worldId}`).GetData().data);
+});

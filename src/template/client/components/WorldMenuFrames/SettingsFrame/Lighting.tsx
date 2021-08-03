@@ -10,7 +10,16 @@ import { IState } from "template/shared/Types";
 import CheckBox from "../../GraphicalWidget/CheckBox";
 
 interface LightingPropTypes extends WorldSettings {
-	OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time" | "EnvironmentDiffuseScale" | "EnvironmentSpecularScale" | "ExposureCompensation", value: number): void;
+	OnSliderUpdate(
+		propertyName:
+			| "Brightness"
+			| "Cycle"
+			| "Time"
+			| "EnvironmentDiffuseScale"
+			| "EnvironmentSpecularScale"
+			| "ExposureCompensation",
+		value: number,
+	): void;
 	OnCheckBoxUpdate(propertyName: "CycleEnabled" | "GlobalShadows", value: boolean): void;
 	OnColorPickerUpdate(propertyName: "Ambient" | "OutdoorAmbient", value: Color3): void;
 }
@@ -93,7 +102,16 @@ function Lighting(props: LightingPropTypes) {
 export default connect(
 	(state: IState) => state.World.Settings,
 	(dispatch) => ({
-		OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time" | "EnvironmentDiffuseScale" | "EnvironmentSpecularScale" | "ExposureCompensation", value: number) {
+		OnSliderUpdate(
+			propertyName:
+				| "Brightness"
+				| "Cycle"
+				| "Time"
+				| "EnvironmentDiffuseScale"
+				| "EnvironmentSpecularScale"
+				| "ExposureCompensation",
+			value: number,
+		) {
 			dispatch(
 				updateWorldSettings([
 					{

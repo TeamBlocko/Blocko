@@ -148,7 +148,7 @@ function isKeyCombo(combo: Readonly<KeyCombo>): boolean {
 
 function map_properties(target: BasePart): (propertyName: keyof RawProperties) => UpdatePropertyDataType {
 	return (propertyName) => {
-		let value = target[propertyName];
+		const value = target[propertyName];
 		return {
 			propertyName,
 			value,
