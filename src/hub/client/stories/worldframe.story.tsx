@@ -23,6 +23,10 @@ const DEFAULT_WORLD_SETTINGS: WorldSettings = {
 	DefaultJumpPower: 50,
 	MinCameraZoom: 0,
 	MaxCameraZoom: 100,
+	GlobalShadows: true,
+	EnvironmentDiffuseScale: 1,
+	EnvironmentSpecularScale: 1,
+	ExposureCompensation: 0,
 };
 
 const DEFAULT_WORLD_INFO: WorldInfo = {
