@@ -167,6 +167,10 @@ declare global {
 		DefaultJumpPower: number;
 		MinCameraZoom: number;
 		MaxCameraZoom: number;
+		GlobalShadows: boolean;
+		EnvironmentSpecularScale: number;
+		EnvironmentDiffuseScale: number;
+		ExposureCompensation: number;
 	}
 
 	interface WorldInfo {

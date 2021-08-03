@@ -7,7 +7,7 @@ export const permissionInfoScheme = {
 
 const PermissionInfo = ser.interface("PermissionInfo", permissionInfoScheme);
 
-export const worldInfoScheme = {
+export const worldInfoScheme: { [K in keyof WorldInfo]: ser.SerializerStructure<WorldInfo[K]> } = {
 	WorldId: ser.number,
 	Owner: ser.number,
 	Permissions: ser.array(PermissionInfo),
@@ -19,7 +19,7 @@ export const worldInfoScheme = {
 	NumberOfBlocks: ser.number,
 };
 
-export const worldSettingsScheme = {
+export const worldSettingsScheme: { [K in keyof WorldSettings]: ser.SerializerStructure<WorldSettings[K]> } = {
 	Name: ser.string,
 	Description: ser.string,
 	Thumbnail: ser.string,
@@ -41,4 +41,8 @@ export const worldSettingsScheme = {
 	DefaultJumpPower: ser.number,
 	MinCameraZoom: ser.number,
 	MaxCameraZoom: ser.number,
+	GlobalShadows: ser.boolean,
+	EnvironmentDiffuseScale: ser.number,
+	EnvironmentSpecularScale: ser.number,
+	ExposureCompensation: ser.number,
 };

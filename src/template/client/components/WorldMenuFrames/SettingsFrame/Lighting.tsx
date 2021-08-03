@@ -7,10 +7,11 @@ import ColorDisplay from "template/client/components/GraphicalWidget/ColorDispla
 import Slider from "template/client/components/GraphicalWidget/Slider";
 import SliderAndCheckBox from "template/client/components/GraphicalWidget/SliderAndCheckbox";
 import { IState } from "template/shared/Types";
+import CheckBox from "../../GraphicalWidget/CheckBox";
 
 interface LightingPropTypes extends WorldSettings {
-	OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time", value: number): void;
-	OnCheckBoxUpdate(propertyName: "CycleEnabled", value: boolean): void;
+	OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time" | "EnvironmentDiffuseScale" | "EnvironmentSpecularScale" | "ExposureCompensation", value: number): void;
+	OnCheckBoxUpdate(propertyName: "CycleEnabled" | "GlobalShadows", value: boolean): void;
 	OnColorPickerUpdate(propertyName: "Ambient" | "OutdoorAmbient", value: Color3): void;
 }
 
@@ -56,6 +57,35 @@ function Lighting(props: LightingPropTypes) {
 					OnChange: (newValue) => props.OnCheckBoxUpdate("CycleEnabled", newValue),
 				}}
 			/>
+			<CheckBox
+				Name="Global Shadows"
+				Default={props.GlobalShadows}
+				OnChange={(newValue) => props.OnCheckBoxUpdate("GlobalShadows", newValue)}
+			/>
+			<Slider
+				Name="Environment Diffuse Scale"
+				Default={props.EnvironmentDiffuseScale}
+				Min={0}
+				Max={1}
+				DeciminalPlace={2}
+				OnChange={(newValue) => props.OnSliderUpdate("EnvironmentDiffuseScale", newValue)}
+			/>
+			<Slider
+				Name="Environment Specular Scale"
+				Default={props.EnvironmentSpecularScale}
+				Min={0}
+				Max={1}
+				DeciminalPlace={2}
+				OnChange={(newValue) => props.OnSliderUpdate("EnvironmentSpecularScale", newValue)}
+			/>
+			<Slider
+				Name="Exposure Compensation"
+				Default={props.ExposureCompensation}
+				Min={0}
+				Max={3}
+				DeciminalPlace={2}
+				OnChange={(newValue) => props.OnSliderUpdate("ExposureCompensation", newValue)}
+			/>
 		</Container>
 	);
 }
@@ -63,7 +93,7 @@ function Lighting(props: LightingPropTypes) {
 export default connect(
 	(state: IState) => state.World.Settings,
 	(dispatch) => ({
-		OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time", value: number) {
+		OnSliderUpdate(propertyName: "Brightness" | "Cycle" | "Time" | "EnvironmentDiffuseScale" | "EnvironmentSpecularScale" | "ExposureCompensation", value: number) {
 			dispatch(
 				updateWorldSettings([
 					{
@@ -73,7 +103,7 @@ export default connect(
 				]),
 			);
 		},
-		OnCheckBoxUpdate(propertyName: "IsPlaying" | "CycleEnabled", value: boolean) {
+		OnCheckBoxUpdate(propertyName: "CycleEnabled" | "GlobalShadows", value: boolean) {
 			dispatch(
 				updateWorldSettings([
 					{

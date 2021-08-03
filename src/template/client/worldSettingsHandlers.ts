@@ -18,6 +18,14 @@ export const Time = (newValue: number) => {
 	if (!cycleInfo.enabled) Lighting.ClockTime = newValue;
 };
 
+export const GlobalShadows = (newValue: boolean) => (Lighting.GlobalShadows = newValue)
+
+export const EnvironmentDiffuseScale = (newValue: number) => (Lighting.EnvironmentDiffuseScale = newValue)
+
+export const EnvironmentSpecularScale = (newValue: number) => (Lighting.EnvironmentSpecularScale = newValue)
+
+export const ExposureCompensation = (newValue: number) => (Lighting.ExposureCompensation = newValue)
+
 export const Cycle = (newValue: number) => (cycleInfo.cycleRate = newValue);
 
 export const CycleEnabled = (newValue: boolean) => (cycleInfo.enabled = newValue);

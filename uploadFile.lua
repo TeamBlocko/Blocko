@@ -6,6 +6,14 @@ function uploadPlace(filePath, placeId)
 	remodel.writeExistingPlaceAsset(game, placeId)
 end
 
+local technlogy = {
+	"Compatibility", "Future", "ShadowMap", "Voxel",
+}
+
+local template_places = {
+	Compatibility=5102195906
+}
+
 if asset_name == "hub" then
 	uploadPlace("./dist/hub.rbxl", 5102036961)
 elseif asset_name == "worldtemplate" then

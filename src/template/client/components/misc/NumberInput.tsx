@@ -1,4 +1,4 @@
-import Roact, { JsxObject, Children } from "@rbxts/roact";
+import Roact, { Children } from "@rbxts/roact";
 import { validateText } from "template/shared/utility";
 
 interface OnValidInput {
@@ -27,10 +27,13 @@ function NumberInput(props: NumberInputPropTypes) {
 			Change={{
 				Text: (element) => {
 					props.TextBoxProps.Change?.Text?.(element);
-					const output = validateText(element.Text, props.Options);
+					const [originalText] = element.Text.gsub("%s", "");
+					if (originalText === "") return;
+					if (originalText.match("%d+%.")[0] !== undefined && originalText.match("%d+%.(%d+)")[0] === undefined) return;
+					const output = validateText(originalText, props.Options);
 					const text = tostring(output);
-					if (text === prevText && element.Text === prevText) return;
-					element.Text = output ? text : prevText;
+					if (text === prevText && originalText === prevText) return;
+					element.Text = output !== undefined ? text : prevText;
 					if (output === undefined) return;
 					props.OnValidInput(element, output);
 					prevText = text;
