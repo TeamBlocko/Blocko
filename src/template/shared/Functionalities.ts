@@ -84,9 +84,6 @@ export type FunctionalitiesInstances = {
 		};
 };
 
-declare const t: FunctionalitiesInstances;
-t.Conveyor.Properties.Speed.Current
-
 export type FunctionalitiesInstancesValues = FunctionalitiesInstances[keyof Functionalities];
 
 export type FunctionalitiesPropertiesInstance = {

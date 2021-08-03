@@ -1,3 +1,4 @@
+import Rodux from "@rbxts/rodux";
 import { createReducer, AnyAction, combineReducers } from "@rbxts/rodux";
 import { assign, copy as shallowCopy } from "@rbxts/object-utils";
 
@@ -78,7 +79,7 @@ export function updateWorldInfo(data: UpdateWorldInfoDataType[]): ActionRecieved
 type InfoActions = ActionRecievedUpdateWorldInfo | ActionRecievedUpdatePermission;
 
 export const worldSettingsReducerInitlizer = (intialWorldSettings: World) =>
-	combineReducers<World>({
+	combineReducers<World, InfoActions | ActionRecievedUpdateWorldSettings>({
 		Info: createReducer<WorldInfo, InfoActions>(intialWorldSettings.Info, {
 			[WorldSettingsActions.UPDATE_WORLD_INFO]: (state, action) => {
 				const newState = shallowCopy(state);

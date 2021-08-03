@@ -19,6 +19,7 @@ const retriveWorldSettingsRemote = new Server.Function("Replication");
 const updateWorldSettingsRemote = new Server.Function<[action: UpdateWorldSettings]>("UpdateWorldSettings");
 
 import WorldManager from "./WorldManager";
+import { AnyAction } from "@rbxts/rodux";
 
 game.BindToClose(() => {
 	WorldManager.ShutDown();
@@ -28,7 +29,7 @@ retriveWorldSettingsRemote.SetCallback(() => WorldManager.store.getState());
 
 updateWorldSettingsRemote.SetCallback((player, action) => {
 	if (WorldManager.store.getState().Info.Owner === player.UserId)
-		WorldManager.store.dispatch(action as WorldSettingsActionTypes & Rodux.AnyAction);
+		WorldManager.store.dispatch(action as WorldSettingsActionTypes & AnyAction);
 });
 
 function updateSettings(state: WorldSettings) {

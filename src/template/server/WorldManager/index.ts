@@ -1,5 +1,5 @@
 import { Workspace, DataStoreService, ReplicatedStorage, Players, AssetService } from "@rbxts/services";
-import { Store } from "@rbxts/rodux";
+import { AnyAction, Store } from "@rbxts/rodux";
 import { ser } from "@rbxts/ser";
 import { Server } from "@rbxts/net";
 import LazLoader, { DataSyncFile } from "common/server/LazLoader";
@@ -67,7 +67,7 @@ const activeODS =
 class WorldManager {
 	public worldInfo: DataSyncFile<WorldDataSync>;
 	public worldBlocks: DataSyncFile<{ Blocks: string }>;
-	public store: Store<World, WorldSettingsActionTypes & Rodux.AnyAction>;
+	public store: Store<World, WorldSettingsActionTypes & AnyAction>;
 	public lastSave = 0;
 	public saveInterval = 10;
 	public isClosing = false;

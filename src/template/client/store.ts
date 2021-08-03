@@ -7,7 +7,7 @@ import { updateColorPickerReducer } from "./rodux/updateColorPicker";
 
 export type StoreActions = (PlacementSettingsActions | WorldSettingsActionTypes) & AnyAction;
 
-export const storeReducer = combineReducers<IState>({
+export const storeReducer = combineReducers<IState, StoreActions>({
 	ActivatedColorPicker: updateColorPickerReducer,
 	PlacementSettings: placementSettingsReducer,
 	World: worldSettingsReducerInitlizer(intialState.World),

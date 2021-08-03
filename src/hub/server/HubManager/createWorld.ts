@@ -1,8 +1,11 @@
-import { DeepPartial } from "@rbxts/rodux";
 import { assign } from "@rbxts/object-utils";
 import { ser } from "@rbxts/ser";
 import { AssetService } from "@rbxts/services";
 import { DataSyncStore } from "common/server/LazLoader";
+
+type DeepPartial<T> = {
+	[P in keyof T]?: DeepPartial<T[P]>
+}
 
 export = (player: Player, worldsStore: DataSyncStore<WorldDataSync>, ownedWorlds: DataSyncStore<PlayerDataSync>, options: CreationOptions) => {
 	const playerFile = ownedWorlds.GetFile(`${player.UserId}`);
