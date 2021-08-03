@@ -47,11 +47,11 @@ const ignoreMaterials: Enum.Material[] = [
 const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMaterials.includes(material));
 
 class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
-	canvasSizeBinding: Roact.RoactBinding<number>;
-	setCanvasSizeBinding: Roact.RoactBindingFunc<number>;
+	canvasSizeBinding: Roact.Binding<number>;
+	setCanvasSizeBinding: Roact.BindingFunction<number>;
 
-	functionalitySizeBinding: Roact.RoactBinding<number>;
-	setFunctionalitySizeBinding: Roact.RoactBindingFunc<number>;
+	functionalitySizeBinding: Roact.Binding<number>;
+	setFunctionalitySizeBinding: Roact.BindingFunction<number>;
 
 	bindable: BindableEvent;
 
@@ -153,16 +153,17 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									Name="Transparency"
 									Default={this.props.RawProperties.Transparency}
 									Min={0}
-									Max={10}
+									Max={1}
 									OnChange={(newValue: number) => this.props.OnSliderUpdate("Transparency", newValue)}
 									SizeYOffset={55}
 									LayoutOrder={6}
+									DeciminalPlace={2}
 								/>
 								<Slider
 									Name="Reflectance"
 									Default={this.props.RawProperties.Reflectance}
 									Min={0}
-									Max={10}
+									Max={1}
 									OnChange={(newValue: number) => this.props.OnSliderUpdate("Reflectance", newValue)}
 									SizeYOffset={55}
 									LayoutOrder={7}

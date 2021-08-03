@@ -39,8 +39,6 @@ class BuildHandler {
 
 		for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {
 			let propertyValue = value;
-			if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(propertyValue, "number"))
-				propertyValue /= 10;
 			this.ghostPart[propertyName] = propertyValue as never;
 		}
 
@@ -99,11 +97,6 @@ class BuildHandler {
 
 				for (const [propertyName, value] of pairs(placementSettings.RawProperties)) {
 					let propertyValue = value;
-					if (
-						(propertyName === "Transparency" || propertyName === "Reflectance") &&
-						typeIs(propertyValue, "number")
-					)
-						propertyValue /= 10;
 					block[propertyName] = propertyValue as never;
 				}
 

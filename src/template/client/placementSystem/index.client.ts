@@ -149,7 +149,6 @@ function isKeyCombo(combo: Readonly<KeyCombo>): boolean {
 function map_properties(target: BasePart): (propertyName: keyof RawProperties) => UpdatePropertyDataType {
 	return (propertyName) => {
 		let value = target[propertyName];
-		if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(value, "number")) value *= 10;
 		return {
 			propertyName,
 			value,

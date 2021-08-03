@@ -31,8 +31,6 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 
 		for (const [propertyName, value] of pairs(settings.RawProperties)) {
 			let propertyValue = value;
-			if ((propertyName === "Transparency" || propertyName === "Reflectance") && typeIs(propertyValue, "number"))
-				propertyValue /= 10;
 			block[propertyName] = propertyValue as never;
 		}
 
