@@ -28,7 +28,7 @@ class MidFrame extends Roact.Component {
 				BackgroundColor3={Color3.fromRGB(162, 199, 255)}
 				ClipsDescendants={true}
 				Position={UDim2.fromScale(0.5, 0.535)}
-				Size={UDim2.fromScale(0.95, 0.45)}
+				Size={UDim2.fromScale(0.85, 0.45)}
 			>
 				<frame
 					AnchorPoint={new Vector2(0.5, 0)}

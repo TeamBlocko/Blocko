@@ -10,13 +10,13 @@ function BottomFrame(props: BottomFramePropTypes) {
 	return (
 		<frame
 			AnchorPoint={new Vector2(0.5, 1)}
-			BackgroundColor3={Color3.fromRGB(30, 30, 30)}
+			BackgroundColor3={Color3.fromRGB(20, 20, 20)}
 			Position={UDim2.fromScale(0.5, 1)}
 			Size={UDim2.fromScale(1, 0.175)}
 		>
 			<frame
 				AnchorPoint={new Vector2(0.5, 0)}
-				BackgroundColor3={Color3.fromRGB(29, 29, 29)}
+				BackgroundColor3={Color3.fromRGB(20, 20, 20)}
 				BorderSizePixel={0}
 				Position={UDim2.fromScale(0.5, 0)}
 				Size={UDim2.fromScale(1, 0.25)}
@@ -69,6 +69,7 @@ class WorldCreationFrame extends Roact.Component {
 					Image={"rbxassetid://6408795655"}
 					ImageColor3={new Color3()}
 					ImageTransparency={0.5}
+					ZIndex={0}
 				/>
 				<CreationFramePages Progress={this.motor} />
 				<BottomFrame Progress={this.binding} />

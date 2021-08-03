@@ -13,7 +13,7 @@ function TopFrame(props: TopFramePropTypes) {
 			AnchorPoint={new Vector2(0.5, 0)}
 			BackgroundTransparency={1}
 			Position={UDim2.fromScale(0.5, 0.065)}
-			Size={UDim2.fromScale(0.85, 0.2)}
+			Size={UDim2.fromScale(0.85, props.TitleSize ? 0.25 : 0.2)}
 		>
 			<textlabel
 				AnchorPoint={new Vector2(0.5, 0)}
@@ -41,7 +41,7 @@ function TopFrame(props: TopFramePropTypes) {
 				TextXAlignment={Enum.TextXAlignment.Left}
 			/>
 			{Roact.oneChild(props[Roact.Children])}
-			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} Padding={new UDim(0.075, 0)} />
+			<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Left} Padding={new UDim(0.075, 0)} />
 		</frame>
 	);
 }

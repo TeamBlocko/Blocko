@@ -28,11 +28,12 @@ class WorldsMenu extends Roact.Component<{}, ContextType> {
 			>
 				<imagelabel
 					AnchorPoint={new Vector2(1, 0.5)}
-					BackgroundTransparency={1}
+					BackgroundColor3={Color3.fromRGB(20, 20, 20)}
 					BorderSizePixel={0}
 					Position={UDim2.fromScale(1, 0.5)}
 					Size={UDim2.fromScale(0.922, 1)}
 					Image={"rbxassetid://6397653967"}
+					ImageTransparency={1}
 					ScaleType={Enum.ScaleType.Tile}
 				>
 					<PopupFrames />
