@@ -1,9 +1,13 @@
-import Roact, { RoactBinding } from "@rbxts/roact";
+import Roact from "@rbxts/roact";
 import NumberInput from "template/client/components/misc/NumberInput";
 
-function SliderInput(
-	props: SliderDisplayPropTypes & { OnTextChange: (e: TextBox) => void; Binding: RoactBinding<number> },
-) {
+interface SliderInputPropTypes extends SliderDisplayPropTypes {
+	OnTextChange: (e: TextBox) => void;
+	Binding: Roact.Binding<number>;
+	DecimalPlace?: number;
+}
+
+function SliderInput(props: SliderInputPropTypes) {
 	return (
 		<NumberInput
 			TextBoxProps={{
@@ -14,13 +18,14 @@ function SliderInput(
 				Size: UDim2.fromOffset(20, 12),
 				Transparency: props.Binding.map((value) => value),
 				Font: Enum.Font.Gotham,
-				Text: "%.2f".format(`${props.Value}`),
+				Text: `%.${props.DecimalPlace}f`.format(`${props.Value}`),
 				TextColor3: Color3.fromRGB(89, 161, 255),
 				TextWrapped: true,
 			}}
 			OnValidInput={(e) => props.OnTextChange(e)}
 			Options={{
 				Range: props.Range,
+				decimalPlace: props.DecimalPlace
 			}}
 		>
 			<uicorner CornerRadius={new UDim(0, 4)} />

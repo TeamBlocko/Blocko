@@ -1,4 +1,4 @@
-import Roact, { RoactBinding } from "@rbxts/roact";
+import Roact from "@rbxts/roact";
 import BarPoints from "./BarPoints";
 import SliderInput from "./SliderInput";
 import { map } from "template/shared/utility";
@@ -12,7 +12,8 @@ interface SliderBar {
 	Min: MinMax;
 	Max: MinMax;
 	Value: number;
-	Binding: RoactBinding<number>;
+	Binding: Roact.Binding<number>;
+	DeciminalPlace?: number;
 	HandleInput: (element: TextButton, InputObject: InputObject) => void;
 	OnTextChange: (text: TextBox) => void;
 }
@@ -50,6 +51,7 @@ function SliderBar(props: SliderBar) {
 				<SliderInput
 					Binding={props.Binding}
 					Value={props.Value}
+					DecimalPlace={props.DeciminalPlace}
 					OnTextChange={(text) => props.OnTextChange(text)}
 					Range={{ Min: props.Min.Value, Max: props.Max.Value }}
 				/>
