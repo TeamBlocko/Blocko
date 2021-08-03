@@ -6,7 +6,7 @@
 	"dependencies": {
 		"@rbxts/compiler-types": "^1.2.3-types.0",
 		"@rbxts/flipper": "^2.0.0",
-		"@rbxts/net": "^2.1.4",
+		"@rbxts/net": "^2.1.0",
 		"@rbxts/number-manipulator": "^1.1.2",
 		"@rbxts/object-utils": "^1.0.4",
 		"@rbxts/roact": "^1.4.0-ts.1",
