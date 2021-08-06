@@ -46,6 +46,12 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Setup cargo
+        uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: remodel --git https://github.com/alihsaas/remodel --branch enum-support
+
       - name: Create release
         id: create-release
         uses: actions/create-release@v1
