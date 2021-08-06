@@ -93,9 +93,9 @@ function MiddleFrame(props: MiddleFramePropTypes) {
 			/>
 			{[
 				Enum.Technology.Compatibility,
-				Enum.Technology.Future,
-				Enum.Technology.ShadowMap,
 				Enum.Technology.Voxel,
+				Enum.Technology.ShadowMap,
+				Enum.Technology.Future,
 			].map((technology) => (
 				<LightingButton
 					Image={technologyIcons[technology.Name]}
