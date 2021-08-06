@@ -1,4 +1,4 @@
-local addModels = require("addModels")
+local addModels = require("remodel/addModels")
 
 local worldPath = "./dist/hub.rbxl"
 

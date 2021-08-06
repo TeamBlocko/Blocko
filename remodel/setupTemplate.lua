@@ -1,4 +1,4 @@
-local addModels = require("addModels")
+local addModels = require("remodel/addModels")
 local args = { ... }
 local isPacked = args[1] == "packed"
 
@@ -39,7 +39,7 @@ if isPacked then
 	replicatedStorage.TS.Parent = resources.ReplicatedStorage
 	playerScripts.TS.Parent = resources.StarterPlayer.StarterPlayerScripts
 
-	local loaderResourcesScript = require("addLoadScript")
+	local loaderResourcesScript = require("remodel/addLoadScript")
 	loaderResourcesScript.Parent = serverScriptService
 end
 
