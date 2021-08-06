@@ -7,6 +7,14 @@ type DeepPartial<T> = {
 	[P in keyof T]?: DeepPartial<T[P]>;
 };
 
+const template_places: { [K in Exclude<keyof typeof Enum.Technology, "GetEnumItems">]: number } = {
+	"Compatibility":5102195906,
+	"Voxel":7195338159,
+	"ShadowMap":7195431613,
+	"Future":7195436456,
+	"Legacy": 0,
+}
+
 export = (
 	player: Player,
 	worldsStore: DataSyncStore<WorldDataSync>,
@@ -18,7 +26,7 @@ export = (
 	const worlds = playerFile.GetData();
 	const worldsCount = worlds.data.ownedWorlds.size();
 	print(`Current world size at ${worldsCount}`);
-	const worldId = AssetService.CreatePlaceAsync("Blocko World", 5102195906);
+	const worldId = AssetService.CreatePlaceAsync("Blocko World", template_places[options.Lighting.Name]);
 
 	worlds.data.ownedWorlds.push(worldId);
 
