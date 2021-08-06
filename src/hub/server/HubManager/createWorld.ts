@@ -8,12 +8,12 @@ type DeepPartial<T> = {
 };
 
 const template_places: { [K in Exclude<keyof typeof Enum.Technology, "GetEnumItems">]: number } = {
-	"Compatibility":5102195906,
-	"Voxel":7195338159,
-	"ShadowMap":7195431613,
-	"Future":7195436456,
-	"Legacy": 0,
-}
+	Compatibility: 5102195906,
+	Voxel: 7195338159,
+	ShadowMap: 7195431613,
+	Future: 7195436456,
+	Legacy: 0,
+};
 
 export = (
 	player: Player,
