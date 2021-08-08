@@ -31,7 +31,7 @@ class PopupFrames extends Roact.Component<PopupFramesPropTypes> {
 			<frame
 				BackgroundTransparency={this.binding.map((value) => map(1 - value, 0, 1, 0.5, 1))}
 				Size={UDim2.fromScale(1, 1)}
-				BackgroundColor3={new Color3()}	
+				BackgroundColor3={new Color3()}
 				ZIndex={3}
 			>
 				{this.props.VisibleFrame?.name === "Create" ? (
