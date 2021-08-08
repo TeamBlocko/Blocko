@@ -33,11 +33,13 @@ function Lighting(props: LightingPropTypes) {
 				Name="Ambient"
 				Default={props.Ambient}
 				OnChange={(newValue) => props.OnColorPickerUpdate("Ambient", newValue)}
+				LayoutOrder={1}
 			/>
 			<ColorDisplay
 				Name="Outdoor Ambient"
 				Default={props.OutdoorAmbient}
 				OnChange={(newValue) => props.OnColorPickerUpdate("OutdoorAmbient", newValue)}
+				LayoutOrder={2}
 			/>
 			<Slider
 				Name="Time"
@@ -45,6 +47,7 @@ function Lighting(props: LightingPropTypes) {
 				Max={12}
 				Default={props.Time}
 				OnChange={(newValue) => props.OnSliderUpdate("Time", newValue)}
+				LayoutOrder={3}
 			/>
 			<Slider
 				Name="Brightness"
@@ -52,6 +55,7 @@ function Lighting(props: LightingPropTypes) {
 				Max={10}
 				Default={props.Brightness}
 				OnChange={(newValue) => props.OnSliderUpdate("Brightness", newValue)}
+				LayoutOrder={4}
 			/>
 			<SliderAndCheckBox
 				Name="Cycle"
@@ -60,6 +64,7 @@ function Lighting(props: LightingPropTypes) {
 					Max: 10,
 					Default: props.Cycle,
 					OnChange: (newValue) => props.OnSliderUpdate("Cycle", newValue),
+					LayoutOrder: 5,
 				}}
 				CheckBoxSettings={{
 					Default: props.CycleEnabled,
@@ -70,6 +75,7 @@ function Lighting(props: LightingPropTypes) {
 				Name="Global Shadows"
 				Default={props.GlobalShadows}
 				OnChange={(newValue) => props.OnCheckBoxUpdate("GlobalShadows", newValue)}
+				LayoutOrder={6}
 			/>
 			<Slider
 				Name="Environment Diffuse Scale"
@@ -78,6 +84,7 @@ function Lighting(props: LightingPropTypes) {
 				Max={1}
 				DeciminalPlace={2}
 				OnChange={(newValue) => props.OnSliderUpdate("EnvironmentDiffuseScale", newValue)}
+				LayoutOrder={7}
 			/>
 			<Slider
 				Name="Environment Specular Scale"
@@ -86,6 +93,7 @@ function Lighting(props: LightingPropTypes) {
 				Max={1}
 				DeciminalPlace={2}
 				OnChange={(newValue) => props.OnSliderUpdate("EnvironmentSpecularScale", newValue)}
+				LayoutOrder={8}
 			/>
 			<Slider
 				Name="Exposure Compensation"
@@ -94,6 +102,7 @@ function Lighting(props: LightingPropTypes) {
 				Max={3}
 				DeciminalPlace={2}
 				OnChange={(newValue) => props.OnSliderUpdate("ExposureCompensation", newValue)}
+				LayoutOrder={9}
 			/>
 		</Container>
 	);
