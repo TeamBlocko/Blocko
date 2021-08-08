@@ -120,11 +120,12 @@ class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTyp
 						HandleClick={(inputButton: TextButton) => this.HandleClick(inputButton)}
 					/>
 					<RGBValues Value={this.props.Default} onTextChange={(...args) => this.onTextChange(...args)} />
-					{this.state.Selected && this.root && this.props.Mode === "Place" && (
+					{this.root && (
 						<Portal target={this.root}>
 							<ColorPicker
 								Name={this.props.Name}
 								Value={this.props.Default}
+								Visible={this.state.Selected && this.props.Mode === "Place"}
 								onChange={(color: Color3) => this.onColorChange(color)}
 								UpdateColorPickerBinding={(e) => this.updateColorPickerBinding(e)}
 								OnClose={(inputButton: ImageButton) => this.HandleClick(inputButton)}

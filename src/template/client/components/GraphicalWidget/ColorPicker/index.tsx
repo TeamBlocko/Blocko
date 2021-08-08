@@ -54,6 +54,7 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 	shouldUpdate(nextProps: ColorPickerPropTypes, nextState: ColorPickerStateTypes) {
 		return (
 			nextState.ShouldUpdate ||
+			nextProps.Visible !== this.props.Visible ||
 			(tostring(nextProps.Value) !== tostring(this.state.Value) &&
 				tostring(nextProps.Value) !== tostring(this.props.Value))
 		);
@@ -68,6 +69,7 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 				BackgroundColor3={Color3.fromRGB(35, 35, 35)}
 				BackgroundTransparency={0}
 				Size={UDim2.fromOffset(225, 300)}
+				Visible={this.props.Visible}
 				Ref={(element) => {
 					this.props.UpdateColorPickerBinding !== undefined && this.props.UpdateColorPickerBinding(element);
 				}}

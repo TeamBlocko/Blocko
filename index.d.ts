@@ -116,6 +116,7 @@ declare global {
 	interface ColorPickerPropTypes {
 		Value: Color3;
 		Name: string;
+		Visible: boolean;
 		onChange: (color: Color3) => void;
 		OnClose: (inputButton: ImageButton) => void;
 		UpdateColorPickerBinding?: Roact.BindingFunction<Frame | undefined>;
