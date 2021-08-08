@@ -15,6 +15,7 @@ import { appContext, ContextType } from "template/client/appContext";
 
 import { updateProperty, UpdateBasePart } from "template/client/rodux/placementSettings";
 import { IState, PlacementSettings } from "template/shared/Types";
+import { shapes as orderedShapes } from "template/client/shapes";
 
 interface BuildUIProps extends PlacementSettings {
 	OnSliderUpdate(propertyName: "Transparency" | "Reflectance", value: number): void;
@@ -24,7 +25,7 @@ interface BuildUIProps extends PlacementSettings {
 	OnSizeUpdate(propertyName: "Size", value: Vector3): void;
 }
 
-const Shapes = ReplicatedStorage.BlockTypes;
+const shapes = ReplicatedStorage.BlockTypes;
 
 const ignoreMaterials: Enum.Material[] = [
 	Enum.Material.Air,
@@ -117,9 +118,9 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									Name="Shape"
 									Default={this.props.Shape}
 									ZIndex={12}
-									Items={Shapes.GetChildren()}
+									Items={orderedShapes}
 									OnChange={(newValue: Instance) => this.props.OnDropdownUpdate("Shape", newValue)}
-									GetValue={(value: keyof typeof Shapes) => Shapes[value] as Instance}
+									GetValue={(value: keyof typeof Shapes) => shapes[value] as Instance}
 									LayoutOrder={2}
 								/>
 								<Dropdown

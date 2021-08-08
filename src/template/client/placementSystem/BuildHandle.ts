@@ -5,6 +5,7 @@ import { UpdateBasePart } from "../rodux/placementSettings";
 import store from "../store";
 import { previousInTable, nextInTable } from "common/shared/utility";
 import { PlacementSettings } from "template/shared/Types";
+import { shapes as orderedShapes } from "../shapes";
 
 const client = Players.LocalPlayer;
 const playerGui = client.FindFirstChildOfClass("PlayerGui") as PlayerGui;
@@ -54,7 +55,7 @@ class BuildHandler {
 	nextBlockType() {
 		store.dispatch(
 			UpdateBasePart(
-				nextInTable(this.shapes.GetChildren() as BasePart[], store.getState().PlacementSettings.Shape),
+				nextInTable(orderedShapes, store.getState().PlacementSettings.Shape),
 			),
 		);
 	}
@@ -62,7 +63,7 @@ class BuildHandler {
 	previousBlockType() {
 		store.dispatch(
 			UpdateBasePart(
-				previousInTable(this.shapes.GetChildren() as BasePart[], store.getState().PlacementSettings.Shape),
+				previousInTable(orderedShapes, store.getState().PlacementSettings.Shape),
 			),
 		);
 	}
