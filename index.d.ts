@@ -207,11 +207,11 @@ declare global {
 	interface iNotification {
 		Id: string;
 		OnRemoval?: () => void;
-		Title?: string;
+		Title: string;
 		Message?: string;
 		Width?: number;
 		HasBeenRemoved?: boolean;
-		Icon?: string;
+		Icon: string;
 		isApplyPrompt?: boolean;
 		OnCancelPrompt?: () => void;
 		OnApplyPrompt?: () => void;

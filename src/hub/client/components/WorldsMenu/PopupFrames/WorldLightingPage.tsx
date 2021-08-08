@@ -57,6 +57,7 @@ class LightingButton extends Roact.Component<LightingButtonPropTypes> {
 					ImageTransparency={this.binding.map((value) => 1 - value)}
 					ImageColor3={Color3.fromRGB(69, 165, 255)}
 				>
+					<uicorner CornerRadius={new UDim(0.075, 0)} />
 					<uistroke Color={Color3.fromRGB(254, 254, 254)} />
 				</imagelabel>
 				<uicorner CornerRadius={new UDim(0.075, 0)} />

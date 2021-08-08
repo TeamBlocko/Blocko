@@ -72,6 +72,10 @@ class CreationFramePages extends Roact.Component<CreationFramePagesPropTypes, Cr
 							...info,
 						}))
 					}
+					Info={{
+						Name: this.state.Name,
+						Description: this.state.Description,
+					}}
 				/>
 				<WorldLightingPage
 					Selected={this.state.Lighting}

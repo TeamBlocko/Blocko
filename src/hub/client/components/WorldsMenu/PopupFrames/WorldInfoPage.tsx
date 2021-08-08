@@ -66,8 +66,8 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 					ClearTextOnFocus={false}
 					TextXAlignment={Enum.TextXAlignment.Left}
 					Event={{
-						Focused: () => this.motor.setGoal({ name: new Flipper.Spring(1, { frequency: 1 }) }),
-						FocusLost: () => this.motor.setGoal({ name: new Flipper.Spring(0, { frequency: 1 }) }),
+						Focused: () => this.motor.setGoal({ name: new Flipper.Linear(1) }),
+						FocusLost: () => this.motor.setGoal({ name: new Flipper.Linear(0) }),
 					}}
 					Change={{
 						Text: (e) => {
@@ -106,8 +106,8 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 					ClearTextOnFocus={false}
 					TextXAlignment={Enum.TextXAlignment.Left}
 					Event={{
-						Focused: () => this.motor.setGoal({ description: new Flipper.Spring(1, { frequency: 1 }) }),
-						FocusLost: () => this.motor.setGoal({ description: new Flipper.Spring(0, { frequency: 1 }) }),
+						Focused: () => this.motor.setGoal({ description: new Flipper.Linear(1) }),
+						FocusLost: () => this.motor.setGoal({ description: new Flipper.Spring(0) }),
 					}}
 					Change={{
 						Text: (e) => {
@@ -141,13 +141,24 @@ class MidFrame extends Roact.Component<MidFramePropTypes, Info> {
 
 	didUpdate() {
 		this.props.OnUpdate({
-			Name: this.state.Name === "" ? undefined : this.state.Name,
-			Description: this.state.Description === "" ? undefined : this.state.Description,
+			Name: this.state.Name === "" ? Roact.None : this.state.Name,
+			Description: this.state.Description === "" ? Roact.None : this.state.Description,
 		});
 	}
 }
 
+function isInfoValid(info: Info): [true, ""] | [false, "Name" | "Description"] {
+	if (info.Name !== undefined && info.Name.size() < 6) {
+		return [false, "Name"];
+	}
+	if (info.Description !== undefined && info.Description.size() < 6) {
+		return [false, "Description"];
+	}
+	return [true, ""];
+}
+
 function WorldInfoPage(props: WorldInfoPagePropTypes) {
+	const [isValid, info] = isInfoValid(props.Info);
 	return (
 		<frame
 			AnchorPoint={new Vector2(0.5, 0.5)}
@@ -165,8 +176,18 @@ function WorldInfoPage(props: WorldInfoPagePropTypes) {
 			<BottomFrame
 				Button1Click={() => props.OnReturn()}
 				Button1Text={"Return"}
-				Button2Click={() => props.OnNext()}
+				Button2Click={() => {
+					if (isValid === false)
+						return notificationStore.addNotification({
+							Title: `Not Valid ${info}`,
+							Message: `${info} should be longer than 6 characters!`,
+							Icon: "rbxassetid://7080677632",
+							Time: 5,
+						});
+					props.OnNext();
+				}}
 				Button2Text={"Next"}
+				Button2Disabled={!isValid}
 			/>
 		</frame>
 	);

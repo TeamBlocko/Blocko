@@ -24,6 +24,7 @@ function BottomFrame(props: BottomFramePropTypes) {
 			<uicorner CornerRadius={new UDim(0.2, 0)} />
 			<frame
 				BackgroundColor3={Color3.fromRGB(83, 178, 255)}
+				BorderSizePixel={0}
 				Size={props.Progress.map((value) => UDim2.fromScale(value, 0.025))}
 			/>
 		</frame>
