@@ -1,7 +1,7 @@
 import { TextService } from "@rbxts/services";
 import Roact from "@rbxts/roact";
 import NumberInput from "template/client/components/misc/NumberInput";
-import { validateText } from "template/shared/utility";
+import { validateText } from "common/shared/utility";
 
 interface RGBValuesPropTypes {
 	Value: Color3;

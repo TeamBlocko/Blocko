@@ -2,7 +2,7 @@ import { TextService, Workspace } from "@rbxts/services";
 import Roact, { Component } from "@rbxts/roact";
 import { Notification } from "./Notification";
 import { ApplyPrompt } from "./ApplyPrompt";
-import store from "template/client/notificationStore";
+import store from "common/client/notificationStore";
 
 const camera = Workspace.CurrentCamera as Camera;
 
@@ -14,13 +14,10 @@ export class NotificationContainer extends Component<
 	NotificationContainerPropTypes,
 	{ notifications: iNotification[] }
 > {
-	frameRef: Roact.Ref<ScrollingFrame>;
 	timeContainer = new Map<string, boolean>();
 
 	constructor(props: NotificationContainerPropTypes) {
 		super(props);
-
-		this.frameRef = Roact.createRef();
 
 		this.setState({
 			notifications: [],
@@ -85,9 +82,7 @@ export class NotificationContainer extends Component<
 	}
 
 	renderNotifications() {
-		let currentPosition = 0;
-
-		const notifications = this.state.notifications.map((notification, index) => {
+		const notifications = this.state.notifications.map((notification) => {
 			const textSize = TextService.GetTextSize(
 				notification.Message !== undefined ? notification.Message.gsub("<.->", "")[0] : "",
 				18,
@@ -98,12 +93,9 @@ export class NotificationContainer extends Component<
 			const maxWidth = camera.ViewportSize.X * 0.8;
 			const computedFrameSize = math.min(maxWidth, textSize.X + 80);
 
-			const length = 50 + math.floor(computedFrameSize / maxWidth);
-
 			const element = !notification.isApplyPrompt ? (
 				<Notification
 					{...notification}
-					Position={new UDim2(0.5, 0, 0, currentPosition)}
 					FrameSize={computedFrameSize}
 					MaxWidth={camera.ViewportSize.X * 0.8}
 					toggleRemoval={(id) => this.toggleRemoval(id)}
@@ -111,43 +103,31 @@ export class NotificationContainer extends Component<
 			) : (
 				<ApplyPrompt
 					{...notification}
-					Position={new UDim2(0.5, 0, 0, currentPosition)}
 					FrameSize={computedFrameSize}
 					MaxWidth={camera.ViewportSize.X * 0.8}
 					toggleRemoval={(id) => this.toggleRemoval(id)}
 				/>
 			);
-
-			currentPosition +=
-				(!notification.HasBeenRemoved ? length : 0) +
-				(this.state.notifications.size() - 1 === index || notification.HasBeenRemoved ? 0 : 10);
-
 			return element;
 		});
-
-		const frame = this.frameRef.getValue();
-
-		if (frame !== undefined) frame.CanvasSize = UDim2.fromOffset(0, currentPosition);
 
 		return notifications;
 	}
 
 	render() {
 		return (
-			<scrollingframe
-				Ref={this.frameRef}
+			<frame
 				Key={"NotificationContainer"}
-				AnchorPoint={new Vector2(0.5, 0)}
+				AnchorPoint={new Vector2(0, 1)}
 				BackgroundTransparency={1}
-				Position={new UDim2(0.5, 0, 0, 36)}
-				Size={UDim2.fromScale(0.8, 0.4)}
+				Position={new UDim2(0, 15, 1, -15)}
+				AutomaticSize={Enum.AutomaticSize.XY}
 				ClipsDescendants={true}
-				ScrollBarImageTransparency={0.85}
-				ScrollBarThickness={3}
-				CanvasSize={new UDim2()}
+				ZIndex={2}
 			>
+				<uilistlayout VerticalAlignment={Enum.VerticalAlignment.Bottom} Padding={new UDim(0, 10)} />
 				{this.renderNotifications()}
-			</scrollingframe>
+			</frame>
 		);
 	}
 }

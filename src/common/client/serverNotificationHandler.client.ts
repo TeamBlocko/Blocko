@@ -7,17 +7,17 @@ function handleNotification(notification: RemoteNotification) {
 	else if (notification.Type === "Remove") notificationStore.removeNotification(notification.Id);
 }
 
-const remoteNotification = t.union(
+const remoteNotification: t.check<iNotification | RemoteNotification> = t.union(
 	t.interface({
 		Type: t.literal("Add"),
 		Data: t.intersection(
 			t.interface({
 				OnRemoval: t.optional(t.callback),
-				Title: t.optional(t.string),
+				Title: t.string,
 				Message: t.optional(t.string),
 				Width: t.optional(t.number),
 				HasBeenRemoved: t.optional(t.boolean),
-				Icon: t.optional(t.string),
+				Icon: t.string,
 				isApplyPrompt: t.optional(t.boolean),
 				OnCancelPrompt: t.optional(t.callback),
 				OnApplyPrompt: t.optional(t.callback),

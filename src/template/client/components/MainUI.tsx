@@ -3,7 +3,7 @@ import Roact from "@rbxts/roact";
 import store from "template/client/store";
 import BuildUI from "./BuildUI";
 import WorldMenu from "./WorldMenu";
-import { NotificationContainer } from "./NotificationContainer";
+import { NotificationContainer } from "common/client/components/NotificationContainer";
 
 function MainUI() {
 	return (

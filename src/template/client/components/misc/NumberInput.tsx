@@ -1,5 +1,5 @@
 import Roact, { Children } from "@rbxts/roact";
-import { validateText } from "template/shared/utility";
+import { validateText } from "common/shared/utility";
 
 interface OnValidInput {
 	(e: TextBox, value: number): void;

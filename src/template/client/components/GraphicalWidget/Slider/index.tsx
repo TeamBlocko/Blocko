@@ -4,7 +4,7 @@ import { SingleMotor, Spring } from "@rbxts/flipper";
 import TitleText from "template/client/components/misc/TitleText";
 import GWFrame from "template/client/components/misc/GWFrame";
 import SliderBar from "./SliderBar";
-import { map, validateText } from "template/shared/utility";
+import { map, validateText } from "common/shared/utility";
 
 class Slider extends Roact.Component<SliderPropTypes & Roact.PropsWithChildren, GWStateTypes<number>> {
 	private frameRef: Roact.Ref<Frame>;

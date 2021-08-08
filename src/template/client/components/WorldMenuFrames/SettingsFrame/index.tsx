@@ -4,7 +4,7 @@ import { entries, deepEquals } from "@rbxts/object-utils";
 import { ActionRecievedUpdateWorldSettings, updateWorldSettings } from "template/shared/worldSettingsReducer";
 import { retriveWorldSettings } from "template/client/replicationManager";
 import store from "template/client/store";
-import notificationStore from "template/client/notificationStore";
+import notificationStore from "common/client/notificationStore";
 import Container from "../WorldMenuFramesContainer";
 import NavBar from "../NavBar";
 import Gap from "common/client/components/misc/Gap";

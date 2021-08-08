@@ -3,11 +3,14 @@ import Flipper from "@rbxts/flipper";
 import BottomFrame from "./BottomFrame";
 import TopFrame from "./TopFrame";
 
+import notificationStore from "common/client/notificationStore";
+
 interface WorldInfoPagePropTypes {
 	FrameRef: Roact.Ref<Frame>;
 	OnNext: () => void;
 	OnReturn: () => void;
 	OnUpdate: (info: Info) => void;
+	Info: Info;
 }
 
 interface Info {

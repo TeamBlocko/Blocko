@@ -1,7 +1,7 @@
 import Roact from "@rbxts/roact";
 import BarPoints from "./BarPoints";
 import SliderInput from "./SliderInput";
-import { map } from "template/shared/utility";
+import { map } from "common/shared/utility";
 
 interface MinMax {
 	Value: number;

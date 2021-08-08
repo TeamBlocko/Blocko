@@ -1,4 +1,4 @@
-import { color3ToHex, hexToColor3 } from "template/shared/utility";
+import { color3ToHex, hexToColor3 } from "common/shared/utility";
 
 class Serializer {
 	protected serialize(value: string): string;

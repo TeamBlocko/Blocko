@@ -3,7 +3,7 @@ import { Client } from "@rbxts/net";
 import GridBase from "./GridBase";
 import { UpdateBasePart } from "../rodux/placementSettings";
 import store from "../store";
-import { previousInTable, nextInTable } from "template/shared/utility";
+import { previousInTable, nextInTable } from "common/shared/utility";
 import { PlacementSettings } from "template/shared/Types";
 
 const client = Players.LocalPlayer;

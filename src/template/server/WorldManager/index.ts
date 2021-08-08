@@ -115,8 +115,10 @@ class WorldManager {
 					Type: "Add",
 					Data: {
 						Id: "SaveStatus",
-						Message: "Saving World",
+						Title: "Saving World",
+						Message: "",
 						Time: 5,
+						Icon: "rbxassetid://7148978151",
 					},
 				});
 			}
@@ -155,9 +157,11 @@ class WorldManager {
 						Type: "Add",
 						Data: {
 							Id: "SaveStatusFinished",
-							Message: `Done Saving. Current world size is at <font color="rgb(${stringTextColor})">${abbreviateBytes(
+							Title: "Saving Done",
+							Message: `Done Saving. Current world size is at <b><font color="rgb(${stringTextColor})">${abbreviateBytes(
 								serialized.size(),
-							)}</font>`,
+							)}</font></b>`,
+							Icon: "rbxassetid://7148978151",
 							Time: 5,
 						},
 					},
@@ -174,7 +178,9 @@ class WorldManager {
 					Type: "Add",
 					Data: {
 						Id: "SaveStatus",
+						Title: "Saving Failed",
 						Message: `Failed to save with error: ${err}`,
+						Icon: "rbxassetid://7148978151",
 					},
 				},
 			]);

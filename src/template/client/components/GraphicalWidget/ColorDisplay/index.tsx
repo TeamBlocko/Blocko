@@ -7,7 +7,7 @@ import ColorPicker from "../ColorPicker";
 import PickButton from "./PickButton";
 import RGBValues from "./RGBValues";
 
-import { getPosOnAxis } from "template/shared/utility";
+import { getPosOnAxis } from "common/shared/utility";
 
 const currentCamera = Workspace.CurrentCamera;
 

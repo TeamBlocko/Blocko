@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { nextInTable } from "template/shared/utility";
+import { nextInTable } from "common/shared/utility";
 import GWFrame from "../misc/GWFrame";
 import TitleText from "../misc/TitleText";
 
