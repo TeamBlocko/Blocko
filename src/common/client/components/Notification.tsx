@@ -70,7 +70,7 @@ export class Notification extends Component<NotificationPropTypes> {
 						TextWrap={true}
 						TextXAlignment={Enum.TextXAlignment.Left}
 					/>
-					<textlabel
+					<textbox
 						AutomaticSize={Enum.AutomaticSize.XY}
 						BackgroundTransparency={1}
 						Font={Enum.Font.GothamSemibold}
@@ -78,6 +78,8 @@ export class Notification extends Component<NotificationPropTypes> {
 						Text={this.props.Message}
 						TextColor3={new Color3(1, 1, 1)}
 						TextSize={14}
+						TextEditable={false}
+						ClearTextOnFocus={false}
 						TextTransparency={this.binding.map((value) => map(value, 0, 1, 0.25, 1))}
 						TextWrap={true}
 						TextXAlignment={Enum.TextXAlignment.Left}

@@ -1,5 +1,5 @@
 import { UserInputService, ReplicatedStorage } from "@rbxts/services";
-import Roact, { Component, createRef, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
+import Roact, { Component, createRef, createBinding } from "@rbxts/roact";
 import { SingleMotor, Spring } from "@rbxts/flipper";
 import NavigationFrame from "./WorldMenuFrames/NavigationFrame";
 import WorldInfoFrame from "./WorldMenuFrames/WorldInfoFrame";
@@ -16,8 +16,8 @@ class WorldMenu extends Component {
 	private permissionsFrameRef: Roact.Ref<Frame>;
 
 	private motor: SingleMotor;
-	private binding: RoactBinding<number>;
-	private setBinding: RoactBindingFunc<number>;
+	private binding: Roact.Binding<number>;
+	private setBinding: Roact.BindingFunction<number>;
 
 	constructor() {
 		super({});
@@ -76,7 +76,7 @@ class WorldMenu extends Component {
 				Position={UDim2.fromScale(1, 0)}
 				Size={new UDim2(0, 300, 1, 0)}
 			>
-				<textlabel
+				<textbox
 					AnchorPoint={new Vector2(0, 1)}
 					BackgroundTransparency={1}
 					Position={UDim2.fromScale(0, 1)}
@@ -84,6 +84,8 @@ class WorldMenu extends Component {
 					Font={Enum.Font.SourceSans}
 					Text={tostring(VERSION)}
 					TextColor3={new Color3(1, 1, 1)}
+					TextEditable={false}
+					ClearTextOnFocus={false}
 					TextSize={14}
 					TextXAlignment={Enum.TextXAlignment.Right}
 					ZIndex={2}
