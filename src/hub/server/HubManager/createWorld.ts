@@ -2,6 +2,7 @@ import { assign } from "@rbxts/object-utils";
 import { ser } from "@rbxts/ser";
 import { AssetService } from "@rbxts/services";
 import { DataSyncStore } from "common/server/LazLoader";
+import { worldInfoSerializer } from "common/server/WorldInfo/worldSchemes";
 
 type DeepPartial<T> = {
 	[P in keyof T]?: DeepPartial<T[P]>;
@@ -20,7 +21,7 @@ export = (
 	worldsStore: DataSyncStore<WorldDataSync>,
 	ownedWorlds: DataSyncStore<PlayerDataSync>,
 	options: CreationOptions,
-) => {
+): World => {
 	const playerFile = ownedWorlds.GetFile(`${player.UserId}`);
 
 	const worlds = playerFile.GetData();
@@ -56,5 +57,5 @@ export = (
 	worldFile.SaveData();
 	print("created world");
 
-	return worldId;
+	return worldInfoSerializer.deserialize(worldFile.GetData().data);
 };

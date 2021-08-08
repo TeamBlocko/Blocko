@@ -1,6 +1,5 @@
 import { Workspace, DataStoreService, ReplicatedStorage, Players, AssetService } from "@rbxts/services";
 import { AnyAction, Store } from "@rbxts/rodux";
-import { ser } from "@rbxts/ser";
 import { Server } from "@rbxts/net";
 import LazLoader, { DataSyncFile } from "common/server/LazLoader";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
@@ -8,7 +7,7 @@ import { storeInitializer } from "template/server/store";
 import BlockSerializer from "template/server/blocksSerializer";
 import { WorldSettingsActionTypes } from "template/shared/worldSettingsReducer";
 import MockODS from "common/server/MockODS";
-import { worldInfoScheme, worldSettingsScheme } from "common/server/WorldInfo/worldSchemes";
+import { worldInfoSerializer } from "common/server/WorldInfo/worldSchemes";
 import { DEFAULT_WORLD } from "common/server/WorldInfo/defaultWorld";
 import { copy, assign } from "@rbxts/object-utils";
 import { getPlayersWithPerm } from "template/shared/permissionsUtility";
@@ -46,11 +45,6 @@ export enum BlockIds {
 const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTypes);
 
 const notificationHandler = new Server.Event<[], [RemoteNotification | RemoteNotification[]]>("NotificationManager");
-
-const worldInfoSerializer = ser.interface("World", {
-	Info: ser.interface("WorldInfo", worldInfoScheme),
-	Settings: ser.interface("WorldSettings", worldSettingsScheme),
-});
 
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
 const DATASTORE_VERSION = ReplicatedStorage.FindFirstChild("TS")
@@ -116,7 +110,7 @@ class WorldManager {
 					Data: {
 						Id: "SaveStatus",
 						Title: "Saving World",
-						Message: "",
+						Message: "This shouldn't take long. Report any issue that persists.",
 						Time: 5,
 						Icon: "rbxassetid://7148978151",
 					},

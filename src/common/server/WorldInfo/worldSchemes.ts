@@ -46,3 +46,8 @@ export const worldSettingsScheme: { [K in keyof WorldSettings]: ser.SerializerSt
 	EnvironmentSpecularScale: ser.number,
 	ExposureCompensation: ser.number,
 };
+
+export const worldInfoSerializer = ser.interface("World", {
+	Info: ser.interface("WorldInfo", worldInfoScheme),
+	Settings: ser.interface("WorldSettings", worldSettingsScheme),
+});

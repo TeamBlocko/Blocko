@@ -2,7 +2,9 @@ import { Server } from "@rbxts/net";
 
 const fetchWorlds = new Server.AsyncFunction<[Filter]>("FetchWorlds").SetCallTimeout(100);
 const fetchWorldInfo = new Server.AsyncFunction<[number]>("FetchWorldInfo").SetCallTimeout(100);
-const createWorldRemote = new Server.AsyncFunction<[CreationOptions]>("CreateWorld").SetCallTimeout(100);
+const createWorldRemote = new Server.AsyncFunction<[CreationOptions], [], unknown, World | undefined>(
+	"CreateWorld",
+).SetCallTimeout(100);
 const teleportPlayer = new Server.AsyncFunction<[number]>("TeleportPlayer").SetCallTimeout(100);
 
 import { DataStoreService, TeleportService, Players, ReplicatedStorage } from "@rbxts/services";
@@ -72,9 +74,10 @@ Players.PlayerRemoving.Connect((player) => {
 
 createWorldRemote.SetCallback((player, options) => {
 	if (!joiningWorld.get(player.UserId)) {
-		const worldId = createWorld(player, worldStore, ownedWorlds, options);
+		const world = createWorld(player, worldStore, ownedWorlds, options);
 		joiningWorld.set(player.UserId, true);
-		TeleportService.TeleportAsync(worldId, [player]);
+		TeleportService.TeleportAsync(world.Info.WorldId, [player]);
+		return world;
 	}
 });
 

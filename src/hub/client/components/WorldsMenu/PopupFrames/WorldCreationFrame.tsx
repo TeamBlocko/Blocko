@@ -31,14 +31,18 @@ function BottomFrame(props: BottomFramePropTypes) {
 	);
 }
 
-class WorldCreationFrame extends Roact.Component {
+interface WorldCreationFramePropTypes {
+	Position: Roact.Binding<number>;
+}
+
+class WorldCreationFrame extends Roact.Component<WorldCreationFramePropTypes> {
 	binding: Roact.Binding<number>;
 	setBinding: Roact.BindingFunction<number>;
 
 	motor: Flipper.SingleMotor;
 
-	constructor() {
-		super({});
+	constructor(props: WorldCreationFramePropTypes) {
+		super(props);
 
 		[this.binding, this.setBinding] = Roact.createBinding(0);
 
@@ -51,7 +55,9 @@ class WorldCreationFrame extends Roact.Component {
 			<frame
 				AnchorPoint={new Vector2(0.5, 0.5)}
 				BackgroundColor3={Color3.fromRGB(30, 30, 30)}
-				Position={UDim2.fromScale(0.5, 0.5)}
+				Position={this.props.Position.map((value) =>
+					UDim2.fromScale(0.5, 0.45).Lerp(UDim2.fromScale(0.5, 0.5), value),
+				)}
 				Size={UDim2.fromScale(0.35, 0.6)}
 			>
 				<imagelabel

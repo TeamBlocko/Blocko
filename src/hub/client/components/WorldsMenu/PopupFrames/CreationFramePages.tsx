@@ -5,14 +5,17 @@ import WorldFinishPage from "./WorldFinishPage";
 import WorldInfoPage from "./WorldInfoPage";
 import WorldLightingPage from "./WorldLightingPage";
 import WorldTemplatePage from "./WorldTemplatePage";
+import notificationStore from "common/client/notificationStore";
 
-const createWorld = Client.GetAsyncFunction<[], [CreationOptions]>("CreateWorld");
+const createWorld = Client.GetAsyncFunction<[], [CreationOptions], World | undefined>("CreateWorld");
 
 createWorld.SetCallTimeout(100);
 
 interface CreationFramePagesPropTypes {
 	Progress: Flipper.SingleMotor;
 }
+
+let creating = false;
 
 class CreationFramePages extends Roact.Component<CreationFramePagesPropTypes, CreationOptions> {
 	worldtemplatePageRef: Roact.Ref<Frame>;
@@ -96,7 +99,29 @@ class CreationFramePages extends Roact.Component<CreationFramePagesPropTypes, Cr
 					FrameRef={this.worldlightingPageRef}
 				/>
 				<WorldFinishPage
-					OnCreate={() => createWorld.CallServerAsync(this.state)}
+					OnCreate={() => {
+						if (creating === true) return;
+						creating = true;
+						notificationStore.addNotification({
+							Id: "CreatingWorld",
+							Title: "Creating World",
+							Message: "This might take some time.",
+							Time: 5,
+							Icon: "rbxassetid://7148978151",
+						});
+						createWorld.CallServerAsync(this.state).then((world) => {
+							notificationStore.removeNotification("CreatingWorld");
+							if (world !== undefined) {
+								notificationStore.addNotification({
+									Id: "WorldCreationDone",
+									Title: "Done creating World",
+									Message: `Teleporting you to your newly created world ${world.Settings.Name} [${world.Info.WorldId}]`,
+									Time: 5,
+									Icon: "rbxassetid://7148978151",
+								});
+							}
+						});
+					}}
 					OnReturn={() => {
 						this.changePage(this.worldlightingPageRef);
 						this.props.Progress.setGoal(new Flipper.Spring((1 / 3) * 2));
