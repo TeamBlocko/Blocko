@@ -1,6 +1,7 @@
 import { Workspace } from "@rbxts/services";
+import { connect } from "@rbxts/roact-rodux";
 import { DragDropProvider } from "@rbxts/roact-dnd";
-import Roact, { Component, Portal, createBinding, RoactBinding, RoactBindingFunc } from "@rbxts/roact";
+import Roact, { Component, Portal, createBinding } from "@rbxts/roact";
 import GWFrame from "template/client/components/misc/GWFrame";
 import TitleText from "template/client/components/misc/TitleText";
 import ColorPicker from "../ColorPicker";
@@ -8,24 +9,22 @@ import PickButton from "./PickButton";
 import RGBValues from "./RGBValues";
 
 import { getPosOnAxis } from "common/shared/utility";
+import { IState } from "template/shared/Types";
 
 const currentCamera = Workspace.CurrentCamera;
-
-interface Action<A> {
-	type: A;
-}
 
 type Binding = Frame | undefined;
 
 interface ColorDisplayPropTypes extends GWPropTypes<Color3> {
 	SizeYOffset?: number;
+	Mode: BuildMode;
 	Bindable?: BindableEvent;
 }
 
 class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTypes> {
 	private root: ScreenGui | undefined;
-	private colorPickerBinding: RoactBinding<Binding>;
-	private updateColorPickerBinding: RoactBindingFunc<Binding>;
+	private colorPickerBinding: Roact.Binding<Binding>;
+	private updateColorPickerBinding: Roact.BindingFunction<Binding>;
 	private selfRef: Binding;
 	private textChangedAllowed = true;
 
@@ -117,7 +116,7 @@ class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTyp
 						HandleClick={(inputButton: TextButton) => this.HandleClick(inputButton)}
 					/>
 					<RGBValues Value={this.props.Default} onTextChange={(...args) => this.onTextChange(...args)} />
-					{this.state.Selected && this.root && (
+					{this.state.Selected && this.root && this.props.Mode === "Place" && (
 						<Portal target={this.root}>
 							<ColorPicker
 								Name={this.props.Name}
@@ -134,4 +133,4 @@ class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTyp
 	}
 }
 
-export default ColorDisplay;
+export default connect((state: IState) => ({ Mode: state.PlacementSettings.BuildMode }))(ColorDisplay);
