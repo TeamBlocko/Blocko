@@ -14,7 +14,7 @@ export interface Arg {
 export interface Command {
 	name: string;
 	args: Arg[];
-	execute(caller: Player, ...args: string[]): string | undefined;
+	execute(caller: Player, ...args: string[]): string;
 }
 
 export const commands = {
@@ -62,6 +62,7 @@ export const commands = {
 				return errorMsg(`${player.Name} has a higher permission level.`);
 			print("SUCCESS UPDATED PERMISSION");
 			WorldManager.store.dispatch(updateWorldPermission(player.UserId, permissionLevel));
+			return `Successfully updated permission of ${player.Name} to ${permissionLevelValue}`;
 		},
 	}),
 };

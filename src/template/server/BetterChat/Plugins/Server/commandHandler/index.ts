@@ -44,9 +44,7 @@ function registerProcessCommandsFunction(api: ServerAPI, messageObject: Message)
 			}
 		}
 
-		const result = command.execute(caller, ...parsed.Ordered);
-		if (result !== undefined) return [true, result];
-		else return [true, ""];
+		return [true, command.execute(caller, ...parsed.Ordered)];
 	}
 	return [false, ""];
 }
