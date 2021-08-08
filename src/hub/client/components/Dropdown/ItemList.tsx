@@ -1,4 +1,4 @@
-import Roact, { RoactBinding, createRef } from "@rbxts/roact";
+import Roact, { createRef } from "@rbxts/roact";
 import Gap from "common/client/components/misc/Gap";
 
 function ItemElement<T extends Item>(props: {
@@ -44,7 +44,7 @@ function ItemElement<T extends Item>(props: {
 export interface ItemListPropTypes<T> {
 	Items: T[];
 	OnSelected: NonNullable<Roact.JsxInstanceEvents<TextButton>["Activated"]>;
-	Binding: RoactBinding<number>;
+	Binding: Roact.Binding<number>;
 	SizeX?: number;
 	Expanded: boolean;
 }
@@ -82,7 +82,10 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 					ZIndex={10}
 				>
 					<uicorner CornerRadius={new UDim(0.1, 0)} />
-					<uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} />
+					<uilistlayout
+						HorizontalAlignment={Enum.HorizontalAlignment.Center}
+						VerticalAlignment={Enum.VerticalAlignment.Center}
+					/>
 					<Gap Length={2} />
 					{this.props.Items.map((Item) => (
 						<ItemElement Value={Item} Handler={this.props.OnSelected} />
