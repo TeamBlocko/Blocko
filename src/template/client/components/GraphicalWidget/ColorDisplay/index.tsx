@@ -66,7 +66,11 @@ class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTyp
 	}
 
 	shouldUpdate(nextProps: ColorDisplayPropTypes, nextState: ColorDisplayStateTypes) {
-		return tostring(nextProps.Default) !== tostring(this.props.Default) || nextState !== this.state;
+		return (
+			tostring(nextProps.Default) !== tostring(this.props.Default) ||
+			nextState !== this.state ||
+			nextProps.Mode !== this.props.Mode
+		);
 	}
 
 	onColorChange(color: Color3, isTextChanged?: boolean) {
