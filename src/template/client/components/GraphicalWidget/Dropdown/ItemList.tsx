@@ -93,7 +93,7 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 		if (this.connection) this.connection.Disconnect();
 		this.connection = UserInputService.InputBegan.Connect((inputObject, gameProcessed) => {
 			if (gameProcessed) return;
-			if (inputObject.UserInputType === Enum.UserInputType.Keyboard && inputObject.KeyCode.Name.size() === 0) {
+			if (inputObject.UserInputType === Enum.UserInputType.Keyboard && inputObject.KeyCode.Name.size() === 1) {
 				const objectIndex = this.props.Items.findIndex(
 					(item) => item.Name.sub(1, 1) === inputObject.KeyCode.Name,
 				);
