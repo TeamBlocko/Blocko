@@ -1,5 +1,5 @@
 import { HttpService, TextService } from "@rbxts/services";
-import { SingleMotor, Spring } from "@rbxts/flipper";
+import { GroupMotor, SingleMotor, Spring } from "@rbxts/flipper";
 import Roact, { Component, createBinding } from "@rbxts/roact";
 import ItemList from "./ItemList";
 
@@ -32,13 +32,18 @@ export interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
 	OnExtend?: (isExpanded: boolean) => void;
 }
 
+type Goal = {
+	activated: number,
+	hover: number;
+}
+
 class DropdownButton<T extends Item, V extends string> extends Component<
 	DropdownPropTypes<T, V>,
 	DropdownStateTypes<T>
 > {
-	private motor: SingleMotor;
-	private binding: Roact.Binding<number>;
-	private setBinding: Roact.BindingFunction<number>;
+	private motor: GroupMotor<Goal>;
+	private binding: Roact.Binding<Goal>;
+	private setBinding: Roact.BindingFunction<Goal>;
 
 	public getDerivedStateFromProps = (
 		nextProps: DropdownPropTypes<T, V>,
@@ -58,7 +63,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 
 	constructor(props: DropdownPropTypes<T, V>) {
 		super(props);
-		this.motor = new SingleMotor(0);
+		this.motor = new GroupMotor({ activated: 0, hover: 0 });
 		[this.binding, this.setBinding] = createBinding(this.motor.getValue());
 
 		this.motor.onStep(this.setBinding);
@@ -86,10 +91,10 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 				BackgroundTransparency={1}
 				Position={this.props.Position ?? UDim2.fromScale(0.795, 0.5)}
 				Size={UDim2.fromScale(0.16, 0.35)}
-				Font={Enum.Font.GothamBold}
+				Font={Enum.Font.Gotham}
 				AutoButtonColor={false}
 				Text={buttonText}
-				TextColor3={Color3.fromRGB(185, 185, 185)}
+				TextColor3={this.binding.map(value => Color3.fromRGB(185, 185, 185).Lerp(Color3.fromRGB(120, 120, 120), value.hover))}
 				TextSize={14}
 				TextXAlignment={Enum.TextXAlignment.Left}
 				ZIndex={this.props.ZIndex}
@@ -97,6 +102,8 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 					Activated: () => {
 						this.setState((prevState) => ({ Expanded: !prevState.Expanded, Value: prevState.Value }));
 					},
+					MouseEnter: () => this.motor.setGoal({ hover: new Spring(1) }),
+					MouseLeave: () => this.motor.setGoal({ hover: new Spring(0)}),
 				}}
 			>
 				<imagelabel
@@ -105,9 +112,9 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 					Position={UDim2.fromScale(1, 0.5)}
 					Size={UDim2.fromScale(0.31, 1.21)}
 					ZIndex={2}
-					Rotation={this.binding.map((value) => value * 90)}
+					Rotation={this.binding.map((value) => math.round(value.activated) * 90)}
 					ImageColor3={this.binding.map((value) =>
-						Color3.fromRGB(163, 162, 165).Lerp(Color3.fromRGB(66, 126, 193), value),
+						Color3.fromRGB(185, 185, 185).Lerp(Color3.fromRGB(120, 120, 120), value.hover),
 					)}
 					Image="rbxassetid://3926305904"
 					ImageRectOffset={new Vector2(924, 884)}
@@ -115,7 +122,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 					ScaleType={Enum.ScaleType.Fit}
 				/>
 				<ItemList
-					Binding={this.binding}
+					Binding={this.binding.map(value => value.activated)}
 					Items={this.props.Items}
 					Expanded={this.state.Expanded}
 					SizeX={this.props.OverrideValueText ? size : 135}
@@ -134,7 +141,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 	}
 
 	didUpdate() {
-		this.motor.setGoal(new Spring(this.state.Expanded ? 1 : 0));
+		this.motor.setGoal({ activated: new Spring(this.state.Expanded ? 1 : 0)});
 	}
 }
 
