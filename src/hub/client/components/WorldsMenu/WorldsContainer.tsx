@@ -4,6 +4,7 @@ import { Client } from "@rbxts/net";
 import { FilterItem, searchContext } from "hub/client/searchContext";
 import WorldFrame from "../WorldFrame";
 import { popupFrameContext } from "./popupFramesContext";
+import { worldCache } from "../worldCache";
 
 const fetchWorlds = Client.GetAsyncFunction<[], [Filter], FetchWorldsResult>("FetchWorlds");
 const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldInfo");
@@ -103,7 +104,7 @@ interface WorldsState {
 
 function renderWorlds(worlds: World[]): Roact.Element[] {
 	return worlds.map((world) => {
-		print(world);
+		worldCache.set(world.Info.WorldId, world);
 		return <WorldFrame Info={world.Info} Settings={world.Settings} />;
 	});
 }
@@ -124,10 +125,8 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 	async fetchWorlds(filter: Filter) {
 		if (!this.state.Loaded) {
 			const result = await fetchWorlds.CallServerAsync(filter);
-			print(`WHAT FILTER?? ${filter}`);
 			if (result.success) {
 				const worldsInfo = result.data.map((worldId) => fetchWorldInfo.CallServerAsync(worldId));
-				print("WORLDS INFO", worldsInfo);
 				if (worldsInfo.size() === 0) {
 					this.setState({
 						Error: `<b><font size='20'>UH OH!</font></b> \n Looks like there are no ${filter} worlds to check out right now.`,

@@ -1,6 +1,7 @@
 import Roact from "@rbxts/roact";
 import Flipper from "@rbxts/flipper";
 import WorldCreationFrame from "./WorldCreationFrame";
+import WorldPageFrame from "./WorldPageFrame";
 import { popupFrameContext, Popup } from "../popupFramesContext";
 import { map } from "common/shared/utility";
 
@@ -27,6 +28,17 @@ class PopupFrames extends Roact.Component<PopupFramesPropTypes> {
 	}
 
 	render() {
+		const selectedFrame: Roact.Element | undefined = (() => {
+			switch (this.props.VisibleFrame?.name) {
+				case "Create":
+					return <WorldCreationFrame Position={this.binding} />;
+				case "World":
+					return <WorldPageFrame Position={this.binding} WorldId={this.props.VisibleFrame.id} />;
+				default:
+					return;
+			}
+		})();
+
 		return (
 			<frame
 				BackgroundTransparency={this.binding.map((value) => map(1 - value, 0, 1, 0.5, 1))}
@@ -34,9 +46,7 @@ class PopupFrames extends Roact.Component<PopupFramesPropTypes> {
 				BackgroundColor3={new Color3()}
 				ZIndex={3}
 			>
-				{this.props.VisibleFrame?.name === "Create" ? (
-					<WorldCreationFrame Position={this.binding} />
-				) : undefined}
+				{selectedFrame}
 			</frame>
 		);
 	}

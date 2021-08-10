@@ -64,3 +64,13 @@ export function getHex(num: number) {
 export function color3ToHex(color: Color3) {
 	return [color.R, color.G, color.B].map((num) => getHex(num * 255)).join("");
 }
+
+export function langList(list: string[]): string {
+	if (list.size() === 2) return `${list[0]} and ${list[1]}`;
+	if (list.size() > 2) {
+		const lastElement = list.pop();
+		if (!lastElement) return "";
+		return `${list.join(", ")}, and ${lastElement}`;
+	}
+	return list[0] ?? "";
+}
