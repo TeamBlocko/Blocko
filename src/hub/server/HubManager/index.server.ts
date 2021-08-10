@@ -7,7 +7,7 @@ const createWorldRemote = new Server.AsyncFunction<[CreationOptions], [], unknow
 ).SetCallTimeout(100);
 const teleportPlayer = new Server.AsyncFunction<[number]>("TeleportPlayer").SetCallTimeout(100);
 
-import { DataStoreService, TeleportService, Players, ReplicatedStorage } from "@rbxts/services";
+import { DataStoreService, TeleportService, Players, ReplicatedStorage, RunService } from "@rbxts/services";
 import MockODS from "common/server/MockODS";
 import LazLoader from "common/server/LazLoader";
 import { worldInfoScheme, worldSettingsScheme } from "common/server/WorldInfo/worldSchemes";
@@ -100,7 +100,7 @@ function fetchOwned(player: Player): FetchWorldsResult {
 }
 
 fetchWorlds.SetCallback((player, filter): FetchWorldsResult => {
-	print(filter);
+	if (RunService.IsStudio()) return { success: true, data: [0]}
 	switch (filter) {
 		case "Active":
 			return fetchActive();
@@ -112,5 +112,6 @@ fetchWorlds.SetCallback((player, filter): FetchWorldsResult => {
 });
 
 fetchWorldInfo.SetCallback((_player, worldId): World => {
+	if (worldId === 0) return DEFAULT_WORLD;
 	return worldInfoSerializer.deserialize(worldStore.GetFile(`World${worldId}`).GetData().data);
 });
