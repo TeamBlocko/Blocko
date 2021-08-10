@@ -96,8 +96,10 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 		);
 		const [nameSuccess, name] = pcall(() => Players.GetNameFromUserIdAsync(this.props.UserId));
 
-		const imageLabel = this.avatarImage.getValue()!;
-		const nameLabel = this.name.getValue()!;
+		const imageLabel = this.avatarImage.getValue();
+		const nameLabel = this.name.getValue();
+
+		if (!imageLabel || !nameLabel) return;
 
 		imageLabel.Image = thumbnailSuccess ? thumbnail : "";
 		nameLabel.Text = nameSuccess ? name : "N/A";

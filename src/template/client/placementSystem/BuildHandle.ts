@@ -53,19 +53,11 @@ class BuildHandler {
 	}
 
 	nextBlockType() {
-		store.dispatch(
-			UpdateBasePart(
-				nextInTable(orderedShapes, store.getState().PlacementSettings.Shape),
-			),
-		);
+		store.dispatch(UpdateBasePart(nextInTable(orderedShapes, store.getState().PlacementSettings.Shape)));
 	}
 
 	previousBlockType() {
-		store.dispatch(
-			UpdateBasePart(
-				previousInTable(orderedShapes, store.getState().PlacementSettings.Shape),
-			),
-		);
+		store.dispatch(UpdateBasePart(previousInTable(orderedShapes, store.getState().PlacementSettings.Shape)));
 	}
 
 	placeBlock() {

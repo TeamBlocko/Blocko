@@ -9,8 +9,8 @@ const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldI
 
 function Close() {
 	return (
-		<popupFrameContext.Consumer render={(value) =>
-			(
+		<popupFrameContext.Consumer
+			render={(value) => (
 				<imagebutton
 					AnchorPoint={new Vector2(1, 0)}
 					BackgroundTransparency={1}
@@ -26,8 +26,8 @@ function Close() {
 				>
 					<uiaspectratioconstraint />
 				</imagebutton>
-			)
-		}/>
+			)}
+		/>
 	);
 }
 

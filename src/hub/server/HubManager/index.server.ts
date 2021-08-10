@@ -100,7 +100,7 @@ function fetchOwned(player: Player): FetchWorldsResult {
 }
 
 fetchWorlds.SetCallback((player, filter): FetchWorldsResult => {
-	if (RunService.IsStudio()) return { success: true, data: [0]}
+	if (RunService.IsStudio()) return { success: true, data: [0] };
 	switch (filter) {
 		case "Active":
 			return fetchActive();

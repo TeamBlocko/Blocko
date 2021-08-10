@@ -20,4 +20,4 @@ export const shapes = [
 	blockTypes.Sphere,
 	blockTypes.CornerSphere,
 	blockTypes.InvertedCornerSphere,
-]
+];

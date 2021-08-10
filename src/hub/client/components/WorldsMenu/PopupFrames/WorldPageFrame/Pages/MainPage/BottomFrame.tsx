@@ -104,10 +104,14 @@ class PlayButton extends Roact.Component<PlayButtonPropTypes> {
 						notificationStore.addNotification({
 							Id: "JoiningWorld",
 							Title: "Joining World",
-							Message: `Teleporting you to world <b>${this.props.World.Settings.Name}</b> [${this.props.World.Info.WorldId}] by <b>${Players.GetNameFromUserIdAsync(this.props.World.Info.Owner)}</b> [${this.props.World.Info.Owner}]`,
+							Message: `Teleporting you to world <b>${this.props.World.Settings.Name}</b> [${
+								this.props.World.Info.WorldId
+							}] by <b>${Players.GetNameFromUserIdAsync(this.props.World.Info.Owner)}</b> [${
+								this.props.World.Info.Owner
+							}]`,
 							Icon: "rbxassetid://7148978151",
 						});
-						teleportPlayer.CallServerAsync(this.props.World.Info.WorldId)
+						teleportPlayer.CallServerAsync(this.props.World.Info.WorldId);
 					},
 					MouseEnter: () => {
 						this.hovered = true;

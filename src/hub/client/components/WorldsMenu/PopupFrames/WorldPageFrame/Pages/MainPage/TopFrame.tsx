@@ -63,9 +63,9 @@ class OwnerText extends Roact.Component<OwnerTextPropTypes> {
 					Ref={this.ownerNameRef}
 				/>
 				<uilistlayout
-						FillDirection={Enum.FillDirection.Horizontal}
-						VerticalAlignment={Enum.VerticalAlignment.Center}
-						Padding={new UDim(0.015, 0)}
+					FillDirection={Enum.FillDirection.Horizontal}
+					VerticalAlignment={Enum.VerticalAlignment.Center}
+					Padding={new UDim(0.015, 0)}
 				/>
 			</frame>
 		);
@@ -134,9 +134,9 @@ class FriendsPlaying extends Roact.Component<FriendsPlayingPropTypes> {
 					Ref={this.friendsTextRef}
 				/>
 				<uilistlayout
-						FillDirection={Enum.FillDirection.Horizontal}
-						VerticalAlignment={Enum.VerticalAlignment.Center}
-						Padding={new UDim(0.015, 0)}
+					FillDirection={Enum.FillDirection.Horizontal}
+					VerticalAlignment={Enum.VerticalAlignment.Center}
+					Padding={new UDim(0.015, 0)}
 				/>
 			</frame>
 		);
@@ -155,12 +155,13 @@ class FriendsPlaying extends Roact.Component<FriendsPlayingPropTypes> {
 			})
 			.map((friend) => friend.UserName);
 
-		if (friendsPlaying.size() === 0) return friendsText.Text = "No friends in this world."
-		if (friendsPlaying.size() === 1) return friendsText.Text = `${friendsPlaying[0]} is in this world` 
+		if (friendsPlaying.size() === 0) return (friendsText.Text = "No friends in this world.");
+		if (friendsPlaying.size() === 1) return (friendsText.Text = `${friendsPlaying[0]} is in this world`);
 
-		friendsText.Text = friendsPlaying.size() > 4 ? 
-		`${friendsPlaying.shift()!}, ${friendsPlaying.shift()!} and ${friendsPlaying.size()} are in this world!`
-		: `${langList(friendsPlaying)} are in this world!`
+		friendsText.Text =
+			friendsPlaying.size() > 4
+				? `${friendsPlaying.shift()!}, ${friendsPlaying.shift()!} and ${friendsPlaying.size()} are in this world!`
+				: `${langList(friendsPlaying)} are in this world!`;
 	}
 
 	didMount() {
