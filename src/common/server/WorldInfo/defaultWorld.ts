@@ -38,7 +38,7 @@ export const DEFAULT_WORLD_INFO: WorldInfo = {
 	Banned: [],
 	Server: game.JobId,
 	MaxPlayers: 25,
-	ActivePlayers: Players.GetPlayers().size(),
+	ActivePlayers: game.PlaceId === 5102036961 ? 0 : Players.GetPlayers().size(),
 	PlaceVisits: 0,
 	NumberOfBlocks: ReplicatedStorage.Template.GetChildren().size(),
 };
