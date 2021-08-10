@@ -33,9 +33,9 @@ export interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
 }
 
 type Goal = {
-	activated: number,
+	activated: number;
 	hover: number;
-}
+};
 
 class DropdownButton<T extends Item, V extends string> extends Component<
 	DropdownPropTypes<T, V>,
@@ -94,7 +94,9 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 				Font={Enum.Font.Gotham}
 				AutoButtonColor={false}
 				Text={buttonText}
-				TextColor3={this.binding.map(value => Color3.fromRGB(185, 185, 185).Lerp(Color3.fromRGB(120, 120, 120), value.hover))}
+				TextColor3={this.binding.map((value) =>
+					Color3.fromRGB(185, 185, 185).Lerp(Color3.fromRGB(120, 120, 120), value.hover),
+				)}
 				TextSize={14}
 				TextXAlignment={Enum.TextXAlignment.Left}
 				ZIndex={this.props.ZIndex}
@@ -103,7 +105,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 						this.setState((prevState) => ({ Expanded: !prevState.Expanded, Value: prevState.Value }));
 					},
 					MouseEnter: () => this.motor.setGoal({ hover: new Spring(1) }),
-					MouseLeave: () => this.motor.setGoal({ hover: new Spring(0)}),
+					MouseLeave: () => this.motor.setGoal({ hover: new Spring(0) }),
 				}}
 			>
 				<imagelabel
@@ -122,7 +124,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 					ScaleType={Enum.ScaleType.Fit}
 				/>
 				<ItemList
-					Binding={this.binding.map(value => value.activated)}
+					Binding={this.binding.map((value) => value.activated)}
 					Items={this.props.Items}
 					Expanded={this.state.Expanded}
 					SizeX={this.props.OverrideValueText ? size : 135}
@@ -141,7 +143,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 	}
 
 	didUpdate() {
-		this.motor.setGoal({ activated: new Spring(this.state.Expanded ? 1 : 0)});
+		this.motor.setGoal({ activated: new Spring(this.state.Expanded ? 1 : 0) });
 	}
 }
 
