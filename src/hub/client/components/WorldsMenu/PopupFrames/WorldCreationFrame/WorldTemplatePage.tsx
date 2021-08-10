@@ -2,7 +2,7 @@ import { ReplicatedStorage } from "@rbxts/services";
 import Roact from "@rbxts/roact";
 import BottomFrame from "./BottomFrame";
 import TopFrame from "./TopFrame";
-import { popupFrameContext } from "../popupFramesContext";
+import { popupFrameContext } from "../../popupFramesContext";
 
 const previewTemplates = ReplicatedStorage.FindFirstChild("TemplatePreviews");
 const miniBaseplate = previewTemplates?.FindFirstChild("MiniBaseplate");
