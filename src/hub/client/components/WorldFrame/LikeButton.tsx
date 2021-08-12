@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 
-function LikeButton() {
+function LikeButton(props: { Transparency: Roact.Binding<number> }) {
 	return (
 		<imagebutton
 			BackgroundTransparency={1}
@@ -8,6 +8,7 @@ function LikeButton() {
 			Image={"rbxassetid://3926305904"}
 			ImageRectOffset={new Vector2(764, 284)}
 			ImageRectSize={new Vector2(36, 36)}
+			ImageTransparency={props.Transparency}
 			ScaleType={Enum.ScaleType.Fit}
 		>
 			<imagelabel
@@ -17,6 +18,7 @@ function LikeButton() {
 				Position={UDim2.fromScale(1, 1)}
 				Selectable={true}
 				Image={"rbxassetid://3926305904"}
+				ImageTransparency={props.Transparency}
 				ImageRectOffset={new Vector2(964, 444)}
 				ImageRectSize={new Vector2(36, 36)}
 				ScaleType={Enum.ScaleType.Fit}

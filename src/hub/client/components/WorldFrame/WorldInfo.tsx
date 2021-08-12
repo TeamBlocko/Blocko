@@ -8,23 +8,28 @@ function Gap() {
 	return <frame BackgroundTransparency={1} Size={UDim2.fromScale(0, 0.095)} />;
 }
 
-function WorldInfoBar(props: World) {
+function WorldInfoBar(props: { World: World, Transparency: Roact.Binding<number> }) {
 	return (
 		<frame BackgroundTransparency={1} BorderSizePixel={1} Size={UDim2.fromScale(0.15, 0.7)}>
-			<LikeButton />
+			<LikeButton Transparency={props.Transparency} />
 			<Gap />
-			<PlayersCount Max={props.Info.MaxPlayers} Current={props.Info.ActivePlayers} />
+			<PlayersCount Max={props.World.Info.MaxPlayers} Current={props.World.Info.ActivePlayers} Transparency={props.Transparency} />
 			<Gap />
-			<FeaturedTag />
+			<FeaturedTag Transparency={props.Transparency} />
 			<uilistlayout VerticalAlignment={Enum.VerticalAlignment.Bottom} />
 		</frame>
 	);
 }
 
-class WorldInfo extends Roact.Component<World> {
+interface WorldInfoPropTypes {
+	World: World,
+	Transparency: Roact.Binding<number>;
+}
+
+class WorldInfo extends Roact.Component<WorldInfoPropTypes> {
 	worldOwnerRef: Roact.Ref<TextLabel>;
 
-	constructor(props: World) {
+	constructor(props: WorldInfoPropTypes) {
 		super(props);
 
 		this.worldOwnerRef = Roact.createRef();
@@ -38,16 +43,17 @@ class WorldInfo extends Roact.Component<World> {
 				Position={UDim2.fromScale(0.5, 0.5)}
 				Size={UDim2.fromScale(0.86, 0.825)}
 			>
-				<WorldInfoBar {...this.props} />
+				<WorldInfoBar World={this.props.World} Transparency={this.props.Transparency} />
 				<textlabel
 					BackgroundTransparency={1}
 					Size={UDim2.fromScale(1, 0.16)}
 					Font={Enum.Font.GothamBold}
-					Text={this.props.Settings.Name}
+					Text={this.props.World.Settings.Name}
 					TextColor3={new Color3(1, 1, 1)}
 					TextScaled={true}
 					TextSize={14}
 					TextWrapped={true}
+					TextTransparency={this.props.Transparency}
 					TextXAlignment={Enum.TextXAlignment.Left}
 				/>
 				<textlabel
@@ -58,6 +64,7 @@ class WorldInfo extends Roact.Component<World> {
 					TextScaled={true}
 					TextSize={14}
 					TextWrapped={true}
+					TextTransparency={this.props.Transparency}
 					TextXAlignment={Enum.TextXAlignment.Left}
 					Ref={this.worldOwnerRef}
 				/>
@@ -70,7 +77,7 @@ class WorldInfo extends Roact.Component<World> {
 		const worldOwner = this.worldOwnerRef.getValue();
 		assert(worldOwner);
 
-		const result = opcall(() => Players.GetNameFromUserIdAsync(this.props.Info.Owner));
+		const result = opcall(() => Players.GetNameFromUserIdAsync(this.props.World.Info.Owner));
 
 		result.success ? (worldOwner.Text = result.value) : (worldOwner.Text = "N/A");
 	}

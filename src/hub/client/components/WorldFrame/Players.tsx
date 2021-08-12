@@ -3,6 +3,7 @@ import Roact from "@rbxts/roact";
 interface PlayersCountPropTypes {
 	Current: number;
 	Max: number;
+	Transparency: Roact.Binding<number>;
 }
 
 function PlayersCount(props: PlayersCountPropTypes) {
@@ -14,6 +15,7 @@ function PlayersCount(props: PlayersCountPropTypes) {
 			Image={"rbxassetid://3926305904"}
 			ImageRectOffset={new Vector2(4, 844)}
 			ImageRectSize={new Vector2(36, 36)}
+			ImageTransparency={props.Transparency}
 			ScaleType={Enum.ScaleType.Fit}
 		>
 			<textlabel
@@ -23,6 +25,7 @@ function PlayersCount(props: PlayersCountPropTypes) {
 				Size={UDim2.fromScale(5, 0.7)}
 				Font={Enum.Font.GothamSemibold}
 				Text={`${props.Current}/${props.Max}`}
+				TextTransparency={props.Transparency}
 				TextColor3={new Color3(1, 1, 1)}
 				TextScaled={true}
 				TextWrapped={true}

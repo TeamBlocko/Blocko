@@ -33,6 +33,7 @@ function BottomFrame(props: BottomFramePropTypes) {
 
 interface WorldCreationFramePropTypes {
 	Position: Roact.Binding<number>;
+	Visible: boolean;
 }
 
 class WorldCreationFrame extends Roact.Component<WorldCreationFramePropTypes> {
@@ -59,6 +60,7 @@ class WorldCreationFrame extends Roact.Component<WorldCreationFramePropTypes> {
 					UDim2.fromScale(0.5, 0.45).Lerp(UDim2.fromScale(0.5, 0.5), value),
 				)}
 				Size={UDim2.fromScale(0.35, 0.6)}
+				Visible={this.props.Visible}
 			>
 				<imagelabel
 					AnchorPoint={new Vector2(0.5, 0)}

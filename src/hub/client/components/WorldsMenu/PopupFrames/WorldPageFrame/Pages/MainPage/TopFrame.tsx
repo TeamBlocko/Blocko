@@ -93,11 +93,13 @@ interface FriendsPlayingPropTypes {
 
 class FriendsPlaying extends Roact.Component<FriendsPlayingPropTypes> {
 	friendsTextRef: Roact.Ref<TextLabel>;
+	friendsPlayingFrame: Roact.Ref<Frame>;
 
 	constructor(props: FriendsPlayingPropTypes) {
 		super(props);
 
 		this.friendsTextRef = Roact.createRef();
+		this.friendsPlayingFrame = Roact.createRef();
 	}
 
 	render() {
@@ -107,6 +109,8 @@ class FriendsPlaying extends Roact.Component<FriendsPlayingPropTypes> {
 				BackgroundTransparency={1}
 				Position={UDim2.fromScale(0.5, 0.075)}
 				Size={UDim2.fromScale(0.95, 0.15)}
+				Ref={this.friendsPlayingFrame}
+				Visible={false}
 			>
 				<imagelabel
 					BackgroundTransparency={1}
@@ -144,8 +148,9 @@ class FriendsPlaying extends Roact.Component<FriendsPlayingPropTypes> {
 
 	setupFriends() {
 		const friendsText = this.friendsTextRef.getValue();
+		const friendsPlayingFrame = this.friendsPlayingFrame.getValue();
 
-		if (!friendsText) return;
+		if (!friendsText || !friendsPlayingFrame) return;
 
 		const friendsPlaying = Players.LocalPlayer.GetFriendsOnline()
 			.filter((friend) => {
@@ -155,9 +160,10 @@ class FriendsPlaying extends Roact.Component<FriendsPlayingPropTypes> {
 			})
 			.map((friend) => friend.UserName);
 
+		friendsPlayingFrame.Visible = false;
 		if (friendsPlaying.size() === 0) return (friendsText.Text = "No friends in this world.");
+		friendsPlayingFrame.Visible = true;
 		if (friendsPlaying.size() === 1) return (friendsText.Text = `${friendsPlaying[0]} is in this world`);
-
 		friendsText.Text =
 			friendsPlaying.size() > 4
 				? `${friendsPlaying.shift()!}, ${friendsPlaying.shift()!} and ${friendsPlaying.size()} are in this world!`

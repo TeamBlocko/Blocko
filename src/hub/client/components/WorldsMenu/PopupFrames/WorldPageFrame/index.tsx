@@ -1,5 +1,6 @@
-import { Client } from "@rbxts/net";
 import Roact from "@rbxts/roact";
+import Flipper from "@rbxts/flipper";
+import { Client } from "@rbxts/net";
 import { worldCache } from "hub/client/components/worldCache";
 import { popupFrameContext } from "../../popupFramesContext";
 import { Pages } from "./Pages";
@@ -7,42 +8,66 @@ import { WorldStatus } from "./WorldStatus";
 
 const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldInfo");
 
-function Close() {
-	return (
-		<popupFrameContext.Consumer
-			render={(value) => (
-				<imagebutton
-					AnchorPoint={new Vector2(1, 0)}
-					BackgroundTransparency={1}
-					Position={UDim2.fromScale(0.95, 0.075)}
-					Size={UDim2.fromScale(0.075, 0.075)}
-					Image={"rbxassetid://3926305904"}
-					ImageRectOffset={new Vector2(284, 4)}
-					ImageRectSize={new Vector2(24, 24)}
-					ScaleType={Enum.ScaleType.Fit}
-					Event={{
-						Activated: () => value.changePopup(Roact.None),
-					}}
-				>
-					<uiaspectratioconstraint />
-				</imagebutton>
-			)}
-		/>
-	);
+class Close extends Roact.Component {
+
+	binding: Roact.Binding<number>;
+	setBinding: Roact.BindingFunction<number>;
+
+	motor: Flipper.SingleMotor;
+
+	constructor() {
+		super({});
+
+		[this.binding, this.setBinding] = Roact.createBinding(0);
+
+		this.motor = new Flipper.SingleMotor(this.binding.getValue());
+
+		this.motor.onStep(this.setBinding)
+	}
+
+	render() {
+		return (
+			<popupFrameContext.Consumer
+				render={(value) => (
+					<imagebutton
+						AnchorPoint={new Vector2(1, 0)}
+						BackgroundTransparency={1}
+						Position={UDim2.fromScale(0.95, 0.075)}
+						Size={UDim2.fromScale(0.075, 0.075)}
+						Image={"rbxassetid://3926305904"}
+						ImageRectOffset={new Vector2(284, 4)}
+						ImageRectSize={new Vector2(24, 24)}
+						ScaleType={Enum.ScaleType.Fit}
+						ImageTransparency={this.binding.map(value => value * 0.5)}
+						Event={{
+							Activated: () => value.changePopup(Roact.None),
+							MouseEnter: () => this.motor.setGoal(new Flipper.Spring(1)),
+							MouseLeave: () => this.motor.setGoal(new Flipper.Spring(0)),
+						}}
+					>
+						<uiaspectratioconstraint />
+					</imagebutton>
+				)}
+			/>
+		);
+	}
 }
 
 interface WorldPageFramePropTypes {
 	Position: Roact.Binding<number>;
 	World: World;
+	Visible: boolean;
 }
 
 export function WorldPageFrame(props: WorldPageFramePropTypes) {
+	print(props.Visible)
 	return (
 		<frame
 			AnchorPoint={new Vector2(0.5, 0.5)}
 			BackgroundColor3={Color3.fromRGB(30, 30, 30)}
 			Position={props.Position.map((value) => UDim2.fromScale(0.5, 0.45).Lerp(UDim2.fromScale(0.5, 0.5), value))}
 			Size={UDim2.fromScale(0.6, 0.6)}
+			Visible={props.Visible}
 		>
 			<uicorner CornerRadius={new UDim(0.035, 0)} />
 			<WorldStatus
@@ -105,6 +130,7 @@ export function WorldPageFrame(props: WorldPageFramePropTypes) {
 interface WorldPageFrameRenderedPropTypes {
 	Position: Roact.Binding<number>;
 	WorldId: number;
+	Visible: boolean;
 }
 
 export default class extends Roact.Component<WorldPageFrameRenderedPropTypes, { World?: World }> {
@@ -113,7 +139,13 @@ export default class extends Roact.Component<WorldPageFrameRenderedPropTypes, { 
 			<popupFrameContext.Consumer
 				render={() => (
 					<>
-						{this.state.World && <WorldPageFrame Position={this.props.Position} World={this.state.World} />}
+						{this.state.World && (
+							<WorldPageFrame
+								Position={this.props.Position}
+								World={this.state.World}
+								Visible={this.props.Visible}
+							/>
+						)}
 					</>
 				)}
 			/>
@@ -122,7 +154,23 @@ export default class extends Roact.Component<WorldPageFrameRenderedPropTypes, { 
 
 	async didMount() {
 		this.setState({
-			World: worldCache.get(this.props.WorldId) ?? (await fetchWorldInfo.CallServerAsync(this.props.WorldId)),
+			World: worldCache.get(this.props.WorldId) ?? await this.getWorld(),
+		});
+	}
+
+	shouldUpdate(nextProps: WorldPageFrameRenderedPropTypes, nextState: { World?: World }) {
+		return nextProps.WorldId !== this.props.WorldId || nextProps.Visible !== this.props.Visible || nextState.World !== this.state.World
+	}
+
+	async getWorld() {
+		const result = await fetchWorldInfo.CallServerAsync(this.props.WorldId)
+		worldCache.set(this.props.WorldId, result);
+		return result;
+	}
+
+	async didUpdate() {
+		this.setState({
+			World: worldCache.get(this.props.WorldId) ?? await this.getWorld(),
 		});
 	}
 }

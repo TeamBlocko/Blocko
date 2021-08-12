@@ -78,16 +78,15 @@ class PlayButton extends Roact.Component<PlayButtonPropTypes> {
 			<textbutton
 				Active={true}
 				AnchorPoint={new Vector2(0.5, 1)}
-				BackgroundColor3={Color3.fromRGB(40, 40, 40)}
+				BackgroundColor3={this.binding.map((value) =>
+					Color3.fromRGB(40, 40, 40).Lerp(Color3.fromRGB(72, 178, 255), value.hover),
+				)}
 				ClipsDescendants={true}
 				Position={UDim2.fromScale(0.5, 0.93)}
 				Size={UDim2.fromScale(1, 0.5)}
 				AutoButtonColor={false}
 				Font={Enum.Font.SourceSans}
 				Text=""
-				TextColor3={this.binding.map((value) =>
-					Color3.fromRGB(72, 178, 255).Lerp(Color3.fromRGB(44, 44, 44), value.hover),
-				)}
 				TextSize={14}
 				TextWrapped={true}
 				Event={{
@@ -115,7 +114,16 @@ class PlayButton extends Roact.Component<PlayButtonPropTypes> {
 					},
 					MouseEnter: () => {
 						this.hovered = true;
-						this.motor.setGoal({ hover: new Flipper.Spring(1) });
+						this.motor.setGoal({ hover: new Flipper.Spring(1), shine: new Flipper.Spring(1) });
+						this.motor.onComplete(() => {
+							this.motor.setGoal({ shine: new Flipper.Instant(0) });
+						});
+						new SyncedPoller(3, () => {
+							this.motor.setGoal({ shine: new Flipper.Spring(1) });
+							this.motor.onComplete(() => {
+								this.motor.setGoal({ shine: new Flipper.Instant(0) });
+							});
+						}, () => this.hovered);
 					},
 					MouseLeave: () => {
 						this.hovered = false;
@@ -145,17 +153,6 @@ class PlayButton extends Roact.Component<PlayButtonPropTypes> {
 				/>
 			</textbutton>
 		);
-	}
-
-	didMount() {
-		new SyncedPoller(3, () => {
-			if (this.hovered) {
-				this.motor.setGoal({ shine: new Flipper.Spring(1) });
-				this.motor.onComplete(() => {
-					this.motor.setGoal({ shine: new Flipper.Instant(0) });
-				});
-			}
-		});
 	}
 }
 

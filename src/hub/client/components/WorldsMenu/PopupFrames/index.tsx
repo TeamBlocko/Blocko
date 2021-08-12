@@ -28,17 +28,6 @@ class PopupFrames extends Roact.Component<PopupFramesPropTypes> {
 	}
 
 	render() {
-		const selectedFrame: Roact.Element | undefined = (() => {
-			switch (this.props.VisibleFrame?.name) {
-				case "Create":
-					return <WorldCreationFrame Position={this.binding} />;
-				case "World":
-					return <WorldPageFrame Position={this.binding} WorldId={this.props.VisibleFrame.id} />;
-				default:
-					return;
-			}
-		})();
-
 		return (
 			<frame
 				BackgroundTransparency={this.binding.map((value) => map(1 - value, 0, 1, 0.5, 1))}
@@ -46,7 +35,12 @@ class PopupFrames extends Roact.Component<PopupFramesPropTypes> {
 				BackgroundColor3={new Color3()}
 				ZIndex={3}
 			>
-				{selectedFrame}
+				<WorldCreationFrame Position={this.binding} Visible={this.props.VisibleFrame?.name === "Create"} />
+				<WorldPageFrame
+					Position={this.binding}
+					WorldId={this.props.VisibleFrame?.id ?? 0}
+					Visible={this.props.VisibleFrame?.name === "World"}
+				/>
 			</frame>
 		);
 	}

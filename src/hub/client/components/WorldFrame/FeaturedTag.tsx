@@ -1,8 +1,8 @@
 import Roact from "@rbxts/roact";
 
-function FeaturedTag() {
+function FeaturedTag(props: { Transparency: Roact.Binding<number> }) {
 	return (
-		<frame BackgroundColor3={Color3.fromRGB(255, 223, 124)} Size={UDim2.fromScale(2.55, 0.2)}>
+		<frame BackgroundColor3={Color3.fromRGB(255, 223, 124)} Size={UDim2.fromScale(2.55, 0.2)} BackgroundTransparency={props.Transparency} >
 			<uicorner CornerRadius={new UDim(0.2, 0)} />
 			<textlabel
 				AnchorPoint={new Vector2(0.5, 0.5)}
@@ -11,6 +11,7 @@ function FeaturedTag() {
 				Size={UDim2.fromScale(1, 0.75)}
 				Font={Enum.Font.GothamBlack}
 				Text={"FEATURED"}
+				TextTransparency={props.Transparency}
 				TextColor3={Color3.fromRGB(24, 24, 24)}
 				TextScaled={true}
 				TextSize={14}

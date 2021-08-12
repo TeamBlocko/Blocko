@@ -1,5 +1,6 @@
 import Roact from "@rbxts/roact";
 import Flipper from "@rbxts/flipper";
+import SyncedPoller from "@rbxts/synced-poller";
 
 interface BottomFramePropTypes {
 	Button1Text: string;
@@ -16,35 +17,61 @@ interface ButtonPropTypes {
 	ButtonDisabled?: boolean;
 }
 
+type Goal = {
+	disabled: number,
+	shine: number;
+}
+
 class Button extends Roact.Component<ButtonPropTypes> {
-	binding: Roact.Binding<number>;
-	setBinding: Roact.BindingFunction<number>;
-	motor: Flipper.SingleMotor;
+	binding: Roact.Binding<Goal>;
+	setBinding: Roact.BindingFunction<Goal>;
+	motor: Flipper.GroupMotor<Goal>;
+
+	hovered = false;
 
 	constructor(props: ButtonPropTypes) {
 		super(props);
 
-		[this.binding, this.setBinding] = Roact.createBinding(this.props.ButtonDisabled ? 1 : 0);
+		[this.binding, this.setBinding] = Roact.createBinding({ disabled: this.props.ButtonDisabled ? 1 : 0, shine: 0 });
 
-		this.motor = new Flipper.SingleMotor(this.binding.getValue());
+		this.motor = new Flipper.GroupMotor(this.binding.getValue());
 
 		this.motor.onStep(this.setBinding);
 	}
 
 	didUpdate() {
-		this.motor.setGoal(this.props.ButtonDisabled ? new Flipper.Instant(1) : new Flipper.Spring(0));
+		this.motor.setGoal({ disabled: this.props.ButtonDisabled ? new Flipper.Instant(1) : new Flipper.Spring(0)});
 	}
 
 	render() {
 		return (
 			<textbutton
 				BackgroundColor3={this.binding.map((value) =>
-					this.props.BackgroundColor.Lerp(Color3.fromRGB(40, 40, 40), value),
+					this.props.BackgroundColor.Lerp(Color3.fromRGB(40, 40, 40), value.disabled),
 				)}
 				Size={UDim2.fromScale(0.25, 1)}
 				Text={""}
+				ClipsDescendants={true}
 				Event={{
 					Activated: () => this.props.OnClick(),
+					MouseEnter: () => {
+						if (this.props.Text !== "Create") return;
+						if (this.props.ButtonDisabled) return;
+						this.hovered = true;
+						this.motor.setGoal({ shine: new Flipper.Spring(1) });
+						this.motor.onComplete(() => {
+							this.motor.setGoal({ shine: new Flipper.Instant(0) });
+						});
+						new SyncedPoller(3, () => {
+							this.motor.setGoal({ shine: new Flipper.Spring(1) });
+							this.motor.onComplete(() => {
+								this.motor.setGoal({ shine: new Flipper.Instant(0) });
+							});
+						}, () => this.hovered);
+					},
+					MouseLeave: () => {
+						this.hovered = false;
+					},
 				}}
 			>
 				<uicorner CornerRadius={new UDim(0.15, 0)} />
@@ -59,6 +86,15 @@ class Button extends Roact.Component<ButtonPropTypes> {
 					TextScaled={true}
 					TextSize={14}
 					TextWrapped={true}
+				/>
+				<imagelabel
+					AnchorPoint={new Vector2(0.5, 0.5)}
+					BackgroundTransparency={1}
+					Position={this.binding.map((value) =>
+						UDim2.fromScale(-0.1, 0.5).Lerp(UDim2.fromScale(1.1, 0.5), value.shine),
+					)}
+					Size={UDim2.fromScale(0.5, 15)}
+					Image={"rbxassetid://5873311937"}
 				/>
 			</textbutton>
 		);
