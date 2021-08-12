@@ -8,12 +8,16 @@ function Gap() {
 	return <frame BackgroundTransparency={1} Size={UDim2.fromScale(0, 0.095)} />;
 }
 
-function WorldInfoBar(props: { World: World, Transparency: Roact.Binding<number> }) {
+function WorldInfoBar(props: { World: World; Transparency: Roact.Binding<number> }) {
 	return (
 		<frame BackgroundTransparency={1} BorderSizePixel={1} Size={UDim2.fromScale(0.15, 0.7)}>
 			<LikeButton Transparency={props.Transparency} />
 			<Gap />
-			<PlayersCount Max={props.World.Info.MaxPlayers} Current={props.World.Info.ActivePlayers} Transparency={props.Transparency} />
+			<PlayersCount
+				Max={props.World.Info.MaxPlayers}
+				Current={props.World.Info.ActivePlayers}
+				Transparency={props.Transparency}
+			/>
 			<Gap />
 			<FeaturedTag Transparency={props.Transparency} />
 			<uilistlayout VerticalAlignment={Enum.VerticalAlignment.Bottom} />
@@ -22,7 +26,7 @@ function WorldInfoBar(props: { World: World, Transparency: Roact.Binding<number>
 }
 
 interface WorldInfoPropTypes {
-	World: World,
+	World: World;
 	Transparency: Roact.Binding<number>;
 }
 

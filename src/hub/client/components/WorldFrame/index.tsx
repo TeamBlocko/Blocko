@@ -5,7 +5,6 @@ import WorldInfo from "./WorldInfo";
 import { popupFrameContext } from "../WorldsMenu/popupFramesContext";
 
 class WorldFrame extends Roact.Component<World> {
-
 	binding: Roact.Binding<number>;
 	setBinding: Roact.BindingFunction<number>;
 
@@ -18,7 +17,7 @@ class WorldFrame extends Roact.Component<World> {
 
 		this.motor = new Flipper.SingleMotor(this.binding.getValue());
 
-		this.motor.onStep(this.setBinding)
+		this.motor.onStep(this.setBinding);
 	}
 
 	render() {
@@ -49,7 +48,7 @@ class WorldFrame extends Roact.Component<World> {
 							Size={UDim2.fromScale(1, 1)}
 							Image={"rbxassetid://6406939496"}
 							ImageColor3={new Color3()}
-							ImageTransparency={this.binding.map(value => value * 0.2)}
+							ImageTransparency={this.binding.map((value) => value * 0.2)}
 							ZIndex={0}
 						>
 							<uicorner CornerRadius={new UDim(0.08, 0)} />

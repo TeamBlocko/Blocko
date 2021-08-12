@@ -9,7 +9,6 @@ import { WorldStatus } from "./WorldStatus";
 const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldInfo");
 
 class Close extends Roact.Component {
-
 	binding: Roact.Binding<number>;
 	setBinding: Roact.BindingFunction<number>;
 
@@ -22,7 +21,7 @@ class Close extends Roact.Component {
 
 		this.motor = new Flipper.SingleMotor(this.binding.getValue());
 
-		this.motor.onStep(this.setBinding)
+		this.motor.onStep(this.setBinding);
 	}
 
 	render() {
@@ -38,7 +37,7 @@ class Close extends Roact.Component {
 						ImageRectOffset={new Vector2(284, 4)}
 						ImageRectSize={new Vector2(24, 24)}
 						ScaleType={Enum.ScaleType.Fit}
-						ImageTransparency={this.binding.map(value => value * 0.5)}
+						ImageTransparency={this.binding.map((value) => value * 0.5)}
 						Event={{
 							Activated: () => value.changePopup(Roact.None),
 							MouseEnter: () => this.motor.setGoal(new Flipper.Spring(1)),
@@ -60,7 +59,7 @@ interface WorldPageFramePropTypes {
 }
 
 export function WorldPageFrame(props: WorldPageFramePropTypes) {
-	print(props.Visible)
+	print(props.Visible);
 	return (
 		<frame
 			AnchorPoint={new Vector2(0.5, 0.5)}
@@ -154,23 +153,27 @@ export default class extends Roact.Component<WorldPageFrameRenderedPropTypes, { 
 
 	async didMount() {
 		this.setState({
-			World: worldCache.get(this.props.WorldId) ?? await this.getWorld(),
+			World: worldCache.get(this.props.WorldId) ?? (await this.getWorld()),
 		});
 	}
 
 	shouldUpdate(nextProps: WorldPageFrameRenderedPropTypes, nextState: { World?: World }) {
-		return nextProps.WorldId !== this.props.WorldId || nextProps.Visible !== this.props.Visible || nextState.World !== this.state.World
+		return (
+			nextProps.WorldId !== this.props.WorldId ||
+			nextProps.Visible !== this.props.Visible ||
+			nextState.World !== this.state.World
+		);
 	}
 
 	async getWorld() {
-		const result = await fetchWorldInfo.CallServerAsync(this.props.WorldId)
+		const result = await fetchWorldInfo.CallServerAsync(this.props.WorldId);
 		worldCache.set(this.props.WorldId, result);
 		return result;
 	}
 
 	async didUpdate() {
 		this.setState({
-			World: worldCache.get(this.props.WorldId) ?? await this.getWorld(),
+			World: worldCache.get(this.props.WorldId) ?? (await this.getWorld()),
 		});
 	}
 }

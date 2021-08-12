@@ -2,7 +2,11 @@ import Roact from "@rbxts/roact";
 
 function FeaturedTag(props: { Transparency: Roact.Binding<number> }) {
 	return (
-		<frame BackgroundColor3={Color3.fromRGB(255, 223, 124)} Size={UDim2.fromScale(2.55, 0.2)} BackgroundTransparency={props.Transparency} >
+		<frame
+			BackgroundColor3={Color3.fromRGB(255, 223, 124)}
+			Size={UDim2.fromScale(2.55, 0.2)}
+			BackgroundTransparency={props.Transparency}
+		>
 			<uicorner CornerRadius={new UDim(0.2, 0)} />
 			<textlabel
 				AnchorPoint={new Vector2(0.5, 0.5)}

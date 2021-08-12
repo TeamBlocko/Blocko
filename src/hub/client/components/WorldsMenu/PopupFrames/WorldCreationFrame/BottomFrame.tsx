@@ -18,9 +18,9 @@ interface ButtonPropTypes {
 }
 
 type Goal = {
-	disabled: number,
+	disabled: number;
 	shine: number;
-}
+};
 
 class Button extends Roact.Component<ButtonPropTypes> {
 	binding: Roact.Binding<Goal>;
@@ -32,7 +32,10 @@ class Button extends Roact.Component<ButtonPropTypes> {
 	constructor(props: ButtonPropTypes) {
 		super(props);
 
-		[this.binding, this.setBinding] = Roact.createBinding({ disabled: this.props.ButtonDisabled ? 1 : 0, shine: 0 });
+		[this.binding, this.setBinding] = Roact.createBinding({
+			disabled: this.props.ButtonDisabled ? 1 : 0,
+			shine: 0,
+		});
 
 		this.motor = new Flipper.GroupMotor(this.binding.getValue());
 
@@ -40,7 +43,7 @@ class Button extends Roact.Component<ButtonPropTypes> {
 	}
 
 	didUpdate() {
-		this.motor.setGoal({ disabled: this.props.ButtonDisabled ? new Flipper.Instant(1) : new Flipper.Spring(0)});
+		this.motor.setGoal({ disabled: this.props.ButtonDisabled ? new Flipper.Instant(1) : new Flipper.Spring(0) });
 	}
 
 	render() {
@@ -62,12 +65,16 @@ class Button extends Roact.Component<ButtonPropTypes> {
 						this.motor.onComplete(() => {
 							this.motor.setGoal({ shine: new Flipper.Instant(0) });
 						});
-						new SyncedPoller(3, () => {
-							this.motor.setGoal({ shine: new Flipper.Spring(1) });
-							this.motor.onComplete(() => {
-								this.motor.setGoal({ shine: new Flipper.Instant(0) });
-							});
-						}, () => this.hovered);
+						new SyncedPoller(
+							3,
+							() => {
+								this.motor.setGoal({ shine: new Flipper.Spring(1) });
+								this.motor.onComplete(() => {
+									this.motor.setGoal({ shine: new Flipper.Instant(0) });
+								});
+							},
+							() => this.hovered,
+						);
 					},
 					MouseLeave: () => {
 						this.hovered = false;

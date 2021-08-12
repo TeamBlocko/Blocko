@@ -118,12 +118,16 @@ class PlayButton extends Roact.Component<PlayButtonPropTypes> {
 						this.motor.onComplete(() => {
 							this.motor.setGoal({ shine: new Flipper.Instant(0) });
 						});
-						new SyncedPoller(3, () => {
-							this.motor.setGoal({ shine: new Flipper.Spring(1) });
-							this.motor.onComplete(() => {
-								this.motor.setGoal({ shine: new Flipper.Instant(0) });
-							});
-						}, () => this.hovered);
+						new SyncedPoller(
+							3,
+							() => {
+								this.motor.setGoal({ shine: new Flipper.Spring(1) });
+								this.motor.onComplete(() => {
+									this.motor.setGoal({ shine: new Flipper.Instant(0) });
+								});
+							},
+							() => this.hovered,
+						);
 					},
 					MouseLeave: () => {
 						this.hovered = false;
