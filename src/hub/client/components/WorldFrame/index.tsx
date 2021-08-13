@@ -29,8 +29,7 @@ class WorldFrame extends Roact.Component<World> {
 						Selectable={false}
 						Size={UDim2.fromOffset(100, 100)}
 						AutoButtonColor={false}
-						Image={"rbxassetid://5403617336"}
-						ImageTransparency={1}
+						Image={this.props.Settings.Icon}
 						ScaleType={Enum.ScaleType.Crop}
 						Event={{
 							Activated: () => value.changePopup({ name: "World", id: this.props.Info.WorldId }),

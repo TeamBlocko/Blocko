@@ -92,7 +92,7 @@ export function WorldPageFrame(props: WorldPageFramePropTypes) {
 				BackgroundColor3={Color3.fromRGB(30, 30, 30)}
 				Position={UDim2.fromScale(0.5, 0)}
 				Size={UDim2.fromScale(1, 1)}
-				Image={"rbxassetid://0"}
+				Image={props.World.Settings.Thumbnail}
 				ImageTransparency={0.75}
 				ScaleType={Enum.ScaleType.Crop}
 			>

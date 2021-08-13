@@ -22,6 +22,7 @@ export const worldInfoScheme: { [K in keyof WorldInfo]: ser.SerializerStructure<
 export const worldSettingsScheme: { [K in keyof WorldSettings]: ser.SerializerStructure<WorldSettings[K]> } = {
 	Name: ser.string,
 	Description: ser.string,
+	Icon: ser.string,
 	Thumbnail: ser.string,
 	Ambient: ser.Color3,
 	OutdoorAmbient: ser.Color3,

@@ -4,7 +4,8 @@ import WorldFrame from "hub/client/components/WorldFrame";
 const DEFAULT_WORLD_SETTINGS: WorldSettings = {
 	Name: "nyzem world #1",
 	Description: "No description set.",
-	Thumbnail: "",
+	Icon: "rbxassetid://0",
+	Thumbnail: "rbxassetid://0",
 	Ambient: Color3.fromRGB(127, 127, 127),
 	OutdoorAmbient: Color3.fromRGB(127, 127, 127),
 	Time: 12,

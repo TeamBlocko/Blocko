@@ -3,6 +3,7 @@ import { Players, ReplicatedStorage, RunService } from "@rbxts/services";
 export const DEFAULT_WORLD_SETTINGS: WorldSettings = {
 	Name: "nyzem world #1",
 	Description: "No description set.",
+	Icon: "",
 	Thumbnail: "",
 	Ambient: Color3.fromRGB(127, 127, 127),
 	OutdoorAmbient: Color3.fromRGB(127, 127, 127),

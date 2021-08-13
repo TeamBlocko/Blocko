@@ -149,6 +149,7 @@ declare global {
 	interface WorldSettings {
 		Name: string;
 		Description: string;
+		Icon: string;
 		Thumbnail: string;
 		Ambient: Color3;
 		OutdoorAmbient: Color3;

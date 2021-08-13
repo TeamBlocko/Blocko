@@ -8,7 +8,7 @@ import ImageInput from "./ImageInput";
 import { IState } from "template/shared/Types";
 
 interface WorldInfoPropTypes extends WorldSettings {
-	OnInputBoxUpdate(propertyName: "Name" | "Description", value: string): void;
+	OnInputBoxUpdate(propertyName: "Name" | "Description" | "Icon" | "Thumbnail", value: string): void;
 }
 
 function WorldInfo(props: WorldInfoPropTypes) {
@@ -30,7 +30,16 @@ function WorldInfo(props: WorldInfoPropTypes) {
 				OnChange={(newValue) => props.OnInputBoxUpdate("Description", newValue)}
 				HandleInput={(input) => (input.size() > 188 ? input.sub(0, 188) : input)}
 			/>
-			<ImageInput />
+			<ImageInput
+				Name={"Icon"}
+				Default={props.Icon}
+				OnChange={(newValue) => props.OnInputBoxUpdate("Icon", newValue)}
+			/>
+			<ImageInput
+				Name={"Thumbnail"}
+				Default={props.Thumbnail}
+				OnChange={(newValue) => props.OnInputBoxUpdate("Thumbnail", newValue)}
+			/>
 		</Container>
 	);
 }
@@ -38,7 +47,7 @@ function WorldInfo(props: WorldInfoPropTypes) {
 export default connect(
 	(state: IState) => state.World.Settings,
 	(dispatch) => ({
-		OnInputBoxUpdate(propertyName: "Name" | "Description", value: string) {
+		OnInputBoxUpdate(propertyName: "Name" | "Description" | "Icon" | "Thumbnail", value: string) {
 			dispatch(
 				updateWorldSettings([
 					{
