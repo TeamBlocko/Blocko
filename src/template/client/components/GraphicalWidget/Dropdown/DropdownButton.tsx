@@ -3,6 +3,7 @@ import { SingleMotor, Spring } from "@rbxts/flipper";
 import Roact, { Component, createBinding } from "@rbxts/roact";
 import ItemList from "./ItemList";
 import { appContext } from "template/client/appContext";
+import { deepEquals } from "@rbxts/object-utils";
 
 interface DropdownStateTypes<T> extends GWStateTypes<T> {}
 
@@ -67,7 +68,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 	}
 
 	shouldUpdate(nextProps: DropdownPropTypes<T, V>, nextState: DropdownStateTypes<T>) {
-		const shouldUpdate = nextProps.Default.Name !== this.props.Default.Name || nextState !== this.state;
+		const shouldUpdate = nextProps.Default.Name !== this.props.Default.Name || nextState !== this.state || !deepEquals(nextProps.Items, this.props.Items);
 		if (shouldUpdate) {
 			(this.state as DropdownStateTypes<T>).Value = nextProps.Default;
 		}
