@@ -156,7 +156,6 @@ function map_properties(target: BasePart): (propertyName: keyof RawProperties) =
 	};
 }
 
-let debounce = 0;
 ContextActionService.BindActionAtPriority(
 	"PlacementSystemHandler",
 	(_, inputState, inputObject) => {
@@ -211,13 +210,11 @@ ContextActionService.BindActionAtPriority(
 				if (state.ActivatedColorPicker) return;
 				switch (mode) {
 					case "Place":
-						if (os.clock() - debounce >= 0.15) {
-							debounce = os.clock();
-							buildHandle.placeBlock();
-						}
+						buildHandle.placeBlock();
 						break;
 					case "Delete":
 						buildHandle.deleteBlock();
+						break;
 				}
 			}
 		})();
