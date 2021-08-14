@@ -5,10 +5,11 @@ import NavigationFrame from "./WorldMenuFrames/NavigationFrame";
 import WorldInfoFrame from "./WorldMenuFrames/WorldInfoFrame";
 import SettingsFrame from "./WorldMenuFrames/SettingsFrame";
 import Permissions from "./WorldMenuFrames/Permissions";
+import { worldMenuContext, ContextType } from "../worldMenuContext";
 
 const [VERSION] = ReplicatedStorage.TS.version.Value.match("%S+");
 
-class WorldMenu extends Component {
+class WorldMenu extends Component<ContextType> {
 	private uiPagelayoutRef: Roact.Ref<UIPageLayout>;
 	private navigationFrameRef: Roact.Ref<Frame>;
 	private worldInfoFrameRef: Roact.Ref<Frame>;
@@ -19,8 +20,8 @@ class WorldMenu extends Component {
 	private binding: Roact.Binding<number>;
 	private setBinding: Roact.BindingFunction<number>;
 
-	constructor() {
-		super({});
+	constructor(props: ContextType) {
+		super(props);
 		this.uiPagelayoutRef = createRef();
 		this.navigationFrameRef = createRef();
 		this.worldInfoFrameRef = createRef();
@@ -63,7 +64,9 @@ class WorldMenu extends Component {
 	didMount() {
 		UserInputService.InputBegan.Connect((input, gameProcessed) => {
 			if (gameProcessed) return;
-			if (input.KeyCode === Enum.KeyCode.V) this.motor.setGoal(new Spring(this.motor.getValue() === 0 ? 1 : 0));
+			if (input.KeyCode !== Enum.KeyCode.V) return;
+			this.motor.setGoal(new Spring(!this.props.visible ? 1 : 0));
+			this.props.updateWorldMenu(!this.props.visible);
 		});
 	}
 
@@ -142,4 +145,4 @@ class WorldMenu extends Component {
 	}
 }
 
-export default WorldMenu;
+export default () => <worldMenuContext.Consumer render={(value) => <WorldMenu {...value} />} />;

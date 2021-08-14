@@ -26,7 +26,7 @@ interface LightingPropTypes extends WorldSettings {
 
 function Lighting(props: LightingPropTypes) {
 	return (
-		<Container layoutProps={{ SortOrder: Enum.SortOrder.LayoutOrder }} >
+		<Container layoutProps={{ SortOrder: Enum.SortOrder.LayoutOrder }}>
 			<uicorner CornerRadius={new UDim(0.05, 0)} />
 			<Catagory Text="Lighting" Image="rbxassetid://3926307971" />
 			<ColorDisplay

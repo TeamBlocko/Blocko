@@ -9,14 +9,14 @@
 		"@rbxts/net": "^2.1.0",
 		"@rbxts/number-manipulator": "^1.1.2",
 		"@rbxts/object-utils": "^1.0.4",
-		"@rbxts/roact": "^1.4.0-ts.1",
+		"@rbxts/roact": "^1.4.0-ts.2",
 		"@rbxts/roact-dnd": "git+https://github.com/alihsaas/roact-dnd.git",
 		"@rbxts/roact-rodux": "^0.2.2-ts.4",
 		"@rbxts/rodux": "^3.0.0-ts.3",
 		"@rbxts/ser": "^1.2.2",
 		"@rbxts/services": "^1.1.5",
 		"@rbxts/synced-poller": "^1.0.2",
-		"@rbxts/t": "^2.1.4"
+		"@rbxts/t": "^2.1.5"
 	},
 	"scripts": {
 		"rojo:world-template": "rojo serve world-template.project.json",
@@ -48,9 +48,9 @@
 		"project:version": "echo $(git describe --tags --first-parent --long --always) | tee src/template/shared/version.txt"
 	},
 	"devDependencies": {
-		"@rbxts/types": "^1.0.510",
-		"@typescript-eslint/eslint-plugin": "^4.28.5",
-		"@typescript-eslint/parser": "^4.28.5",
+		"@rbxts/types": "^1.0.516",
+		"@typescript-eslint/eslint-plugin": "^4.29.1",
+		"@typescript-eslint/parser": "^4.29.1",
 		"eslint": "^7.32.0",
 		"eslint-config-prettier": "^6.15.0",
 		"eslint-plugin-prettier": "^3.4.0",

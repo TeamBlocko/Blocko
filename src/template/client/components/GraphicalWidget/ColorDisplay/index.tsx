@@ -10,6 +10,7 @@ import RGBValues from "./RGBValues";
 
 import { getPosOnAxis } from "common/shared/utility";
 import { IState } from "template/shared/Types";
+import { worldMenuContext } from "template/client/worldMenuContext";
 
 const currentCamera = Workspace.CurrentCamera;
 
@@ -102,37 +103,55 @@ class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTyp
 	render() {
 		return (
 			<DragDropProvider>
-				<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30} LayoutOrder={this.props.LayoutOrder}>
-					<uicorner
-						CornerRadius={new UDim(0, 7)}
-						Ref={(n) => {
-							if (!n) return;
-							this.selfRef = n.Parent as Frame;
-						}}
-					/>
-					<TitleText
-						Text={this.props.Name}
-						Position={UDim2.fromScale(0, 0.5)}
-						AnchorPoint={new Vector2(0, 0.5)}
-					/>
-					<PickButton
-						Value={this.props.Default}
-						HandleClick={(inputButton: TextButton) => this.HandleClick(inputButton)}
-					/>
-					<RGBValues Value={this.props.Default} onTextChange={(...args) => this.onTextChange(...args)} />
-					{this.root && (
-						<Portal target={this.root}>
-							<ColorPicker
-								Name={this.props.Name}
-								Value={this.props.Default}
-								Visible={this.state.Selected && this.props.Mode === "Place"}
-								onChange={(color: Color3) => this.onColorChange(color)}
-								UpdateColorPickerBinding={(e) => this.updateColorPickerBinding(e)}
-								OnClose={(inputButton: ImageButton) => this.HandleClick(inputButton)}
-							/>
-						</Portal>
-					)}
-				</GWFrame>
+				<worldMenuContext.Consumer
+					render={(value) => {
+						print(
+							(this.props.Name === "Ambient" || this.props.Name === "Outdoor Ambient") && value.visible,
+						);
+						return (
+							<GWFrame SizeOffsetY={this.props.SizeYOffset ?? 30} LayoutOrder={this.props.LayoutOrder}>
+								<uicorner
+									CornerRadius={new UDim(0, 7)}
+									Ref={(n) => {
+										if (!n) return;
+										this.selfRef = n.Parent as Frame;
+									}}
+								/>
+								<TitleText
+									Text={this.props.Name}
+									Position={UDim2.fromScale(0, 0.5)}
+									AnchorPoint={new Vector2(0, 0.5)}
+								/>
+								<PickButton
+									Value={this.props.Default}
+									HandleClick={(inputButton: TextButton) => this.HandleClick(inputButton)}
+								/>
+								<RGBValues
+									Value={this.props.Default}
+									onTextChange={(...args) => this.onTextChange(...args)}
+								/>
+								{this.root && (
+									<Portal target={this.root}>
+										<ColorPicker
+											Name={this.props.Name}
+											Value={this.props.Default}
+											Visible={
+												this.state.Selected &&
+												(this.props.Mode === "Place" ||
+													((this.props.Name === "Ambient" ||
+														this.props.Name === "Outdoor Ambient") &&
+														value.visible))
+											}
+											onChange={(color: Color3) => this.onColorChange(color)}
+											UpdateColorPickerBinding={(e) => this.updateColorPickerBinding(e)}
+											OnClose={(inputButton: ImageButton) => this.HandleClick(inputButton)}
+										/>
+									</Portal>
+								)}
+							</GWFrame>
+						);
+					}}
+				/>
 			</DragDropProvider>
 		);
 	}
