@@ -63,18 +63,28 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 	});
 }
 
-class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
+class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes, { Visible: boolean }> {
+
+	frameRef: Roact.Ref<Frame>;
+
 	frameSizeBinding: Roact.RoactBinding<number>;
 	setFrameSizeBinding: Roact.RoactBindingFunc<number>;
 
 	constructor(props: FunctionTemplatePropTypes) {
 		super(props);
 
+		this.frameRef = Roact.createRef();
+
 		[this.frameSizeBinding, this.setFrameSizeBinding] = Roact.createBinding(0);
+	
+		this.setState({
+			Visible: true
+		})
 	}
 
 	render() {
 		const settings = renderFunctionalitySettings(this.props);
+		const items = getAvliableFunctionalities().filter((func) => func.Id !== this.props.Functionality.Id);
 		return (
 			<frame
 				Key={this.props.Functionality.GUID}
@@ -83,6 +93,7 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 				Size={this.frameSizeBinding.map((value) => new UDim2(0.975, 0, 0, value))}
 				ZIndex={this.props.ZIndex}
 				LayoutOrder={this.props.LayoutOrder}
+				Ref={this.frameRef}
 			>
 				<uicorner CornerRadius={new UDim(0, 7)} />
 				<frame
@@ -96,7 +107,7 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 				>
 					<DropdownButton
 						Name="Functionality"
-						Items={getAvliableFunctionalities().filter((func) => func.Id !== this.props.Functionality.Id)}
+						Items={items}
 						GetValue={(value) =>
 							values(Functionalities.functionalities).find(
 								(functionality) => functionality.Name === value,
@@ -105,6 +116,8 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 						ZIndex={11}
 						Default={this.props.Functionality as Functionalities.FunctionalitiesValues}
 						OnChange={(value) => this.props.UpdateFunctionality(this.props.Functionality.GUID, value)}
+						IgnoreClipDescandents={true}
+						Visible={this.state.Visible}
 					/>
 					<Gap Width={40} />
 					<CloseButton OnClose={() => this.props.RemoveFunctionality(this.props.Functionality.GUID)} />
@@ -124,6 +137,21 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes> {
 				/>
 			</frame>
 		);
+	}
+
+	didMount() {
+		const frame = this.frameRef.getValue();
+		print(frame);
+		if (!frame) return;
+		const scrollingFrame = frame.FindFirstAncestorOfClass("ScrollingFrame");
+		print(scrollingFrame);
+		if (!scrollingFrame) return;
+		scrollingFrame.GetPropertyChangedSignal("CanvasPosition").Connect(() => {
+			print("HEY", frame.AbsolutePosition.Y + 35 < scrollingFrame.CanvasSize.Y.Offset)
+			this.setState({
+				Visible: frame.AbsolutePosition.Y + 35 < scrollingFrame.CanvasSize.Y.Offset
+			})
+		})
 	}
 }
 

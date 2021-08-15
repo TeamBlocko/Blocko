@@ -30,6 +30,8 @@ export interface DropdownPropTypes<T, V> extends GWPropTypes<T> {
 	OverrideValueText?: string;
 	ResizeButtonToText?: boolean;
 	OnExtend?: (isExpanded: boolean) => void;
+	IgnoreClipDescandents?: boolean;
+	Visible?: boolean;
 }
 
 class DropdownButton<T extends Item, V extends string> extends Component<
@@ -68,7 +70,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 	}
 
 	shouldUpdate(nextProps: DropdownPropTypes<T, V>, nextState: DropdownStateTypes<T>) {
-		const shouldUpdate = nextProps.Default.Name !== this.props.Default.Name || nextState !== this.state || !deepEquals(nextProps.Items, this.props.Items);
+		const shouldUpdate = nextProps.Default.Name !== this.props.Default.Name || nextState !== this.state || !deepEquals(nextProps.Items, this.props.Items) || nextProps.Visible !== this.props.Visible;
 		if (shouldUpdate) {
 			(this.state as DropdownStateTypes<T>).Value = nextProps.Default;
 		}
@@ -97,6 +99,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 							TextSize={12}
 							TextXAlignment={Enum.TextXAlignment.Left}
 							ZIndex={this.props.ZIndex}
+							Visible={this.props.Visible}
 							Event={{
 								Activated: () => {
 									if (isSelected) {
@@ -137,6 +140,7 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 										Value: newValue,
 									});
 								}}
+								IgnoreClip={this.props.IgnoreClipDescandents}
 							/>
 							<uicorner CornerRadius={new UDim(0, 5)} />
 						</textbutton>
