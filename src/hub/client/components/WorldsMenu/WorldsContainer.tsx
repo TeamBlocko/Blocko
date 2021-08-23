@@ -1,10 +1,13 @@
+import { Workspace } from "@rbxts/services";
 import Roact from "@rbxts/roact";
 import Flipper from "@rbxts/flipper";
 import { Client } from "@rbxts/net";
 import { FilterItem, searchContext } from "hub/client/searchContext";
 import WorldFrame from "../WorldFrame";
 import { popupFrameContext } from "./popupFramesContext";
-import { worldCache } from "../worldCache";
+import { worldCache } from "hub/client/cache";
+
+const camera = Workspace.CurrentCamera as Camera;
 
 const fetchWorlds = Client.GetAsyncFunction<[], [Filter], FetchWorldsResult>("FetchWorlds");
 const fetchWorldInfo = Client.GetAsyncFunction<[], [number], World>("FetchWorldInfo");
@@ -36,9 +39,8 @@ class CreateWorld extends Roact.Component {
 							BackgroundColor3={this.binding.map((value) =>
 								Color3.fromRGB(30, 30, 30).Lerp(Color3.fromRGB(72, 178, 255), value),
 							)}
-							BackgroundTransparency={0.5}
+							BackgroundTransparency={this.binding.map((value) => (1 - value) * 0.5)}
 							Position={UDim2.fromScale(0.5, 0.5)}
-							Size={UDim2.fromOffset(100, 100)}
 							AutoButtonColor={false}
 							ScaleType={Enum.ScaleType.Crop}
 							Event={{
@@ -114,8 +116,13 @@ interface WorldsContainerPropTypes {
 }
 
 class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsState> {
+	canvasSizeBinding: Roact.Binding<number>;
+	setCanvasSizeBinding: Roact.BindingFunction<number>;
+
 	constructor(props: WorldsContainerPropTypes) {
 		super(props);
+
+		[this.canvasSizeBinding, this.setCanvasSizeBinding] = Roact.createBinding(0);
 
 		this.setState({
 			Worlds: [],
@@ -172,12 +179,19 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 				Size={UDim2.fromScale(0.985, 1)}
 				ElasticBehavior={Enum.ElasticBehavior.Never}
 				ScrollBarThickness={5}
+				CanvasSize={this.canvasSizeBinding.map((value) => UDim2.fromOffset(0, value + 10))}
 			>
 				{createWorld ?? errorText}
 				<uigridlayout
 					HorizontalAlignment={Enum.HorizontalAlignment.Center}
-					CellPadding={UDim2.fromScale(0.019, 0.022)}
-					CellSize={UDim2.fromScale(0.221, 0.107)}
+					CellPadding={camera.ViewportSize.X < 1400 ? UDim2.fromOffset(45, 45) : UDim2.fromOffset(50, 50)}
+					CellSize={camera.ViewportSize.X < 1400 ? UDim2.fromOffset(237, 153) : UDim2.fromOffset(356, 229)}
+					Change={{
+						AbsoluteContentSize: (e) => {
+							print(e.AbsoluteContentSize.Y);
+							this.setCanvasSizeBinding(e.AbsoluteContentSize.Y);
+						},
+					}}
 				/>
 				{!errorText ? renderWorlds(this.state.Worlds!) : undefined}
 			</scrollingframe>

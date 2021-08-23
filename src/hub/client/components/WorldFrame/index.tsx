@@ -27,7 +27,6 @@ class WorldFrame extends Roact.Component<World> {
 					<imagebutton
 						BackgroundTransparency={1}
 						Selectable={false}
-						Size={UDim2.fromOffset(100, 100)}
 						AutoButtonColor={false}
 						Image={this.props.Settings.Icon}
 						ScaleType={Enum.ScaleType.Crop}

@@ -3,6 +3,7 @@ import Roact from "@rbxts/roact";
 import LikeButton from "./LikeButton";
 import PlayersCount from "./Players";
 import FeaturedTag from "./FeaturedTag";
+import { userCache } from "hub/client/cache";
 
 function Gap() {
 	return <frame BackgroundTransparency={1} Size={UDim2.fromScale(0, 0.095)} />;
@@ -81,9 +82,16 @@ class WorldInfo extends Roact.Component<WorldInfoPropTypes> {
 		const worldOwner = this.worldOwnerRef.getValue();
 		assert(worldOwner);
 
-		const result = opcall(() => Players.GetNameFromUserIdAsync(this.props.World.Info.Owner));
+		const result = opcall(
+			() =>
+				userCache.get(this.props.World.Info.Owner) ??
+				Players.GetNameFromUserIdAsync(this.props.World.Info.Owner),
+		);
 
-		result.success ? (worldOwner.Text = result.value) : (worldOwner.Text = "N/A");
+		if (result.success) {
+			worldOwner.Text = result.value;
+			userCache.set(this.props.World.Info.Owner, result.value);
+		} else worldOwner.Text = "N/A";
 	}
 }
 

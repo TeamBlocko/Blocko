@@ -1,6 +1,7 @@
 import { Players } from "@rbxts/services";
 import Roact from "@rbxts/roact";
 import { langList } from "common/shared/utility";
+import { userCache } from "hub/client/cache";
 
 function TagsList(props: { Tags: string[] }) {
 	return (
@@ -71,7 +72,7 @@ class OwnerText extends Roact.Component<OwnerTextPropTypes> {
 		);
 	}
 
-	didMount() {
+	updateOwnerText() {
 		const ownerName = this.ownerNameRef.getValue();
 		const ownerImage = this.ownerImageRef.getValue();
 
@@ -80,10 +81,20 @@ class OwnerText extends Roact.Component<OwnerTextPropTypes> {
 		const [thumbnailSuccess, thumbnail] = pcall(() =>
 			Players.GetUserThumbnailAsync(this.props.Owner, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48),
 		);
-		const [nameSuccess, name] = pcall(() => Players.GetNameFromUserIdAsync(this.props.Owner));
-
+		const [nameSuccess, name] = pcall(
+			() => userCache.get(this.props.Owner) ?? Players.GetNameFromUserIdAsync(this.props.Owner),
+		);
+		if (nameSuccess) userCache.set(this.props.Owner, name);
 		ownerName.Text = nameSuccess ? name : "N/A";
 		ownerImage.Image = thumbnailSuccess ? thumbnail : "";
+	}
+
+	didMount() {
+		this.updateOwnerText();
+	}
+
+	didUpdate() {
+		this.updateOwnerText();
 	}
 }
 

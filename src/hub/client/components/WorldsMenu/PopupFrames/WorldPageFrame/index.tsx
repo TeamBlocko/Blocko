@@ -1,7 +1,7 @@
 import Roact from "@rbxts/roact";
 import Flipper from "@rbxts/flipper";
 import { Client } from "@rbxts/net";
-import { worldCache } from "hub/client/components/worldCache";
+import { worldCache } from "hub/client/cache";
 import { popupFrameContext } from "../../popupFramesContext";
 import { Pages } from "./Pages";
 import { WorldStatus } from "./WorldStatus";
@@ -59,7 +59,6 @@ interface WorldPageFramePropTypes {
 }
 
 export function WorldPageFrame(props: WorldPageFramePropTypes) {
-	print(props.Visible);
 	return (
 		<frame
 			AnchorPoint={new Vector2(0.5, 0.5)}
