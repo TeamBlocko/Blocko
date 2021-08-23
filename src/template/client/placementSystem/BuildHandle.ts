@@ -103,6 +103,7 @@ class BuildHandler {
 				const sound = new Instance("Sound");
 				sound.SoundId = "rbxassetid://5996140040";
 				sound.Parent = client;
+				sound.Ended.Connect(() => sound.Destroy());
 
 				tween.Play();
 				sound.Play();
