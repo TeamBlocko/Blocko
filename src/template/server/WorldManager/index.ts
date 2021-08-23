@@ -60,6 +60,12 @@ const blocksStore = dataSync.GetStore(`WorldBlocks${DATASTORE_VERSION}`, {
 const activeODS =
 	game.CreatorId !== 0 ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
 
+function runAsync(functions: Array<() => void>) {
+	for (const func of functions) {
+		task.spawn(func);
+	}
+}
+
 class WorldManager {
 	public worldInfo: DataSyncFile<WorldDataSync>;
 	public worldBlocks: DataSyncFile<{ Blocks: string }>;
@@ -183,13 +189,16 @@ class WorldManager {
 
 	ShutDown() {
 		this.isClosing = true;
-		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait();
 		const newInfo = copy(this.worldInfo.GetData());
 		newInfo.data.Info.Server = undefined;
 		newInfo.data.Info.ActivePlayers = "0";
-		this.worldInfo.UpdateData(newInfo);
-		this.worldInfo.SaveData();
-		activeODS.RemoveAsync(newInfo.data.Info.WorldId);
+		runAsync([
+			() => {
+				this.worldInfo.UpdateData(newInfo);
+				this.worldInfo.SaveData();
+			},
+			() => activeODS.RemoveAsync(newInfo.data.Info.WorldId),
+		]);
 	}
 }
 

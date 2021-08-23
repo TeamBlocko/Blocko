@@ -64,7 +64,6 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 }
 
 class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes, { Visible: boolean }> {
-
 	frameRef: Roact.Ref<Frame>;
 
 	frameSizeBinding: Roact.RoactBinding<number>;
@@ -76,10 +75,10 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes, { Visi
 		this.frameRef = Roact.createRef();
 
 		[this.frameSizeBinding, this.setFrameSizeBinding] = Roact.createBinding(0);
-	
+
 		this.setState({
-			Visible: true
-		})
+			Visible: true,
+		});
 	}
 
 	render() {
@@ -147,11 +146,11 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes, { Visi
 		print(scrollingFrame);
 		if (!scrollingFrame) return;
 		scrollingFrame.GetPropertyChangedSignal("CanvasPosition").Connect(() => {
-			print("HEY", frame.AbsolutePosition.Y + 35 < scrollingFrame.CanvasSize.Y.Offset)
+			print("HEY", frame.AbsolutePosition.Y + 35 < scrollingFrame.CanvasSize.Y.Offset);
 			this.setState({
-				Visible: frame.AbsolutePosition.Y + 35 < scrollingFrame.CanvasSize.Y.Offset
-			})
-		})
+				Visible: frame.AbsolutePosition.Y + 35 < scrollingFrame.CanvasSize.Y.Offset,
+			});
+		});
 	}
 }
 
