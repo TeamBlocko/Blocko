@@ -70,7 +70,11 @@ class DropdownButton<T extends Item, V extends string> extends Component<
 	}
 
 	shouldUpdate(nextProps: DropdownPropTypes<T, V>, nextState: DropdownStateTypes<T>) {
-		const shouldUpdate = nextProps.Default.Name !== this.props.Default.Name || nextState !== this.state || !deepEquals(nextProps.Items, this.props.Items) || nextProps.Visible !== this.props.Visible;
+		const shouldUpdate =
+			nextProps.Default.Name !== this.props.Default.Name ||
+			nextState !== this.state ||
+			!deepEquals(nextProps.Items, this.props.Items) ||
+			nextProps.Visible !== this.props.Visible;
 		if (shouldUpdate) {
 			(this.state as DropdownStateTypes<T>).Value = nextProps.Default;
 		}

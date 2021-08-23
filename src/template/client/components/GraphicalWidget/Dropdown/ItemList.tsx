@@ -57,9 +57,7 @@ class ItemList<T extends Item> extends Roact.Component<ItemListPropTypes<T>> {
 					UDim2.fromOffset(this.props.SizeX ?? 135, math.min(canvasSize, 150) * value),
 				)}
 				ZIndex={10}
-				Rotation={this.props.Binding.map((value) => 
-					value === 1 ? (this.props.IgnoreClip ? 0.1 : 0) : 0
-				)}
+				Rotation={this.props.Binding.map((value) => (value === 1 ? (this.props.IgnoreClip ? 0.1 : 0) : 0))}
 			>
 				<uicorner CornerRadius={new UDim(0, 5)} />
 				<scrollingframe
