@@ -7,6 +7,7 @@ import {
 	Players,
 	ContextActionService,
 } from "@rbxts/services";
+import { Client } from "@rbxts/net";
 import store from "template/client/store";
 import GridBase from "./GridBase";
 import BuildHandle from "./BuildHandle";
@@ -21,6 +22,8 @@ import { calculatePermissionsOfUser } from "template/shared/permissionsUtility";
 const client = Players.LocalPlayer;
 const playerGui = client.WaitForChild("PlayerGui");
 const shapes = ReplicatedStorage.BlockTypes;
+
+const getMouseTarget = new Client.AsyncFunction<[], [], unknown, BasePart | undefined>("MouseTarget");
 
 const SPECTATE_COLOR = Color3.fromRGB(255, 255, 255),
 	BUILD_COLOR = Color3.fromRGB(65, 179, 255),
@@ -226,3 +229,18 @@ ContextActionService.BindActionAtPriority(
 );
 
 store.changed.connect(() => buildHandle.updateGhostPart());
+
+getMouseTarget.SetCallback(() => {
+	const target = gridBase.mouseTarget();
+	if (!target) return;
+	let part = target;
+	while (true) {
+		const result = gridBase.raycastMouseOptions(part.Position, new Vector3(0, 5, 0), part);
+		if (result) {
+			part = result.Instance;
+			continue;
+		}
+		break;
+	}
+	return part;
+});

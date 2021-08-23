@@ -1,4 +1,5 @@
 import { Players } from "@rbxts/services";
+import { Server } from "@rbxts/net";
 import { PermissionRanks, getUserRank, getRank, calculatePermissionsOfUser } from "template/shared/permissionsUtility";
 import WorldManager from "template/server/WorldManager";
 import { updateWorldPermission } from "template/shared/worldSettingsReducer";
@@ -6,14 +7,24 @@ import { constructMessage, errorMsg } from "./messageUtility";
 
 export const PREFIX = "!";
 
+const getMouseTarget = new Server.AsyncFunction<[Player], [], BasePart | undefined>("MouseTarget");
+
 export interface Arg {
 	name: string;
 	description: string;
+	optional?: false;
+}
+
+export interface OptionalArg {
+	name: string;
+	description: string;
+	optional: true;
+	default: string;
 }
 
 export interface Command {
 	name: string;
-	args: Arg[];
+	args: (Arg | OptionalArg)[];
 	execute(caller: Player, ...args: string[]): string;
 }
 
@@ -63,6 +74,40 @@ export const commands = {
 			print("SUCCESS UPDATED PERMISSION");
 			WorldManager.store.dispatch(updateWorldPermission(player.UserId, permissionLevel));
 			return `Successfully updated permission of ${player.Name} to ${permissionLevelValue}`;
+		},
+	}),
+	tp: identity<Command>({
+		name: "tp",
+		args: [{ name: "Player", description: "The player you want to teleport to.", optional: true, default: "" }],
+		execute(called, playerValue) {
+			if (playerValue === (this.args[0] as OptionalArg).default) {
+				const result = getMouseTarget.CallPlayerAsync(called).await();
+				if (result[0]) {
+					const target = result[1];
+					if (!target)
+						return errorMsg(
+							"Hover on a Part you want to teleport to or pass a Player you want to teleport to.",
+						);
+					const callerHumanoid = (called.Character || called.CharacterAdded.Wait()[0]).WaitForChild(
+						"HumanoidRootPart",
+					) as Part;
+					callerHumanoid.CFrame = target.CFrame.add(new Vector3(0, target.Size.Y, 0));
+				}
+			} else {
+				const player = Players.GetPlayers().find(
+					(player) => !!player.Name.lower().match(`^${playerValue.lower()}`)[0],
+				);
+				if (!player)
+					return constructMessage(PREFIX, this, `Invalid value passed for Player`, this.args[0], playerValue);
+				const callerHumanoid = (called.Character || called.CharacterAdded.Wait()[0]).WaitForChild(
+					"HumanoidRootPart",
+				) as Part;
+				const playerHumanoid = (called.Character || called.CharacterAdded.Wait()[0]).WaitForChild(
+					"HumanoidRootPart",
+				) as Part;
+				callerHumanoid.CFrame = playerHumanoid.CFrame;
+			}
+			return "";
 		},
 	}),
 };

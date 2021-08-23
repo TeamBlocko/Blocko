@@ -127,6 +127,15 @@ class GridBase {
 		return Workspace.Raycast(mouseUnitRay.Origin, mouseUnitRay.Direction.mul(this.maxPlaceDistance), raycastParams);
 	}
 
+	raycastMouseOptions(origin: Vector3, direction: Vector3, ignore: Instance) {
+		if (camera === undefined) return;
+		const raycastParams = new RaycastParams();
+		raycastParams.FilterType = Enum.RaycastFilterType.Whitelist;
+		raycastParams.FilterDescendantsInstances = [this.blocks, ignore];
+
+		return Workspace.Raycast(origin, direction, raycastParams);
+	}
+
 	mouseTarget() {
 		const raycastResult = this.raycastMouse();
 		return raycastResult && raycastResult.Instance;

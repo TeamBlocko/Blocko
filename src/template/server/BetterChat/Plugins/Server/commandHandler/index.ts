@@ -38,7 +38,8 @@ function registerProcessCommandsFunction(api: ServerAPI, messageObject: Message)
 
 		for (const [index, arg] of ipairs(command.args)) {
 			const passedValue = parsed.Ordered[index - 1];
-			if (passedValue === undefined) {
+			if (arg.optional && passedValue === undefined) parsed.Ordered[index - 1] = arg.default;
+			if (passedValue === undefined && !arg.optional) {
 				const finalMessage = constructMessage(PREFIX, command, `No value passed for ${arg.name}`, arg);
 				return [true, finalMessage];
 			}
