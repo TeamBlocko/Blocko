@@ -35,7 +35,13 @@ export class NotificationContainer extends Component<
 		});
 	}
 
+	hasNotification(id: string) {
+		return this.state.notifications.some((notifcation) => notifcation.Id === id);
+	}
+
 	add(notification: iNotification) {
+		if (this.hasNotification(notification.Id) && !notification.OverridePrevious) return notification.Id;
+		this.remove(notification.Id);
 		if (notification.Time) {
 			this.timeContainer.set(notification.Id, true);
 			delay(notification.Time, () => {

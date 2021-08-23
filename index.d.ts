@@ -212,6 +212,7 @@ declare global {
 		Title: string;
 		Message?: string;
 		Width?: number;
+		OverridePrevious?: boolean;
 		HasBeenRemoved?: boolean;
 		Icon: string;
 		isApplyPrompt?: boolean;
