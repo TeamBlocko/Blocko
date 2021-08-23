@@ -145,12 +145,21 @@ class ColorPickerManager {
 
 	HandleInput(input: InputObject) {
 		if (input.UserInputType === Enum.UserInputType.MouseButton1) {
-			if (input.UserInputState === Enum.UserInputState.Begin) {
-				this.updateHueSat(input);
-				this.HFmouseDown = true;
-			} else if (input.UserInputState === Enum.UserInputState.End) {
-				this.updateHueSat(input);
-				this.HFmouseDown = false;
+			const element = this.hsFrame.getValue();
+			if (element === undefined) return;
+			if (
+				input.Position.X > element.AbsolutePosition.X &&
+				input.Position.Y > element.AbsolutePosition.Y &&
+				input.Position.X < element.AbsolutePosition.X + element.AbsoluteSize.X &&
+				input.Position.Y < element.AbsolutePosition.Y + element.AbsoluteSize.Y
+			) {
+				if (input.UserInputState === Enum.UserInputState.Begin) {
+					this.updateHueSat(input);
+					this.HFmouseDown = true;
+				} else if (input.UserInputState === Enum.UserInputState.End) {
+					this.updateHueSat(input);
+					this.HFmouseDown = false;
+				}
 			}
 		}
 		if (this.HFmouseDown && input.UserInputState === Enum.UserInputState.Change) {
@@ -160,12 +169,21 @@ class ColorPickerManager {
 
 	HandleValueInput(input: InputObject) {
 		if (input.UserInputType === Enum.UserInputType.MouseButton1) {
-			if (input.UserInputState === Enum.UserInputState.Begin) {
-				this.updateValue(input);
-				this.VFmouseDown = true;
-			} else if (input.UserInputState === Enum.UserInputState.End) {
-				this.updateValue(input);
-				this.VFmouseDown = false;
+			const element = this.valueFrame.getValue();
+			if (element === undefined) return;
+			if (
+				input.Position.X > element.AbsolutePosition.X &&
+				input.Position.Y > element.AbsolutePosition.Y &&
+				input.Position.X < element.AbsolutePosition.X + element.AbsoluteSize.X &&
+				input.Position.Y < element.AbsolutePosition.Y + element.AbsoluteSize.Y
+			) {
+				if (input.UserInputState === Enum.UserInputState.Begin) {
+					this.updateValue(input);
+					this.VFmouseDown = true;
+				} else if (input.UserInputState === Enum.UserInputState.End) {
+					this.updateValue(input);
+					this.VFmouseDown = false;
+				}
 			}
 		}
 		if (this.VFmouseDown && input.UserInputState === Enum.UserInputState.Change) {
