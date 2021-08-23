@@ -90,7 +90,11 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 		);
 	}
 
-	didMount() {
+	shouldUpdate(_nextProps: PlayerFramePropTypes & World, nextState: { staff: PermissionsInfo | undefined }) {
+		return nextState.staff !== this.state.staff;
+	}
+
+	updatePlayerFrame() {
 		const [thumbnailSuccess, thumbnail] = pcall(() =>
 			Players.GetUserThumbnailAsync(this.props.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48),
 		);
@@ -107,6 +111,14 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 		this.setState({
 			staff: teamBlockoStaff(this.props.UserId),
 		});
+	}
+
+	didMount() {
+		this.updatePlayerFrame();
+	}
+
+	didUpdate() {
+		this.updatePlayerFrame();
 	}
 }
 
