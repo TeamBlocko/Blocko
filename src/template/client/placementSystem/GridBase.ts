@@ -161,15 +161,35 @@ class GridBase {
 		return true;
 	}
 
+	isFloatError(value: number) {
+		if (value === 1 || value === 0) {
+			return true;
+		}
+
+		if (value * 1e4 < 1) {
+			return true;
+		}
+	}
+
+	isFromFloatError(vector: Vector3) {
+		if (this.isFloatError(math.abs(vector.X)) === true) {
+			return true;
+		} else if (this.isFloatError(math.abs(vector.Y)) === true) {
+			return true;
+		} else if (this.isFloatError(math.abs(vector.Z)) === true) {
+			return true;
+		}
+	}
+
 	mouseGridPosition() {
 		const target = this.mouseTarget();
 		const pos = this.mousePosition();
 		if (!pos) return;
 		const gridSize = this.getSize(store.getState().PlacementSettings.RawProperties.Size);
 		if (!target) return this.positionToGrid(pos, gridSize);
-		if (this.isAllFloat(pos)) return this.positionToGrid(pos, gridSize);
 		const normal = this.mouseBlockSide();
 		if (!normal) return;
+		if (this.isAllFloat(normal) && !this.isFromFloatError(normal)) return this.positionToGrid(pos, gridSize);
 		/*
 		const offset = pos.sub(target.Position).mul(normal).Magnitude;
 		const offsetX = gridSize.X / 2 - offset;
