@@ -14,6 +14,7 @@ class ColorPickerManager {
 	hsFrame: Roact.Ref<ImageButton>;
 	valueFrame: Roact.Ref<TextButton>;
 	state: ColorPickerStateTypes;
+	props: ColorPickerPropTypes;
 	hue = 0;
 	saturation = 0;
 	cvalue = 0;
@@ -22,11 +23,13 @@ class ColorPickerManager {
 
 	constructor(
 		state: ColorPickerStateTypes,
+		props: ColorPickerPropTypes,
 		changeColor: (newState: ColorPickerStateTypes) => void,
 		hsFrame: Roact.Ref<ImageButton>,
 		valueFrame: Roact.Ref<TextButton>,
 	) {
 		this.state = state;
+		this.props = props
 		this.changeColor = changeColor;
 		this.hsFrame = hsFrame;
 		this.valueFrame = valueFrame;
@@ -144,23 +147,23 @@ class ColorPickerManager {
 	}
 
 	HandleInput(input: InputObject) {
+		if (!this.props.Visible) return;
 		if (input.UserInputType === Enum.UserInputType.MouseButton1) {
-			const element = this.hsFrame.getValue();
-			if (element === undefined) return;
-			if (
-				input.Position.X > element.AbsolutePosition.X &&
-				input.Position.Y > element.AbsolutePosition.Y &&
-				input.Position.X < element.AbsolutePosition.X + element.AbsoluteSize.X &&
-				input.Position.Y < element.AbsolutePosition.Y + element.AbsoluteSize.Y
-			) {
 				if (input.UserInputState === Enum.UserInputState.Begin) {
-					this.updateHueSat(input);
-					this.HFmouseDown = true;
+					const element = this.hsFrame.getValue();
+					if (element === undefined) return;
+					if (
+						input.Position.X > element.AbsolutePosition.X &&
+						input.Position.Y > element.AbsolutePosition.Y &&
+						input.Position.X < element.AbsolutePosition.X + element.AbsoluteSize.X &&
+						input.Position.Y < element.AbsolutePosition.Y + element.AbsoluteSize.Y
+					) {
+						this.updateHueSat(input);
+						this.HFmouseDown = true;
+					}
 				} else if (input.UserInputState === Enum.UserInputState.End) {
-					this.updateHueSat(input);
 					this.HFmouseDown = false;
 				}
-			}
 		}
 		if (this.HFmouseDown && input.UserInputState === Enum.UserInputState.Change) {
 			this.updateHueSat(input);
@@ -168,22 +171,22 @@ class ColorPickerManager {
 	}
 
 	HandleValueInput(input: InputObject) {
+		if (!this.props.Visible) return;
 		if (input.UserInputType === Enum.UserInputType.MouseButton1) {
-			const element = this.valueFrame.getValue();
-			if (element === undefined) return;
-			if (
-				input.Position.X > element.AbsolutePosition.X &&
-				input.Position.Y > element.AbsolutePosition.Y &&
-				input.Position.X < element.AbsolutePosition.X + element.AbsoluteSize.X &&
-				input.Position.Y < element.AbsolutePosition.Y + element.AbsoluteSize.Y
-			) {
-				if (input.UserInputState === Enum.UserInputState.Begin) {
+			if (input.UserInputState === Enum.UserInputState.Begin) {
+				const element = this.valueFrame.getValue();
+				if (element === undefined) return;
+				if (
+					input.Position.X > element.AbsolutePosition.X &&
+					input.Position.Y > element.AbsolutePosition.Y &&
+					input.Position.X < element.AbsolutePosition.X + element.AbsoluteSize.X &&
+					input.Position.Y < element.AbsolutePosition.Y + element.AbsoluteSize.Y
+				) {
 					this.updateValue(input);
 					this.VFmouseDown = true;
-				} else if (input.UserInputState === Enum.UserInputState.End) {
-					this.updateValue(input);
-					this.VFmouseDown = false;
 				}
+			} else if (input.UserInputState === Enum.UserInputState.End) {
+				this.VFmouseDown = false;
 			}
 		}
 		if (this.VFmouseDown && input.UserInputState === Enum.UserInputState.Change) {

@@ -3,6 +3,7 @@ import Roact from "@rbxts/roact";
 import { getUserPermissions, teamBlockoStaff } from "template/shared/permissionsUtility";
 import { IState } from "template/shared/Types";
 import { connect } from "@rbxts/roact-rodux";
+import { deepEquals } from "@rbxts/object-utils";
 
 interface PlayerFramePropTypes {
 	UserId: number;
@@ -90,8 +91,8 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 		);
 	}
 
-	shouldUpdate(_nextProps: PlayerFramePropTypes & World, nextState: { staff: PermissionsInfo | undefined }) {
-		return nextState.staff !== this.state.staff;
+	shouldUpdate(nextProps: PlayerFramePropTypes & World, nextState: { staff: PermissionsInfo | undefined }) {
+		return nextState.staff !== this.state.staff || !deepEquals(nextProps, this.props);
 	}
 
 	updatePlayerFrame() {

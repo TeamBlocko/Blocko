@@ -35,6 +35,7 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 		});
 		this.manager = new ColorPickerManager(
 			this.state,
+			this.props,
 			(data: ColorPickerStateTypes) => {
 				this.props.onChange(data.Value);
 				this.setState(data);
@@ -47,6 +48,7 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 	willUpdate(nextProps: ColorPickerPropTypes) {
 		if (tostring(nextProps.Value) !== tostring(this.props.Value)) {
 			this.manager.state = { Value: nextProps.Value };
+			this.manager.props = nextProps;
 			this.manager.updateHueSatFromColor();
 		}
 	}
