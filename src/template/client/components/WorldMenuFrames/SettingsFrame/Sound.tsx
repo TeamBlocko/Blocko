@@ -47,6 +47,7 @@ function Sound(props: SoundPropTypes) {
 				Max={10}
 				Default={props.Volume}
 				OnChange={(newValue) => props.OnSliderUpdate("Volume", newValue)}
+				DeciminalPlace={2}
 			/>
 			<Slider
 				Name="Pitch"
@@ -54,6 +55,7 @@ function Sound(props: SoundPropTypes) {
 				Max={100}
 				Default={props.Pitch}
 				OnChange={(newValue) => props.OnSliderUpdate("Pitch", newValue)}
+				DeciminalPlace={2}
 			/>
 		</Container>
 	);
