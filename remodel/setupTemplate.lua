@@ -44,11 +44,11 @@ if isPacked then
 end
 
 addModels(game, isPacked)
-
+--[[
 if serverScriptService:FindFirstChild("TS") then
 	remodel.setRawProperty(serverScriptService.TS.BetterChat.MainModule.Server.serverRunner, "Disabled", "Bool", true)	
 else
 	remodel.setRawProperty(game:GetService("ServerStorage").Resources.ServerScriptService.TS.BetterChat.MainModule.Server.serverRunner, "Disabled", "Bool", true)		
 end
-
+]]
 remodel.writePlaceFile(game, worldPath)

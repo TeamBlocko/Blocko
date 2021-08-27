@@ -91,7 +91,7 @@ export const commands = {
 					const callerHumanoid = (called.Character || called.CharacterAdded.Wait()[0]).WaitForChild(
 						"HumanoidRootPart",
 					) as Part;
-					callerHumanoid.CFrame = target.CFrame.add(new Vector3(0, target.Size.Y, 0));
+					callerHumanoid.Position = target.Position.add(new Vector3(0, target.Size.Y, 0));
 				}
 			} else {
 				const player = Players.GetPlayers().find(
@@ -105,9 +105,9 @@ export const commands = {
 				const playerHumanoid = (called.Character || called.CharacterAdded.Wait()[0]).WaitForChild(
 					"HumanoidRootPart",
 				) as Part;
-				callerHumanoid.CFrame = playerHumanoid.CFrame;
+				callerHumanoid.Position = playerHumanoid.Position;
 			}
-			return "";
+			return "Telported Successfully";
 		},
 	}),
 };

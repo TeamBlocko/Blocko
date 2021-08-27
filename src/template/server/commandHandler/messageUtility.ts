@@ -1,11 +1,11 @@
 import { Arg, Command, OptionalArg } from "./commands";
 
 export function errorMsg(str: string) {
-	return `(255, 80, 80 / ${str} )`;
+	return `<font color="rgb(255, 80, 80)">${str}</font>`;
 }
 
 export function successMsg(str: string) {
-	return `(80, 200, 120 / ${str} )`;
+	return `<font color="rgb(80, 200, 120)">${str}</font>`;
 }
 
 export function constructMessage(
@@ -19,8 +19,8 @@ export function constructMessage(
 
 	const [modifiedMessage] =
 		value !== undefined
-			? message.gsub(arg.name, errorMsg(`__${arg.name}: ${value}__`))
-			: message.gsub(arg.name, errorMsg(`__${arg.name}__`));
+			? message.gsub(arg.name, errorMsg(`<i>${arg.name}: ${value}</i>`))
+			: message.gsub(arg.name, errorMsg(`<i>${arg.name}</i>`));
 
 	return `${errorMsg(err)}: ${modifiedMessage}`;
 }
