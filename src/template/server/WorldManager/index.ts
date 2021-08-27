@@ -122,6 +122,19 @@ class WorldManager {
 					},
 				});
 			}
+			if (this.isClosing) {
+				const newInfo = copy(this.worldInfo.GetData());
+				newInfo.data.Info.Server = undefined;
+				newInfo.data.Info.ActivePlayers = "0";
+				runAsync([
+					() => {
+						this.worldInfo.UpdateData(newInfo);
+						this.worldInfo.SaveData();
+					},
+					() => activeODS.RemoveAsync(`${state.Info.WorldId}`),
+				]);
+				return
+			}
 			activeODS.SetAsync(`${state.Info.WorldId}`, state.Info.ActivePlayers);
 
 			const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
@@ -129,7 +142,6 @@ class WorldManager {
 			this.worldBlocks.UpdateData("Blocks", serialized);
 			this.worldInfo.SaveData();
 			this.worldBlocks.SaveData();
-
 			const worldSize = serialized.size();
 			const percentageClose = (worldSize * 100) / MAX_WORLD_SIZE;
 
@@ -197,9 +209,9 @@ class WorldManager {
 				this.worldInfo.UpdateData(newInfo);
 				this.worldInfo.SaveData();
 			},
-			() => activeODS.RemoveAsync(newInfo.data.Info.WorldId),
+			() => activeODS.RemoveAsync(`${newInfo.data.Info.WorldId}`),
 		]);
 	}
 }
-
+print(game.PlaceId)
 export default new WorldManager(game.PlaceId);
