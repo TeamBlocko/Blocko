@@ -1,7 +1,7 @@
-import { Client } from "@rbxts/net";
 import { Players } from "@rbxts/services";
+import { remotes } from "template/shared/remotes";
 
-const result = Client.GetFunctionAsync<[], World>("Replication").await();
+const result = remotes.Client.WaitFor("Replication").await();
 
 if (result[0] === false) {
 	Players.LocalPlayer.Kick("Failed to setup Replication events");

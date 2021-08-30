@@ -1,17 +1,14 @@
 import { ReplicatedStorage, Workspace } from "@rbxts/services";
-import { Server } from "@rbxts/net";
 import { updateWorldInfo } from "template/shared/worldSettingsReducer";
 import WorldManager from "../WorldManager";
 import { addPart } from "./FunctionalitiesHandler";
 import { FunctionalitiesInstancesValues } from "template/shared/Functionalities";
-import { PlacementSettings } from "template/shared/Types";
-import { calculatePermissionsOfUser } from "template/shared/permissionsUtility";
+import { calculatePermissionsOfUser, toOwnerAndPermissions } from "template/shared/permissionsUtility";
+import { remotes } from "template/shared/remotes";
 
 const shapes = ReplicatedStorage.BlockTypes;
-const placeBlock = new Server.Function<[placePosition: Vector3, orientation: Vector3, settings: PlacementSettings]>(
-	"PlaceBlock",
-);
-const deleteBlock = new Server.Function<[target: BasePart]>("DeleteBlock");
+const placeBlock = remotes.Server.Create("PlaceBlock");
+const deleteBlock = remotes.Server.Create("DeleteBlock");
 
 function updateNumOfBlocks() {
 	WorldManager.store.dispatch(
@@ -22,7 +19,7 @@ function updateNumOfBlocks() {
 placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 	if (
 		settings.Shape.IsDescendantOf(shapes) &&
-		calculatePermissionsOfUser(WorldManager.store.getState().Info, player.UserId).Build
+		calculatePermissionsOfUser(toOwnerAndPermissions(WorldManager.store.getState().Info), player.UserId).Build
 	) {
 		const block = settings.Shape.Clone();
 		block.Anchored = true;
@@ -47,7 +44,8 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 
 deleteBlock.SetCallback((player, target) => {
 	if (
-		calculatePermissionsOfUser(WorldManager.store.getState().Info, player.UserId).Build &&
+		calculatePermissionsOfUser(toOwnerAndPermissions(WorldManager.store.getState().Info), player.UserId).Build &&
+		target &&
 		target.IsDescendantOf(Workspace.Blocks)
 	) {
 		target.Destroy();

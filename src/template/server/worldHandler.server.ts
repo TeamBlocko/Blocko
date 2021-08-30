@@ -1,5 +1,4 @@
 import { Players } from "@rbxts/services";
-import { Server } from "@rbxts/net";
 import SyncedPoller from "@rbxts/synced-poller";
 import {
 	updateWorldInfo,
@@ -7,6 +6,7 @@ import {
 	WorldSettingsActionTypes,
 } from "template/shared/worldSettingsReducer";
 import * as handlers from "./worldSettingsHandlers";
+import { remotes } from "template/shared/remotes";
 
 declare interface UpdateWorldSettings {
 	readonly data: UpdateWorldSettingDataType[];
@@ -15,8 +15,8 @@ declare interface UpdateWorldSettings {
 	readonly replicated?: boolean;
 }
 
-const retriveWorldSettingsRemote = new Server.Function("Replication");
-const updateWorldSettingsRemote = new Server.Function<[action: UpdateWorldSettings]>("UpdateWorldSettings");
+const retriveWorldSettingsRemote = remotes.Server.Create("Replication");
+const updateWorldSettingsRemote = remotes.Server.Create("UpdateWorldSettings");
 
 import WorldManager from "./WorldManager";
 import { AnyAction } from "@rbxts/rodux";

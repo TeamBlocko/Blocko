@@ -1,12 +1,12 @@
-import { Client } from "@rbxts/net";
 import { entries } from "@rbxts/object-utils";
 import { ActionRecievedUpdateWorldSettings, updateWorldSettings } from "template/shared/worldSettingsReducer";
 import { deepEquals } from "@rbxts/object-utils";
 import notificationStore from "common/client/notificationStore";
+import { remotes } from "template/shared/remotes";
 import { retriveWorldSettings } from "template/client/replicationManager";
 import store from "template/client/store";
 
-const updateWorldSettingsRemote = new Client.Function<[ActionRecievedUpdateWorldSettings]>("UpdateWorldSettings");
+const updateWorldSettingsRemote = remotes.Client.Get("UpdateWorldSettings");
 
 const updateServer = (action: ActionRecievedUpdateWorldSettings) => {
 	return updateWorldSettingsRemote.CallServer(action);
@@ -54,17 +54,21 @@ store.changed.connect(() => {
 					notificationStore.removeNotification("ApplyPrompt");
 					notificationStore.addNotification({
 						Id: "Syncing",
+						Title: "",
 						Message: "Syncing World Settings",
 					});
-					updateServer(parseSettings(currentWorldSettings));
+					updateServer(parseSettings(store.getState().World.Settings));
 					notificationStore.removeNotification("Syncing");
 					notificationStore.addNotification({
 						Id: "Syncing",
+						Title: "",
 						Message: "Done Syncing",
 						Time: 5,
 					});
 				},
 			});
+		} else {
+			notificationStore.removeNotification("ApplyPrompt");
 		}
 	});
 });

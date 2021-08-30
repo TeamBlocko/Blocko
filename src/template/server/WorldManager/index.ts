@@ -1,6 +1,5 @@
 import { Workspace, DataStoreService, ReplicatedStorage, Players, AssetService } from "@rbxts/services";
 import { AnyAction, Store } from "@rbxts/rodux";
-import { Server } from "@rbxts/net";
 import LazLoader, { DataSyncFile } from "common/server/LazLoader";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { storeInitializer } from "template/server/store";
@@ -10,7 +9,8 @@ import MockODS from "common/server/MockODS";
 import { worldInfoSerializer } from "common/server/WorldInfo/worldSchemes";
 import { DEFAULT_WORLD } from "common/server/WorldInfo/defaultWorld";
 import { copy, assign } from "@rbxts/object-utils";
-import { getPlayersWithPerm } from "template/shared/permissionsUtility";
+import { getPlayersWithPerm, toOwnerAndPermissions } from "template/shared/permissionsUtility";
+import { remotes } from "template/shared/remotes";
 
 const dataSync = LazLoader.require("DataSync");
 
@@ -44,7 +44,7 @@ export enum BlockIds {
 
 const blockSerializer = new BlockSerializer(BlockIds, ReplicatedStorage.BlockTypes);
 
-const notificationHandler = new Server.Event<[], [RemoteNotification | RemoteNotification[]]>("NotificationManager");
+const notificationHandler = remotes.Server.Create("NotificationManager");
 
 const DEFAULT_TEMPLATE = blockSerializer.serializeBlocks(ReplicatedStorage.Template.GetChildren() as BasePart[]);
 const DATASTORE_VERSION = ReplicatedStorage.FindFirstChild("TS")
@@ -59,12 +59,6 @@ const blocksStore = dataSync.GetStore(`WorldBlocks${DATASTORE_VERSION}`, {
 
 const activeODS =
 	game.CreatorId !== 0 ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
-
-function runAsync(functions: Array<() => void>) {
-	for (const func of functions) {
-		task.spawn(func);
-	}
-}
 
 class WorldManager {
 	public worldInfo: DataSyncFile<WorldDataSync>;
@@ -81,8 +75,12 @@ class WorldManager {
 		this.worldInfo = worldStore.GetFile(`World${placeId}`);
 		this.worldBlocks = blocksStore.GetFile(`WorldBlocks${placeId}`);
 		const worldFile = this.worldInfo.GetData();
+
 		this.store = storeInitializer(
-			worldInfoSerializer.deserialize({ Info: worldFile.data.Info, Settings: worldFile.data.Settings }),
+			worldInfoSerializer.deserialize({
+				Info: { ...worldFile.data.Info, Server: game.JobId },
+				Settings: worldFile.data.Settings,
+			}),
 		);
 
 		this.store.changed.connect(async (newState) => {
@@ -111,29 +109,35 @@ class WorldManager {
 			AssetService.SavePlaceAsync();
 			const shouldSendSaveNotification = os.clock() - this.lastSave > this.saveNotificationInterval;
 			if (shouldSendSaveNotification) {
-				notificationHandler.SendToPlayers(getPlayersWithPerm(state.Info, "Build", Players.GetPlayers()), {
-					Type: "Add",
-					Data: {
-						Id: "SaveStatus",
-						Title: "Saving World",
-						Message: "This shouldn't take long. Report any issue that persists.",
-						Time: 5,
-						Icon: "rbxassetid://7148978151",
+				notificationHandler.SendToPlayers(
+					getPlayersWithPerm(toOwnerAndPermissions(state.Info), "Build", Players.GetPlayers()),
+					{
+						Type: "Add",
+						Data: {
+							Id: "SaveStatus",
+							Title: "Saving World",
+							Message: "This shouldn't take long. Report any issue that persists.",
+							Time: 5,
+							Icon: "rbxassetid://7148978151",
+						},
 					},
-				});
+				);
 			}
 			if (this.isClosing) {
 				const newInfo = copy(this.worldInfo.GetData());
 				newInfo.data.Info.Server = undefined;
 				newInfo.data.Info.ActivePlayers = "0";
-				runAsync([
-					() => {
-						this.worldInfo.UpdateData(newInfo);
-						this.worldInfo.SaveData();
-					},
-					() => activeODS.RemoveAsync(`${state.Info.WorldId}`),
-				]);
-				return
+				task.spawn(() => {
+					this.worldInfo.UpdateData(newInfo);
+					this.worldInfo.SaveData();
+				});
+				task.spawn(() => {
+					{
+						activeODS.RemoveAsync(`${newInfo.data.Info.WorldId}`);
+					}
+					while (activeODS.GetAsync(`${newInfo.data.Info.WorldId}`) !== undefined);
+				});
+				return;
 			}
 			activeODS.SetAsync(`${state.Info.WorldId}`, state.Info.ActivePlayers);
 
@@ -160,7 +164,33 @@ class WorldManager {
 				.join(", ");
 
 			if (shouldSendSaveNotification) {
-				notificationHandler.SendToPlayers(getPlayersWithPerm(state.Info, "Build", Players.GetPlayers()), [
+				notificationHandler.SendToPlayers(
+					getPlayersWithPerm(toOwnerAndPermissions(state.Info), "Build", Players.GetPlayers()),
+					[
+						{
+							Type: "Remove",
+							Id: "SaveStatus",
+						},
+						{
+							Type: "Add",
+							Data: {
+								Id: "SaveStatusFinished",
+								Title: "Saving Done",
+								Message: `Done Saving. Current world size is at <b><font color="rgb(${stringTextColor})">${abbreviateBytes(
+									serialized.size(),
+								)}</font></b>`,
+								Icon: "rbxassetid://7148978151",
+								Time: 5,
+							},
+						},
+					],
+				);
+				this.lastSave = os.clock();
+			}
+		} catch (err) {
+			notificationHandler.SendToPlayers(
+				getPlayersWithPerm(toOwnerAndPermissions(state.Info), "Build", Players.GetPlayers()),
+				[
 					{
 						Type: "Remove",
 						Id: "SaveStatus",
@@ -168,34 +198,14 @@ class WorldManager {
 					{
 						Type: "Add",
 						Data: {
-							Id: "SaveStatusFinished",
-							Title: "Saving Done",
-							Message: `Done Saving. Current world size is at <b><font color="rgb(${stringTextColor})">${abbreviateBytes(
-								serialized.size(),
-							)}</font></b>`,
+							Id: "SaveStatus",
+							Title: "Saving Failed",
+							Message: `Failed to save with error: ${err}`,
 							Icon: "rbxassetid://7148978151",
-							Time: 5,
 						},
 					},
-				]);
-				this.lastSave = os.clock();
-			}
-		} catch (err) {
-			notificationHandler.SendToPlayers(getPlayersWithPerm(state.Info, "Build", Players.GetPlayers()), [
-				{
-					Type: "Remove",
-					Id: "SaveStatus",
-				},
-				{
-					Type: "Add",
-					Data: {
-						Id: "SaveStatus",
-						Title: "Saving Failed",
-						Message: `Failed to save with error: ${err}`,
-						Icon: "rbxassetid://7148978151",
-					},
-				},
-			]);
+				],
+			);
 		}
 	}
 
@@ -204,14 +214,18 @@ class WorldManager {
 		const newInfo = copy(this.worldInfo.GetData());
 		newInfo.data.Info.Server = undefined;
 		newInfo.data.Info.ActivePlayers = "0";
-		runAsync([
-			() => {
-				this.worldInfo.UpdateData(newInfo);
-				this.worldInfo.SaveData();
-			},
-			() => activeODS.RemoveAsync(`${newInfo.data.Info.WorldId}`),
-		]);
+		task.spawn(() => {
+			this.worldInfo.UpdateData(newInfo);
+			this.worldInfo.SaveData();
+		});
+		task.spawn(() => {
+			{
+				activeODS.RemoveAsync(`${newInfo.data.Info.WorldId}`);
+			}
+			while (activeODS.GetAsync(`${newInfo.data.Info.WorldId}`) !== undefined);
+		});
+		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait();
 	}
 }
-print(game.PlaceId)
+print(game.PlaceId);
 export default new WorldManager(game.PlaceId);

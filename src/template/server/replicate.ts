@@ -1,14 +1,15 @@
-import { Server } from "@rbxts/net";
 import { Players } from "@rbxts/services";
 import { deepCopy, assign } from "@rbxts/object-utils";
 import { WorldSettingsActionTypes } from "template/shared/worldSettingsReducer";
+import { remotes } from "template/shared/remotes";
+import { AnyAction } from "@rbxts/rodux";
 
-const worldSettingsRemote = new Server.Event("UpdateWorldSettings");
+const worldSettingsRemote = remotes.Server.Create("UpdateClientSettings");
 
 export function replicate(action: WorldSettingsActionTypes, beforeState: World, afterState: World) {
 	const replicatedAction = assign(deepCopy(action), {
 		replicated: true,
-	});
+	}) as WorldSettingsActionTypes & AnyAction;
 
 	if (action.replicateBroadcast) worldSettingsRemote.SendToAllPlayers(replicatedAction);
 
@@ -17,6 +18,6 @@ export function replicate(action: WorldSettingsActionTypes, beforeState: World, 
 
 		if (player === undefined) return;
 
-		worldSettingsRemote.SendToPlayer(player);
+		worldSettingsRemote.SendToPlayer(player, replicatedAction);
 	}
 }
