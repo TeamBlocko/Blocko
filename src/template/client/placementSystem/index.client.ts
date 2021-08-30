@@ -17,7 +17,7 @@ import {
 	UpdateBasePart,
 	UpdatePropertyDataType,
 } from "template/client/rodux/placementSettings";
-import { calculatePermissionsOfUser } from "template/shared/permissionsUtility";
+import { calculatePermissionsOfUser, toOwnerAndPermissions } from "template/shared/permissionsUtility";
 
 const client = Players.LocalPlayer;
 const playerGui = client.WaitForChild("PlayerGui");
@@ -166,7 +166,7 @@ ContextActionService.BindActionAtPriority(
 			if (inputState !== Enum.UserInputState.Begin) return;
 			const state = store.getState();
 			const mode = state.PlacementSettings.BuildMode;
-			if (!calculatePermissionsOfUser(state.World.Info, client.UserId).Build) return;
+			if (!calculatePermissionsOfUser(toOwnerAndPermissions(state.World.Info), client.UserId).Build) return;
 			switch (inputObject.KeyCode) {
 				case Enum.KeyCode.Q:
 					switch (mode) {

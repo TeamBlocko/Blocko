@@ -12,6 +12,20 @@ export const PermissionRanks: readonly PermissionTypes[] = [
 
 const cache = new Map<number, PermissionsInfo>();
 
+interface OwnerAndPermissions {
+	Owner: number;
+	Permissions: PermissionsInfo[];
+	Bans: number[];
+}
+
+export const toOwnerAndPermissions = (worldInfo: WorldInfo): OwnerAndPermissions => {
+	return {
+		Owner: worldInfo.Owner,
+		Permissions: worldInfo.Permissions,
+		Bans: worldInfo.Banned,
+	};
+};
+
 export function teamBlockoStaff(userId: number): PermissionsInfo | undefined {
 	const cached = cache.get(userId);
 	if (cached) return cached;
@@ -26,20 +40,24 @@ export function teamBlockoStaff(userId: number): PermissionsInfo | undefined {
 	}
 }
 
-export function getUserPermissions(worldInfo: WorldInfo, userId: number, staff?: boolean): PermissionsInfo {
+export function getUserPermissions(
+	ownerAndPermissions: OwnerAndPermissions,
+	userId: number,
+	staff?: boolean,
+): PermissionsInfo {
 	if (staff) {
 		const result = teamBlockoStaff(userId);
 		if (result) return result;
 	}
 
-	const info = worldInfo.Permissions.find((info) => info.UserId === userId);
+	const info = ownerAndPermissions.Permissions.find((info) => info.UserId === userId);
 	if (info !== undefined) {
 		return info;
 	}
 
 	return {
 		UserId: userId,
-		Type: worldInfo.Owner === userId ? "Owner" : "Visitor",
+		Type: ownerAndPermissions.Owner === userId ? "Owner" : "Visitor",
 	};
 }
 
@@ -48,26 +66,30 @@ export function calculatePermissions(role: PermissionTypes): Omit<Permissions, "
 	return assign({}, rolePermission, rolePermission.Inherit ? calculatePermissions(rolePermission.Inherit) : {});
 }
 
-export function calculatePermissionsOfUser(worldInfo: WorldInfo, userId: number) {
-	return calculatePermissions(getUserPermissions(worldInfo, userId, true).Type);
+export function calculatePermissionsOfUser(ownerAndPermissions: OwnerAndPermissions, userId: number) {
+	return calculatePermissions(getUserPermissions(ownerAndPermissions, userId, true).Type);
 }
 
 export function getRank(role: PermissionTypes): number {
 	return PermissionRanks.findIndex((permission) => permission === role);
 }
 
-export function getUserRank(worldInfo: WorldInfo, userId: number): number {
-	return getRank(getUserPermissions(worldInfo, userId).Type);
+export function getUserRank(ownerAndPermissions: OwnerAndPermissions, userId: number): number {
+	return getRank(getUserPermissions(ownerAndPermissions, userId).Type);
 }
 
-export function isUserBanned(worldInfo: WorldInfo, userId: number): boolean {
-	return !worldInfo.Banned.find((id) => id === userId);
+export function isUserBanned(ownerAndPermissions: OwnerAndPermissions, userId: number): boolean {
+	return !ownerAndPermissions.Bans.find((id) => id === userId);
 }
 
-export function isPermed(worldInfo: WorldInfo, userId: number, role: PermissionTypes): boolean {
-	return getRank(getUserPermissions(worldInfo, userId).Type) > getRank(role);
+export function isPermed(ownerAndPermissions: OwnerAndPermissions, userId: number, role: PermissionTypes): boolean {
+	return getRank(getUserPermissions(ownerAndPermissions, userId).Type) > getRank(role);
 }
 
-export function getPlayersWithPerm(worldInfo: WorldInfo, perm: PermissionNames, players: Player[]): Player[] {
-	return players.filter((player) => calculatePermissionsOfUser(worldInfo, player.UserId)[perm]);
+export function getPlayersWithPerm(
+	ownerAndPermissions: OwnerAndPermissions,
+	perm: PermissionNames,
+	players: Player[],
+): Player[] {
+	return players.filter((player) => calculatePermissionsOfUser(ownerAndPermissions, player.UserId)[perm]);
 }

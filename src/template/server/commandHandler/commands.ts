@@ -1,6 +1,12 @@
 import { Players } from "@rbxts/services";
 import { Server } from "@rbxts/net";
-import { PermissionRanks, getUserRank, getRank, calculatePermissionsOfUser } from "template/shared/permissionsUtility";
+import {
+	PermissionRanks,
+	getUserRank,
+	getRank,
+	calculatePermissionsOfUser,
+	toOwnerAndPermissions,
+} from "template/shared/permissionsUtility";
 import WorldManager from "template/server/WorldManager";
 import { updateWorldPermission } from "template/shared/worldSettingsReducer";
 import { constructMessage, errorMsg } from "./messageUtility";
@@ -42,7 +48,7 @@ export const commands = {
 			if (!player)
 				return constructMessage(PREFIX, this, `Invalid value passed for Player`, this.args[0], playerValue);
 
-			const stateInfo = WorldManager.store.getState().Info;
+			const stateInfo = toOwnerAndPermissions(WorldManager.store.getState().Info);
 			const callerRank = getUserRank(stateInfo, caller.UserId);
 
 			const permissionLevel = PermissionRanks.find(
@@ -73,7 +79,7 @@ export const commands = {
 				return errorMsg(`${player.Name} has a higher permission level.`);
 			print("SUCCESS UPDATED PERMISSION");
 			WorldManager.store.dispatch(updateWorldPermission(player.UserId, permissionLevel));
-			return `Successfully updated permission of ${player.Name} to ${permissionLevelValue}`;
+			return `Successfully updated permission of ${player.Name} to ${permissionLevel}`;
 		},
 	}),
 	tp: identity<Command>({
@@ -102,7 +108,7 @@ export const commands = {
 				const callerHumanoid = (called.Character || called.CharacterAdded.Wait()[0]).WaitForChild(
 					"HumanoidRootPart",
 				) as Part;
-				const playerHumanoid = (called.Character || called.CharacterAdded.Wait()[0]).WaitForChild(
+				const playerHumanoid = (player.Character || player.CharacterAdded.Wait()[0]).WaitForChild(
 					"HumanoidRootPart",
 				) as Part;
 				callerHumanoid.Position = playerHumanoid.Position;
