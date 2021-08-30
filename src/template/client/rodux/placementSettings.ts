@@ -19,6 +19,7 @@ export type PlacementSettingsActions =
 	| ActionRecievedAddFunctionality
 	| ActionRecievedUpdateFunctionality
 	| ActionRecievedUpdateFunctionalityProperty
+	| ActionRecievedRemoveFunctionality
 	| UpdateBasePart
 	| UpdateBuildMode;
 
@@ -30,7 +31,7 @@ export interface UpdatePropertyDataType {
 	readonly value: ValueOfRawProperties;
 }
 
-export interface ActionRecievedUpdateProperty extends Action<ActionTypes.UPDATE_PROPERTY> {
+interface ActionRecievedUpdateProperty extends Action<ActionTypes.UPDATE_PROPERTY> {
 	readonly data: UpdatePropertyDataType[];
 }
 
@@ -42,7 +43,7 @@ export function updateProperty(data: UpdatePropertyDataType[]): ActionRecievedUp
 }
 
 //UPDATE FUNCTIONALITY
-export interface ActionRecievedUpdateFunctionality extends Action<ActionTypes.UPDATE_FUNCTIONALITY> {
+interface ActionRecievedUpdateFunctionality extends Action<ActionTypes.UPDATE_FUNCTIONALITY> {
 	guid: string;
 	value: Functionalities.FunctionalitiesInstancesValues;
 }
@@ -59,7 +60,7 @@ export function updateFunctionality(
 }
 
 //UPDATE FUNCTIONALITY PROPERTY
-export interface ActionRecievedUpdateFunctionalityProperty extends Action<ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY> {
+interface ActionRecievedUpdateFunctionalityProperty extends Action<ActionTypes.UPDATE_FUNCTIONALITY_PROPERTY> {
 	guid: string;
 	property: Functionalities.FunctionalitiesPropertiesNames;
 	value: Functionalities.FunctionalitiesPropertiesValueTypes;
@@ -78,7 +79,7 @@ export function updateFunctionalityProperty(
 	};
 }
 
-export interface ActionRecievedAddFunctionality extends Action<ActionTypes.ADD_FUNCTIONALITY> {
+interface ActionRecievedAddFunctionality extends Action<ActionTypes.ADD_FUNCTIONALITY> {
 	functionality: Functionalities.FunctionalitiesInstancesValues;
 }
 
@@ -91,7 +92,7 @@ export function addFunctionality(
 	};
 }
 
-export interface ActionRecievedRemoveFunctionality extends Action<ActionTypes.REMOVE_FUNCTIONALITY> {
+interface ActionRecievedRemoveFunctionality extends Action<ActionTypes.REMOVE_FUNCTIONALITY> {
 	guid: string;
 }
 

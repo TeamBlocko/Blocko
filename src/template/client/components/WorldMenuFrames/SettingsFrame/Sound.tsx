@@ -6,65 +6,86 @@ import Catagory from "./Catagory";
 import Slider from "template/client/components/GraphicalWidget/Slider";
 import InputFrame from "template/client/components/GraphicalWidget/InputFrame";
 import { IState } from "template/shared/Types";
+import Rodux from "@rbxts/rodux";
+import { StoreActions } from "template/client/store";
 
-interface SoundPropTypes extends WorldSettings {
-	OnSliderUpdate(propertyName: "Volume" | "Pitch", value: number): void;
-	OnCheckBoxUpdate(propertyName: "IsPlaying", value: boolean): void;
-	OnInputBoxUpdate(propertyName: "SoundID", value: number): void;
+interface SoundPropTypes extends MappedProps, MappedDispatch {}
+
+interface MappedProps {
+	SoundID: number;
+	IsPlaying: boolean;
+	Volume: number;
+	Pitch: number;
 }
 
-function Sound(props: SoundPropTypes) {
-	return (
-		<Container>
-			<uicorner CornerRadius={new UDim(0.05, 0)} />
-			<Catagory Text="Sound" Image="rbxassetid://3926307971" />
-			<InputFrame
-				Name="Sound Id"
-				Length={50}
-				Alignment={"Center"}
-				Default={tostring(props.SoundID)}
-				OnChange={(newValue) => props.OnInputBoxUpdate("SoundID", tonumber(newValue) ?? 0)}
-				HandleInput={(input) => input.match("%d+")[0] as string}
-			>
-				<imagebutton
-					AnchorPoint={new Vector2(0, 0.5)}
-					BackgroundTransparency={1}
-					Position={new UDim2(0.9, 0, 0.5, 0)}
-					Size={UDim2.fromOffset(20, 20)}
-					Image={!props.IsPlaying ? "rbxassetid://3926307971" : "rbxassetid://3926307971"}
-					ImageColor3={!props.IsPlaying ? Color3.fromRGB(199, 199, 199) : Color3.fromRGB(84, 169, 199)}
-					ImageRectOffset={!props.IsPlaying ? new Vector2(764, 244) : new Vector2(804, 124)}
-					ImageRectSize={new Vector2(36, 36)}
-					ScaleType={Enum.ScaleType.Fit}
-					Event={{
-						Activated: () => props.OnCheckBoxUpdate("IsPlaying", !props.IsPlaying),
-					}}
+interface MappedDispatch {
+	UpdateWorldSetting: (propertyName: "Volume" | "Pitch" | "IsPlaying" | "SoundID", value: number | boolean) => void;
+}
+
+class Sound extends Roact.PureComponent<SoundPropTypes> {
+	render() {
+		return (
+			<Container>
+				<uicorner CornerRadius={new UDim(0.05, 0)} />
+				<Catagory Text="Sound" Image="rbxassetid://3926307971" />
+				<InputFrame
+					Name="Sound Id"
+					Length={50}
+					Alignment={"Center"}
+					Default={tostring(this.props.SoundID)}
+					OnChange={(newValue) => this.props.UpdateWorldSetting("SoundID", tonumber(newValue) ?? 0)}
+					HandleInput={(input) => input.match("%d+")[0] as string}
+				>
+					<imagebutton
+						AnchorPoint={new Vector2(0, 0.5)}
+						BackgroundTransparency={1}
+						Position={new UDim2(0.9, 0, 0.5, 0)}
+						Size={UDim2.fromOffset(20, 20)}
+						Image={!this.props.IsPlaying ? "rbxassetid://3926307971" : "rbxassetid://3926307971"}
+						ImageColor3={
+							!this.props.IsPlaying ? Color3.fromRGB(199, 199, 199) : Color3.fromRGB(84, 169, 199)
+						}
+						ImageRectOffset={!this.props.IsPlaying ? new Vector2(764, 244) : new Vector2(804, 124)}
+						ImageRectSize={new Vector2(36, 36)}
+						ScaleType={Enum.ScaleType.Fit}
+						Event={{
+							Activated: () => this.props.UpdateWorldSetting("IsPlaying", !this.props.IsPlaying),
+						}}
+					/>
+				</InputFrame>
+				<Slider
+					Name="Volume"
+					Min={0}
+					Max={10}
+					Default={this.props.Volume}
+					OnChange={(newValue) => this.props.UpdateWorldSetting("Volume", newValue)}
+					DeciminalPlace={2}
 				/>
-			</InputFrame>
-			<Slider
-				Name="Volume"
-				Min={0}
-				Max={10}
-				Default={props.Volume}
-				OnChange={(newValue) => props.OnSliderUpdate("Volume", newValue)}
-				DeciminalPlace={2}
-			/>
-			<Slider
-				Name="Pitch"
-				Min={0}
-				Max={100}
-				Default={props.Pitch}
-				OnChange={(newValue) => props.OnSliderUpdate("Pitch", newValue)}
-				DeciminalPlace={2}
-			/>
-		</Container>
-	);
+				<Slider
+					Name="Pitch"
+					Min={0}
+					Max={100}
+					Default={this.props.Pitch}
+					OnChange={(newValue) => this.props.UpdateWorldSetting("Pitch", newValue)}
+					DeciminalPlace={2}
+				/>
+			</Container>
+		);
+	}
 }
 
-export default connect(
-	(state: IState) => state.World.Settings,
-	(dispatch) => ({
-		OnSliderUpdate(propertyName: "Volume" | "Pitch", value: number) {
+const mapStateToProps = ({ World: { Settings } }: IState): MappedProps => {
+	return {
+		IsPlaying: Settings.IsPlaying,
+		Pitch: Settings.Pitch,
+		SoundID: Settings.SoundID,
+		Volume: Settings.Volume,
+	};
+};
+
+const mapDispatchToProps = (dispatch: Rodux.Dispatch<StoreActions>): MappedDispatch => {
+	return {
+		UpdateWorldSetting: (propertyName, value) => {
 			dispatch(
 				updateWorldSettings([
 					{
@@ -74,25 +95,7 @@ export default connect(
 				]),
 			);
 		},
-		OnCheckBoxUpdate(propertyName: "IsPlaying", value: boolean) {
-			dispatch(
-				updateWorldSettings([
-					{
-						propertyName,
-						value,
-					},
-				]),
-			);
-		},
-		OnInputBoxUpdate(propertyName: "SoundID", value: number) {
-			dispatch(
-				updateWorldSettings([
-					{
-						propertyName,
-						value,
-					},
-				]),
-			);
-		},
-	}),
-)(Sound);
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sound);

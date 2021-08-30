@@ -40,10 +40,11 @@ teleportPlayer.SetCallback((player, worldId) => {
 	if (!joiningWorld.get(player.UserId)) {
 		joiningWorld.set(player.UserId, true);
 		const worldInfo = worldInfoSerializer.deserialize(worldStore.GetFile(`World${worldId}`).GetData().data).Info;
+		print("SERVER", worldInfo.Server);
 		if (worldInfo.Server) {
-			TeleportService.TeleportToPlaceInstance(worldId, worldInfo.Server, player);
+			task.spawn(() => TeleportService.TeleportToPlaceInstance(worldId, worldInfo.Server!, player));
 		} else {
-			TeleportService.TeleportAsync(worldId, [player]);
+			task.spawn(() => TeleportService.Teleport(worldId, player));
 		}
 		teleportFailDetectors.get(player.UserId)?.Disconnect();
 		teleportFailDetectors.delete(player.UserId);
@@ -56,7 +57,7 @@ teleportPlayer.SetCallback((player, worldId) => {
 						result === Enum.TeleportResult.Unauthorized ||
 						result === Enum.TeleportResult.GameEnded
 					) {
-						TeleportService.TeleportAsync(worldId, [player]);
+						task.spawn(() => TeleportService.Teleport(worldId, player));
 					}
 					teleportFailDetectors.get(player.UserId)?.Disconnect();
 					teleportFailDetectors.delete(player.UserId);
@@ -76,7 +77,7 @@ createWorldRemote.SetCallback((player, options) => {
 	if (!joiningWorld.get(player.UserId)) {
 		const world = createWorld(player, worldStore, ownedWorlds, options);
 		joiningWorld.set(player.UserId, true);
-		TeleportService.TeleportAsync(world.Info.WorldId, [player]);
+		task.spawn(() => TeleportService.Teleport(world.Info.WorldId, player));
 		return world;
 	}
 });

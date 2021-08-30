@@ -14,15 +14,33 @@ import FunctionalityTemplate from "./FunctionalityTemplate";
 import { appContext, ContextType } from "template/client/appContext";
 
 import { updateProperty, UpdateBasePart } from "template/client/rodux/placementSettings";
-import { IState, PlacementSettings } from "template/shared/Types";
+import { IState } from "template/shared/Types";
 import { shapes as orderedShapes } from "template/client/shapes";
+import { FunctionalitiesInstancesValues } from "template/shared/Functionalities";
+import Rodux from "@rbxts/rodux";
+import { StoreActions } from "template/client/store";
 
-interface BuildUIProps extends PlacementSettings {
-	OnSliderUpdate(propertyName: "Transparency" | "Reflectance", value: number): void;
-	OnDropdownUpdate(propertyName: "Shape" | "Material", value: Instance | Enum.Material): void;
-	OnCheckBoxUpdate(propertyName: "CastShadow" | "CanCollide", value: boolean): void;
-	OnColorPickerUpdate(propertyName: "Color", value: Color3): void;
-	OnSizeUpdate(propertyName: "Size", value: Vector3): void;
+interface BuildUIProps extends MappedProps, MappedDispatch {}
+
+interface MappedProps {
+	Functionalities: FunctionalitiesInstancesValues[];
+	BuildMode: BuildMode;
+	Transparency: number;
+	Reflectance: number;
+	Shape: BasePart;
+	Material: Enum.Material;
+	CastShadow: boolean;
+	CanCollide: boolean;
+	Color: Color3;
+	Size: Vector3;
+}
+
+interface MappedDispatch {
+	UpdateProperty: (
+		propertyName: "Transparency" | "Reflectance" | "Material" | "CastShadow" | "CanCollide" | "Color" | "Size",
+		value: number | boolean | Color3 | Enum.Material | Vector3,
+	) => void;
+	UpdateShape: (value: BasePart) => void;
 }
 
 const shapes = ReplicatedStorage.BlockTypes;
@@ -47,7 +65,7 @@ const ignoreMaterials: Enum.Material[] = [
 
 const materials = Enum.Material.GetEnumItems().filter((material) => !ignoreMaterials.includes(material));
 
-class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
+class BuildUI extends Roact.PureComponent<BuildUIProps, ContextType> {
 	canvasSizeBinding: Roact.Binding<number>;
 	setCanvasSizeBinding: Roact.BindingFunction<number>;
 
@@ -119,17 +137,17 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									Default={this.props.Shape}
 									ZIndex={12}
 									Items={orderedShapes}
-									OnChange={(newValue: Instance) => this.props.OnDropdownUpdate("Shape", newValue)}
-									GetValue={(value: keyof typeof Shapes) => shapes[value] as Instance}
+									OnChange={(newValue: BasePart) => this.props.UpdateShape(newValue)}
+									GetValue={(value: keyof typeof Shapes) => shapes[value] as BasePart}
 									LayoutOrder={2}
 								/>
 								<Dropdown
 									Name="Material"
-									Default={this.props.RawProperties.Material}
+									Default={this.props.Material}
 									ZIndex={11}
 									Items={materials}
 									OnChange={(newValue: Enum.Material) =>
-										this.props.OnDropdownUpdate("Material", newValue)
+										this.props.UpdateProperty("Material", newValue)
 									}
 									GetValue={(value: keyof Omit<typeof Enum.Material, "GetEnumItems">) =>
 										Enum.Material[value]
@@ -137,53 +155,49 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 									LayoutOrder={3}
 								/>
 								<Size
-									Default={this.props.RawProperties.Size}
+									Default={this.props.Size}
 									Name="Size"
-									OnChange={(newValue) => this.props.OnSizeUpdate("Size", newValue)}
+									OnChange={(newValue) => this.props.UpdateProperty("Size", newValue)}
 									LayoutOrder={4}
 								/>
 								<ColorDisplay
 									Name="Color"
-									Default={this.props.RawProperties.Color}
-									OnChange={(newValue: Color3) => this.props.OnColorPickerUpdate("Color", newValue)}
+									Default={this.props.Color}
+									OnChange={(newValue: Color3) => this.props.UpdateProperty("Color", newValue)}
 									SizeYOffset={25}
 									Bindable={this.bindable}
 									LayoutOrder={5}
 								/>
 								<Slider
 									Name="Transparency"
-									Default={this.props.RawProperties.Transparency}
+									Default={this.props.Transparency}
 									Min={0}
 									Max={1}
-									OnChange={(newValue: number) => this.props.OnSliderUpdate("Transparency", newValue)}
+									OnChange={(newValue: number) => this.props.UpdateProperty("Transparency", newValue)}
 									SizeYOffset={55}
 									LayoutOrder={6}
 									DeciminalPlace={2}
 								/>
 								<Slider
 									Name="Reflectance"
-									Default={this.props.RawProperties.Reflectance}
+									Default={this.props.Reflectance}
 									Min={0}
 									Max={1}
-									OnChange={(newValue: number) => this.props.OnSliderUpdate("Reflectance", newValue)}
+									OnChange={(newValue: number) => this.props.UpdateProperty("Reflectance", newValue)}
 									SizeYOffset={55}
 									LayoutOrder={7}
 								/>
 								<CheckBox
 									Name="Cast Shadow"
-									Default={this.props.RawProperties.CastShadow}
-									OnChange={(newValue: boolean) =>
-										this.props.OnCheckBoxUpdate("CastShadow", newValue)
-									}
+									Default={this.props.CastShadow}
+									OnChange={(newValue: boolean) => this.props.UpdateProperty("CastShadow", newValue)}
 									SizeYOffset={25}
 									LayoutOrder={8}
 								/>
 								<CheckBox
 									Name="Can Collide"
-									Default={this.props.RawProperties.CanCollide}
-									OnChange={(newValue: boolean) =>
-										this.props.OnCheckBoxUpdate("CanCollide", newValue)
-									}
+									Default={this.props.CanCollide}
+									OnChange={(newValue: boolean) => this.props.UpdateProperty("CanCollide", newValue)}
 									SizeYOffset={25}
 									LayoutOrder={9}
 								/>
@@ -237,10 +251,24 @@ class BuildUI extends Roact.Component<BuildUIProps, ContextType> {
 	}
 }
 
-export default connect(
-	(state: IState) => state.PlacementSettings,
-	(dispatch) => ({
-		OnSliderUpdate(propertyName: "Transparency" | "Reflectance", value: number) {
+const mapStateToProps = ({ PlacementSettings }: IState): MappedProps => {
+	return {
+		BuildMode: PlacementSettings.BuildMode,
+		CanCollide: PlacementSettings.RawProperties.CanCollide,
+		CastShadow: PlacementSettings.RawProperties.CastShadow,
+		Color: PlacementSettings.RawProperties.Color,
+		Functionalities: PlacementSettings.Functionalities,
+		Material: PlacementSettings.RawProperties.Material,
+		Reflectance: PlacementSettings.RawProperties.Reflectance,
+		Shape: PlacementSettings.Shape,
+		Size: PlacementSettings.RawProperties.Size,
+		Transparency: PlacementSettings.RawProperties.Transparency,
+	};
+};
+
+const mapDispatchToProps = (dispatch: Rodux.Dispatch<StoreActions>): MappedDispatch => {
+	return {
+		UpdateProperty: (propertyName, value) => {
 			dispatch(
 				updateProperty([
 					{
@@ -250,49 +278,10 @@ export default connect(
 				]),
 			);
 		},
-		OnDropdownUpdate(propertyName: "Shape" | "Material", value: Instance | Enum.Material) {
-			if (propertyName === "Material" && typeIs(value, "EnumItem")) {
-				dispatch(
-					updateProperty([
-						{
-							propertyName,
-							value,
-						},
-					]),
-				);
-			} else if (propertyName === "Shape" && typeIs(value, "Instance") && value.IsA("BasePart")) {
-				dispatch(UpdateBasePart(value));
-			}
+		UpdateShape: (value) => {
+			dispatch(UpdateBasePart(value));
 		},
-		OnCheckBoxUpdate(propertyName: "CastShadow" | "CanCollide", value: boolean) {
-			dispatch(
-				updateProperty([
-					{
-						propertyName,
-						value,
-					},
-				]),
-			);
-		},
-		OnColorPickerUpdate(propertyName: "Color", value: Color3) {
-			dispatch(
-				updateProperty([
-					{
-						propertyName,
-						value,
-					},
-				]),
-			);
-		},
-		OnSizeUpdate(propertyName: "Size", value: Vector3) {
-			dispatch(
-				updateProperty([
-					{
-						propertyName,
-						value,
-					},
-				]),
-			);
-		},
-	}),
-)(BuildUI);
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BuildUI);

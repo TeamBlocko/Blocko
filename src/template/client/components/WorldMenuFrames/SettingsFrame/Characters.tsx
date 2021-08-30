@@ -6,95 +6,116 @@ import { updateWorldSettings } from "template/shared/worldSettingsReducer";
 import Slider from "template/client/components/GraphicalWidget/Slider";
 import CheckBox from "template/client/components/GraphicalWidget/CheckBox";
 import { IState } from "template/shared/Types";
+import Rodux from "@rbxts/rodux";
+import { StoreActions } from "template/client/store";
 
-interface CharactersPropTypes extends WorldSettings {
-	OnSliderInputUpdate(
+interface CharactersPropTypes extends MappedProps, MappedDispatch {}
+
+interface MappedProps {
+	ResetEnabled: boolean;
+	CollisionsEnabled: boolean;
+	UsernameDistance: number;
+	HealthDistance: number;
+	DefaultWalkSpeed: number;
+	DefaultJumpPower: number;
+	MinCameraZoom: number;
+	MaxCameraZoom: number;
+}
+
+interface MappedDispatch {
+	UpdateSettings: (
 		propertyName:
 			| "UsernameDistance"
 			| "HealthDistance"
 			| "DefaultWalkSpeed"
 			| "DefaultJumpPower"
 			| "MinCameraZoom"
-			| "MaxCameraZoom",
-		newValue: number,
-	): void;
-	OnCheckBoxUpdate(propertyName: "ResetEnabled" | "CollisionsEnabled", newValue: boolean): void;
+			| "MaxCameraZoom"
+			| "ResetEnabled"
+			| "CollisionsEnabled",
+		newValue: number | boolean,
+	) => void;
 }
 
-function Characters(props: CharactersPropTypes) {
-	return (
-		<Container>
-			<Catagory Text="Characters" Image="rbxassetid://3926305904" />
-			<CheckBox
-				Name="Reset Allowed"
-				Default={props.ResetEnabled}
-				OnChange={(newValue) => props.OnCheckBoxUpdate("ResetEnabled", newValue)}
-			/>
-			<CheckBox
-				Name="Collision"
-				Default={props.CollisionsEnabled}
-				OnChange={(newValue) => props.OnCheckBoxUpdate("CollisionsEnabled", newValue)}
-			/>
-			<Slider
-				Name="Username View Distance"
-				Min={0}
-				Max={100}
-				Default={props.UsernameDistance}
-				OnChange={(newValue) => props.OnSliderInputUpdate("UsernameDistance", newValue)}
-			/>
-			<Slider
-				Name="Health View Distance"
-				Min={0}
-				Max={100}
-				Default={props.HealthDistance}
-				OnChange={(newValue) => props.OnSliderInputUpdate("HealthDistance", newValue)}
-			/>
-			<Slider
-				Name="Walk Speed"
-				Min={0}
-				Max={100}
-				Default={props.DefaultWalkSpeed}
-				OnChange={(newValue) => props.OnSliderInputUpdate("DefaultWalkSpeed", newValue)}
-			/>
-			<Slider
-				Name="Jump Power"
-				Min={0}
-				Max={100}
-				Default={props.DefaultJumpPower}
-				OnChange={(newValue) => props.OnSliderInputUpdate("DefaultJumpPower", newValue)}
-			/>
-			<Slider
-				Name="Minimum Camera Zoom"
-				Min={0}
-				Max={400}
-				Default={props.MinCameraZoom}
-				OnChange={(newValue) => props.OnSliderInputUpdate("MinCameraZoom", newValue)}
-			/>
-			<Slider
-				Name="Maximum Camera Zoom"
-				Min={0}
-				Max={400}
-				Default={props.MaxCameraZoom}
-				OnChange={(newValue) => props.OnSliderInputUpdate("MaxCameraZoom", newValue)}
-			/>
-			<uicorner CornerRadius={new UDim(0.05, 0)} />
-		</Container>
-	);
+class Characters extends Roact.PureComponent<CharactersPropTypes> {
+	render() {
+		return (
+			<Container>
+				<Catagory Text="Characters" Image="rbxassetid://3926305904" />
+				<CheckBox
+					Name="Reset Allowed"
+					Default={this.props.ResetEnabled}
+					OnChange={(newValue) => this.props.UpdateSettings("ResetEnabled", newValue)}
+				/>
+				<CheckBox
+					Name="Collision"
+					Default={this.props.CollisionsEnabled}
+					OnChange={(newValue) => this.props.UpdateSettings("CollisionsEnabled", newValue)}
+				/>
+				<Slider
+					Name="Username View Distance"
+					Min={0}
+					Max={100}
+					Default={this.props.UsernameDistance}
+					OnChange={(newValue) => this.props.UpdateSettings("UsernameDistance", newValue)}
+				/>
+				<Slider
+					Name="Health View Distance"
+					Min={0}
+					Max={100}
+					Default={this.props.HealthDistance}
+					OnChange={(newValue) => this.props.UpdateSettings("HealthDistance", newValue)}
+				/>
+				<Slider
+					Name="Walk Speed"
+					Min={0}
+					Max={100}
+					Default={this.props.DefaultWalkSpeed}
+					OnChange={(newValue) => this.props.UpdateSettings("DefaultWalkSpeed", newValue)}
+				/>
+				<Slider
+					Name="Jump Power"
+					Min={0}
+					Max={100}
+					Default={this.props.DefaultJumpPower}
+					OnChange={(newValue) => this.props.UpdateSettings("DefaultJumpPower", newValue)}
+				/>
+				<Slider
+					Name="Minimum Camera Zoom"
+					Min={0}
+					Max={400}
+					Default={this.props.MinCameraZoom}
+					OnChange={(newValue) => this.props.UpdateSettings("MinCameraZoom", newValue)}
+				/>
+				<Slider
+					Name="Maximum Camera Zoom"
+					Min={0}
+					Max={400}
+					Default={this.props.MaxCameraZoom}
+					OnChange={(newValue) => this.props.UpdateSettings("MaxCameraZoom", newValue)}
+				/>
+				<uicorner CornerRadius={new UDim(0.05, 0)} />
+			</Container>
+		);
+	}
 }
 
-export default connect(
-	(state: IState) => state.World.Settings,
-	(dispatch) => ({
-		OnSliderInputUpdate(
-			propertyName:
-				| "UsernameDistance"
-				| "HealthDistance"
-				| "DefaultWalkSpeed"
-				| "DefaultJumpPower"
-				| "MinCameraZoom"
-				| "MaxCameraZoom",
-			value: number,
-		) {
+const mapStateToProps = ({ World: { Settings } }: IState): MappedProps => {
+	return {
+		CollisionsEnabled: Settings.CollisionsEnabled,
+		DefaultJumpPower: Settings.DefaultJumpPower,
+		DefaultWalkSpeed: Settings.DefaultWalkSpeed,
+		HealthDistance: Settings.HealthDistance,
+		MaxCameraZoom: Settings.MaxCameraZoom,
+		MinCameraZoom: Settings.MinCameraZoom,
+		ResetEnabled: Settings.ResetEnabled,
+		UsernameDistance: Settings.UsernameDistance,
+	};
+};
+
+const mapDispatchToProps = (dispatch: Rodux.Dispatch<StoreActions>): MappedDispatch => {
+	return {
+		UpdateSettings: (propertyName, value) => {
 			dispatch(
 				updateWorldSettings([
 					{
@@ -104,15 +125,7 @@ export default connect(
 				]),
 			);
 		},
-		OnCheckBoxUpdate(propertyName: "ResetEnabled" | "CollisionsEnabled", value: boolean) {
-			dispatch(
-				updateWorldSettings([
-					{
-						propertyName,
-						value,
-					},
-				]),
-			);
-		},
-	}),
-)(Characters);
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Characters);

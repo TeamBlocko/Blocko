@@ -53,6 +53,10 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 		}
 	}
 
+	didUpdate() {
+		this.manager.props = this.props;
+	}
+
 	shouldUpdate(nextProps: ColorPickerPropTypes, nextState: ColorPickerStateTypes) {
 		return (
 			nextState.ShouldUpdate ||

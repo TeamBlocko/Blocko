@@ -29,7 +29,7 @@ class ColorPickerManager {
 		valueFrame: Roact.Ref<TextButton>,
 	) {
 		this.state = state;
-		this.props = props
+		this.props = props;
 		this.changeColor = changeColor;
 		this.hsFrame = hsFrame;
 		this.valueFrame = valueFrame;
@@ -124,21 +124,21 @@ class ColorPickerManager {
 		return [hue, saturation];
 	}
 
-	updateValue(input: InputObject) {
+	updateValue(input: Vector3) {
 		const element = this.valueFrame.getValue();
 		if (element === undefined) return;
-		const xPos = math.clamp(input.Position.X - element.AbsolutePosition.X, 0, element.Size.X.Offset);
+		const xPos = math.clamp(input.X - element.AbsolutePosition.X, 0, element.Size.X.Offset);
 		const cvalue = xPos / element.Size.X.Offset;
 		this.cvalue = cvalue;
 		this.updateColor();
 		return cvalue;
 	}
 
-	updateHueSat(input: InputObject) {
+	updateHueSat(input: Vector3) {
 		const element = this.hsFrame.getValue();
 		if (element === undefined) return;
-		const xPos = math.clamp(input.Position.X - element.AbsolutePosition.X, 0, element.Size.X.Offset);
-		const yPos = math.clamp(input.Position.Y - element.AbsolutePosition.Y, 0, element.Size.Y.Offset);
+		const xPos = math.clamp(input.X - element.AbsolutePosition.X, 0, element.Size.X.Offset);
+		const yPos = math.clamp(input.Y - element.AbsolutePosition.Y, 0, element.Size.Y.Offset);
 
 		this.updateHue(xPos, yPos);
 		this.updateColor();
@@ -147,26 +147,27 @@ class ColorPickerManager {
 	}
 
 	HandleInput(input: InputObject) {
+		print("VISIBLE LOL", this.props.Visible);
 		if (!this.props.Visible) return;
 		if (input.UserInputType === Enum.UserInputType.MouseButton1) {
-				if (input.UserInputState === Enum.UserInputState.Begin) {
-					const element = this.hsFrame.getValue();
-					if (element === undefined) return;
-					if (
-						input.Position.X > element.AbsolutePosition.X &&
-						input.Position.Y > element.AbsolutePosition.Y &&
-						input.Position.X < element.AbsolutePosition.X + element.AbsoluteSize.X &&
-						input.Position.Y < element.AbsolutePosition.Y + element.AbsoluteSize.Y
-					) {
-						this.updateHueSat(input);
-						this.HFmouseDown = true;
-					}
-				} else if (input.UserInputState === Enum.UserInputState.End) {
-					this.HFmouseDown = false;
+			if (input.UserInputState === Enum.UserInputState.Begin) {
+				const element = this.hsFrame.getValue();
+				if (element === undefined) return;
+				if (
+					input.Position.X > element.AbsolutePosition.X &&
+					input.Position.Y > element.AbsolutePosition.Y &&
+					input.Position.X < element.AbsolutePosition.X + element.AbsoluteSize.X &&
+					input.Position.Y < element.AbsolutePosition.Y + element.AbsoluteSize.Y
+				) {
+					this.updateHueSat(input.Position);
+					this.HFmouseDown = true;
 				}
+			} else if (input.UserInputState === Enum.UserInputState.End) {
+				this.HFmouseDown = false;
+			}
 		}
 		if (this.HFmouseDown && input.UserInputState === Enum.UserInputState.Change) {
-			this.updateHueSat(input);
+			this.updateHueSat(input.Position);
 		}
 	}
 
@@ -182,7 +183,7 @@ class ColorPickerManager {
 					input.Position.X < element.AbsolutePosition.X + element.AbsoluteSize.X &&
 					input.Position.Y < element.AbsolutePosition.Y + element.AbsoluteSize.Y
 				) {
-					this.updateValue(input);
+					this.updateValue(input.Position);
 					this.VFmouseDown = true;
 				}
 			} else if (input.UserInputState === Enum.UserInputState.End) {
@@ -190,7 +191,7 @@ class ColorPickerManager {
 			}
 		}
 		if (this.VFmouseDown && input.UserInputState === Enum.UserInputState.Change) {
-			this.updateValue(input);
+			this.updateValue(input.Position);
 		}
 	}
 

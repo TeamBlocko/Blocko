@@ -6,48 +6,69 @@ import Catagory from "./Catagory";
 import InputBox from "template/client/components/GraphicalWidget/InputFrame";
 import ImageInput from "./ImageInput";
 import { IState } from "template/shared/Types";
+import Rodux from "@rbxts/rodux";
+import { StoreActions } from "template/client/store";
 
-interface WorldInfoPropTypes extends WorldSettings {
-	OnInputBoxUpdate(propertyName: "Name" | "Description" | "Icon" | "Thumbnail", value: string): void;
+interface WorldInfoPropTypes extends MappedProps, MappedDispatch {}
+
+interface MappedProps {
+	Name: string;
+	Description: string;
+	Icon: string;
+	Thumbnail: string;
 }
 
-function WorldInfo(props: WorldInfoPropTypes) {
-	return (
-		<Container>
-			<uicorner CornerRadius={new UDim(0.05, 0)} />
-			<Catagory Text="World Info" Image="rbxassetid://3926305904" />
-			<InputBox
-				Name="Name"
-				Length={60}
-				Default={props.Name}
-				OnChange={(newValue) => props.OnInputBoxUpdate("Name", newValue)}
-				HandleInput={(input) => (input.size() > 62 ? input.sub(0, 62) : input)}
-			/>
-			<InputBox
-				Name="Description"
-				Length={135}
-				Default={props.Description}
-				OnChange={(newValue) => props.OnInputBoxUpdate("Description", newValue)}
-				HandleInput={(input) => (input.size() > 188 ? input.sub(0, 188) : input)}
-			/>
-			<ImageInput
-				Name={"Icon"}
-				Default={props.Icon}
-				OnChange={(newValue) => props.OnInputBoxUpdate("Icon", newValue)}
-			/>
-			<ImageInput
-				Name={"Thumbnail"}
-				Default={props.Thumbnail}
-				OnChange={(newValue) => props.OnInputBoxUpdate("Thumbnail", newValue)}
-			/>
-		</Container>
-	);
+interface MappedDispatch {
+	UpdateSettings: (propertyName: "Name" | "Description" | "Icon" | "Thumbnail", value: string) => void;
 }
 
-export default connect(
-	(state: IState) => state.World.Settings,
-	(dispatch) => ({
-		OnInputBoxUpdate(propertyName: "Name" | "Description" | "Icon" | "Thumbnail", value: string) {
+class WorldInfo extends Roact.PureComponent<WorldInfoPropTypes> {
+	render() {
+		return (
+			<Container>
+				<uicorner CornerRadius={new UDim(0.05, 0)} />
+				<Catagory Text="World Info" Image="rbxassetid://3926305904" />
+				<InputBox
+					Name="Name"
+					Length={60}
+					Default={this.props.Name}
+					OnChange={(newValue) => this.props.UpdateSettings("Name", newValue)}
+					HandleInput={(input) => (input.size() > 62 ? input.sub(0, 62) : input)}
+				/>
+				<InputBox
+					Name="Description"
+					Length={135}
+					Default={this.props.Description}
+					OnChange={(newValue) => this.props.UpdateSettings("Description", newValue)}
+					HandleInput={(input) => (input.size() > 188 ? input.sub(0, 188) : input)}
+				/>
+				<ImageInput
+					Name={"Icon"}
+					Default={this.props.Icon}
+					OnChange={(newValue) => this.props.UpdateSettings("Icon", newValue)}
+				/>
+				<ImageInput
+					Name={"Thumbnail"}
+					Default={this.props.Thumbnail}
+					OnChange={(newValue) => this.props.UpdateSettings("Thumbnail", newValue)}
+				/>
+			</Container>
+		);
+	}
+}
+
+const mapStateToProps = ({ World: { Settings } }: IState): MappedProps => {
+	return {
+		Name: Settings.Name,
+		Description: Settings.Description,
+		Icon: Settings.Icon,
+		Thumbnail: Settings.Thumbnail,
+	};
+};
+
+const mapDispatchToProps = (dispatch: Rodux.Dispatch<StoreActions>): MappedDispatch => {
+	return {
+		UpdateSettings: (propertyName, value) => {
 			dispatch(
 				updateWorldSettings([
 					{
@@ -57,5 +78,7 @@ export default connect(
 				]),
 			);
 		},
-	}),
-)(WorldInfo);
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorldInfo);

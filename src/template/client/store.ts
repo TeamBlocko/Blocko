@@ -3,9 +3,10 @@ import { intialState } from "./intialState";
 import { WorldSettingsActionTypes, worldSettingsReducerInitlizer } from "template/shared/worldSettingsReducer";
 import { placementSettingsReducer, PlacementSettingsActions } from "./rodux/placementSettings";
 import { IState } from "template/shared/Types";
-import { updateColorPickerReducer } from "./rodux/updateColorPicker";
+import { ActionRecievedUpdateColorPicker, updateColorPickerReducer } from "./rodux/updateColorPicker";
 
-export type StoreActions = (PlacementSettingsActions | WorldSettingsActionTypes) & AnyAction;
+export type StoreActions = (PlacementSettingsActions | WorldSettingsActionTypes | ActionRecievedUpdateColorPicker) &
+	AnyAction;
 
 export const storeReducer = combineReducers<IState, StoreActions>({
 	ActivatedColorPicker: updateColorPickerReducer,

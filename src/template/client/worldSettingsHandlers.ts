@@ -33,7 +33,9 @@ export const CycleEnabled = (newValue: boolean) => (cycleInfo.enabled = newValue
 // SOUND
 const sound = new Instance("Sound", Players.LocalPlayer);
 
-export const SoundID = (newValue: number) => (sound.SoundId = `rbxassetid://${newValue}`);
+export const SoundID = (newValue: number) => {
+	if (sound.SoundId !== `rbxassetid://${newValue}`) sound.SoundId = `rbxassetid://${newValue}`;
+};
 
 export const Volume = (newValue: number) => (sound.Volume = newValue);
 

@@ -12,22 +12,26 @@ import {
 	updateFunctionalityProperty,
 	removeFunctionality,
 } from "template/client/rodux/placementSettings";
-import { IState, PlacementSettings } from "template/shared/Types";
 import CloseButton from "../misc/CloseButton";
 import TitleText from "../misc/TitleText";
 import Gap from "common/client/components/misc/Gap";
+import Rodux from "@rbxts/rodux";
+import { StoreActions } from "template/client/store";
 
-interface FunctionTemplatePropTypes extends PlacementSettings {
+interface FunctionTemplatePropTypes extends MappedDispatch {
 	Functionality: Functionalities.FunctionalitiesInstancesValues;
 	LayoutOrder?: number;
 	ZIndex?: number;
-	UpdateFunctionality(guid: string, value: Functionalities.FunctionalitiesValues): void;
-	UpdateFunctionalityProperty(
+}
+
+interface MappedDispatch {
+	UpdateFunctionality: (guid: string, value: Functionalities.FunctionalitiesValues) => void;
+	UpdateFunctionalityProperty: (
 		guid: string,
 		property: Functionalities.FunctionalitiesPropertiesNames,
 		value: Functionalities.FunctionalitiesPropertiesValueTypes,
-	): void;
-	RemoveFunctionality(guid: string): void;
+	) => void;
+	RemoveFunctionality: (guid: string) => void;
 }
 
 function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
@@ -63,11 +67,11 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 	});
 }
 
-class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes, { Visible: boolean }> {
+class FunctionTemplate extends Roact.PureComponent<FunctionTemplatePropTypes, { Visible: boolean }> {
 	frameRef: Roact.Ref<Frame>;
 
-	frameSizeBinding: Roact.RoactBinding<number>;
-	setFrameSizeBinding: Roact.RoactBindingFunc<number>;
+	frameSizeBinding: Roact.Binding<number>;
+	setFrameSizeBinding: Roact.BindingFunction<number>;
 
 	constructor(props: FunctionTemplatePropTypes) {
 		super(props);
@@ -154,23 +158,24 @@ class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes, { Visi
 	}
 }
 
-export default connect(
-	(state: IState) => state.PlacementSettings,
-	(dispatch) => ({
-		UpdateFunctionality(guid: string, value: Functionalities.FunctionalitiesValues) {
+const mapDispatchToProps = (dispatch: Rodux.Dispatch<StoreActions>): MappedDispatch => {
+	return {
+		UpdateFunctionality: (guid: string, value: Functionalities.FunctionalitiesValues) => {
 			const newFunctionality = Functionalities.createFunctionality(value, { GUID: guid });
 
 			dispatch(updateFunctionality(guid, newFunctionality as Functionalities.FunctionalitiesInstancesValues));
 		},
-		UpdateFunctionalityProperty(
+		UpdateFunctionalityProperty: (
 			guid: string,
 			property: Functionalities.FunctionalitiesPropertiesNames,
 			value: Functionalities.FunctionalitiesPropertiesValueTypes,
-		) {
+		) => {
 			dispatch(updateFunctionalityProperty(guid, property, value));
 		},
-		RemoveFunctionality(guid: string) {
+		RemoveFunctionality: (guid: string) => {
 			dispatch(removeFunctionality(guid));
 		},
-	}),
-)(FunctionTemplate);
+	};
+};
+
+export default connect(undefined, mapDispatchToProps)(FunctionTemplate);

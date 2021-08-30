@@ -37,7 +37,6 @@ export const DEFAULT_WORLD_INFO: WorldInfo = {
 			: 0,
 	Permissions: [],
 	Banned: [],
-	Server: game.JobId,
 	MaxPlayers: 25,
 	ActivePlayers: game.PlaceId === 5102036961 ? 0 : Players.GetPlayers().size(),
 	PlaceVisits: 0,

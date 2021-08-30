@@ -36,38 +36,58 @@ function Info(props: InfoPropTypes) {
 	);
 }
 
-function InfoFrame(props: WorldInfo) {
-	return (
-		<frame
-			AnchorPoint={new Vector2(0.5, 0.5)}
-			BackgroundColor3={new Color3()}
-			BorderSizePixel={0}
-			Position={UDim2.fromScale(0.5, 1)}
-			Size={UDim2.fromOffset(300, 75)}
-		>
-			<frame
-				AnchorPoint={new Vector2(0.5, 0.5)}
-				BackgroundColor3={Color3.fromRGB(30, 30, 30)}
-				BorderColor3={Color3.fromRGB(50, 50, 50)}
-				Position={UDim2.fromScale(0.5, 0)}
-				Size={UDim2.fromScale(1, 1)}
-			>
-				<uilistlayout
-					FillDirection={Enum.FillDirection.Horizontal}
-					HorizontalAlignment={Enum.HorizontalAlignment.Center}
-					VerticalAlignment={Enum.VerticalAlignment.Bottom}
-					Padding={new UDim(0, 35)}
-				/>
-				<Info Name="Blocks" Text={`${props.NumberOfBlocks}`} Image="rbxgameasset://Images/Block" />
-				<Info
-					Name="Players"
-					Text={`${props.ActivePlayers}/${props.MaxPlayers}`}
-					Image="rbxassetid://3926305904"
-				/>
-				<Info Name="Visits" Text={`${props.PlaceVisits}`} Image="rbxassetid://3926307971" />
-			</frame>
-		</frame>
-	);
+interface InfoFramePropTypes extends MappedProps {}
+
+interface MappedProps {
+	NumberOfBlocks: number;
+	ActivePlayers: number;
+	MaxPlayers: number;
+	PlaceVisits: number;
 }
 
-export default connect((state: IState) => state.World.Info)(InfoFrame);
+class InfoFrame extends Roact.PureComponent<InfoFramePropTypes> {
+	render() {
+		return (
+			<frame
+				AnchorPoint={new Vector2(0.5, 0.5)}
+				BackgroundColor3={new Color3()}
+				BorderSizePixel={0}
+				Position={UDim2.fromScale(0.5, 1)}
+				Size={UDim2.fromOffset(300, 75)}
+			>
+				<frame
+					AnchorPoint={new Vector2(0.5, 0.5)}
+					BackgroundColor3={Color3.fromRGB(30, 30, 30)}
+					BorderColor3={Color3.fromRGB(50, 50, 50)}
+					Position={UDim2.fromScale(0.5, 0)}
+					Size={UDim2.fromScale(1, 1)}
+				>
+					<uilistlayout
+						FillDirection={Enum.FillDirection.Horizontal}
+						HorizontalAlignment={Enum.HorizontalAlignment.Center}
+						VerticalAlignment={Enum.VerticalAlignment.Bottom}
+						Padding={new UDim(0, 35)}
+					/>
+					<Info Name="Blocks" Text={`${this.props.NumberOfBlocks}`} Image="rbxgameasset://Images/Block" />
+					<Info
+						Name="Players"
+						Text={`${this.props.ActivePlayers}/${this.props.MaxPlayers}`}
+						Image="rbxassetid://3926305904"
+					/>
+					<Info Name="Visits" Text={`${this.props.PlaceVisits}`} Image="rbxassetid://3926307971" />
+				</frame>
+			</frame>
+		);
+	}
+}
+
+const mapStateToProps = ({ World: { Info } }: IState): MappedProps => {
+	return {
+		ActivePlayers: Info.ActivePlayers,
+		MaxPlayers: Info.MaxPlayers,
+		NumberOfBlocks: Info.NumberOfBlocks,
+		PlaceVisits: Info.PlaceVisits,
+	};
+};
+
+export default connect(mapStateToProps)(InfoFrame);

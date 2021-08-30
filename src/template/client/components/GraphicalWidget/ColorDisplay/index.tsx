@@ -16,10 +16,13 @@ const currentCamera = Workspace.CurrentCamera;
 
 type Binding = Frame | undefined;
 
-interface ColorDisplayPropTypes extends GWPropTypes<Color3> {
+interface ColorDisplayPropTypes extends GWPropTypes<Color3>, MappedProps {
 	SizeYOffset?: number;
-	Mode: BuildMode;
 	Bindable?: BindableEvent;
+}
+
+interface MappedProps {
+	Mode: BuildMode;
 }
 
 class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTypes> {
@@ -157,4 +160,10 @@ class ColorDisplay extends Component<ColorDisplayPropTypes, ColorDisplayStateTyp
 	}
 }
 
-export default connect((state: IState) => ({ Mode: state.PlacementSettings.BuildMode }))(ColorDisplay);
+const mapStateToProps = (state: IState): MappedProps => {
+	return {
+		Mode: state.PlacementSettings.BuildMode,
+	};
+};
+
+export default connect(mapStateToProps)(ColorDisplay);

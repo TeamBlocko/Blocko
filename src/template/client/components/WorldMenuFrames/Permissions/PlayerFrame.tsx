@@ -5,9 +5,15 @@ import { IState } from "template/shared/Types";
 import { connect } from "@rbxts/roact-rodux";
 import { deepEquals } from "@rbxts/object-utils";
 
-interface PlayerFramePropTypes {
+interface PlayerFramePropTypes extends MappedProps {
 	UserId: number;
 	LayoutOrder: number;
+}
+
+interface MappedProps {
+	Owner: number;
+	Permissions: PermissionsInfo[];
+	Bans: number[];
 }
 
 function PermissionType(props: { Name: PermissionTypes; Staff?: boolean }) {
@@ -27,11 +33,11 @@ function PermissionType(props: { Name: PermissionTypes; Staff?: boolean }) {
 	);
 }
 
-class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff: PermissionsInfo | undefined }> {
+class PlayerFrame extends Roact.Component<PlayerFramePropTypes, { staff: PermissionsInfo | undefined }> {
 	avatarImage: Roact.Ref<ImageLabel>;
 	name: Roact.Ref<TextLabel>;
 
-	constructor(props: PlayerFramePropTypes & World) {
+	constructor(props: PlayerFramePropTypes) {
 		super(props);
 
 		this.avatarImage = Roact.createRef();
@@ -79,7 +85,7 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 					Position={UDim2.fromScale(0.23, 0.86)}
 					Size={UDim2.fromScale(0.725, 0.35)}
 				>
-					<PermissionType Name={getUserPermissions(this.props.Info, this.props.UserId).Type} />
+					<PermissionType Name={getUserPermissions(this.props, this.props.UserId).Type} />
 					{this.state.staff ? <PermissionType Name={this.state.staff.Type} Staff={true} /> : undefined}
 					<uilistlayout
 						FillDirection={Enum.FillDirection.Horizontal}
@@ -91,7 +97,7 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 		);
 	}
 
-	shouldUpdate(nextProps: PlayerFramePropTypes & World, nextState: { staff: PermissionsInfo | undefined }) {
+	shouldUpdate(nextProps: PlayerFramePropTypes, nextState: { staff: PermissionsInfo | undefined }) {
 		return nextState.staff !== this.state.staff || !deepEquals(nextProps, this.props);
 	}
 
@@ -123,4 +129,12 @@ class PlayerFrame extends Roact.Component<PlayerFramePropTypes & World, { staff:
 	}
 }
 
-export default connect((state: IState) => state.World)(PlayerFrame);
+const mapStateToProps = ({ World: { Info } }: IState): MappedProps => {
+	return {
+		Bans: Info.Banned,
+		Owner: Info.Owner,
+		Permissions: Info.Permissions,
+	};
+};
+
+export default connect(mapStateToProps)(PlayerFrame);

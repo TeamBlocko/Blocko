@@ -4,25 +4,32 @@ import { ContextActionService, UserInputService, Workspace } from "@rbxts/servic
 import { IState } from "template/shared/Types";
 import { connect } from "@rbxts/roact-rodux";
 import { updateColorPickerActivated } from "template/client/rodux/updateColorPicker";
+import Rodux from "@rbxts/rodux";
+import { StoreActions } from "template/client/store";
 
 const camera = Workspace.CurrentCamera;
 
 interface PickColorButtonPropTypes {
-	UpdateColorPickerActivated(activated?: string | undefined): void;
 	Id: string;
+	UpdateColor: (value: Color3) => void;
 }
 
-interface PickColorButtonRoduxTypes {
-	UpdateColor: (value: Color3) => void;
+interface MappedProps {
 	Activated: boolean;
 }
 
-class PickColorButton extends Roact.Component<PickColorButtonPropTypes & PickColorButtonRoduxTypes> {
+interface MappedDispatch {
+	UpdateColorPickerActivated: (activated?: string | undefined) => void;
+}
+
+interface RoduxPickColorButtonPropTypes extends MappedProps, MappedDispatch, PickColorButtonPropTypes {}
+
+class PickColorButton extends Roact.PureComponent<RoduxPickColorButtonPropTypes> {
 	motor: SingleMotor;
 	binding: Roact.Binding<number>;
 	setBinding: Roact.BindingFunction<number>;
 
-	constructor(props: PickColorButtonPropTypes & PickColorButtonRoduxTypes) {
+	constructor(props: RoduxPickColorButtonPropTypes) {
 		super(props);
 
 		this.motor = new SingleMotor(0);
@@ -88,11 +95,18 @@ class PickColorButton extends Roact.Component<PickColorButtonPropTypes & PickCol
 	}
 }
 
-export default connect(
-	(state: IState, props: PickColorButtonPropTypes) => ({ Activated: state.ActivatedColorPicker === props.Id }),
-	(dispatch) => ({
-		UpdateColorPickerActivated(activated?: string | undefined) {
+const mapStateToProps = (state: IState, props: PickColorButtonPropTypes): MappedProps => {
+	return {
+		Activated: state.ActivatedColorPicker === props.Id,
+	};
+};
+
+const mapDispatchToProps = (dispatch: Rodux.Dispatch<StoreActions>): MappedDispatch => {
+	return {
+		UpdateColorPickerActivated: (activated?: string | undefined) => {
 			dispatch(updateColorPickerActivated(activated));
 		},
-	}),
-)(PickColorButton);
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PickColorButton);

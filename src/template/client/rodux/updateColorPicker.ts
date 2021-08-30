@@ -4,7 +4,7 @@ enum ColorPickerActions {
 	"UPDATE_COLOR_PICKER_ACTIVATED" = "UPDATE_COLOR_PICKER_ACTIVATED",
 }
 
-interface ActionRecievedUpdateColorPicker extends Action<ColorPickerActions.UPDATE_COLOR_PICKER_ACTIVATED> {
+export interface ActionRecievedUpdateColorPicker extends Action<ColorPickerActions.UPDATE_COLOR_PICKER_ACTIVATED> {
 	activatedColorPicker: string | undefined;
 }
 

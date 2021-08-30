@@ -1,4 +1,4 @@
-import { UserInputService, ReplicatedStorage } from "@rbxts/services";
+import { UserInputService, ReplicatedStorage, StarterGui } from "@rbxts/services";
 import Roact, { Component, createRef, createBinding } from "@rbxts/roact";
 import { SingleMotor, Spring } from "@rbxts/flipper";
 import NavigationFrame from "./WorldMenuFrames/NavigationFrame";
@@ -8,6 +8,12 @@ import Permissions from "./WorldMenuFrames/Permissions";
 import { worldMenuContext, ContextType } from "../worldMenuContext";
 
 const [VERSION] = ReplicatedStorage.TS.version.Value.match("%S+");
+
+function toggleCoreGui(enabled: boolean) {
+	StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, enabled);
+	StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, enabled);
+	StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, enabled);
+}
 
 class WorldMenu extends Component<ContextType> {
 	private uiPagelayoutRef: Roact.Ref<UIPageLayout>;
@@ -32,6 +38,15 @@ class WorldMenu extends Component<ContextType> {
 		[this.binding, this.setBinding] = createBinding(this.motor.getValue());
 
 		this.motor.onStep(this.setBinding);
+
+		this.motor.onComplete(() => {
+			const value = this.motor.getValue();
+			if (value === 1) {
+				toggleCoreGui(false);
+			} else {
+				toggleCoreGui(true);
+			}
+		});
 	}
 
 	onNavFrameButtonClick(e: GuiObject) {
@@ -77,6 +92,7 @@ class WorldMenu extends Component<ContextType> {
 				BackgroundColor3={Color3.fromRGB(30, 30, 30)}
 				BorderSizePixel={0}
 				Position={UDim2.fromScale(1, 0)}
+				Visible={this.binding.map((value) => (value > 0 ? true : false))}
 				Size={new UDim2(0, 300, 1, 0)}
 			>
 				<textbox
