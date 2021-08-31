@@ -10,7 +10,7 @@ import { worldInfoSerializer } from "common/server/WorldInfo/worldSchemes";
 import { DEFAULT_WORLD } from "common/server/WorldInfo/defaultWorld";
 import { copy, assign } from "@rbxts/object-utils";
 import { getPlayersWithPerm, toOwnerAndPermissions } from "template/shared/permissionsUtility";
-import { remotes } from "template/shared/remotes";
+import { remotes } from "common/shared/remotes";
 
 const dataSync = LazLoader.require("DataSync");
 

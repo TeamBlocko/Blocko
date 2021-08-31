@@ -4,10 +4,9 @@ import { PlacementSettings } from "./Types";
 import { ActionRecievedUpdateWorldSettings, WorldSettingsActionTypes } from "./worldSettingsReducer";
 
 export const remotes = Definitions.Create({
-	UpdateWorldSettings: Definitions.Function<[ActionRecievedUpdateWorldSettings], void>(),
-	Replication: Definitions.Function<[], World>(),
+	UpdateWorldSettings: Definitions.ServerFunction<(action: ActionRecievedUpdateWorldSettings) => void>(),
+	Replication: Definitions.ServerFunction<() => World>(),
 	UpdateClientSettings: Definitions.ServerToClientEvent<[action: WorldSettingsActionTypes & AnyAction]>(),
-	PlaceBlock: Definitions.Function<[Vector3, Vector3, PlacementSettings], BasePart | undefined>(),
-	DeleteBlock: Definitions.Function<[BasePart], void>(),
-	NotificationManager: Definitions.ServerToClientEvent<[RemoteNotification | RemoteNotification[]]>(),
+	PlaceBlock: Definitions.ServerFunction<(position: Vector3, orien: Vector3, settings: PlacementSettings) => BasePart | undefined>(),
+	DeleteBlock: Definitions.ServerFunction<(target: BasePart) => void>(),
 });

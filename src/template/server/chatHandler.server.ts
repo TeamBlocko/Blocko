@@ -1,13 +1,13 @@
 import { Players } from "@rbxts/services";
 import { handleCommand } from "./commandHandler";
-import { remotes } from "template/shared/remotes";
+import { remotes } from "common/shared/remotes";
 
 const notificationHandler = remotes.Server.Create("NotificationManager");
 
 function setupChat(player: Player) {
 	player.Chatted.Connect((message) => {
 		const result = handleCommand(player, message);
-		if (result[0] === true) {
+		if (result[0] === true && result[1] !== "") {
 			notificationHandler.SendToPlayer(player, [
 				{
 					Type: "Add",

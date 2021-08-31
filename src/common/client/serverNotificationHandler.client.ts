@@ -1,6 +1,6 @@
-import { Client } from "@rbxts/net";
 import { t } from "@rbxts/t";
 import notificationStore from "./notificationStore";
+import { remotes } from "common/shared/remotes";
 
 function handleNotification(notification: RemoteNotification) {
 	if (notification.Type === "Add") notificationStore.addNotification(notification.Data);
@@ -34,7 +34,7 @@ const remoteNotification: t.check<iNotification | RemoteNotification> = t.union(
 	}),
 );
 
-Client.Event.Wait<[data: RemoteNotification | RemoteNotification[]]>("NotificationManager").andThen((remote) =>
+remotes.Client.WaitFor("NotificationManager").andThen((remote) =>
 	remote.Connect((data) => {
 		if (remoteNotification(data)) {
 			handleNotification(data);

@@ -1,35 +1,28 @@
+import type { AnyAction } from "@rbxts/rodux";
+
 import { Players } from "@rbxts/services";
 import SyncedPoller from "@rbxts/synced-poller";
 import {
 	updateWorldInfo,
-	UpdateWorldSettingDataType,
 	WorldSettingsActionTypes,
 } from "template/shared/worldSettingsReducer";
 import * as handlers from "./worldSettingsHandlers";
 import { remotes } from "template/shared/remotes";
 
-declare interface UpdateWorldSettings {
-	readonly data: UpdateWorldSettingDataType[];
-	readonly replicateBroadcast?: boolean;
-	readonly replicateTo?: number;
-	readonly replicated?: boolean;
-}
-
 const retriveWorldSettingsRemote = remotes.Server.Create("Replication");
 const updateWorldSettingsRemote = remotes.Server.Create("UpdateWorldSettings");
 
 import WorldManager from "./WorldManager";
-import { AnyAction } from "@rbxts/rodux";
-
-game.BindToClose(() => {
-	WorldManager.ShutDown();
-});
 
 retriveWorldSettingsRemote.SetCallback(() => WorldManager.store.getState());
 
 updateWorldSettingsRemote.SetCallback((player, action) => {
 	if (WorldManager.store.getState().Info.Owner === player.UserId)
 		WorldManager.store.dispatch(action as WorldSettingsActionTypes & AnyAction);
+});
+
+game.BindToClose(() => {
+	WorldManager.ShutDown();
 });
 
 function updateSettings(state: WorldSettings) {
