@@ -58,71 +58,74 @@ interface WorldPageFramePropTypes {
 	Visible: boolean;
 }
 
-export function WorldPageFrame(props: WorldPageFramePropTypes) {
-	return (
-		<frame
-			AnchorPoint={new Vector2(0.5, 0.5)}
-			BackgroundColor3={Color3.fromRGB(30, 30, 30)}
-			Position={props.Position.map((value) => UDim2.fromScale(0.5, 0.45).Lerp(UDim2.fromScale(0.5, 0.5), value))}
-			Size={UDim2.fromScale(0.6, 0.6)}
-			Visible={props.Visible}
-		>
-			<uicorner CornerRadius={new UDim(0.035, 0)} />
-			<WorldStatus
-				Image={"rbxassetid://3926307971"}
-				ImageRectOffset={new Vector2(564, 44)}
-				Visible={false}
-				Text={"This world is currently <b>under review.</b>"}
-			/>
-			<WorldStatus
-				Image={"rbxassetid://3926305904"}
-				ImageRectOffset={new Vector2(764, 844)}
-				Visible={false}
-				Text={"You are banned from this world"}
-			/>
-			<WorldStatus
-				Image={"rbxassetid://3926307971"}
-				ImageRectOffset={new Vector2(4, 684)}
-				Visible={false}
-				Text={"This world is currently <b>private.</b>"}
-			/>
-			<imagelabel
-				AnchorPoint={new Vector2(0.5, 0)}
+class WorldPageFrame extends Roact.PureComponent<WorldPageFramePropTypes> {
+
+	render() {
+		return (
+			<frame
+				AnchorPoint={new Vector2(0.5, 0.5)}
 				BackgroundColor3={Color3.fromRGB(30, 30, 30)}
-				Position={UDim2.fromScale(0.5, 0)}
-				Size={UDim2.fromScale(1, 1)}
-				Image={props.World.Settings.Thumbnail}
-				ImageTransparency={0.75}
-				ScaleType={Enum.ScaleType.Crop}
+				Position={this.props.Position.map((value) => UDim2.fromScale(0.5, 0.45).Lerp(UDim2.fromScale(0.5, 0.5), value))}
+				Size={UDim2.fromScale(0.6, 0.6)}
+				Visible={this.props.Visible}
 			>
 				<uicorner CornerRadius={new UDim(0.035, 0)} />
+				<WorldStatus
+					Image={"rbxassetid://3926307971"}
+					ImageRectOffset={new Vector2(564, 44)}
+					Visible={false}
+					Text={"This world is currently <b>under review.</b>"}
+				/>
+				<WorldStatus
+					Image={"rbxassetid://3926305904"}
+					ImageRectOffset={new Vector2(764, 844)}
+					Visible={false}
+					Text={"You are banned from this world"}
+				/>
+				<WorldStatus
+					Image={"rbxassetid://3926307971"}
+					ImageRectOffset={new Vector2(4, 684)}
+					Visible={false}
+					Text={"This world is currently <b>private.</b>"}
+				/>
 				<imagelabel
-					AnchorPoint={new Vector2(0, 1)}
-					BackgroundTransparency={1}
-					Position={UDim2.fromScale(0, 1)}
-					Rotation={180}
+					AnchorPoint={new Vector2(0.5, 0)}
+					BackgroundColor3={Color3.fromRGB(30, 30, 30)}
+					Position={UDim2.fromScale(0.5, 0)}
 					Size={UDim2.fromScale(1, 1)}
-					Image={"rbxassetid://6407293134"}
-					ImageColor3={Color3.fromRGB(30, 30, 30)}
+					Image={this.props.World.Settings.Thumbnail}
+					ImageTransparency={0.75}
+					ScaleType={Enum.ScaleType.Crop}
 				>
 					<uicorner CornerRadius={new UDim(0.035, 0)} />
+					<imagelabel
+						AnchorPoint={new Vector2(0, 1)}
+						BackgroundTransparency={1}
+						Position={UDim2.fromScale(0, 1)}
+						Rotation={180}
+						Size={UDim2.fromScale(1, 1)}
+						Image={"rbxassetid://6407293134"}
+						ImageColor3={Color3.fromRGB(30, 30, 30)}
+					>
+						<uicorner CornerRadius={new UDim(0.035, 0)} />
+					</imagelabel>
 				</imagelabel>
-			</imagelabel>
-			<Close />
-			<imagelabel
-				AnchorPoint={new Vector2(0.5, 0.5)}
-				BackgroundTransparency={1}
-				Position={UDim2.fromScale(0.5, 0.55)}
-				Size={UDim2.fromScale(1.1, 1.15)}
-				Image={"rbxassetid://6408795655"}
-				ImageColor3={new Color3()}
-				ImageTransparency={0.5}
-				ZIndex={0}
-			/>
-			<Pages World={props.World} />
-			<uiaspectratioconstraint AspectRatio={1.6399110555649} />
-		</frame>
-	);
+				<Close />
+				<imagelabel
+					AnchorPoint={new Vector2(0.5, 0.5)}
+					BackgroundTransparency={1}
+					Position={UDim2.fromScale(0.5, 0.55)}
+					Size={UDim2.fromScale(1.1, 1.15)}
+					Image={"rbxassetid://6408795655"}
+					ImageColor3={new Color3()}
+					ImageTransparency={0.5}
+					ZIndex={0}
+				/>
+				<Pages World={this.props.World} />
+				<uiaspectratioconstraint AspectRatio={1.6399110555649} />
+			</frame>
+		);
+	}
 }
 
 interface WorldPageFrameRenderedPropTypes {

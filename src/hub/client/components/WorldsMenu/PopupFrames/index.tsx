@@ -23,6 +23,10 @@ class PopupFrames extends Roact.Component<PopupFramesPropTypes> {
 		this.motor.onStep(this.setBinding);
 	}
 
+	shouldUpdate(nextProps: PopupFramesPropTypes) {
+		return this.props.VisibleFrame !== nextProps.VisibleFrame;
+	}
+
 	didUpdate() {
 		this.motor.setGoal(new Flipper.Spring(this.props.VisibleFrame === undefined ? 0 : 1));
 	}

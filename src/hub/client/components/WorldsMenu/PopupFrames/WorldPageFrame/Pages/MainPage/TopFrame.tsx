@@ -1,6 +1,6 @@
 import { Players } from "@rbxts/services";
 import Roact from "@rbxts/roact";
-import { langList } from "common/shared/utility";
+import { langList, plural } from "common/shared/utility";
 import { userCache } from "hub/client/cache";
 
 function TagsList(props: { Tags: string[] }) {
@@ -177,7 +177,7 @@ class FriendsPlaying extends Roact.Component<FriendsPlayingPropTypes> {
 		if (friendsPlaying.size() === 1) return (friendsText.Text = `${friendsPlaying[0]} is in this world`);
 		friendsText.Text =
 			friendsPlaying.size() > 4
-				? `${friendsPlaying.shift()!}, ${friendsPlaying.shift()!} and ${friendsPlaying.size()} are in this world!`
+				? `${friendsPlaying.shift()!}, ${friendsPlaying.shift()!} and ${friendsPlaying.size()} other ${plural("friend", friendsPlaying)} are in this world!`
 				: `${langList(friendsPlaying)} are in this world!`;
 	}
 

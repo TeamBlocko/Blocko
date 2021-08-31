@@ -135,12 +135,14 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 			if (result.success) {
 				const worldsInfo = result.data.map((worldId) => fetchWorldInfo.CallServerAsync(worldId));
 				if (worldsInfo.size() === 0) {
+					if (filter !== this.props.Filter.Name) return;
 					this.setState({
 						Error: `<b><font size='20'>UH OH!</font></b> \n Looks like there are no ${filter} worlds to check out right now.`,
 						Worlds: Roact.None,
 						Loaded: true,
 					});
 				} else {
+					if (filter !== this.props.Filter.Name) return;
 					this.setState({
 						Worlds: await Promise.all<typeof worldsInfo>(worldsInfo),
 						Error: Roact.None,
@@ -148,6 +150,7 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 					});
 				}
 			} else {
+				if (filter !== this.props.Filter.Name) return;
 				this.setState({
 					Error: result.error,
 					Worlds: Roact.None,
@@ -169,6 +172,7 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 	render() {
 		const createWorld = this.props.Filter.Name !== "Owned" ? undefined : <CreateWorld />;
 		const errorText = this.state.Error ? <Error Error={this.state.Error} /> : undefined;
+		const cellPadding = camera.ViewportSize.X < 1400 ? UDim2.fromOffset(45, 45) : UDim2.fromOffset(50, 50);
 		return (
 			<scrollingframe
 				AnchorPoint={new Vector2(0.5, 1)}
@@ -179,12 +183,12 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 				Size={UDim2.fromScale(0.985, 1)}
 				ElasticBehavior={Enum.ElasticBehavior.Never}
 				ScrollBarThickness={5}
-				CanvasSize={this.canvasSizeBinding.map((value) => UDim2.fromOffset(0, value + 10))}
+				CanvasSize={this.canvasSizeBinding.map((value) => UDim2.fromOffset(0, value + cellPadding.Y.Offset * ((this.state.Worlds?.size() ?? 0) / 4)))}
 			>
 				{createWorld ?? errorText}
 				<uigridlayout
 					HorizontalAlignment={Enum.HorizontalAlignment.Center}
-					CellPadding={camera.ViewportSize.X < 1400 ? UDim2.fromOffset(45, 45) : UDim2.fromOffset(50, 50)}
+					CellPadding={cellPadding}
 					CellSize={camera.ViewportSize.X < 1400 ? UDim2.fromOffset(237, 153) : UDim2.fromOffset(356, 229)}
 					Change={{
 						AbsoluteContentSize: (e) => {

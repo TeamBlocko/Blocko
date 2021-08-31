@@ -37,15 +37,13 @@ class WorldMenu extends Component<ContextType> {
 		this.motor = new SingleMotor(0);
 		[this.binding, this.setBinding] = createBinding(this.motor.getValue());
 
-		this.motor.onStep(this.setBinding);
-
-		this.motor.onComplete(() => {
-			const value = this.motor.getValue();
-			if (value === 1) {
+		this.motor.onStep((value) => {
+			if (value > 0) {
 				toggleCoreGui(false);
 			} else {
 				toggleCoreGui(true);
 			}
+			this.setBinding(value)
 		});
 	}
 
