@@ -74,3 +74,7 @@ export function langList(list: string[]): string {
 	}
 	return list[0] ?? "";
 }
+
+export function plural(word: string, list: string[]): string {
+	return list.size() === 1 ? `${word}` : `${word}s`;
+}
