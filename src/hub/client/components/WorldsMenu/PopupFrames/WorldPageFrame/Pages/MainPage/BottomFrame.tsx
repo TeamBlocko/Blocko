@@ -149,7 +149,13 @@ class PlayButton extends Roact.Component<PlayButtonPropTypes> {
 					Size={UDim2.fromScale(0.5, 15)}
 					Image={"rbxassetid://5873311937"}
 				/>
-				<uistroke ApplyStrokeMode={Enum.ApplyStrokeMode.Border} Color={new Color3(1, 1, 1)} Thickness={0.75} />
+				<uistroke 
+					ApplyStrokeMode={Enum.ApplyStrokeMode.Border}
+					Color={new Color3(1, 1, 1)}
+					Thickness={0.75}
+					Transparency={0.85}
+					LineJoinMode={Enum.LineJoinMode.Round}
+				/>
 				<Icon
 					ImageRectOffset={new Vector2(244, 524)}
 					ImageTransparency={this.binding.map((value) => 1 - value.activated)}

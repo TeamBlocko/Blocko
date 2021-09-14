@@ -58,7 +58,13 @@ class LightingButton extends Roact.Component<LightingButtonPropTypes> {
 					ImageColor3={Color3.fromRGB(69, 165, 255)}
 				>
 					<uicorner CornerRadius={new UDim(0.075, 0)} />
-					<uistroke Color={Color3.fromRGB(254, 254, 254)} />
+					<uistroke
+						Color={Color3.fromRGB(50, 50, 50)}
+						ApplyStrokeMode={Enum.ApplyStrokeMode.Contextual}
+						Thickness={1}
+						Transparency={1}
+						LineJoinMode={Enum.LineJoinMode.Round}
+					/>
 				</imagelabel>
 				<uicorner CornerRadius={new UDim(0.075, 0)} />
 				<uistroke Color={new Color3(1, 1, 1)} />

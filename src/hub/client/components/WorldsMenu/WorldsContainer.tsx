@@ -183,7 +183,9 @@ class WorldsContainer extends Roact.Component<WorldsContainerPropTypes, WorldsSt
 				Size={UDim2.fromScale(0.985, 1)}
 				ElasticBehavior={Enum.ElasticBehavior.Never}
 				ScrollBarThickness={5}
-				CanvasSize={this.canvasSizeBinding.map((value) => UDim2.fromOffset(0, value + cellPadding.Y.Offset * ((this.state.Worlds?.size() ?? 0) / 4)))}
+				CanvasSize={this.canvasSizeBinding.map((value) =>
+					UDim2.fromOffset(0, value + 300),
+				)}
 			>
 				{createWorld ?? errorText}
 				<uigridlayout

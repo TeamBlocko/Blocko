@@ -1,4 +1,3 @@
-import { Players } from "@rbxts/services";
 import { remotes } from "template/shared/remotes";
 
 const result = remotes.Client.Get("Replication");

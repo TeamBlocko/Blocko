@@ -1,12 +1,5 @@
 import type { AnyAction } from "@rbxts/rodux";
 
-import { Players } from "@rbxts/services";
-import SyncedPoller from "@rbxts/synced-poller";
-import {
-	updateWorldInfo,
-	WorldSettingsActionTypes,
-} from "template/shared/worldSettingsReducer";
-import * as handlers from "./worldSettingsHandlers";
 import { remotes } from "template/shared/remotes";
 
 const retriveWorldSettingsRemote = remotes.Server.Create("Replication");
@@ -15,6 +8,11 @@ const updateWorldSettingsRemote = remotes.Server.Create("UpdateWorldSettings");
 import WorldManager from "./WorldManager";
 
 retriveWorldSettingsRemote.SetCallback(() => WorldManager.store.getState());
+
+import { Players } from "@rbxts/services";
+import SyncedPoller from "@rbxts/synced-poller";
+import { updateWorldInfo, WorldSettingsActionTypes } from "template/shared/worldSettingsReducer";
+import * as handlers from "./worldSettingsHandlers";
 
 updateWorldSettingsRemote.SetCallback((player, action) => {
 	if (WorldManager.store.getState().Info.Owner === player.UserId)

@@ -43,7 +43,7 @@ class WorldMenu extends Component<ContextType> {
 			} else {
 				toggleCoreGui(true);
 			}
-			this.setBinding(value)
+			this.setBinding(value);
 		});
 	}
 

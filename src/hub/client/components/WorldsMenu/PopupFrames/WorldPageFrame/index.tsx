@@ -59,13 +59,14 @@ interface WorldPageFramePropTypes {
 }
 
 class WorldPageFrame extends Roact.PureComponent<WorldPageFramePropTypes> {
-
 	render() {
 		return (
 			<frame
 				AnchorPoint={new Vector2(0.5, 0.5)}
 				BackgroundColor3={Color3.fromRGB(30, 30, 30)}
-				Position={this.props.Position.map((value) => UDim2.fromScale(0.5, 0.45).Lerp(UDim2.fromScale(0.5, 0.5), value))}
+				Position={this.props.Position.map((value) =>
+					UDim2.fromScale(0.5, 0.45).Lerp(UDim2.fromScale(0.5, 0.5), value),
+				)}
 				Size={UDim2.fromScale(0.6, 0.6)}
 				Visible={this.props.Visible}
 			>

@@ -177,7 +177,10 @@ class FriendsPlaying extends Roact.Component<FriendsPlayingPropTypes> {
 		if (friendsPlaying.size() === 1) return (friendsText.Text = `${friendsPlaying[0]} is in this world`);
 		friendsText.Text =
 			friendsPlaying.size() > 4
-				? `${friendsPlaying.shift()!}, ${friendsPlaying.shift()!} and ${friendsPlaying.size()} other ${plural("friend", friendsPlaying)} are in this world!`
+				? `${friendsPlaying.shift()!}, ${friendsPlaying.shift()!} and ${friendsPlaying.size()} other ${plural(
+						"friend",
+						friendsPlaying,
+				  )} are in this world!`
 				: `${langList(friendsPlaying)} are in this world!`;
 	}
 

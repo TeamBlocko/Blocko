@@ -1,8 +1,14 @@
-import { isValidCommand, commands, PREFIX } from "./commands";
+import { entries } from "@rbxts/object-utils";
+import { remotes } from "common/shared/remotes";
+import { isValidCommand, PREFIX, Arg, Commands, ArgsResult, ArgsNames, CommandsArgs } from "./commands";
 import { constructMessage } from "./messageUtility";
 
+const notificationManager = remotes.Server.Create("NotificationManager");
+
+/*
 function parseMessage(message: string) {
 	const messageIter = message.gmatch("%S+");
+
 	const ordered: string[] = [];
 	const nonOrdered = new Map<string, string>();
 	for (const [word] of messageIter) {
@@ -19,26 +25,78 @@ function parseMessage(message: string) {
 		NonOrdered: nonOrdered,
 	};
 }
+*/
 
-export function handleCommand(caller: Player, message: string): [boolean, string] {
+function parseMessage(message: string) {
+	const messageIter = message.gmatch("%S+");
+	const [command] = messageIter();
+
+	const args: string[] = [];
+	for (const [word] of messageIter) {
+		args.push(tostring(word));
+	}
+
+	return {
+		command: tostring(command)
+			.sub(PREFIX.size() + 1)
+			.lower(),
+		args,
+	};
+}
+
+export function handleCommand(caller: Player, message: string) {
 	const parsed = parseMessage(message);
 
-	const commandName = parsed.Ordered.shift()?.sub(PREFIX.size() + 1);
+	const commandName = parsed.command;
 
 	if (!(commandName !== undefined && isValidCommand(commandName))) {
 		return [false, ""];
 	}
 
-	const command = commands[commandName];
+	const command = Commands[commandName];
 
-	for (const [index, arg] of ipairs(command.args)) {
-		const passedValue = parsed.Ordered[index - 1];
-		if (arg.optional && passedValue === undefined) parsed.Ordered[index - 1] = arg.default;
+	const commandArgs: ArgsResult = new Map();
+
+	for (const [index, [key, arg]] of ipairs(
+		(entries(command.args) as [ArgsNames, Arg][]).sort(([_a, aArg], [_b, bArg]) => aArg.id < bArg.id),
+	)) {
+		const passedValue = parsed.args[index - 1];
+
 		if (passedValue === undefined && !arg.optional) {
-			const finalMessage = constructMessage(PREFIX, command, `No value passed for ${arg.name}`, arg);
-			return [true, finalMessage];
+			const message = constructMessage(PREFIX, command, `No value passed for Required arg ${arg.name}`, arg);
+			notificationManager.SendToPlayer(caller, {
+				Type: "Add",
+				Data: {
+					Id: "CommandStatus",
+					Title: "Invalid Permission Level",
+					Message: message,
+					Icon: "rbxassetid://7148978151",
+					Time: 5,
+				},
+			});
+			return;
+		}
+		if (arg.optional === true) {
+			const result = arg.getValue(
+				caller,
+				command,
+				passedValue || arg.default,
+				passedValue === undefined,
+				commandArgs,
+			);
+			if (result[0] === false) return;
+			commandArgs.set(key, {
+				Value: result[1],
+				IsDefault: passedValue === undefined,
+			});
+		} else {
+			const result = arg.getValue(caller, command, passedValue, false, commandArgs);
+			if (result[0] === false) return;
+			commandArgs.set(key, {
+				Value: result[1],
+			});
 		}
 	}
-
-	return [true, command.execute(caller, ...parsed.Ordered)];
+	//@ts-ignore
+	command.execute(caller, commandArgs as unknown as CommandsArgs);
 }
