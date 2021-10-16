@@ -1,6 +1,6 @@
 import Rodux from "@rbxts/rodux";
 import { createReducer, AnyAction, combineReducers } from "@rbxts/rodux";
-import { assign, copy as shallowCopy } from "@rbxts/object-utils";
+import { copy as shallowCopy } from "@rbxts/object-utils";
 
 export enum WorldSettingsActions {
 	UPDATE_SETTINGS = "UPDATE_WORLD_SETTINGS",

@@ -11,8 +11,7 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 	private hsFrameRef: Roact.Ref<ImageButton>;
 	private valueFrame: Roact.Ref<TextButton>;
 
-	id = HttpService.GenerateGUID();
-
+	public id: string;
 	public getDerivedStateFromProps = (
 		nextProps: ColorPickerPropTypes,
 		currState: ColorPickerStateTypes,
@@ -43,6 +42,8 @@ class ColorPicker extends Component<ColorPickerPropTypes, ColorPickerStateTypes>
 			this.hsFrameRef,
 			this.valueFrame,
 		);
+
+		this.id = HttpService.GenerateGUID();
 	}
 
 	willUpdate(nextProps: ColorPickerPropTypes) {

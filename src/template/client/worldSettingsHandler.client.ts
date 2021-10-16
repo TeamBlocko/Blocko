@@ -8,7 +8,7 @@ const debugToggle = remotes.Client.Get("ToggleDebug");
 
 updateWorldSettingsRemote.Connect((action) => store.dispatch(action));
 
-debugToggle.Connect(() => store.dispatch(toggleDebug()))
+debugToggle.Connect(() => store.dispatch(toggleDebug()));
 
 function updateSettings(state: WorldSettings) {
 	for (const [propertyName, value] of pairs(state)) {
