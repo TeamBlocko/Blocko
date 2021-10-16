@@ -1,7 +1,8 @@
 import { entries } from "@rbxts/object-utils";
 import { remotes } from "common/shared/remotes";
-import { isValidCommand, PREFIX, Arg, Commands, ArgsResult, ArgsNames, CommandsArgs } from "./commands";
-import { constructMessage } from "./messageUtility";
+import { isValidCommand, PREFIX, CommandsArgs, commands } from "./commands";
+import type { Arg, ArgsNames, ArgsResult } from "./types";
+import { constructMessage } from "./utility";
 
 const notificationManager = remotes.Server.Create("NotificationManager");
 
@@ -53,7 +54,7 @@ export function handleCommand(caller: Player, message: string) {
 		return [false, ""];
 	}
 
-	const command = Commands[commandName];
+	const command = commands[commandName];
 
 	const commandArgs: ArgsResult = new Map();
 
@@ -83,6 +84,7 @@ export function handleCommand(caller: Player, message: string) {
 				passedValue || arg.default,
 				passedValue === undefined,
 				commandArgs,
+				{ registeredCommands: commands },
 			);
 			if (result[0] === false) return;
 			commandArgs.set(key, {
@@ -90,13 +92,17 @@ export function handleCommand(caller: Player, message: string) {
 				IsDefault: passedValue === undefined,
 			});
 		} else {
-			const result = arg.getValue(caller, command, passedValue, false, commandArgs);
+			const result = arg.getValue(caller, command, passedValue, false, commandArgs, {
+				registeredCommands: commands,
+			});
 			if (result[0] === false) return;
 			commandArgs.set(key, {
 				Value: result[1],
 			});
 		}
 	}
-	//@ts-ignore
-	command.execute(caller, commandArgs as unknown as CommandsArgs);
+
+	command.execute(caller, commandArgs as unknown as UnionToIntersection<CommandsArgs>, {
+		registeredCommands: commands,
+	});
 }
