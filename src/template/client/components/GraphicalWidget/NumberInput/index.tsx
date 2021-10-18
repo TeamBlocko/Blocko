@@ -18,8 +18,6 @@ export class NumberInput extends Roact.Component<NumberInputPropTypes> {
 			>
 				<TitleText
 					Text={this.props.Name}
-					Position={UDim2.fromScale(0, 0.5)}
-					AnchorPoint={new Vector2(0, 0.5)}
 				/>
 				<NumberTextInput
 					OnValidInput={(_, value) => this.props.OnChange(value)}

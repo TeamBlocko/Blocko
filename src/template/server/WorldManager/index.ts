@@ -211,20 +211,21 @@ class WorldManager {
 
 	ShutDown() {
 		this.isClosing = true;
-		const newInfo = copy(this.worldInfo.GetData());
-		newInfo.data.Info.Server = undefined;
-		newInfo.data.Info.ActivePlayers = "0";
-		task.spawn(() => {
-			this.worldInfo.UpdateData(newInfo);
-			this.worldInfo.SaveData();
-		});
-		task.spawn(() => {
-			{
-				activeODS.RemoveAsync(`${newInfo.data.Info.WorldId}`);
-			}
-			while (activeODS.GetAsync(`${newInfo.data.Info.WorldId}`) !== undefined);
-		});
-		for (const player of Players.GetPlayers()) player.AncestryChanged.Wait();
+		for (const _ of [1, 2, 3]) {
+			const newInfo = copy(this.worldInfo.GetData());
+			newInfo.data.Info.Server = undefined;
+			newInfo.data.Info.ActivePlayers = "0";
+			task.spawn(() => {
+				this.worldInfo.UpdateData(newInfo);
+				this.worldInfo.SaveData();
+			});
+			task.spawn(() => {
+				{
+					activeODS.RemoveAsync(`${newInfo.data.Info.WorldId}`);
+				}
+				while (activeODS.GetAsync(`${newInfo.data.Info.WorldId}`) !== undefined);
+			});
+		}
 	}
 }
 print(game.PlaceId);

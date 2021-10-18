@@ -1,7 +1,6 @@
 import { CollectionService, Players, InsertService } from "@rbxts/services";
 import { values } from "@rbxts/object-utils";
 import * as Functionalities from "template/shared/Functionalities";
-import { getTopPart } from "template/shared/utility";
 
 const debounce = new Map<string, Map<number, number>>();
 
@@ -62,13 +61,14 @@ function addConveyor(part: BasePart, functionality: Functionalities.Functionalit
 function addGearGiver(part: BasePart, functionality: Functionalities.FunctionalitiesInstancesValues) {
 	if (functionality.Name === "GearGiver") {
 		const id = functionality.Properties.ItemId.Current
-		const item = InsertService.LoadAsset(id);
+		const item = InsertService.LoadAsset(id).GetChildren()[0];
 		item.Name = tostring(id);
 		part.Touched.Connect(object => {
 			const player = Players.GetPlayerFromCharacter(object.Parent);
+			const character = player?.Character;
 			const backpack = player?.FindFirstChildOfClass("Backpack");
-			if (!backpack) return;
-			if (backpack.FindFirstChild(tostring(id))) return;
+			if (character && character.FindFirstChild(tostring(id))) return;
+			if (!backpack || backpack.FindFirstChild(tostring(id))) return;
 			const newItem = item.Clone();
 			newItem.Parent = backpack;
 		})
@@ -80,7 +80,7 @@ function addTeleporter(part: BasePart, functionality: Functionalities.Functional
 		part.Touched.Connect((object) => {
 			if (Players.GetPlayerFromCharacter(object.Parent)) {
 				let humanoidRootPart = object.Parent?.FindFirstChild("HumanoidRootPart") as BasePart | undefined;
-				let target = getTopPart(1e5);
+				const target = functionality.Properties.Target.Current;
 				if (!humanoidRootPart || !target) return;
 				humanoidRootPart.CFrame = target.CFrame.add(new Vector3(0, target.Size.Y, 0));
 			}

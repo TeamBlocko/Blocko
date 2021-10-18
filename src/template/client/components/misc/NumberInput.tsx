@@ -35,7 +35,10 @@ function NumberInput(props: PropsWithChildren<NumberInputPropTypes>) {
 					)
 						return;
 					const output = validateText(originalText, props.Options);
-					if (output === undefined) return;
+					if (output === undefined) {
+						element.Text = prevText;
+						return
+					};
 					const text = "%d".format(output);
 					if (text === prevText && originalText === prevText) return;
 					element.Text = text;

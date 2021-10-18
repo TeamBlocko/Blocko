@@ -2,10 +2,10 @@ import Roact from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import Rodux from "@rbxts/rodux";
 import { ContextActionService, HttpService } from "@rbxts/services";
-import { raycastMouse } from "common/shared/utility";
 import { updatePickerActivated } from "template/client/rodux/updatePicker";
 import { StoreActions } from "template/client/store";
 import { IState } from "template/shared/Types";
+import { getTopPart } from "template/shared/utility";
 import GWFrame from "../misc/GWFrame";
 import TitleText from "../misc/TitleText";
 
@@ -39,12 +39,11 @@ export class ObjectPicker extends Roact.PureComponent<ObjectPickerButtonPropType
 			>
 				<TitleText
 					Text={this.props.Name}
-					Position={UDim2.fromScale(0, 0.5)}
-					AnchorPoint={new Vector2(0, 0.5)}
 				/>
 				<textbutton
-					Text={this.props.Default?.Name ?? ""}
-					BackgroundTransparency={1}
+					Text={this.props.ActivatedId === this.Id ? "Select Object" : this.props.Default?.Name ?? "No Target"}
+					BackgroundTransparency={0.925}
+					TextColor3={new Color3(1, 1, 1)}
 					AnchorPoint={new Vector2(1, 0.5)}
 					Position={UDim2.fromScale(0.925, 0.5)}
 					Font={Enum.Font.Gotham}
@@ -68,10 +67,10 @@ export class ObjectPicker extends Roact.PureComponent<ObjectPickerButtonPropType
 			(_, inputState) => {
 				if (this.props.ActivatedId !== this.Id) return Enum.ContextActionResult.Pass;
 				if (inputState === Enum.UserInputState.Begin) {
-					const target = raycastMouse();
+					const target = getTopPart(1e5);
 					if (!target) return Enum.ContextActionResult.Pass;
 					this.props.UpdatePickerActivated();
-					this.props.OnChange(target.Instance);
+					this.props.OnChange(target);
 				}
 				return Enum.ContextActionResult.Pass;
 			},
