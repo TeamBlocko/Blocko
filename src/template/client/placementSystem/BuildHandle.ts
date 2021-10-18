@@ -1,10 +1,11 @@
 import { Workspace, Players, UserInputService, TweenService } from "@rbxts/services";
 import { remotes } from "template/shared/remotes";
-import GridBase from "./GridBase";
+import { GridBase } from "./GridBase";
 import { UpdateBasePart } from "../rodux/placementSettings";
 import store from "../store";
 import { previousInTable, nextInTable } from "common/shared/utility";
 import { shapes as orderedShapes } from "../shapes";
+import { mouseTarget } from "template/shared/utility";
 
 const client = Players.LocalPlayer;
 const playerGui = client.FindFirstChildOfClass("PlayerGui") as PlayerGui;
@@ -60,7 +61,7 @@ class BuildHandler {
 	}
 
 	placeBlock() {
-		const target = this.gridBase.mouseTarget();
+		const target = mouseTarget(this.gridBase.maxPlaceDistance, [this.gridBase.blocks]);
 		if (this.ghostPart === undefined) return;
 		if (target !== undefined) {
 			const mousePosition = UserInputService.GetMouseLocation();
@@ -119,7 +120,7 @@ class BuildHandler {
 	}
 
 	deleteBlock() {
-		const target = this.gridBase.mouseTarget();
+		const target = mouseTarget(this.gridBase.maxPlaceDistance, [this.gridBase.blocks]);
 		if (target !== undefined) {
 			target.Parent = Workspace;
 

@@ -1,13 +1,8 @@
 import { Workspace, UserInputService, TweenService } from "@rbxts/services";
 import store from "template/client/store";
+import { mouseBlockSide, mousePosition, mouseTarget } from "template/shared/utility";
 
 const camera = Workspace.CurrentCamera;
-
-type Axis = "X" | "Y" | "Z";
-
-interface Target extends BasePart {
-	ActualSize: Vector3Value;
-}
 
 interface GridBaseOptions {
 	Blocks: Instance;
@@ -20,7 +15,7 @@ const DEFAULT_OPTIONS = {
 	RotationTweenInfo: new TweenInfo(0.1),
 };
 
-class GridBase {
+export class GridBase {
 	public readonly blocks: Instance;
 	public readonly maxPlaceDistance: number;
 	public readonly rotationTweenInfo: TweenInfo;
@@ -136,22 +131,6 @@ class GridBase {
 		return Workspace.Raycast(origin, direction, raycastParams);
 	}
 
-	mouseTarget() {
-		const raycastResult = this.raycastMouse();
-		return raycastResult && raycastResult.Instance;
-	}
-
-	mousePosition() {
-		const raycastResult = this.raycastMouse();
-		return raycastResult && raycastResult.Position;
-	}
-
-	mouseBlockSide() {
-		const ray = this.raycastMouse();
-		if (!ray) return;
-		return ray.Normal;
-	}
-
 	isAllFloat(vector: Vector3) {
 		for (const axis of ["X", "Y", "Z"] as const) {
 			if (math.floor(vector[axis]) === vector[axis]) {
@@ -182,12 +161,12 @@ class GridBase {
 	}
 
 	mouseGridPosition() {
-		const target = this.mouseTarget();
-		const pos = this.mousePosition();
+		const target = mouseTarget(this.maxPlaceDistance, [this.blocks]);
+		const pos = mousePosition(this.maxPlaceDistance, [this.blocks]);
 		if (!pos) return;
 		const gridSize = this.getSize(store.getState().PlacementSettings.RawProperties.Size);
 		if (!target) return this.positionToGrid(pos, gridSize);
-		const normal = this.mouseBlockSide();
+		const normal = mouseBlockSide(this.maxPlaceDistance, [this.blocks]);
 		if (!normal) return;
 		if (this.isAllFloat(normal) && !this.isFromFloatError(normal)) return this.positionToGrid(pos, gridSize);
 		/*
@@ -232,4 +211,8 @@ class GridBase {
 	}
 }
 
-export default GridBase;
+export const gridBase = new GridBase({
+	Blocks: Workspace.Blocks,
+	MaxPlaceDistance: 1e5,
+	RotationTweenInfo: new TweenInfo(0.25, Enum.EasingStyle.Quint),
+});

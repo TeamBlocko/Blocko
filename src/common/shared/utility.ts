@@ -1,4 +1,7 @@
 import { assign } from "@rbxts/object-utils";
+import { UserInputService, Workspace } from "@rbxts/services";
+
+const camera = Workspace.CurrentCamera;
 
 export const map = (value: number, x1: number, y1: number, x2: number, y2: number): number =>
 	((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
@@ -77,4 +80,18 @@ export function langList(list: string[]): string {
 
 export function plural(word: string, list: string[]): string {
 	return list.size() === 1 ? `${word}` : `${word}s`;
+}
+
+export function raycastMouse() {
+	if (camera === undefined) return;
+	const raycastParams = new RaycastParams();
+	raycastParams.FilterType = Enum.RaycastFilterType.Blacklist;
+	const ghostPart = Workspace.FindFirstChild("GhostPart");
+	if (ghostPart) {
+		raycastParams.FilterDescendantsInstances = [ghostPart];
+	}
+
+	const mousePos = UserInputService.GetMouseLocation();
+	const mouseUnitRay = camera.ScreenPointToRay(mousePos.X, mousePos.Y - 36);
+	return Workspace.Raycast(mouseUnitRay.Origin, mouseUnitRay.Direction.mul(1000), raycastParams);
 }

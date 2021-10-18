@@ -1,32 +1,11 @@
 import { entries } from "@rbxts/object-utils";
 import { remotes } from "common/shared/remotes";
-import { isValidCommand, PREFIX, CommandsArgs, commands } from "./commands";
+import { isValidCommand, CommandsArgs, commands } from "./commandsBase";
 import type { Arg, ArgsNames, ArgsResult } from "./types";
 import { constructMessage } from "./utility";
+import config from "./config";
 
 const notificationManager = remotes.Server.Create("NotificationManager");
-
-/*
-function parseMessage(message: string) {
-	const messageIter = message.gmatch("%S+");
-
-	const ordered: string[] = [];
-	const nonOrdered = new Map<string, string>();
-	for (const [word] of messageIter) {
-		const [keyName] = tostring(word).match("^%-%-(%w+)");
-		if (keyName !== undefined) {
-			const [value] = messageIter();
-			nonOrdered.set(tostring(keyName), tostring(value));
-		} else {
-			ordered.push(tostring(word));
-		}
-	}
-	return {
-		Ordered: ordered,
-		NonOrdered: nonOrdered,
-	};
-}
-*/
 
 function parseMessage(message: string) {
 	const messageIter = message.gmatch("%S+");
@@ -39,7 +18,7 @@ function parseMessage(message: string) {
 
 	return {
 		command: tostring(command)
-			.sub(PREFIX.size() + 1)
+			.sub(config.prefix.size() + 1)
 			.lower(),
 		args,
 	};
@@ -64,7 +43,7 @@ export function handleCommand(caller: Player, message: string) {
 		const passedValue = parsed.args[index - 1];
 
 		if (passedValue === undefined && !arg.optional) {
-			const message = constructMessage(PREFIX, command, `No value passed for Required arg ${arg.name}`, arg);
+			const message = constructMessage(config.prefix, command, `No value passed for Required arg ${arg.name}`, arg);
 			notificationManager.SendToPlayer(caller, {
 				Type: "Add",
 				Data: {

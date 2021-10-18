@@ -17,6 +17,8 @@ import TitleText from "../misc/TitleText";
 import Gap from "common/client/components/misc/Gap";
 import Rodux from "@rbxts/rodux";
 import { StoreActions } from "template/client/store";
+import { NumberInput } from "../GraphicalWidget/NumberInput";
+import ObjectPicker from "../GraphicalWidget/ObjectPicker";
 
 interface FunctionTemplatePropTypes extends MappedDispatch {
 	Functionality: Functionalities.FunctionalitiesInstancesValues;
@@ -37,7 +39,7 @@ interface MappedDispatch {
 function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 	return (values(props.Functionality.Properties) as FunctionalitiesPropertiesInstance[]).map((property) => {
 		switch (property.Type) {
-			case "number":
+			case "slider":
 				return (
 					<Slider
 						{...property}
@@ -63,6 +65,26 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 						ResizeForDropdown={true}
 					/>
 				);
+			case "input":
+				return (
+					<NumberInput
+						{...property}
+						BackgroundTransparency={1}
+						OnChange={(value) => {
+							props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
+						}}
+					/>
+				);
+			case "block":
+				return (
+					<ObjectPicker
+						{...property}
+						BackgroundTransparency={1}
+						OnChange={(value) => {
+							props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
+						}}
+					/>
+				)
 		}
 	});
 }
@@ -150,7 +172,6 @@ class FunctionTemplate extends Roact.PureComponent<FunctionTemplatePropTypes, { 
 		print(scrollingFrame);
 		if (!scrollingFrame) return;
 		scrollingFrame.GetPropertyChangedSignal("CanvasPosition").Connect(() => {
-			print("HEY", frame.AbsolutePosition.Y + 35 < scrollingFrame.CanvasSize.Y.Offset);
 			this.setState({
 				Visible: frame.AbsolutePosition.Y + 35 < scrollingFrame.CanvasSize.Y.Offset,
 			});

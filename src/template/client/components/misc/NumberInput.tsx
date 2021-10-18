@@ -1,4 +1,4 @@
-import Roact, { Children } from "@rbxts/roact";
+import Roact, { Children, PropsWithChildren } from "@rbxts/roact";
 import { validateText } from "common/shared/utility";
 
 interface OnValidInput {
@@ -11,7 +11,7 @@ interface NumberInputPropTypes {
 	TextBoxProps: Omit<Roact.JsxInstance<TextBox>, "Text"> & { Text: string };
 }
 
-function NumberInput(props: NumberInputPropTypes) {
+function NumberInput(props: PropsWithChildren<NumberInputPropTypes>) {
 	let prevText = props.TextBoxProps.Text;
 	return (
 		<textbox
@@ -35,16 +35,16 @@ function NumberInput(props: NumberInputPropTypes) {
 					)
 						return;
 					const output = validateText(originalText, props.Options);
-					const text = tostring(output);
-					if (text === prevText && originalText === prevText) return;
-					element.Text = output !== undefined ? text : prevText;
 					if (output === undefined) return;
+					const text = "%d".format(output);
+					if (text === prevText && originalText === prevText) return;
+					element.Text = text;
 					props.OnValidInput(element, output);
 					prevText = text;
 				},
 			}}
 		>
-			{props.TextBoxProps[Children]}
+			{props[Children]}
 		</textbox>
 	);
 }

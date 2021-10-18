@@ -1,6 +1,7 @@
-import { CollectionService, Players } from "@rbxts/services";
+import { CollectionService, Players, InsertService } from "@rbxts/services";
 import { values } from "@rbxts/object-utils";
 import * as Functionalities from "template/shared/Functionalities";
+import { getTopPart } from "template/shared/utility";
 
 const debounce = new Map<string, Map<number, number>>();
 
@@ -33,7 +34,6 @@ function addDamager(part: BasePart, functionality: Functionalities.Functionaliti
 				}
 			}
 		});
-		CollectionService.AddTag(part, "Functionality");
 	}
 }
 
@@ -44,7 +44,6 @@ function addTripper(part: BasePart) {
 			humanoid.Sit = true;
 		}
 	});
-	CollectionService.AddTag(part, "Functionality");
 }
 
 function addConveyor(part: BasePart, functionality: Functionalities.FunctionalitiesInstancesValues) {
@@ -57,7 +56,35 @@ function addConveyor(part: BasePart, functionality: Functionalities.Functionalit
 				functionality.Properties.Speed.Current,
 			);
 		});
-		CollectionService.AddTag(part, "Functionality");
+	}
+}
+
+function addGearGiver(part: BasePart, functionality: Functionalities.FunctionalitiesInstancesValues) {
+	if (functionality.Name === "GearGiver") {
+		const id = functionality.Properties.ItemId.Current
+		const item = InsertService.LoadAsset(id);
+		item.Name = tostring(id);
+		part.Touched.Connect(object => {
+			const player = Players.GetPlayerFromCharacter(object.Parent);
+			const backpack = player?.FindFirstChildOfClass("Backpack");
+			if (!backpack) return;
+			if (backpack.FindFirstChild(tostring(id))) return;
+			const newItem = item.Clone();
+			newItem.Parent = backpack;
+		})
+	}
+}
+
+function addTeleporter(part: BasePart, functionality: Functionalities.FunctionalitiesInstancesValues) {
+	if (functionality.Name === "Teleporter") {
+		part.Touched.Connect((object) => {
+			if (Players.GetPlayerFromCharacter(object.Parent)) {
+				let humanoidRootPart = object.Parent?.FindFirstChild("HumanoidRootPart") as BasePart | undefined;
+				let target = getTopPart(1e5);
+				if (!humanoidRootPart || !target) return;
+				humanoidRootPart.CFrame = target.CFrame.add(new Vector3(0, target.Size.Y, 0));
+			}
+		})
 	}
 }
 
@@ -72,25 +99,40 @@ export function addFunctionality(part: BasePart, functionality: Functionalities.
 		case "Conveyor":
 			addConveyor(part, functionality);
 			break;
+		case "GearGiver":
+			addGearGiver(part, functionality);
+			break;
+		case "Teleporter": 
+			addTeleporter(part, functionality);
+			break;
 	}
+	CollectionService.AddTag(part, "Functionality");
 }
 
 function createValueInstance(value: Functionalities.FunctionalitiesPropertiesInstance, parent: Folder) {
 	switch (value.Type) {
-		case "number":
+		case "slider": {
 			const valueInstance = new Instance("NumberValue");
 			valueInstance.Value = value.Current;
 			valueInstance.Name = value.Name;
 			valueInstance.Parent = parent;
-			break;
-		case "choice":
+			return;
+		}
+		case "choice": {
 			if (value.Name === "Direction") {
 				const valueInstance = new Instance("Vector3Value");
 				valueInstance.Value = Vector3.FromNormalId(value.Current);
 				valueInstance.Name = value.Name;
 				valueInstance.Parent = parent;
-				break;
 			}
+			return;
+		} case "block": {
+			const valueInstance = new Instance("ObjectValue");
+			valueInstance.Value = value.Current;
+			valueInstance.Name = value.Name;
+			valueInstance.Parent = parent;
+			break;
+		}
 	}
 }
 

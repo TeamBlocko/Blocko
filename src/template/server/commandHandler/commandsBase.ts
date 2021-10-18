@@ -4,8 +4,6 @@ import { HelpCommand, help } from "./commands/help";
 import { PermCommand, perm } from "./commands/perm";
 import { TpCommand, tp } from "./commands/tp";
 
-export const PREFIX = "!";
-
 const toggleDebug = templateRemotes.Server.Create("ToggleDebug");
 
 export type DebugCommand = Command<Record<string, never>>;

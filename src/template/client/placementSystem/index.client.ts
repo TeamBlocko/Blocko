@@ -9,7 +9,7 @@ import {
 } from "@rbxts/services";
 import { Client } from "@rbxts/net";
 import store from "template/client/store";
-import GridBase from "./GridBase";
+import { gridBase } from "./GridBase";
 import BuildHandle from "./BuildHandle";
 import {
 	updateProperty,
@@ -18,16 +18,12 @@ import {
 	UpdatePropertyDataType,
 } from "template/client/rodux/placementSettings";
 import { calculatePermissionsOfUser, toOwnerAndPermissions } from "template/shared/permissionsUtility";
+import { getTopPart, mouseTarget } from "template/shared/utility";
 
 const client = Players.LocalPlayer;
-const playerGui = client.WaitForChild("PlayerGui");
 const shapes = ReplicatedStorage.BlockTypes;
 
 const getMouseTarget = new Client.AsyncFunction<[], [], unknown, BasePart | undefined>("MouseTarget");
-
-const SPECTATE_COLOR = Color3.fromRGB(255, 255, 255),
-	BUILD_COLOR = Color3.fromRGB(65, 179, 255),
-	DELETE_COLOR = Color3.fromRGB(255, 110, 110);
 
 const PARTIAL_COPY: Readonly<KeyCombo> = [Enum.KeyCode.LeftAlt] as const;
 const FULL_COPY: Readonly<KeyCombo> = [Enum.KeyCode.LeftAlt, Enum.KeyCode.LeftControl] as const;
@@ -52,12 +48,6 @@ placeOutline.Parent = Workspace;
 const deleteOutline = new Instance("SelectionBox");
 deleteOutline.Color3 = Color3.fromRGB(255, 80, 80);
 deleteOutline.Parent = Workspace;
-
-const gridBase = new GridBase({
-	Blocks: Workspace.Blocks,
-	MaxPlaceDistance: 1e5,
-	RotationTweenInfo: new TweenInfo(0.25, Enum.EasingStyle.Quint),
-});
 
 const buildHandle = new BuildHandle(gridBase, shapes);
 
@@ -86,13 +76,13 @@ let tween: TweenBase | undefined;
 let previousPosition: Vector3 | undefined;
 
 RunService.RenderStepped.Connect(() => {
-	const target = gridBase.mouseTarget();
+	const target = mouseTarget(gridBase.maxPlaceDistance, [gridBase.blocks]);
 	const state = store.getState();
 	switch (state.PlacementSettings.BuildMode) {
 		case "Place":
 			if (target !== undefined) {
-				buildHandle.ghostPart.Parent = !state.ActivatedColorPicker ? Workspace : undefined;
-				placeOutline.Adornee = !state.ActivatedColorPicker ? buildHandle.ghostPart : undefined;
+				buildHandle.ghostPart.Parent = !state.ActivatedPicker ? Workspace : undefined;
+				placeOutline.Adornee = !state.ActivatedPicker ? buildHandle.ghostPart : undefined;
 				buildHandle.ghostPart.Orientation = gridBase.getSmoothOrientation();
 
 				if (tween) {
@@ -127,7 +117,7 @@ RunService.RenderStepped.Connect(() => {
 			placeOutline.Adornee = undefined;
 			buildHandle.ghostPart.Parent = undefined;
 
-			deleteOutline.Adornee = !state.ActivatedColorPicker ? target : undefined;
+			deleteOutline.Adornee = !state.ActivatedPicker ? target : undefined;
 			break;
 		case "Spectate":
 			previousPosition = undefined;
@@ -197,20 +187,20 @@ ContextActionService.BindActionAtPriority(
 			}
 
 			if (isKeyCombo(FULL_COPY)) {
-				const target = gridBase.mouseTarget();
+				const target = mouseTarget(gridBase.maxPlaceDistance, [gridBase.blocks]);
 				if (target === undefined) return;
 				const properties = ALT_SHIFT_PROPERTIES.map(map_properties(target));
 				store.dispatch(updateProperty(properties));
 				store.dispatch(UpdateBasePart(shapes[target.Name as keyof typeof Shapes]));
 			} else if (isKeyCombo(PARTIAL_COPY)) {
-				const target = gridBase.mouseTarget();
+				const target = mouseTarget(gridBase.maxPlaceDistance, [gridBase.blocks]);
 				if (target === undefined) return;
 				const properties = ALT_PROPERTIES.map(map_properties(target));
 				store.dispatch(updateProperty(properties));
 			}
 
 			if (inputObject.UserInputType === Enum.UserInputType.MouseButton1) {
-				if (state.ActivatedColorPicker) return;
+				if (state.ActivatedPicker) return;
 				switch (mode) {
 					case "Place":
 						buildHandle.placeBlock();
@@ -230,17 +220,4 @@ ContextActionService.BindActionAtPriority(
 
 store.changed.connect(() => buildHandle.updateGhostPart());
 
-getMouseTarget.SetCallback(() => {
-	const target = gridBase.mouseTarget();
-	if (!target) return;
-	let part = target;
-	while (true) {
-		const result = gridBase.raycastMouseOptions(part.Position, new Vector3(0, 5, 0), part);
-		if (result) {
-			part = result.Instance;
-			continue;
-		}
-		break;
-	}
-	return part;
-});
+getMouseTarget.SetCallback(() => getTopPart(gridBase.maxPlaceDistance));

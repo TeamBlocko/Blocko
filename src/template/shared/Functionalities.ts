@@ -9,7 +9,7 @@ export const functionalities = {
 			Damage: {
 				Name: "Damage",
 				Id: "1",
-				Type: "number",
+				Type: "slider",
 				ValueType: "number",
 				Default: 50,
 				Min: 1,
@@ -18,7 +18,7 @@ export const functionalities = {
 			Cooldown: {
 				Name: "Cooldown",
 				Id: "2",
-				Type: "number",
+				Type: "slider",
 				ValueType: "number",
 				Default: 1,
 				Min: 1,
@@ -34,7 +34,7 @@ export const functionalities = {
 			Speed: {
 				Name: "Speed",
 				Id: "1",
-				Type: "number",
+				Type: "slider",
 				ValueType: "number",
 				Default: 1,
 				Min: 1,
@@ -57,6 +57,34 @@ export const functionalities = {
 		Properties: {},
 		Multiple: false,
 	},
+	GearGiver: {
+		Name: "GearGiver",
+		Id: "4",
+		Properties: {
+			ItemId: {
+				Name: "ItemId",
+				Id: "1",
+				Type: "input",
+				ValueType: "number",
+				Default: 0,
+			},
+		},
+		Multiple: false,
+	},
+	Teleporter: {
+		Name: "Teleporter",
+		Id: "5",
+		Properties: {
+			Target: {
+				Name: "Target",
+				Id: "1",
+				Type: "block",
+				ValueType: "Object",
+				Default: undefined,
+			}
+		},
+		Multiple: true,
+	}
 } as const;
 
 export type Functionalities = typeof functionalities;
@@ -66,18 +94,23 @@ export type IntersectionProperties = UnionToIntersection<FunctionalitiesProperti
 
 export type FunctionalitiesPropertiesNames = keyof IntersectionProperties;
 export type FunctionalitiesPropertiesValues = ValueOf<IntersectionProperties>;
-export type FunctionalitiesPropertiesValueTypes = number | Enum.NormalId;
+export type FunctionalitiesPropertiesValueTypes = number | Enum.NormalId | undefined | BasePart;
+
+type MapType<T> = T extends "number"
+	? number
+	: T extends "NormalId"
+	? Enum.NormalId
+	: T extends "Object"
+	? BasePart | undefined
+	: never;
 
 export type FunctionalitiesInstances = {
 	[K in keyof Functionalities]: Functionalities[K] & { GUID: string } & {
 			[S in keyof UnionToIntersection<Functionalities[K]>]: S extends "Properties"
 				? {
-						[P in keyof IntersectionProperties]: IntersectionProperties[P] & {
-							Current: IntersectionProperties[P]["Default"] extends number
-								? number
-								: IntersectionProperties[P]["Default"] extends Enum.NormalId
-								? Enum.NormalId
-								: never;
+						[P in keyof UnionToIntersection<Functionalities[K]>[S]]: UnionToIntersection<Functionalities[K]>[S][P] & {
+							// @ts-expect-error No Idea
+							Current: MapType<UnionToIntersection<UnionToIntersection<Functionalities[K]>[S][P]>["ValueType"]>
 						};
 				  }
 				: UnionToIntersection<Functionalities[K]>[S];
@@ -88,11 +121,7 @@ export type FunctionalitiesInstancesValues = FunctionalitiesInstances[keyof Func
 
 export type FunctionalitiesPropertiesInstance = {
 	[K in keyof IntersectionProperties]: IntersectionProperties[K] & {
-		Current: IntersectionProperties[K]["Default"] extends number
-			? number
-			: IntersectionProperties[K]["Default"] extends Enum.NormalId
-			? Enum.NormalId
-			: never;
+		Current: MapType<IntersectionProperties[K]["ValueType"]>;
 	};
 }[keyof IntersectionProperties];
 

@@ -20,7 +20,7 @@ export const intialPlacementSettings: PlacementSettings = {
 };
 
 export const intialState: IState = {
-	ActivatedColorPicker: undefined,
+	ActivatedPicker: undefined,
 	PlacementSettings: intialPlacementSettings,
 	Debug: false,
 	World: retriveWorldSettings(),

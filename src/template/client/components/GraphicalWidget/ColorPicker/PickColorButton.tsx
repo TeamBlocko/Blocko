@@ -1,13 +1,12 @@
 import Roact from "@rbxts/roact";
 import { SingleMotor, Spring } from "@rbxts/flipper";
-import { ContextActionService, UserInputService, Workspace } from "@rbxts/services";
+import { ContextActionService } from "@rbxts/services";
 import { IState } from "template/shared/Types";
 import { connect } from "@rbxts/roact-rodux";
-import { updateColorPickerActivated } from "template/client/rodux/updateColorPicker";
+import { updatePickerActivated } from "template/client/rodux/updatePicker";
 import Rodux from "@rbxts/rodux";
 import { StoreActions } from "template/client/store";
-
-const camera = Workspace.CurrentCamera;
+import { raycastMouse } from "common/shared/utility";
 
 interface PickColorButtonPropTypes {
 	Id: string;
@@ -19,7 +18,7 @@ interface MappedProps {
 }
 
 interface MappedDispatch {
-	UpdateColorPickerActivated: (activated?: string | undefined) => void;
+	UpdatePickerActivated: (activated?: string | undefined) => void;
 }
 
 interface RoduxPickColorButtonPropTypes extends MappedProps, MappedDispatch, PickColorButtonPropTypes {}
@@ -52,26 +51,12 @@ class PickColorButton extends Roact.PureComponent<RoduxPickColorButtonPropTypes>
 				Event={{
 					Activated: () => {
 						const newValue = !this.props.Activated ? this.props.Id : undefined;
-						this.props.UpdateColorPickerActivated(newValue);
+						this.props.UpdatePickerActivated(newValue);
 						this.motor.setGoal(new Spring(newValue === this.props.Id ? 1 : 0));
 					},
 				}}
 			/>
 		);
-	}
-
-	raycastMouse() {
-		if (camera === undefined) return;
-		const raycastParams = new RaycastParams();
-		raycastParams.FilterType = Enum.RaycastFilterType.Blacklist;
-		const ghostPart = Workspace.FindFirstChild("GhostPart");
-		if (ghostPart) {
-			raycastParams.FilterDescendantsInstances = [ghostPart];
-		}
-
-		const mousePos = UserInputService.GetMouseLocation();
-		const mouseUnitRay = camera.ScreenPointToRay(mousePos.X, mousePos.Y - 36);
-		return Workspace.Raycast(mouseUnitRay.Origin, mouseUnitRay.Direction.mul(1000), raycastParams);
 	}
 
 	didMount() {
@@ -80,9 +65,9 @@ class PickColorButton extends Roact.PureComponent<RoduxPickColorButtonPropTypes>
 			(_, inputState) => {
 				if (!this.props.Activated) return Enum.ContextActionResult.Pass;
 				if (inputState === Enum.UserInputState.Begin) {
-					const target = this.raycastMouse();
+					const target = raycastMouse();
 					if (!target) return Enum.ContextActionResult.Pass;
-					this.props.UpdateColorPickerActivated();
+					this.props.UpdatePickerActivated();
 					this.motor.setGoal(new Spring(0));
 					this.props.UpdateColor(target.Instance.Color);
 				}
@@ -97,14 +82,14 @@ class PickColorButton extends Roact.PureComponent<RoduxPickColorButtonPropTypes>
 
 const mapStateToProps = (state: IState, props: PickColorButtonPropTypes): MappedProps => {
 	return {
-		Activated: state.ActivatedColorPicker === props.Id,
+		Activated: state.ActivatedPicker === props.Id,
 	};
 };
 
 const mapDispatchToProps = (dispatch: Rodux.Dispatch<StoreActions>): MappedDispatch => {
 	return {
-		UpdateColorPickerActivated: (activated?: string | undefined) => {
-			dispatch(updateColorPickerActivated(activated));
+		UpdatePickerActivated: (activated?: string | undefined) => {
+			dispatch(updatePickerActivated(activated));
 		},
 	};
 };

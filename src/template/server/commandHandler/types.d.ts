@@ -1,5 +1,5 @@
 import { t } from "@rbxts/t";
-import { Commands, DebugCommand } from "./commands";
+import { Commands, DebugCommand } from "./commandsBase";
 import { HelpCommand } from "./commands/help";
 import { PermCommand } from "./commands/perm";
 import { TpCommand } from "./commands/tp";

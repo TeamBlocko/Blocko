@@ -1,6 +1,6 @@
 import { Players } from "@rbxts/services";
 import { values } from "@rbxts/object-utils";
-import type { Commands } from "./commands";
+import type { Commands } from "./commandsBase";
 import type { Arg } from "./types";
 
 export function errorMsg(str: string) {

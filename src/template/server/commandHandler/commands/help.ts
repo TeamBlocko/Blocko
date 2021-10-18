@@ -1,7 +1,7 @@
 import { keys, values } from "@rbxts/object-utils";
 import { remotes } from "common/shared/remotes";
 import { langList } from "common/shared/utility";
-import type { Commands } from "../commands";
+import type { Commands } from "../commandsBase";
 import type { Arg, Command, OptionalArg } from "../types";
 
 export type HelpCommand = Command<{
@@ -25,7 +25,7 @@ export const help = identity<HelpCommand>({
 				return true;
 			},
 			getValue(caller, _command: HelpCommand, input, isDefault, _, env) {
-				const commands = values(env.registeredCommands);
+				const commands = values(env.registeredCommands) as Commands[];
 				const commandRequested = commands.find((command) => command.name.lower() === input.lower());
 				if (!commandRequested && !isDefault) {
 					notificationManager.SendToPlayer(caller, {
@@ -83,7 +83,7 @@ export const help = identity<HelpCommand>({
 	},
 	execute(caller, args, env) {
 		if (!args.CommandName.Value) {
-			const commandsList = values(env.registeredCommands)
+			const commandsList = (values(env.registeredCommands) as Commands[])
 				.map((command) => {
 					return `${command.name}: ${command.description}`;
 				})
