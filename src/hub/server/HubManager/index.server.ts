@@ -7,8 +7,7 @@ const createWorldRemote = new Server.AsyncFunction<[CreationOptions], [], unknow
 ).SetCallTimeout(100);
 const teleportPlayer = new Server.AsyncFunction<[number]>("TeleportPlayer").SetCallTimeout(100);
 
-import { DataStoreService, TeleportService, Players, ReplicatedStorage, RunService } from "@rbxts/services";
-import MockODS from "common/server/MockODS";
+import { MemoryStoreService, TeleportService, Players, ReplicatedStorage, RunService } from "@rbxts/services";
 import LazLoader from "common/server/LazLoader";
 import { worldInfoScheme, worldSettingsScheme } from "common/server/WorldInfo/worldSchemes";
 import { ser } from "@rbxts/ser";
@@ -30,8 +29,7 @@ const worldStore = dataSync.GetStore<WorldDataSync>(`Worlds${DATASTORE_VERSION}`
 	data: worldInfoSerializer.serialize(DEFAULT_WORLD),
 });
 const ownedWorlds = dataSync.GetStore<PlayerDataSync>(`ownedWorlds${DATASTORE_VERSION}`, { data: { ownedWorlds: [] } });
-const activeODS =
-	game.CreatorId !== 0 ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
+const activeODS = MemoryStoreService.GetSortedMap(`activeWorlds${DATASTORE_VERSION}`);
 
 const joiningWorld = new Map<number, boolean>();
 const teleportFailDetectors = new Map<number, RBXScriptConnection>();
@@ -82,14 +80,10 @@ createWorldRemote.SetCallback((player, options) => {
 	}
 });
 
-function getKeys(pages: Array<{ key: string; value: unknown }>): number[] {
-	return pages.map((world) => tonumber(world.key)!);
-}
-
 function fetchActive(): FetchWorldsResult {
-	const result = opcall(() => activeODS.GetSortedAsync(false, 24, 1));
+	const result = opcall(() => activeODS.GetRangeAsync(Enum.SortDirection.Descending, 24) as Array<{ key: string, value: number }>);
 	if (result.success) {
-		return { success: true, data: getKeys(result.value.GetCurrentPage()) };
+		return { success: true, data: result.value.map(value => tonumber(value.key)!) };
 	} else {
 		return { success: false, error: result.error };
 	}

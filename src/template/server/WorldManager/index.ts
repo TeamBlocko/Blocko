@@ -1,11 +1,10 @@
-import { Workspace, DataStoreService, ReplicatedStorage, Players, AssetService } from "@rbxts/services";
+import { Workspace, ReplicatedStorage, Players, AssetService, MemoryStoreService } from "@rbxts/services";
 import { AnyAction, Store } from "@rbxts/rodux";
 import LazLoader, { DataSyncFile } from "common/server/LazLoader";
 import { abbreviateBytes } from "@rbxts/number-manipulator";
 import { storeInitializer } from "template/server/store";
 import BlockSerializer from "template/server/blocksSerializer";
 import { WorldSettingsActionTypes } from "template/shared/worldSettingsReducer";
-import MockODS from "common/server/MockODS";
 import { worldInfoSerializer } from "common/server/WorldInfo/worldSchemes";
 import { DEFAULT_WORLD } from "common/server/WorldInfo/defaultWorld";
 import { copy, assign } from "@rbxts/object-utils";
@@ -57,8 +56,7 @@ const blocksStore = dataSync.GetStore(`WorldBlocks${DATASTORE_VERSION}`, {
 	Blocks: DEFAULT_TEMPLATE,
 });
 
-const activeODS =
-	game.CreatorId !== 0 ? DataStoreService.GetOrderedDataStore(`activeWorlds${DATASTORE_VERSION}`) : MockODS;
+const activeODS = MemoryStoreService.GetSortedMap(`activeWorlds${DATASTORE_VERSION}`);
 
 class WorldManager {
 	public worldInfo: DataSyncFile<WorldDataSync>;
@@ -131,15 +129,10 @@ class WorldManager {
 					this.worldInfo.UpdateData(newInfo);
 					this.worldInfo.SaveData();
 				});
-				task.spawn(() => {
-					{
-						activeODS.RemoveAsync(`${newInfo.data.Info.WorldId}`);
-					}
-					while (activeODS.GetAsync(`${newInfo.data.Info.WorldId}`) !== undefined);
-				});
+				activeODS.RemoveAsync(`${newInfo.data.Info.WorldId}`);
 				return;
 			}
-			activeODS.SetAsync(`${state.Info.WorldId}`, state.Info.ActivePlayers);
+			activeODS.SetAsync(`${state.Info.WorldId}`, state.Info.ActivePlayers, 20);
 
 			const serialized = blockSerializer.serializeBlocks(Workspace.Blocks.GetChildren() as BasePart[]);
 			this.worldInfo.UpdateData(assign(this.worldInfo.GetData(), { data: worldInfoSerializer.serialize(state) }));
