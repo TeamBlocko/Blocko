@@ -102,7 +102,7 @@ class Lighting extends Roact.PureComponent<LightingPropTypes> {
 					Default={this.props.EnvironmentDiffuseScale}
 					Min={0}
 					Max={1}
-					DeciminalPlace={2}
+					DecimalPlace={2}
 					OnChange={(newValue) => this.props.UpdateSettings("EnvironmentDiffuseScale", newValue)}
 					LayoutOrder={7}
 				/>
@@ -111,7 +111,7 @@ class Lighting extends Roact.PureComponent<LightingPropTypes> {
 					Default={this.props.EnvironmentSpecularScale}
 					Min={0}
 					Max={1}
-					DeciminalPlace={2}
+					DecimalPlace={2}
 					OnChange={(newValue) => this.props.UpdateSettings("EnvironmentSpecularScale", newValue)}
 					LayoutOrder={8}
 				/>
@@ -120,7 +120,7 @@ class Lighting extends Roact.PureComponent<LightingPropTypes> {
 					Default={this.props.ExposureCompensation}
 					Min={0}
 					Max={3}
-					DeciminalPlace={2}
+					DecimalPlace={2}
 					OnChange={(newValue) => this.props.UpdateSettings("ExposureCompensation", newValue)}
 					LayoutOrder={9}
 				/>

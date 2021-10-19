@@ -18,7 +18,7 @@ function SliderInput(props: SliderInputPropTypes) {
 				Size: UDim2.fromOffset(20, 12),
 				Transparency: props.Binding.map((value) => value),
 				Font: Enum.Font.Gotham,
-				Text: `%.${props.DecimalPlace}f`.format(`${props.Value}`),
+				Text: `${props.Value}`,
 				TextColor3: Color3.fromRGB(89, 161, 255),
 				TextWrapped: true,
 			}}

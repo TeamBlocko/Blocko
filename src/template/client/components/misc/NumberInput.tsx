@@ -39,7 +39,7 @@ function NumberInput(props: PropsWithChildren<NumberInputPropTypes>) {
 						element.Text = prevText;
 						return
 					};
-					const text = "%d".format(output);
+					const text = `%.${props.Options.decimalPlace}f`.format(output);
 					if (text === prevText && originalText === prevText) return;
 					element.Text = text;
 					props.OnValidInput(element, output);

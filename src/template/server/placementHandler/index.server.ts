@@ -1,4 +1,4 @@
-import { ReplicatedStorage, Workspace } from "@rbxts/services";
+import { ReplicatedStorage, Workspace, HttpService } from "@rbxts/services";
 import { updateWorldInfo } from "template/shared/worldSettingsReducer";
 import WorldManager from "../WorldManager";
 import { addPart } from "./FunctionalitiesHandler";
@@ -22,6 +22,7 @@ placeBlock.SetCallback((player, placePosition, orientation, settings) => {
 		calculatePermissionsOfUser(toOwnerAndPermissions(WorldManager.store.getState().Info), player.UserId).Build
 	) {
 		const block = settings.Shape.Clone();
+		block.Name = HttpService.GenerateGUID();
 		block.Anchored = true;
 		block.Position = placePosition;
 		block.Orientation = orientation;

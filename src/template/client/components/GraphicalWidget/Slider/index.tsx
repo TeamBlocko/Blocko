@@ -74,7 +74,7 @@ class Slider extends Roact.Component<SliderPropTypes & Roact.PropsWithChildren, 
 					Min={{ Value: this.props.Min, Ref: this.minRef }}
 					Max={{ Value: this.props.Max, Ref: this.maxRef }}
 					Value={this.props.Default}
-					DeciminalPlace={this.props.DeciminalPlace ?? 0}
+					DecimalPlace={this.props.DecimalPlace ?? 0}
 					HandleInput={(element, input) => this.HandleInput(element, input)}
 					OnTextChange={(e) => this.onTextChange(e)}
 				/>

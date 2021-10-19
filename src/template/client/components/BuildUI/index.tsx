@@ -176,7 +176,7 @@ class BuildUI extends Roact.PureComponent<BuildUIProps, ContextType> {
 									OnChange={(newValue: number) => this.props.UpdateProperty("Transparency", newValue)}
 									SizeYOffset={55}
 									LayoutOrder={6}
-									DeciminalPlace={2}
+									DecimalPlace={2}
 								/>
 								<Slider
 									Name="Reflectance"
@@ -186,6 +186,7 @@ class BuildUI extends Roact.PureComponent<BuildUIProps, ContextType> {
 									OnChange={(newValue: number) => this.props.UpdateProperty("Reflectance", newValue)}
 									SizeYOffset={55}
 									LayoutOrder={7}
+									DecimalPlace={2}
 								/>
 								<CheckBox
 									Name="Cast Shadow"

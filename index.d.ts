@@ -73,7 +73,7 @@ declare global {
 		SizeYOffset?: number;
 		RefValue?: Roact.Ref<Frame>;
 		BackgroundTransparency?: number;
-		DeciminalPlace?: number;
+		DecimalPlace?: number;
 	}
 
 	interface ColorDisplayStateTypes extends GWStateTypes<Color3> {

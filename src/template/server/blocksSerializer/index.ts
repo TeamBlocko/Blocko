@@ -23,7 +23,6 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 
 	/**
 	 * @param blockIds An enum containing BlockNames and their Id
-	 * @param blockIds An enum containing BlockNames and their Id
 	 * @param shapes folder of BaseParts to be used when deserializing, parts should be named as in blockIds
 	 */
 	constructor(blockIds: T, shapes: Folder & { [K in keyof T]: BasePart }) {

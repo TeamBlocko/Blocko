@@ -94,14 +94,15 @@ export type IntersectionProperties = UnionToIntersection<FunctionalitiesProperti
 
 export type FunctionalitiesPropertiesNames = keyof IntersectionProperties;
 export type FunctionalitiesPropertiesValues = ValueOf<IntersectionProperties>;
-export type FunctionalitiesPropertiesValueTypes = number | Enum.NormalId | undefined | BasePart;
+export type FunctionalitiesPropertiesValueTypes = number | Enum.NormalId | undefined | string;
 
+// Object being Object's id/name;
 type MapType<T> = T extends "number"
 	? number
 	: T extends "NormalId"
 	? Enum.NormalId
 	: T extends "Object"
-	? BasePart | undefined
+	? string | undefined
 	: never;
 
 export type FunctionalitiesInstances = {

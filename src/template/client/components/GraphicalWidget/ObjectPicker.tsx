@@ -9,7 +9,7 @@ import { getTopPart } from "template/shared/utility";
 import GWFrame from "../misc/GWFrame";
 import TitleText from "../misc/TitleText";
 
-interface ObjectPickerButtonPropTypes extends GWPropTypes<BasePart | undefined>, MappedProps, MappedDispatch {
+interface ObjectPickerButtonPropTypes extends GWPropTypes<string | undefined>, MappedProps, MappedDispatch {
 	SizeYOffset?: number;
 	BackgroundTransparency?: number;
 }
@@ -41,7 +41,7 @@ export class ObjectPicker extends Roact.PureComponent<ObjectPickerButtonPropType
 					Text={this.props.Name}
 				/>
 				<textbutton
-					Text={this.props.ActivatedId === this.Id ? "Select Object" : this.props.Default?.Name ?? "No Target"}
+					Text={this.props.ActivatedId === this.Id ? "Select Object" : this.props.Default ?? "No Target"}
 					BackgroundTransparency={0.925}
 					TextColor3={new Color3(1, 1, 1)}
 					AnchorPoint={new Vector2(1, 0.5)}
@@ -70,7 +70,7 @@ export class ObjectPicker extends Roact.PureComponent<ObjectPickerButtonPropType
 					const target = getTopPart(1e5);
 					if (!target) return Enum.ContextActionResult.Pass;
 					this.props.UpdatePickerActivated();
-					this.props.OnChange(target);
+					this.props.OnChange(target.Name);
 				}
 				return Enum.ContextActionResult.Pass;
 			},

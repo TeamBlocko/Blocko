@@ -13,7 +13,7 @@ interface SliderBar {
 	Max: MinMax;
 	Value: number;
 	Binding: Roact.Binding<number>;
-	DeciminalPlace?: number;
+	DecimalPlace?: number;
 	HandleInput: (element: TextButton, InputObject: InputObject) => void;
 	OnTextChange: (text: TextBox) => void;
 }
@@ -51,7 +51,7 @@ function SliderBar(props: SliderBar) {
 				<SliderInput
 					Binding={props.Binding}
 					Value={props.Value}
-					DecimalPlace={props.DeciminalPlace}
+					DecimalPlace={props.DecimalPlace}
 					OnTextChange={(text) => props.OnTextChange(text)}
 					Range={{ Min: props.Min.Value, Max: props.Max.Value }}
 				/>

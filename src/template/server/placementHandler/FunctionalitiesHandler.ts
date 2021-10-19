@@ -1,4 +1,4 @@
-import { CollectionService, Players, InsertService } from "@rbxts/services";
+import { CollectionService, Players, InsertService, Workspace } from "@rbxts/services";
 import { values } from "@rbxts/object-utils";
 import * as Functionalities from "template/shared/Functionalities";
 
@@ -80,8 +80,10 @@ function addTeleporter(part: BasePart, functionality: Functionalities.Functional
 		part.Touched.Connect((object) => {
 			if (Players.GetPlayerFromCharacter(object.Parent)) {
 				let humanoidRootPart = object.Parent?.FindFirstChild("HumanoidRootPart") as BasePart | undefined;
-				const target = functionality.Properties.Target.Current;
-				if (!humanoidRootPart || !target) return;
+				const targetId = functionality.Properties.Target.Current;
+				if (!humanoidRootPart || !targetId) return;
+				const target = Workspace.Blocks.FindFirstChild(targetId) as BasePart | undefined;
+				if (!target) return;
 				humanoidRootPart.CFrame = target.CFrame.add(new Vector3(0, target.Size.Y, 0));
 			}
 		})
@@ -110,25 +112,23 @@ export function addFunctionality(part: BasePart, functionality: Functionalities.
 }
 
 function createValueInstance(value: Functionalities.FunctionalitiesPropertiesInstance, parent: Folder) {
-	switch (value.Type) {
-		case "slider": {
+	switch (value.ValueType) {
+		case "number": {
 			const valueInstance = new Instance("NumberValue");
 			valueInstance.Value = value.Current;
 			valueInstance.Name = value.Name;
 			valueInstance.Parent = parent;
 			return;
 		}
-		case "choice": {
-			if (value.Name === "Direction") {
-				const valueInstance = new Instance("Vector3Value");
-				valueInstance.Value = Vector3.FromNormalId(value.Current);
-				valueInstance.Name = value.Name;
-				valueInstance.Parent = parent;
-			}
+		case "NormalId": {
+			const valueInstance = new Instance("Vector3Value");
+			valueInstance.Value = Vector3.FromNormalId(value.Current);
+			valueInstance.Name = value.Name;
+			valueInstance.Parent = parent;
 			return;
-		} case "block": {
-			const valueInstance = new Instance("ObjectValue");
-			valueInstance.Value = value.Current;
+		} case "Object": {
+			const valueInstance = new Instance("StringValue");
+			valueInstance.Value = value.Current ?? "";
 			valueInstance.Name = value.Name;
 			valueInstance.Parent = parent;
 			break;

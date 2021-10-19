@@ -59,7 +59,7 @@ class Sound extends Roact.PureComponent<SoundPropTypes> {
 					Max={10}
 					Default={this.props.Volume}
 					OnChange={(newValue) => this.props.UpdateWorldSetting("Volume", newValue)}
-					DeciminalPlace={2}
+					DecimalPlace={2}
 				/>
 				<Slider
 					Name="Pitch"
@@ -67,7 +67,7 @@ class Sound extends Roact.PureComponent<SoundPropTypes> {
 					Max={100}
 					Default={this.props.Pitch}
 					OnChange={(newValue) => this.props.UpdateWorldSetting("Pitch", newValue)}
-					DeciminalPlace={2}
+					DecimalPlace={2}
 				/>
 			</Container>
 		);

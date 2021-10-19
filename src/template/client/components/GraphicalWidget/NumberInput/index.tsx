@@ -43,21 +43,3 @@ export class NumberInput extends Roact.Component<NumberInputPropTypes> {
 		);
 	}
 }
-
-/*
-<textbox
-	BackgroundTransparency={1}
-	Text = {tostring(this.props.Default)}
-	Change={{
-		Text: (e) => {
-			const output = validateText(e.Text, {
-				decimalPlace: 0,
-			});
-			if (!output) return;
-			if (output === this.props.Default) return;
-			if (output < 0) return;
-			this.props.OnChange(output);
-		}
-	}}
-/>
-*/
