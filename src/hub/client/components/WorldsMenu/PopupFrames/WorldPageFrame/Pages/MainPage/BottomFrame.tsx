@@ -100,12 +100,16 @@ class PlayButton extends Roact.Component<PlayButtonPropTypes> {
 						RunService.RenderStepped.Connect((delta) => {
 							loadingIcon.Rotation = (loadingIcon.Rotation - 10 * delta) % 360;
 						});
+						const playerNameResult = opcall(() => Players.GetNameFromUserIdAsync((this.props.World.Info.Owner)));
+						const playerName = playerNameResult.success
+							? playerNameResult.value
+							: '<font color="rgb(255, 44, 44)">Unknown</font>';
 						notificationStore.addNotification({
 							Id: "JoiningWorld",
 							Title: "Joining World",
 							Message: `Teleporting you to world <b>${this.props.World.Settings.Name}</b> [${
 								this.props.World.Info.WorldId
-							}] by <b>${Players.GetNameFromUserIdAsync(this.props.World.Info.Owner)}</b> [${
+							}] by <b>${playerName}</b> [${
 								this.props.World.Info.Owner
 							}]`,
 							Icon: "rbxassetid://7148978151",
