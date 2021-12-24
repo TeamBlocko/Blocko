@@ -59,6 +59,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 				for (const functionality of functionalityFolder.GetChildren() as (BasePart & {
 					Name: keyof Functionality.Functionalities;
 				})[]) {
+					print("SERIALIZE", functionality.Name);
 					const currentFunctionality = Functionality.functionalities[functionality.Name];
 					const propertiesInfo = (
 						functionality.GetChildren() as (ValueBase & {
@@ -71,6 +72,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 									.Id
 							}:${this.serialize(instance.Value)}`,
 					);
+					print("PROPERTIES INFO", propertiesInfo);
 					serializedProperties.push(`${currentFunctionality.Id}|${propertiesInfo.join("|")}`);
 				}
 			}
@@ -135,6 +137,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 						currentFunctionality.Properties as Functionality.FunctionalitiesPropertiesValues[],
 					).find((property) => property.Id === propertyInfo[0]);
 					if (!property) continue;
+					print("DESCRIALIZED", property.Name, propertyInfo[1], property.ValueType)
 					assign((functionality.Properties as Functionality.IntersectionProperties)[property.Name], {
 						Current: this.deserialize(propertyInfo[1], property.ValueType),
 					});
@@ -142,7 +145,7 @@ class BlocksSerializer<T extends { [k: string]: string }> extends Serializer {
 
 				return functionality;
 			});
-
+			print("BLOCK FUNCTIONALITIES", blockFunctionalities)
 			FunctionalityHandler.addPart(block, blockFunctionalities);
 
 			block.Anchored = true;

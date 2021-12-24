@@ -69,6 +69,11 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 				return (
 					<NumberInput
 						{...property}
+						Default={property.Current}
+						ValidationHandler={(input) => {
+							const [match] = input.match("%d+");
+							return match ? tostring(match) : undefined;
+						}}
 						BackgroundTransparency={1}
 						OnChange={(value) => {
 							props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
@@ -79,6 +84,7 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 				return (
 					<ObjectPicker
 						{...property}
+						Default={property.Current}
 						BackgroundTransparency={1}
 						OnChange={(value) => {
 							props.UpdateFunctionalityProperty(props.Functionality.GUID, property.Name, value);
@@ -89,7 +95,7 @@ function renderFunctionalitySettings(props: FunctionTemplatePropTypes) {
 	});
 }
 
-class FunctionTemplate extends Roact.PureComponent<FunctionTemplatePropTypes, { Visible: boolean }> {
+class FunctionTemplate extends Roact.Component<FunctionTemplatePropTypes, { Visible: boolean }> {
 	frameRef: Roact.Ref<Frame>;
 
 	frameSizeBinding: Roact.Binding<number>;

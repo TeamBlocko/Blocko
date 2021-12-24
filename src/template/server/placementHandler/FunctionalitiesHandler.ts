@@ -1,4 +1,4 @@
-import { CollectionService, Players, InsertService, Workspace } from "@rbxts/services";
+import { Players } from "@rbxts/services";
 import { values } from "@rbxts/object-utils";
 import * as Functionalities from "template/shared/Functionalities";
 
@@ -59,14 +59,18 @@ function addConveyor(part: BasePart, functionality: Functionalities.Functionalit
 }
 
 function addGearGiver(part: BasePart, functionality: Functionalities.FunctionalitiesInstancesValues) {
+	print("GEAR GIVER", functionality.Name);
 	if (functionality.Name === "GearGiver") {
-		const id = functionality.Properties.ItemId.Current
-		const item = InsertService.LoadAsset(id).GetChildren()[0];
-		item.Name = tostring(id);
 		part.Touched.Connect(object => {
-			const player = Players.GetPlayerFromCharacter(object.Parent);
+			const id = functionality.Properties.ItemId.Current
+			const result = opcall(() => game.GetService("InsertService").LoadAsset(id).GetChildren()[0]);
+			if (!result.success) return;
+			const item = result.value;
+			item.Name = tostring(id);
+			const player = game.GetService("Players").GetPlayerFromCharacter(object.Parent);
 			const character = player?.Character;
 			const backpack = player?.FindFirstChildOfClass("Backpack");
+			print(character, backpack);
 			if (character && character.FindFirstChild(tostring(id))) return;
 			if (!backpack || backpack.FindFirstChild(tostring(id))) return;
 			const newItem = item.Clone();
@@ -76,17 +80,18 @@ function addGearGiver(part: BasePart, functionality: Functionalities.Functionali
 }
 
 function addTeleporter(part: BasePart, functionality: Functionalities.FunctionalitiesInstancesValues) {
+	print("TELEPORTER", functionality.Name);
 	if (functionality.Name === "Teleporter") {
 		part.Touched.Connect((object) => {
-			if (Players.GetPlayerFromCharacter(object.Parent)) {
-				let humanoidRootPart = object.Parent?.FindFirstChild("HumanoidRootPart") as BasePart | undefined;
-				const targetId = functionality.Properties.Target.Current;
-				if (!humanoidRootPart || !targetId) return;
-				const target = Workspace.Blocks.FindFirstChild(targetId) as BasePart | undefined;
-				if (!target) return;
-				humanoidRootPart.CFrame = target.CFrame.add(new Vector3(0, target.Size.Y, 0));
-			}
-		})
+			let humanoidRootPart = object.Parent?.FindFirstChild("HumanoidRootPart") as BasePart | undefined;
+			const targetId = functionality.Properties.Target.Current;
+			print(targetId);
+			if (!humanoidRootPart || !targetId) return;
+			const target = game.GetService("Workspace").Blocks.FindFirstChild(targetId) as BasePart | undefined;
+			print(target);
+			if (!target) return;
+			humanoidRootPart.CFrame = target.CFrame.add(new Vector3(0, target.Size.Y, 0));
+		});
 	}
 }
 
@@ -108,7 +113,6 @@ export function addFunctionality(part: BasePart, functionality: Functionalities.
 			addTeleporter(part, functionality);
 			break;
 	}
-	CollectionService.AddTag(part, "Functionality");
 }
 
 function createValueInstance(value: Functionalities.FunctionalitiesPropertiesInstance, parent: Folder) {
@@ -154,14 +158,4 @@ export function addPart(part: BasePart, functionalities: Functionalities.Functio
 
 		addFunctionality(part, functionality);
 	}
-}
-
-export interface Damager {
-	Damage: NumberValue;
-	Cooldown: NumberValue;
-}
-
-export interface Conveyor {
-	Speed: NumberValue;
-	Direction: Vector3Value;
 }

@@ -121,7 +121,7 @@ function WorldTemplatePage(props: WorldTemplatePagePropTypes) {
 						Size={UDim2.fromScale(1, 1)}
 						Ref={props.FrameRef}
 					>
-						<TopFrame Title={"Create Worlds"} Description={"Choose a starter template for your wolrd."} />
+						<TopFrame Title={"Create Worlds"} Description={"Choose a starter template for your world."} />
 						<MidFrame />
 						<BottomFrame
 							Button1Click={() => value.changePopup(Roact.None)}

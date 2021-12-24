@@ -12,7 +12,7 @@ interface MappedProps {
 	ActivePlayers: number;
 }
 
-class Permissions extends Roact.PureComponent<PermissionsPropTypes> {
+class Permissions extends Roact.Component<PermissionsPropTypes> {
 	render() {
 		return (
 			<Container RefValue={this.props.RefValue}>

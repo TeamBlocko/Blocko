@@ -22,11 +22,15 @@ function SliderInput(props: SliderInputPropTypes) {
 				TextColor3: Color3.fromRGB(89, 161, 255),
 				TextWrapped: true,
 			}}
-			OnValidInput={(e) => props.OnTextChange(e)}
-			Options={{
-				Range: props.Range,
-				decimalPlace: props.DecimalPlace,
+			ValidationHandler={(input) => {
+				const [match] = input.match("[%d%.]+");
+				if (match) {
+					const num = math.clamp(tonumber(match)!, props.Range.Min, props.Range.Max);
+					const decimalPlaceNum = `%.${props.DecimalPlace}f`.format(tostring(num));
+					return decimalPlaceNum;
+				}
 			}}
+			OnValidInput={(e) => props.OnTextChange(e)}
 		>
 			<uicorner CornerRadius={new UDim(0, 4)} />
 		</NumberInput>

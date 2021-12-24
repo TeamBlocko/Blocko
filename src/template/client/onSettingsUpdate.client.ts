@@ -5,10 +5,11 @@ import notificationStore from "common/client/notificationStore";
 import { remotes } from "template/shared/remotes";
 import { retriveWorldSettings } from "template/client/replicationManager";
 import store from "template/client/store";
+import { AnyAction } from "@rbxts/rodux";
 
 const updateWorldSettingsRemote = remotes.Client.Get("UpdateWorldSettings");
 
-const updateServer = (action: ActionRecievedUpdateWorldSettings) => {
+const updateServer = (action: ActionRecievedUpdateWorldSettings & AnyAction) => {
 	return updateWorldSettingsRemote.CallServer(action);
 };
 

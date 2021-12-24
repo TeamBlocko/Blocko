@@ -23,7 +23,7 @@ export class ApplyPrompt extends Notification {
 					Position={new UDim2(0, 65, 0.5, 0)}
 					Size={UDim2.fromOffset(350, 20)}
 					Font={Enum.Font.GothamSemibold}
-					Text="You have unapplied changed! "
+					Text="You have unapplied changes! "
 					TextTransparency={this.binding.map((value) => value)}
 					TextColor3={new Color3(1, 1, 1)}
 					TextSize={18}

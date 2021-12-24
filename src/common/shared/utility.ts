@@ -1,4 +1,3 @@
-import { assign } from "@rbxts/object-utils";
 import { UserInputService, Workspace } from "@rbxts/services";
 
 const camera = Workspace.CurrentCamera;
@@ -18,29 +17,6 @@ export function getPosOnAxis(v1: Vector2, v2: Vector2, dist: number): Vector2 {
 	const Y = math.sin(radian) * dist;
 
 	return v1.add(new Vector2(X, Y));
-}
-
-const DEFAULT_OPTIONS = {
-	decimalPlace: 2,
-};
-
-export function validateText(text: string, options?: ValidateTextOptions): number | undefined {
-	const optionsUsed: ValidateTextOptions = assign(DEFAULT_OPTIONS, options);
-
-	if (text === "") return;
-
-	let value = tonumber(text);
-	const [match] = text.match("[%d%.]+");
-	if (match && value === undefined) {
-		value = tonumber(match);
-	}
-	if (optionsUsed.Range && value) {
-		value = math.clamp(value, optionsUsed.Range.Min, optionsUsed.Range.Max);
-	}
-	if (value === undefined) return;
-	const [, decimal] = math.modf(value);
-	const pattern = decimal === 0 ? "%.0f" : `%.${optionsUsed.decimalPlace}f`;
-	return tonumber(pattern.format(value));
 }
 
 export function previousInTable<T>(t: T[], element: T): T {

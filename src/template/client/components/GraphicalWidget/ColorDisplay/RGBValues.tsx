@@ -1,7 +1,6 @@
 import { TextService } from "@rbxts/services";
 import Roact from "@rbxts/roact";
 import NumberInput from "template/client/components/misc/NumberInput";
-import { validateText } from "common/shared/utility";
 
 interface RGBValuesPropTypes {
 	Value: Color3;
@@ -13,7 +12,7 @@ interface CommaPropTypes {
 }
 
 interface NumberDisplayPropTypes extends CommaPropTypes {
-	Text: string | number;
+	Text: string;
 	Type: RGB;
 	onTextChange: onTextChange;
 }
@@ -36,8 +35,7 @@ function Comma(props: CommaPropTypes) {
 const getSize = (text: string): Vector2 => TextService.GetTextSize(text, 12, Enum.Font.GothamBold, new Vector2());
 
 function NumberDisplay(props: NumberDisplayPropTypes) {
-	const text = tostring(validateText(tostring(props.Text)));
-	const xSize = getSize(tostring(text)).X;
+	const xSize = getSize(props.Text).X;
 	return (
 		<NumberInput
 			TextBoxProps={{
@@ -46,7 +44,7 @@ function NumberDisplay(props: NumberDisplayPropTypes) {
 				LayoutOrder: props.LayoutOrder,
 				Size: new UDim2(0, xSize, 0.675, 0),
 				Font: Enum.Font.GothamBold,
-				Text: text,
+				Text: props.Text,
 				ClearTextOnFocus: false,
 				TextColor3: Color3.fromRGB(227, 227, 227),
 				TextSize: 12,
@@ -56,7 +54,12 @@ function NumberDisplay(props: NumberDisplayPropTypes) {
 				props.onTextChange(props.Type, value);
 				e.Size = new UDim2(0, getSize(tostring(value)).X, 0.675, 0);
 			}}
-			Options={{ Range: { Min: 0, Max: 255 }, decimalPlace: 0 }}
+			ValidationHandler={(input) => {
+				print("INPUT", input)
+				const [match] = input.match("%d+");
+				print("MATCH", match);
+				return match ? tostring(math.clamp(tonumber(match)!, 0, 255)) : undefined;
+			}}
 		/>
 	);
 }
@@ -79,7 +82,7 @@ function RGBValues(props: RGBValuesPropTypes) {
 				<Roact.Fragment>
 					<NumberDisplay
 						Type={value}
-						Text={props.Value[value] * 255}
+						Text={tostring(props.Value[value] * 255)}
 						LayoutOrder={index * 2 + 1}
 						onTextChange={(...args) => props.onTextChange(...args)}
 					/>

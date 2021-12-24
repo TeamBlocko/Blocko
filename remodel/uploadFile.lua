@@ -20,7 +20,6 @@ local template_places = {
 if asset_name == "hub" then
 	uploadPlace("./dist/hub.rbxl", 5102036961)
 elseif asset_name == "worldtemplate" then
-
 	local game = remodel.readPlaceFile("./dist/WorldTemplate.Packed.rbxl")
 	local lighting = game:GetService("Lighting")
 	for _, technology in ipairs(technlogies) do

@@ -23,7 +23,7 @@ interface Replicate<T> extends Rodux.Action<T> {
 
 export interface UpdateWorldSettingDataType {
 	readonly propertyName: keyof WorldSettings;
-	readonly value: string | number | boolean | Color3;
+	value: string | number | boolean | Color3;
 }
 
 export interface ActionRecievedUpdateWorldSettings extends Replicate<WorldSettingsActions.UPDATE_SETTINGS> {

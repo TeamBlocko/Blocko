@@ -22,7 +22,7 @@ interface MappedDispatch {
 	UpdatePickerActivated: (activated?: string | undefined) => void;
 }
 
-export class ObjectPicker extends Roact.PureComponent<ObjectPickerButtonPropTypes> {
+export class ObjectPicker extends Roact.Component<ObjectPickerButtonPropTypes> {
 	Id: string;
 
 	constructor(props: ObjectPickerButtonPropTypes) {

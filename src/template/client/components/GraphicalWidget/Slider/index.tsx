@@ -4,7 +4,7 @@ import { SingleMotor, Spring } from "@rbxts/flipper";
 import TitleText from "template/client/components/misc/TitleText";
 import GWFrame from "template/client/components/misc/GWFrame";
 import SliderBar from "./SliderBar";
-import { map, validateText } from "common/shared/utility";
+import { map } from "common/shared/utility";
 
 class Slider extends Roact.Component<SliderPropTypes & Roact.PropsWithChildren, GWStateTypes<number>> {
 	private frameRef: Roact.Ref<Frame>;
@@ -54,7 +54,6 @@ class Slider extends Roact.Component<SliderPropTypes & Roact.PropsWithChildren, 
 	onTextChange(e: TextBox) {
 		if (this.connection !== undefined) return;
 		let newValue = tonumber(e.Text);
-		if (newValue === undefined) newValue = validateText(e.Text);
 		if (newValue === undefined) return;
 		this.props.OnChange(newValue);
 	}

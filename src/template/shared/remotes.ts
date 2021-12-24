@@ -4,7 +4,7 @@ import { PlacementSettings } from "./Types";
 import { ActionRecievedUpdateWorldSettings, WorldSettingsActionTypes } from "./worldSettingsReducer";
 
 export const remotes = Definitions.Create({
-	UpdateWorldSettings: Definitions.ServerFunction<(action: ActionRecievedUpdateWorldSettings) => void>(),
+	UpdateWorldSettings: Definitions.ServerFunction<(action: ActionRecievedUpdateWorldSettings & AnyAction) => void>(),
 	Replication: Definitions.ServerFunction<() => World>(),
 	UpdateClientSettings: Definitions.ServerToClientEvent<[action: WorldSettingsActionTypes & AnyAction]>(),
 	PlaceBlock:

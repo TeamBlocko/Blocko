@@ -11,6 +11,7 @@ export const PermissionRanks: readonly PermissionTypes[] = [
 ] as const;
 
 const cache = new Map<number, PermissionsInfo>();
+const blacklist = new Map<number, boolean>();
 
 interface OwnerAndPermissions {
 	Owner: number;
@@ -28,6 +29,7 @@ export const toOwnerAndPermissions = (worldInfo: WorldInfo): OwnerAndPermissions
 
 export function teamBlockoStaff(userId: number): PermissionsInfo | undefined {
 	const cached = cache.get(userId);
+	if (blacklist.get(userId)) return;
 	if (cached) return cached;
 	const result = opcall(() => GroupService.GetGroupsAsync(userId).find((group) => group.Id === 6467229));
 	if (result.success && (result.value?.Rank ?? 0) >= 252) {
@@ -37,6 +39,8 @@ export function teamBlockoStaff(userId: number): PermissionsInfo | undefined {
 		};
 		cache.set(userId, info);
 		return info;
+	} else {
+		blacklist.set(userId, true);
 	}
 }
 

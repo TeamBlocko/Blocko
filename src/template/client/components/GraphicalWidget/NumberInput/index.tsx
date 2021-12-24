@@ -6,6 +6,7 @@ import NumberTextInput from "../../misc/NumberInput";
 interface NumberInputPropTypes extends GWPropTypes<number> {
 	SizeYOffset?: number;
 	BackgroundTransparency?: number;
+	ValidationHandler: (input: string) => string | undefined;
 }
 
 export class NumberInput extends Roact.Component<NumberInputPropTypes> {
@@ -21,9 +22,7 @@ export class NumberInput extends Roact.Component<NumberInputPropTypes> {
 				/>
 				<NumberTextInput
 					OnValidInput={(_, value) => this.props.OnChange(value)}
-					Options={{
-						decimalPlace: 0,
-					}}
+					ValidationHandler={this.props.ValidationHandler}
 					TextBoxProps={{
 						BackgroundTransparency: 0.95,
 						Size: UDim2.fromOffset(20, 20),

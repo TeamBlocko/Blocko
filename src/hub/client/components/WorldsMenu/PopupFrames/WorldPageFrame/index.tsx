@@ -58,7 +58,7 @@ interface WorldPageFramePropTypes {
 	Visible: boolean;
 }
 
-class WorldPageFrame extends Roact.PureComponent<WorldPageFramePropTypes> {
+class WorldPageFrame extends Roact.Component<WorldPageFramePropTypes> {
 	render() {
 		return (
 			<frame
